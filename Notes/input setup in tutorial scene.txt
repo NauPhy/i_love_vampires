@@ -1,0 +1,16 @@
+Pawn: Is Character which is Pawn
+	EnhancedInputAction <action> -> Triggered, action value x, action value y -> Add movement input (pawn)
+	
+	Add movement input takes "get actor right vector" (Actor) as world direction and action value x as scale value. another movement
+input is executed in sequence using action value y.
+
+IMC_Default is Input Mapping Context
+	Mappings->IA_Move->W->Modifiers->Swizzle YXZ, S-> swizzle,negate, A->negate, D
+
+IA_Move is action
+	Axis2D
+	No triggers, modifiers,
+	Take highest absolute value
+
+PlayerController is PlayerController
+	BeginPlay->Add Mapping context IMC_Default using Enhanced Input local player subsystem
