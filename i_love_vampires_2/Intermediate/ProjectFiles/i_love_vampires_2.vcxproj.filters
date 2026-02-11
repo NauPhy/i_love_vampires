@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\.vsconfig" />
+    <Filter Include="Config">
+      <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\i_love_vampires_2.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{F31BBDD1-B3E8-3BCC-9652-680E16935819}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\i_love_vampires_2.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\i_love_vampires_2Editor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Source\i_love_vampires_2">
+      <UniqueIdentifier>{504BE5C7-FE83-3724-A1A3-F2A8D7DC1721}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\i_love_vampires_2\i_love_vampires_2.Build.cs">
+      <Filter>Source\i_love_vampires_2</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\i_love_vampires_2.cpp">
+      <Filter>Source\i_love_vampires_2</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\i_love_vampires_2.h">
+      <Filter>Source\i_love_vampires_2</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\menuFunctions.cpp">
+      <Filter>Source\i_love_vampires_2</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\menuFunctions.h">
+      <Filter>Source\i_love_vampires_2</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

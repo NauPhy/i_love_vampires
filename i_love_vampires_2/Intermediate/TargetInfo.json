@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "i_love_vampires_2",
+			"Path": "..\\Source\\i_love_vampires_2.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "i_love_vampires_2Editor",
+			"Path": "..\\Source\\i_love_vampires_2Editor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}
