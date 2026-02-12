@@ -1,5 +1,11 @@
 {
 	"RemapUnityFiles": 
 	{
+		"Module.i_love_vampires_2.gen.cpp.obj": [
+			"CombatantAttributeSet.gen.cpp.obj",
+			"CombatantData.gen.cpp.obj",
+			"i_love_vampires_2.init.gen.cpp.obj",
+			"menuFunctions.gen.cpp.obj"
+		]
 	}
 }
