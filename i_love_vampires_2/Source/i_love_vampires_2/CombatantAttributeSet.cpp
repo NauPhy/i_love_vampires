@@ -2,7 +2,6 @@
 
 
 #include "CombatantAttributeSet.h"
-#include "CombatantData.h"
 
 UCombatantAttributeSet::UCombatantAttributeSet()
 {
@@ -25,24 +24,3 @@ UCombatantAttributeSet::UCombatantAttributeSet()
 	contactDamage.SetBaseValue(0.f);
 	currentHP.SetBaseValue(1.f);
 }
-
-//UCombatantAttributeSet::UCombatantAttributeSet(const FCombatantData& CombatantData)
-//{
-//	maxHP.SetBaseValue(CombatantData.maxHP);
-//	damageReduction_flat.SetBaseValue(CombatantData.damageReduction_flat);
-//	damageReduction_percent.SetBaseValue(CombatantData.damageReduction_percent);
-//	healthRegen_flat.SetBaseValue(CombatantData.healthRegen_flat);
-//	healthRegen_percent.SetBaseValue(CombatantData.healthRegen_percent);
-//	critChance.SetBaseValue(CombatantData.critChance);
-//	critMultiplier.SetBaseValue(CombatantData.critMultiplier);
-//	attackSpeed.SetBaseValue(CombatantData.attackSpeed);
-//	bonusBounces.SetBaseValue(CombatantData.bonusBounces);
-//	bonusPierce.SetBaseValue(CombatantData.bonusPierce);
-//	bonusProjectiles.SetBaseValue(CombatantData.bonusProjectiles);
-//	projectileSpeed.SetBaseValue(CombatantData.projectileSpeed);
-//	projectileSize.SetBaseValue(CombatantData.projectileSize);
-//	AOESize.SetBaseValue(CombatantData.AOESize);
-//	movementSpeed.SetBaseValue(CombatantData.movementSpeed);
-//	range.SetBaseValue(CombatantData.range);
-//	contactDamage.SetBaseValue(CombatantData.contactDamage);
-//}

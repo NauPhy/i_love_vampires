@@ -11,6 +11,7 @@
  * 
  */
 enum test {a,b,c};
+
 UCLASS()
 class I_LOVE_VAMPIRES_2_API UmenuFunctions : public UBlueprintFunctionLibrary
 {

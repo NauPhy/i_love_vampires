@@ -135,9 +135,6 @@
     <ClInclude Include="..\..\Source\i_love_vampires_2\i_love_vampires_2.h">
       <Filter>Source\i_love_vampires_2</Filter>
     </ClInclude>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\menuFunctions.cpp">
-      <Filter>Source\i_love_vampires_2</Filter>
-    </ClCompile>
     <ClInclude Include="..\..\Source\i_love_vampires_2\menuFunctions.h">
       <Filter>Source\i_love_vampires_2</Filter>
     </ClInclude>
@@ -146,24 +143,78 @@
     <ClInclude Include="..\..\Source\i_love_vampires_2\CombatantAttributeSet.h">
       <Filter>Source\i_love_vampires_2\Combatant</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\CombatantData.h">
+    <ClInclude Include="..\..\Source\i_love_vampires_2\CombatantTemplate.h">
       <Filter>Source\i_love_vampires_2\Combatant</Filter>
     </ClInclude>
-    <ClInclude Include="Combatant.h">
+    <ClInclude Include="..\..\Source\i_love_vampires_2\Combatant.h">
       <Filter>Source\i_love_vampires_2\Combatant</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\CombatantReferences.h">
+      <Filter>Source\i_love_vampires_2\Combatant</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\Definitions.h">
+      <Filter>Source\i_love_vampires_2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\WeaponTemplate.h">
+      <Filter>Source\i_love_vampires_2\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponAbility_unused.h">
+      <Filter>Source\i_love_vampires_2\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\ProjectileTemplate.h">
+      <Filter>Source\i_love_vampires_2\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\Bullet.h">
+      <Filter>Source\i_love_vampires_2\AttackActor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\AttackActor.h">
+      <Filter>Source\i_love_vampires_2\AttackActor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\EnemySubsystem.h">
+      <Filter>Source\i_love_vampires_2\Subsystems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\i_love_vampires_2\Combatant">
       <UniqueIdentifier>{2becb8fc-b62f-4831-8412-e4af7228551a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\i_love_vampires_2\Weapons">
+      <UniqueIdentifier>{02db3b3e-87b9-4e67-adde-062324226a9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\i_love_vampires_2\AttackActor">
+      <UniqueIdentifier>{3d76e1e3-4c7d-41af-8cc3-d96f69110882}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\i_love_vampires_2\Subsystems">
+      <UniqueIdentifier>{05d930b0-0131-4178-bcea-d9e16865ad12}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\i_love_vampires_2\CombatantAttributeSet.cpp">
       <Filter>Source\i_love_vampires_2\Combatant</Filter>
     </ClCompile>
-    <ClCompile Include="Combatant.cpp">
+    <ClCompile Include="..\..\Source\i_love_vampires_2\Combatant.cpp">
       <Filter>Source\i_love_vampires_2\Combatant</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\CombatantReferences.cpp">
+      <Filter>Source\i_love_vampires_2\Combatant</Filter>
+    </ClCompile>
+    <ClCompile Include="CombatantTemplate.cpp">
+      <Filter>Source\i_love_vampires_2\Combatant</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\WeaponTemplate.cpp">
+      <Filter>Source\i_love_vampires_2\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\ProjectileTemplate.cpp">
+      <Filter>Source\i_love_vampires_2\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\Bullet.cpp">
+      <Filter>Source\i_love_vampires_2\AttackActor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\AttackActor.cpp">
+      <Filter>Source\i_love_vampires_2\AttackActor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\EnemySubsystem.cpp">
+      <Filter>Source\i_love_vampires_2\Subsystems</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

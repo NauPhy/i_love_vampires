@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "AttributeSet.h"
+#include "AbilitySystemComponent.h"
+#include "Definitions.h"
 #include "CombatantAttributeSet.generated.h"
 struct FCombatantData;
 
@@ -11,47 +13,81 @@ UCLASS()
 class I_LOVE_VAMPIRES_2_API UCombatantAttributeSet : public UAttributeSet
 {
 	GENERATED_BODY()
-public:
+public :
 	UCombatantAttributeSet();
-	//UCombatantAttributeSet(const FCombatantData& CombatantData);
-private:
-
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Defense")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
 	FGameplayAttributeData maxHP;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Defense")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
 	FGameplayAttributeData damageReduction_flat;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Defense")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
 	FGameplayAttributeData damageReduction_percent;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Defense")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
 	FGameplayAttributeData healthRegen_flat;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Defense")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
 	FGameplayAttributeData healthRegen_percent;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Offense")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
 	FGameplayAttributeData critChance;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Offense")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
 	FGameplayAttributeData critMultiplier;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Offense")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
 	FGameplayAttributeData attackSpeed;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Projectile")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
 	FGameplayAttributeData bonusBounces;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Projectile")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
 	FGameplayAttributeData bonusPierce;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Projectile")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
 	FGameplayAttributeData bonusProjectiles;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Projectile")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
 	FGameplayAttributeData projectileSpeed;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Projectile")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
 	FGameplayAttributeData projectileSize;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "AOE")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
 	FGameplayAttributeData AOESize;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Utility")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
 	FGameplayAttributeData movementSpeed;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Utility")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
 	FGameplayAttributeData range;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta=(AllowPrivateAccess = "true"), Category = "Misc")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
 	FGameplayAttributeData contactDamage;
 
 	// Exactly as mutable as the others in practice
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"), Category = "Misc")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
 	FGameplayAttributeData currentHP;
+
+public :
+	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, maxHP)
+
+	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, damageReduction_flat)
+
+	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, damageReduction_percent)
+
+	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, healthRegen_flat)
+
+	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, healthRegen_percent)
+
+	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, critChance)
+
+	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, critMultiplier)
+
+	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, attackSpeed)
+
+	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, bonusBounces)
+
+	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, bonusPierce)
+
+	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, bonusProjectiles)
+
+	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, projectileSpeed)
+
+	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, projectileSize)
+
+	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, AOESize)
+
+	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, movementSpeed)
+
+	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, range)
+
+	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, contactDamage)
+
+	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, currentHP)
 };

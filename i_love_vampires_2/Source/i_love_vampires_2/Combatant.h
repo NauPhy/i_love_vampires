@@ -5,7 +5,8 @@
 #include "Combatant.generated.h"
 class UCombatantAttributeSet;
 class UAbilitySystemComponent;
-struct FCombatantData;
+struct FCombatantTemplate;
+struct FWeaponTemplate;
 
 UCLASS()
 class I_LOVE_VAMPIRES_2_API ACombatant : public AActor
@@ -14,15 +15,23 @@ class I_LOVE_VAMPIRES_2_API ACombatant : public AActor
 
 public :
 	ACombatant();
-	ACombatant(const FCombatantData& CombatantData);
+
+	UFUNCTION(BlueprintCallable)
+	void initialiseFromTemplate(const FCombatantTemplate& myTemplate);
+
+	//UFUNCTION(BlueprintCallable)
+	//void giveWeapon(FWeaponTemplate weapon);
 
 private :
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, Category = "Ability System")
 	const UCombatantAttributeSet* attributeSet;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Abilities", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Ability System", meta = (AllowPrivateAccess = "true"))
 	UAbilitySystemComponent* abilitySystemComponent;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Abilities", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "General", meta = (AllowPrivateAccess = "true"))
 	FString name;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "General", meta = (AllowPrivateAccess = "true"))
+	FName ID;
 };

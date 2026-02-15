@@ -1,0 +1,36 @@
+Okay maybe weapons would have been a better name. Passives too! Let's just call them items.
+
+I'm still not entirely sure what theme/setting I want this game to have, but it'll be flashy
+and cool, with blood, guns, (and non guns because only guns is boring) and metal. Basically the stereotypical American but without the bigotry. 
+
+Not gonna flood the screen with damage numbers or flashes or anything (or unskippable 5 second cutscnees) like those godawful dime a dozen jrpgs or anything. Not that kind of flashy. More like DMC or Bayonetta. 
+
+*****************************
+SET THEMING FRAMEWORK
+***************************
+But in any case I would like the items to be grouped thematically, like maybe a demonic themed set and a nature themed set, etc. Items from a set should generally have more synergy with other items from their set than with any other set, but there should be enough synergy with other sets that not every game feels like "pick a set and stick with it". 
+
+*"Black sheep" items will also be expected; a few bumps in the road to complicate the meta.
+
+*"married" sets may be interesting, or set pairs that have more synergy with their spouse set than with their own.
+
+*I'm also toying with the idea of elemental effects and elemental weaknesses/resistances. This would be a good way to discourage over-reliance on a single set and lends itself easily to sets (electric, ice, fire, dark, etc.) I could also add a little more structure by having no sets with a single element, but every set has 2 elements, like a thunderstorm set that has water and electric.
+
+*Megaloot/TFT style set bonuses are not out of the question. They're also a good way to discourage over-reliance on single sets
+
+*Many if not all sets should tend toward an archetype like crit chance
+
+***************************
+BASIC ITEM TOTALS
+***************************
+I do kind of need to come up with a total active and total passive count to reel in the scope unfortunately, which would of course also limit the number of sets. Having equal numbers of each makes sense, especially if evolutions are tied to passives (which I may or may not do). 
+
+100 of each is definitely too much. 10 of each definitely not enough. So we've got a range at least. Any less than 8 sets would probably not do the mechanic justice, as would any less than 5 items per set, so that's 32 minimum, but I think that's still too low. 10 items per set would probably be a bit too high. So 5-9. Honestly I'm not sure I could have too many sets. So we're looking at 8*5-9*inf or 40 to 200 total items. (in the case of 200 items that would be about 22-40 sets)
+So 8-40 sets
+of 5-9 items each
+Total of 40-200 items
+****************************
+SET BRAINSTORMING
+****************************
+
+*I really want a set themed around black and red. Or maybe a "married" pair, one black, one red. Just because it's pretty. Blood is red, and blood is cool, so the red set could be themed around blood. Maybe 

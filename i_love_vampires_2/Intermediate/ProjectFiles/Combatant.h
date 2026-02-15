@@ -14,15 +14,25 @@ class I_LOVE_VAMPIRES_2_API ACombatant : public AActor
 
 public :
 	ACombatant();
-	//ACombatant(const FCombatantData& CombatantData);
+
+	UFUNCTION(BlueprintCallable)
+	void initialiseFromTemplate(filename);
 
 private :
-	UPROPERTY()
-	const CombatantAttributeSet* attributeSet;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Abilities", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Ability System", meta = (AllowPrivateAccess = "true"))
 	UAbilitySystemComponent* abilitySystemComponent;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Abilities", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(Category = "Ability System")
+	const CombatantAttributeSet* attributeSet;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "General", meta = (AllowPrivateAccess = "true"))
 	FString name;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "General", meta = (AllowPrivateAccess = "true"))
+	FName ID;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "General", meta = (AllowPrivateAccess = "true"))
+	TSoftObjectPtr<UTexture2D> sprite;
+
+
 };

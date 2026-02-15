@@ -59,92 +59,92 @@ struct Z_Construct_UClass_UCombatantAttributeSet_Statics
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_maxHP_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Defense" },
+		{ "Category", "CombatantAttributeSet" },
 		{ "ModuleRelativePath", "CombatantAttributeSet.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_damageReduction_flat_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Defense" },
+		{ "Category", "CombatantAttributeSet" },
 		{ "ModuleRelativePath", "CombatantAttributeSet.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_damageReduction_percent_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Defense" },
+		{ "Category", "CombatantAttributeSet" },
 		{ "ModuleRelativePath", "CombatantAttributeSet.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_healthRegen_flat_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Defense" },
+		{ "Category", "CombatantAttributeSet" },
 		{ "ModuleRelativePath", "CombatantAttributeSet.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_healthRegen_percent_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Defense" },
+		{ "Category", "CombatantAttributeSet" },
 		{ "ModuleRelativePath", "CombatantAttributeSet.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_critChance_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Offense" },
+		{ "Category", "CombatantAttributeSet" },
 		{ "ModuleRelativePath", "CombatantAttributeSet.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_critMultiplier_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Offense" },
+		{ "Category", "CombatantAttributeSet" },
 		{ "ModuleRelativePath", "CombatantAttributeSet.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_attackSpeed_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Offense" },
+		{ "Category", "CombatantAttributeSet" },
 		{ "ModuleRelativePath", "CombatantAttributeSet.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_bonusBounces_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Projectile" },
+		{ "Category", "CombatantAttributeSet" },
 		{ "ModuleRelativePath", "CombatantAttributeSet.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_bonusPierce_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Projectile" },
+		{ "Category", "CombatantAttributeSet" },
 		{ "ModuleRelativePath", "CombatantAttributeSet.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_bonusProjectiles_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Projectile" },
+		{ "Category", "CombatantAttributeSet" },
 		{ "ModuleRelativePath", "CombatantAttributeSet.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_projectileSpeed_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Projectile" },
+		{ "Category", "CombatantAttributeSet" },
 		{ "ModuleRelativePath", "CombatantAttributeSet.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_projectileSize_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Projectile" },
+		{ "Category", "CombatantAttributeSet" },
 		{ "ModuleRelativePath", "CombatantAttributeSet.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_AOESize_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
-		{ "Category", "AOE" },
+		{ "Category", "CombatantAttributeSet" },
 		{ "ModuleRelativePath", "CombatantAttributeSet.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_movementSpeed_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Utility" },
+		{ "Category", "CombatantAttributeSet" },
 		{ "ModuleRelativePath", "CombatantAttributeSet.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_range_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Utility" },
+		{ "Category", "CombatantAttributeSet" },
 		{ "ModuleRelativePath", "CombatantAttributeSet.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_contactDamage_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Misc" },
+		{ "Category", "CombatantAttributeSet" },
 		{ "ModuleRelativePath", "CombatantAttributeSet.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_currentHP_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
-		{ "Category", "Misc" },
+		{ "Category", "CombatantAttributeSet" },
 #if !UE_BUILD_SHIPPING
 		{ "Comment", "// Exactly as mutable as the others in practice\n" },
 #endif
@@ -184,24 +184,24 @@ struct Z_Construct_UClass_UCombatantAttributeSet_Statics
 }; // struct Z_Construct_UClass_UCombatantAttributeSet_Statics
 
 // ********** Begin Class UCombatantAttributeSet Property Definitions ******************************
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_maxHP = { "maxHP", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, maxHP), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_maxHP_MetaData), NewProp_maxHP_MetaData) }; // 3543875268
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_damageReduction_flat = { "damageReduction_flat", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, damageReduction_flat), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_damageReduction_flat_MetaData), NewProp_damageReduction_flat_MetaData) }; // 3543875268
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_damageReduction_percent = { "damageReduction_percent", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, damageReduction_percent), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_damageReduction_percent_MetaData), NewProp_damageReduction_percent_MetaData) }; // 3543875268
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_healthRegen_flat = { "healthRegen_flat", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, healthRegen_flat), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_healthRegen_flat_MetaData), NewProp_healthRegen_flat_MetaData) }; // 3543875268
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_healthRegen_percent = { "healthRegen_percent", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, healthRegen_percent), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_healthRegen_percent_MetaData), NewProp_healthRegen_percent_MetaData) }; // 3543875268
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_critChance = { "critChance", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, critChance), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_critChance_MetaData), NewProp_critChance_MetaData) }; // 3543875268
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_critMultiplier = { "critMultiplier", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, critMultiplier), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_critMultiplier_MetaData), NewProp_critMultiplier_MetaData) }; // 3543875268
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_attackSpeed = { "attackSpeed", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, attackSpeed), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_attackSpeed_MetaData), NewProp_attackSpeed_MetaData) }; // 3543875268
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_bonusBounces = { "bonusBounces", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, bonusBounces), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bonusBounces_MetaData), NewProp_bonusBounces_MetaData) }; // 3543875268
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_bonusPierce = { "bonusPierce", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, bonusPierce), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bonusPierce_MetaData), NewProp_bonusPierce_MetaData) }; // 3543875268
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_bonusProjectiles = { "bonusProjectiles", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, bonusProjectiles), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bonusProjectiles_MetaData), NewProp_bonusProjectiles_MetaData) }; // 3543875268
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_projectileSpeed = { "projectileSpeed", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, projectileSpeed), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_projectileSpeed_MetaData), NewProp_projectileSpeed_MetaData) }; // 3543875268
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_projectileSize = { "projectileSize", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, projectileSize), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_projectileSize_MetaData), NewProp_projectileSize_MetaData) }; // 3543875268
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_AOESize = { "AOESize", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, AOESize), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AOESize_MetaData), NewProp_AOESize_MetaData) }; // 3543875268
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_movementSpeed = { "movementSpeed", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, movementSpeed), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_movementSpeed_MetaData), NewProp_movementSpeed_MetaData) }; // 3543875268
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_range = { "range", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, range), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_range_MetaData), NewProp_range_MetaData) }; // 3543875268
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_contactDamage = { "contactDamage", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, contactDamage), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_contactDamage_MetaData), NewProp_contactDamage_MetaData) }; // 3543875268
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_currentHP = { "currentHP", nullptr, (EPropertyFlags)0x0040000000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, currentHP), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_currentHP_MetaData), NewProp_currentHP_MetaData) }; // 3543875268
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_maxHP = { "maxHP", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, maxHP), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_maxHP_MetaData), NewProp_maxHP_MetaData) }; // 3543875268
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_damageReduction_flat = { "damageReduction_flat", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, damageReduction_flat), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_damageReduction_flat_MetaData), NewProp_damageReduction_flat_MetaData) }; // 3543875268
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_damageReduction_percent = { "damageReduction_percent", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, damageReduction_percent), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_damageReduction_percent_MetaData), NewProp_damageReduction_percent_MetaData) }; // 3543875268
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_healthRegen_flat = { "healthRegen_flat", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, healthRegen_flat), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_healthRegen_flat_MetaData), NewProp_healthRegen_flat_MetaData) }; // 3543875268
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_healthRegen_percent = { "healthRegen_percent", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, healthRegen_percent), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_healthRegen_percent_MetaData), NewProp_healthRegen_percent_MetaData) }; // 3543875268
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_critChance = { "critChance", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, critChance), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_critChance_MetaData), NewProp_critChance_MetaData) }; // 3543875268
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_critMultiplier = { "critMultiplier", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, critMultiplier), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_critMultiplier_MetaData), NewProp_critMultiplier_MetaData) }; // 3543875268
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_attackSpeed = { "attackSpeed", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, attackSpeed), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_attackSpeed_MetaData), NewProp_attackSpeed_MetaData) }; // 3543875268
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_bonusBounces = { "bonusBounces", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, bonusBounces), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bonusBounces_MetaData), NewProp_bonusBounces_MetaData) }; // 3543875268
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_bonusPierce = { "bonusPierce", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, bonusPierce), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bonusPierce_MetaData), NewProp_bonusPierce_MetaData) }; // 3543875268
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_bonusProjectiles = { "bonusProjectiles", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, bonusProjectiles), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bonusProjectiles_MetaData), NewProp_bonusProjectiles_MetaData) }; // 3543875268
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_projectileSpeed = { "projectileSpeed", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, projectileSpeed), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_projectileSpeed_MetaData), NewProp_projectileSpeed_MetaData) }; // 3543875268
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_projectileSize = { "projectileSize", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, projectileSize), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_projectileSize_MetaData), NewProp_projectileSize_MetaData) }; // 3543875268
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_AOESize = { "AOESize", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, AOESize), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AOESize_MetaData), NewProp_AOESize_MetaData) }; // 3543875268
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_movementSpeed = { "movementSpeed", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, movementSpeed), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_movementSpeed_MetaData), NewProp_movementSpeed_MetaData) }; // 3543875268
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_range = { "range", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, range), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_range_MetaData), NewProp_range_MetaData) }; // 3543875268
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_contactDamage = { "contactDamage", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, contactDamage), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_contactDamage_MetaData), NewProp_contactDamage_MetaData) }; // 3543875268
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_currentHP = { "currentHP", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, currentHP), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_currentHP_MetaData), NewProp_currentHP_MetaData) }; // 3543875268
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UCombatantAttributeSet_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_maxHP,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_damageReduction_flat,
@@ -263,10 +263,10 @@ UCombatantAttributeSet::~UCombatantAttributeSet() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantAttributeSet_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UCombatantAttributeSet, UCombatantAttributeSet::StaticClass, TEXT("UCombatantAttributeSet"), &Z_Registration_Info_UClass_UCombatantAttributeSet, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCombatantAttributeSet), 2840510990U) },
+		{ Z_Construct_UClass_UCombatantAttributeSet, UCombatantAttributeSet::StaticClass, TEXT("UCombatantAttributeSet"), &Z_Registration_Info_UClass_UCombatantAttributeSet, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCombatantAttributeSet), 3703710564U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantAttributeSet_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantAttributeSet_h__Script_i_love_vampires_2_1856641022{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantAttributeSet_h__Script_i_love_vampires_2_2334078581{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantAttributeSet_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantAttributeSet_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,
