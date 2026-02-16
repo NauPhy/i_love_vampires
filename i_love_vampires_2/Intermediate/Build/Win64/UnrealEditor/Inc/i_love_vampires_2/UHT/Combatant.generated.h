@@ -16,12 +16,14 @@
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 struct FCombatantTemplate;
+struct FGameplayAttribute;
 
 // ********** Begin Class ACombatant ***************************************************************
 #define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
 	DECLARE_FUNCTION(execinitialiseFromTemplate);
 
 
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_14_CALLBACK_WRAPPERS
 struct Z_Construct_UClass_ACombatant_Statics;
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_ACombatant_NoRegister();
 
@@ -32,7 +34,7 @@ private: \
 	static UClass* GetPrivateStaticClass(); \
 	friend I_LOVE_VAMPIRES_2_API UClass* ::Z_Construct_UClass_ACombatant_NoRegister(); \
 public: \
-	DECLARE_CLASS2(ACombatant, AActor, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_ACombatant_NoRegister) \
+	DECLARE_CLASS2(ACombatant, APawn, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_ACombatant_NoRegister) \
 	DECLARE_SERIALIZER(ACombatant)
 
 
@@ -51,6 +53,7 @@ public: \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
 	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_14_CALLBACK_WRAPPERS \
 	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_14_INCLASS_NO_PURE_DECLS \
 	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_14_ENHANCED_CONSTRUCTORS \
 private: \

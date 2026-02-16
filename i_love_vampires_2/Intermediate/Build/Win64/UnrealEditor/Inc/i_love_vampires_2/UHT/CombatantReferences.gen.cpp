@@ -46,7 +46,7 @@ struct Z_Construct_UFunction_UCombatantReferences_getTemplate_Statics
 
 // ********** Begin Function getTemplate Property Definitions **************************************
 const UECodeGen_Private::FNamePropertyParams Z_Construct_UFunction_UCombatantReferences_getTemplate_Statics::NewProp_ID = { "ID", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CombatantReferences_eventgetTemplate_Parms, ID), METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UCombatantReferences_getTemplate_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CombatantReferences_eventgetTemplate_Parms, ReturnValue), Z_Construct_UScriptStruct_FCombatantTemplate, METADATA_PARAMS(0, nullptr) }; // 1371099927
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_UCombatantReferences_getTemplate_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CombatantReferences_eventgetTemplate_Parms, ReturnValue), Z_Construct_UScriptStruct_FCombatantTemplate, METADATA_PARAMS(0, nullptr) }; // 4131989363
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UCombatantReferences_getTemplate_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UCombatantReferences_getTemplate_Statics::NewProp_ID,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UCombatantReferences_getTemplate_Statics::NewProp_ReturnValue,
@@ -181,7 +181,7 @@ struct Z_Construct_UClass_UCombatantReferences_Statics
 	};
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_UCombatantReferences_getTemplate, "getTemplate" }, // 1318343223
+		{ &Z_Construct_UFunction_UCombatantReferences_getTemplate, "getTemplate" }, // 2773424305
 		{ &Z_Construct_UFunction_UCombatantReferences_setTableReference, "setTableReference" }, // 2935644922
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
@@ -240,10 +240,10 @@ UCombatantReferences::~UCombatantReferences() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantReferences_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UCombatantReferences, UCombatantReferences::StaticClass, TEXT("UCombatantReferences"), &Z_Registration_Info_UClass_UCombatantReferences, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCombatantReferences), 2865075921U) },
+		{ Z_Construct_UClass_UCombatantReferences, UCombatantReferences::StaticClass, TEXT("UCombatantReferences"), &Z_Registration_Info_UClass_UCombatantReferences, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCombatantReferences), 2985583793U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantReferences_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantReferences_h__Script_i_love_vampires_2_3743083165{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantReferences_h__Script_i_love_vampires_2_1092306620{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantReferences_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantReferences_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

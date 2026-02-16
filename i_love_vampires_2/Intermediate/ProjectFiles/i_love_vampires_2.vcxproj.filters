@@ -198,9 +198,6 @@
     <ClCompile Include="..\..\Source\i_love_vampires_2\CombatantReferences.cpp">
       <Filter>Source\i_love_vampires_2\Combatant</Filter>
     </ClCompile>
-    <ClCompile Include="CombatantTemplate.cpp">
-      <Filter>Source\i_love_vampires_2\Combatant</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\WeaponTemplate.cpp">
       <Filter>Source\i_love_vampires_2\Weapons</Filter>
     </ClCompile>
@@ -215,6 +212,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\EnemySubsystem.cpp">
       <Filter>Source\i_love_vampires_2\Subsystems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\CombatantTemplate.cpp">
+      <Filter>Source\i_love_vampires_2\Combatant</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

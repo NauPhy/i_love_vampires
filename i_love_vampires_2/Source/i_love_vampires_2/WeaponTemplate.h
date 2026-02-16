@@ -16,18 +16,24 @@ public:
 		startOnCooldown(true),
 		warmup(1.f),
 		damage(0.f),
+		critChance(0.f),
+		critMultiplier(1.f),
 		hasProjectileData(false)
 	{}
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "WeaponTemplate")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponTemplate")
 	FString name;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "WeaponTemplate")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponTemplate")
 	FName ID;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "WeaponTemplate")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponTemplate")
 	bool startOnCooldown;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "WeaponTemplate")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponTemplate")
 	float warmup;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "WeaponTemplate")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponTemplate")
 	float damage;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "WeaponTemplate")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponTemplate")
+	float critChance;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponTemplate")
+	float critMultiplier;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponTemplate")
 	bool hasProjectileData;
 };
