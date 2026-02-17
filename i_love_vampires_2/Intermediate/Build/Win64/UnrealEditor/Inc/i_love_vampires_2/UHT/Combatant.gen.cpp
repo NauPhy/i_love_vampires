@@ -48,7 +48,7 @@ struct Z_Construct_UFunction_ACombatant_initialiseFromTemplate_Statics
 };
 
 // ********** Begin Function initialiseFromTemplate Property Definitions ***************************
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_ACombatant_initialiseFromTemplate_Statics::NewProp_myTemplate = { "myTemplate", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Combatant_eventinitialiseFromTemplate_Parms, myTemplate), Z_Construct_UScriptStruct_FCombatantTemplate, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_myTemplate_MetaData), NewProp_myTemplate_MetaData) }; // 4131989363
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_ACombatant_initialiseFromTemplate_Statics::NewProp_myTemplate = { "myTemplate", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Combatant_eventinitialiseFromTemplate_Parms, myTemplate), Z_Construct_UScriptStruct_FCombatantTemplate, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_myTemplate_MetaData), NewProp_myTemplate_MetaData) }; // 1274970551
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ACombatant_initialiseFromTemplate_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ACombatant_initialiseFromTemplate_Statics::NewProp_myTemplate,
 };
@@ -216,7 +216,7 @@ struct Z_Construct_UClass_ACombatant_Statics
 	};
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_ACombatant_initialiseFromTemplate, "initialiseFromTemplate" }, // 1761408589
+		{ &Z_Construct_UFunction_ACombatant_initialiseFromTemplate, "initialiseFromTemplate" }, // 3228784201
 		{ &Z_Construct_UFunction_ACombatant_onAttributeChanged, "onAttributeChanged" }, // 4242529444
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
@@ -280,10 +280,10 @@ ACombatant::~ACombatant() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ACombatant, ACombatant::StaticClass, TEXT("ACombatant"), &Z_Registration_Info_UClass_ACombatant, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ACombatant), 3242898659U) },
+		{ Z_Construct_UClass_ACombatant, ACombatant::StaticClass, TEXT("ACombatant"), &Z_Registration_Info_UClass_ACombatant, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ACombatant), 2196972212U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_4089225822{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_156009866{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

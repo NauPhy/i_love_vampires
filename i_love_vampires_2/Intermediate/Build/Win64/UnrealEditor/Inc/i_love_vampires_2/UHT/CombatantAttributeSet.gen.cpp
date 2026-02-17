@@ -142,6 +142,11 @@ struct Z_Construct_UClass_UCombatantAttributeSet_Statics
 		{ "Category", "CombatantAttributeSet" },
 		{ "ModuleRelativePath", "CombatantAttributeSet.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_selfSize_MetaData[] = {
+		{ "AllowPrivateAccess", "true" },
+		{ "Category", "CombatantAttributeSet" },
+		{ "ModuleRelativePath", "CombatantAttributeSet.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_currentHP_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "CombatantAttributeSet" },
@@ -173,6 +178,7 @@ struct Z_Construct_UClass_UCombatantAttributeSet_Statics
 	static const UECodeGen_Private::FStructPropertyParams NewProp_movementSpeed;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_range;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_contactDamage;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_selfSize;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_currentHP;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class UCombatantAttributeSet constinit property declarations *********************
@@ -201,6 +207,7 @@ const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttr
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_movementSpeed = { "movementSpeed", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, movementSpeed), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_movementSpeed_MetaData), NewProp_movementSpeed_MetaData) }; // 3543875268
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_range = { "range", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, range), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_range_MetaData), NewProp_range_MetaData) }; // 3543875268
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_contactDamage = { "contactDamage", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, contactDamage), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_contactDamage_MetaData), NewProp_contactDamage_MetaData) }; // 3543875268
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_selfSize = { "selfSize", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, selfSize), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_selfSize_MetaData), NewProp_selfSize_MetaData) }; // 3543875268
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_currentHP = { "currentHP", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantAttributeSet, currentHP), Z_Construct_UScriptStruct_FGameplayAttributeData, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_currentHP_MetaData), NewProp_currentHP_MetaData) }; // 3543875268
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UCombatantAttributeSet_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_maxHP,
@@ -220,6 +227,7 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UCombatan
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_movementSpeed,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_range,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_contactDamage,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_selfSize,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UCombatantAttributeSet_Statics::NewProp_currentHP,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UCombatantAttributeSet_Statics::PropPointers) < 2048);
@@ -263,10 +271,10 @@ UCombatantAttributeSet::~UCombatantAttributeSet() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantAttributeSet_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UCombatantAttributeSet, UCombatantAttributeSet::StaticClass, TEXT("UCombatantAttributeSet"), &Z_Registration_Info_UClass_UCombatantAttributeSet, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCombatantAttributeSet), 3703710564U) },
+		{ Z_Construct_UClass_UCombatantAttributeSet, UCombatantAttributeSet::StaticClass, TEXT("UCombatantAttributeSet"), &Z_Registration_Info_UClass_UCombatantAttributeSet, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCombatantAttributeSet), 4090189037U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantAttributeSet_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantAttributeSet_h__Script_i_love_vampires_2_2334078581{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantAttributeSet_h__Script_i_love_vampires_2_2249137698{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantAttributeSet_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantAttributeSet_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

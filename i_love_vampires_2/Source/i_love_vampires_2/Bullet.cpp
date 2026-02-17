@@ -11,14 +11,15 @@ namespace {
 	}
 }
 
-void ABullet::performSweep(TArray<struct FHitResult>& OutHits, float delta) {
-	FVector start = GetActorLocation();
-	FVector end = start + FVector(_directionX, _directionY, 0) * _speed * delta;
+void ABullet::performSweep(const FVector& startPos, const FVector& endPos, TArray<struct FHitResult>& OutHits) {
 	FCollisionObjectQueryParams params;
 	params.AddObjectTypesToQuery(ECC_Pawn);
 	FCollisionQueryParams params2;
 	params2.AddIgnoredActor(this);
-	GetWorld()->SweepMultiByObjectType(OutHits, start, end, FQuat::Identity, params, FCollisionShape::MakeSphere(_radius), params2);
+	if (_pawnRef.Get() == nullptr)
+		return;
+	params2.AddIgnoredActor(_pawnRef.Get());
+	GetWorld()->SweepMultiByObjectType(OutHits, startPos, endPos, FQuat::Identity, params, FCollisionShape::MakeSphere(_radius), params2);
 }
 
 void ABullet::handleSweepResults(const TArray<struct FHitResult>& hits) {
@@ -52,17 +53,23 @@ void ABullet::executeBounce() {
 	FVector difference = targetLocation - myLocation;
 	FVector norm = difference / dist(difference.X, difference.Y);
 	_directionX = norm.X;
-	_directionY = norm.Y;
+	_directionZ = norm.Y;
 }
 
 void ABullet::Tick(float delta) {
+	AAttackActor::Tick(delta);
 	static float distanceTravelled = 0;
 	if (distanceTravelled >= _range) {
 		Destroy();
 		return;
 	}
+	FVector start = GetActorLocation();
+	FVector end = start + FVector(_directionX, 0, _directionZ) * _speed * delta;
 	TArray<struct FHitResult> OutHits;
-	performSweep(OutHits, delta);
+	performSweep(start, end, OutHits);
 	handleSweepResults(OutHits);
+
+	FHitResult* throwaway = nullptr;
+	AddActorWorldOffset((end - start), false, throwaway, ETeleportType::TeleportPhysics);
 }
 

@@ -34,7 +34,8 @@ public:
 		AOESize(1.f),
 		movementSpeed(1.f),
 		range(1.f),
-		contactDamage(0.f)
+		contactDamage(0.f),
+		selfSize(1.f)
 	{}
 	float getAttributeValue(const FGameplayAttribute& attribute) const;
 
@@ -79,4 +80,6 @@ public:
 	float range;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "A_CombatantAttribute")
 	float contactDamage;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "A_CombatantAttribute")
+	float selfSize;
 };

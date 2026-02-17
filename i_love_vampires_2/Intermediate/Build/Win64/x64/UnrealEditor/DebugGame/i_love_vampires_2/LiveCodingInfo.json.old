@@ -1,0 +1,18 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.i_love_vampires_2.gen.cpp.obj": [
+			"AttackActor.gen.cpp.obj",
+			"Bullet.gen.cpp.obj",
+			"Combatant.gen.cpp.obj",
+			"CombatantAttributeSet.gen.cpp.obj",
+			"CombatantReferences.gen.cpp.obj",
+			"CombatantTemplate.gen.cpp.obj",
+			"EnemySubsystem.gen.cpp.obj",
+			"i_love_vampires_2.init.gen.cpp.obj",
+			"menuFunctions.gen.cpp.obj",
+			"ProjectileTemplate.gen.cpp.obj",
+			"WeaponTemplate.gen.cpp.obj"
+		]
+	}
+}

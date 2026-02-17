@@ -108,6 +108,10 @@ struct Z_Construct_UScriptStruct_FCombatantTemplate_Statics
 		{ "Category", "A_CombatantAttribute" },
 		{ "ModuleRelativePath", "CombatantTemplate.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_selfSize_MetaData[] = {
+		{ "Category", "A_CombatantAttribute" },
+		{ "ModuleRelativePath", "CombatantTemplate.h" },
+	};
 #endif // WITH_METADATA
 
 // ********** Begin ScriptStruct FCombatantTemplate constinit property declarations ****************
@@ -131,6 +135,7 @@ struct Z_Construct_UScriptStruct_FCombatantTemplate_Statics
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_movementSpeed;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_range;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_contactDamage;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_selfSize;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End ScriptStruct FCombatantTemplate constinit property declarations ******************
 	static void* NewStructOps()
@@ -171,6 +176,7 @@ const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FCombata
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp_movementSpeed = { "movementSpeed", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FCombatantTemplate, movementSpeed), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_movementSpeed_MetaData), NewProp_movementSpeed_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp_range = { "range", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FCombatantTemplate, range), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_range_MetaData), NewProp_range_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp_contactDamage = { "contactDamage", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FCombatantTemplate, contactDamage), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_contactDamage_MetaData), NewProp_contactDamage_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp_selfSize = { "selfSize", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FCombatantTemplate, selfSize), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_selfSize_MetaData), NewProp_selfSize_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FCombatantTemplate_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp_name,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp_ID,
@@ -192,6 +198,7 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FC
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp_movementSpeed,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp_range,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp_contactDamage,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp_selfSize,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FCombatantTemplate_Statics::PropPointers) < 2048);
 // ********** End ScriptStruct FCombatantTemplate Property Definitions *****************************
@@ -222,10 +229,10 @@ UScriptStruct* Z_Construct_UScriptStruct_FCombatantTemplate()
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantTemplate_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FStructRegisterCompiledInInfo ScriptStructInfo[] = {
-		{ FCombatantTemplate::StaticStruct, Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewStructOps, TEXT("CombatantTemplate"),&Z_Registration_Info_UScriptStruct_FCombatantTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FCombatantTemplate), 4131989363U) },
+		{ FCombatantTemplate::StaticStruct, Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewStructOps, TEXT("CombatantTemplate"),&Z_Registration_Info_UScriptStruct_FCombatantTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FCombatantTemplate), 1274970551U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantTemplate_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantTemplate_h__Script_i_love_vampires_2_961016501{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantTemplate_h__Script_i_love_vampires_2_1980034039{
 	TEXT("/Script/i_love_vampires_2"),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantTemplate_h__Script_i_love_vampires_2_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantTemplate_h__Script_i_love_vampires_2_Statics::ScriptStructInfo),

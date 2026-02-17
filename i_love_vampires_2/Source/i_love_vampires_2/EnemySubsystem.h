@@ -25,6 +25,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void removeFromRegister(int key);
 
+	UFUNCTION(BlueprintCallable)
+	int getEnemyCount() {
+		return _enemyReferences.size();
+	}
+
 	TWeakObjectPtr<const AActor> getRandomEnemyPtr();
 };
 

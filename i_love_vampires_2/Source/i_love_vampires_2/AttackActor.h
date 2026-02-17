@@ -16,13 +16,13 @@ public:
 	virtual void Tick(float delta) override;
 
 	UFUNCTION(BlueprintCallable)
-	void initialise_AttackActor(const FGameplayEffectSpecHandle& effect) {
-		_effect = effect;
+	void initialise_AAttackActor(const FGameplayEffectSpecHandle& effect) {
+		_effect = effect.Data;
 	}
 
 protected :
 	void applyEffect(AActor* target);
 
 private:
-	FGameplayEffectSpecHandle _effect;
+	TSharedPtr<FGameplayEffectSpec> _effect = nullptr;
 };

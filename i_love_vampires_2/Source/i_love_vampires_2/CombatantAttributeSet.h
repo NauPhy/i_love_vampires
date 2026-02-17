@@ -49,6 +49,8 @@ public :
 	FGameplayAttributeData range;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
 	FGameplayAttributeData contactDamage;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
+	FGameplayAttributeData selfSize;
 
 	// Exactly as mutable as the others in practice
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
@@ -90,4 +92,6 @@ public :
 	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, contactDamage)
 
 	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, currentHP)
+
+		ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, selfSize)
 };

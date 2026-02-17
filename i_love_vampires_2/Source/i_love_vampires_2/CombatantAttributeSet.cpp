@@ -23,4 +23,5 @@ UCombatantAttributeSet::UCombatantAttributeSet()
 	range.SetBaseValue(1.f);
 	contactDamage.SetBaseValue(0.f);
 	currentHP.SetBaseValue(1.f);
+	selfSize.SetBaseValue(1.f);
 }

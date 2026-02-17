@@ -20,6 +20,56 @@ I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UEnemySubsystem_NoRegister();
 UPackage* Z_Construct_UPackage__Script_i_love_vampires_2();
 // ********** End Cross Module References **********************************************************
 
+// ********** Begin Class UEnemySubsystem Function getEnemyCount ***********************************
+struct Z_Construct_UFunction_UEnemySubsystem_getEnemyCount_Statics
+{
+	struct EnemySubsystem_eventgetEnemyCount_Parms
+	{
+		int32 ReturnValue;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "EnemySubsystem.h" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Function getEnemyCount constinit property declarations *************************
+	static const UECodeGen_Private::FIntPropertyParams NewProp_ReturnValue;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function getEnemyCount constinit property declarations ***************************
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+
+// ********** Begin Function getEnemyCount Property Definitions ************************************
+const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_UEnemySubsystem_getEnemyCount_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(EnemySubsystem_eventgetEnemyCount_Parms, ReturnValue), METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UEnemySubsystem_getEnemyCount_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UEnemySubsystem_getEnemyCount_Statics::NewProp_ReturnValue,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_UEnemySubsystem_getEnemyCount_Statics::PropPointers) < 2048);
+// ********** End Function getEnemyCount Property Definitions **************************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UEnemySubsystem_getEnemyCount_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_UEnemySubsystem, nullptr, "getEnemyCount", 	Z_Construct_UFunction_UEnemySubsystem_getEnemyCount_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_UEnemySubsystem_getEnemyCount_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_UEnemySubsystem_getEnemyCount_Statics::EnemySubsystem_eventgetEnemyCount_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UEnemySubsystem_getEnemyCount_Statics::Function_MetaDataParams), Z_Construct_UFunction_UEnemySubsystem_getEnemyCount_Statics::Function_MetaDataParams)},  };
+static_assert(sizeof(Z_Construct_UFunction_UEnemySubsystem_getEnemyCount_Statics::EnemySubsystem_eventgetEnemyCount_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_UEnemySubsystem_getEnemyCount()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_UEnemySubsystem_getEnemyCount_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(UEnemySubsystem::execgetEnemyCount)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	*(int32*)Z_Param__Result=P_THIS->getEnemyCount();
+	P_NATIVE_END;
+}
+// ********** End Class UEnemySubsystem Function getEnemyCount *************************************
+
 // ********** Begin Class UEnemySubsystem Function registerEnemy ***********************************
 struct Z_Construct_UFunction_UEnemySubsystem_registerEnemy_Statics
 {
@@ -171,11 +221,13 @@ struct Z_Construct_UClass_UEnemySubsystem_Statics
 // ********** Begin Class UEnemySubsystem constinit property declarations **************************
 // ********** End Class UEnemySubsystem constinit property declarations ****************************
 	static constexpr UE::CodeGen::FClassNativeFunction Funcs[] = {
+		{ .NameUTF8 = UTF8TEXT("getEnemyCount"), .Pointer = &UEnemySubsystem::execgetEnemyCount },
 		{ .NameUTF8 = UTF8TEXT("registerEnemy"), .Pointer = &UEnemySubsystem::execregisterEnemy },
 		{ .NameUTF8 = UTF8TEXT("removeFromRegister"), .Pointer = &UEnemySubsystem::execremoveFromRegister },
 	};
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
+		{ &Z_Construct_UFunction_UEnemySubsystem_getEnemyCount, "getEnemyCount" }, // 1541582951
 		{ &Z_Construct_UFunction_UEnemySubsystem_registerEnemy, "registerEnemy" }, // 174581108
 		{ &Z_Construct_UFunction_UEnemySubsystem_removeFromRegister, "removeFromRegister" }, // 464767308
 	};
@@ -226,10 +278,10 @@ UEnemySubsystem::~UEnemySubsystem() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySubsystem_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UEnemySubsystem, UEnemySubsystem::StaticClass, TEXT("UEnemySubsystem"), &Z_Registration_Info_UClass_UEnemySubsystem, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UEnemySubsystem), 2911462261U) },
+		{ Z_Construct_UClass_UEnemySubsystem, UEnemySubsystem::StaticClass, TEXT("UEnemySubsystem"), &Z_Registration_Info_UClass_UEnemySubsystem, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UEnemySubsystem), 388879896U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySubsystem_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySubsystem_h__Script_i_love_vampires_2_3390441042{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySubsystem_h__Script_i_love_vampires_2_1005468768{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySubsystem_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySubsystem_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

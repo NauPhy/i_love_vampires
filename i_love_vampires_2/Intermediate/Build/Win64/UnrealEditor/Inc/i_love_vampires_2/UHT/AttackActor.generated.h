@@ -19,7 +19,7 @@ struct FGameplayEffectSpecHandle;
 
 // ********** Begin Class AAttackActor *************************************************************
 #define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_10_RPC_WRAPPERS_NO_PURE_DECLS \
-	DECLARE_FUNCTION(execinitialise_AttackActor);
+	DECLARE_FUNCTION(execinitialise_AAttackActor);
 
 
 struct Z_Construct_UClass_AAttackActor_Statics;

@@ -135,9 +135,6 @@
     <ClInclude Include="..\..\Source\i_love_vampires_2\i_love_vampires_2.h">
       <Filter>Source\i_love_vampires_2</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\menuFunctions.h">
-      <Filter>Source\i_love_vampires_2</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\i_love_vampires_2\CombatantAttributeSet.h">
@@ -149,16 +146,10 @@
     <ClInclude Include="..\..\Source\i_love_vampires_2\Combatant.h">
       <Filter>Source\i_love_vampires_2\Combatant</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\CombatantReferences.h">
-      <Filter>Source\i_love_vampires_2\Combatant</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\Definitions.h">
       <Filter>Source\i_love_vampires_2</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\WeaponTemplate.h">
-      <Filter>Source\i_love_vampires_2\Weapons</Filter>
-    </ClInclude>
-    <ClInclude Include="WeaponAbility_unused.h">
       <Filter>Source\i_love_vampires_2\Weapons</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\ProjectileTemplate.h">
@@ -193,9 +184,6 @@
       <Filter>Source\i_love_vampires_2\Combatant</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\Combatant.cpp">
-      <Filter>Source\i_love_vampires_2\Combatant</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\CombatantReferences.cpp">
       <Filter>Source\i_love_vampires_2\Combatant</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\WeaponTemplate.cpp">

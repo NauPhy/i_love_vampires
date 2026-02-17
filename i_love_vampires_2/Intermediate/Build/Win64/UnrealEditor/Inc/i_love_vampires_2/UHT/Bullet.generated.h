@@ -15,6 +15,8 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+class APawn;
+struct FGameplayEffectSpecHandle;
 
 // ********** Begin Class ABullet ******************************************************************
 #define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Bullet_h_9_RPC_WRAPPERS_NO_PURE_DECLS \

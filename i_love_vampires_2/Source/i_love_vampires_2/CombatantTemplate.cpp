@@ -40,6 +40,8 @@ float FCombatantTemplate::getAttributeValue(const FGameplayAttribute& attribute)
 		return range;
 	if (tempName == "contactDamage")
 		return contactDamage;
+	if (tempName == "selfSize")
+		return selfSize;
 	checkSlow(false);
 		return 0.f;
 }
