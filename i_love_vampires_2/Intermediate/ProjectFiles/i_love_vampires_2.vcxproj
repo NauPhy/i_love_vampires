@@ -539,6 +539,7 @@
     <ClCompile Include="..\..\Source\i_love_vampires_2\CombatantTemplate.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\EnemySubsystem.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\ProjectileTemplate.cpp" />
+    <ClCompile Include="..\..\Source\i_love_vampires_2\StatusEffect.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\WeaponTemplate.cpp" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\AttackActor.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\Bullet.h" />
@@ -546,6 +547,7 @@
     <ClInclude Include="..\..\Source\i_love_vampires_2\CombatantTemplate.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\EnemySubsystem.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\ProjectileTemplate.h" />
+    <ClInclude Include="..\..\Source\i_love_vampires_2\StatusEffect.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\WeaponTemplate.h" />
     <None Include="..\..\.vsconfig" />
     <None Include="..\..\Config\DefaultEditor.ini" />

@@ -27,7 +27,8 @@ struct Z_Construct_UFunction_ABullet_initialise_ABullet_Statics
 	struct Bullet_eventinitialise_ABullet_Parms
 	{
 		APawn* pawnRef;
-		FGameplayEffectSpecHandle effect;
+		TArray<FGameplayEffectSpecHandle> effect;
+		TArray<float> effectChances;
 		float directionX;
 		float directionZ;
 		int32 shape;
@@ -51,11 +52,17 @@ struct Z_Construct_UFunction_ABullet_initialise_ABullet_Statics
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_effect_MetaData[] = {
 		{ "NativeConst", "" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_effectChances_MetaData[] = {
+		{ "NativeConst", "" },
+	};
 #endif // WITH_METADATA
 
 // ********** Begin Function initialise_ABullet constinit property declarations ********************
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_pawnRef;
-	static const UECodeGen_Private::FStructPropertyParams NewProp_effect;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_effect_Inner;
+	static const UECodeGen_Private::FArrayPropertyParams NewProp_effect;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_effectChances_Inner;
+	static const UECodeGen_Private::FArrayPropertyParams NewProp_effectChances;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_directionX;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_directionZ;
 	static const UECodeGen_Private::FIntPropertyParams NewProp_shape;
@@ -73,7 +80,10 @@ struct Z_Construct_UFunction_ABullet_initialise_ABullet_Statics
 
 // ********** Begin Function initialise_ABullet Property Definitions *******************************
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_pawnRef = { "pawnRef", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Bullet_eventinitialise_ABullet_Parms, pawnRef), Z_Construct_UClass_APawn_NoRegister, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_effect = { "effect", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Bullet_eventinitialise_ABullet_Parms, effect), Z_Construct_UScriptStruct_FGameplayEffectSpecHandle, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_effect_MetaData), NewProp_effect_MetaData) }; // 2221987375
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_effect_Inner = { "effect", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FGameplayEffectSpecHandle, METADATA_PARAMS(0, nullptr) }; // 2221987375
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_effect = { "effect", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Bullet_eventinitialise_ABullet_Parms, effect), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_effect_MetaData), NewProp_effect_MetaData) }; // 2221987375
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_effectChances_Inner = { "effectChances", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_effectChances = { "effectChances", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Bullet_eventinitialise_ABullet_Parms, effectChances), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_effectChances_MetaData), NewProp_effectChances_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_directionX = { "directionX", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Bullet_eventinitialise_ABullet_Parms, directionX), METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_directionZ = { "directionZ", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Bullet_eventinitialise_ABullet_Parms, directionZ), METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_shape = { "shape", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Bullet_eventinitialise_ABullet_Parms, shape), METADATA_PARAMS(0, nullptr) };
@@ -89,7 +99,10 @@ const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ABullet_init
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_bounce = { "bounce", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Bullet_eventinitialise_ABullet_Parms, bounce), METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_pawnRef,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_effect_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_effect,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_effectChances_Inner,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_effectChances,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_directionX,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_directionZ,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_shape,
@@ -119,7 +132,8 @@ UFunction* Z_Construct_UFunction_ABullet_initialise_ABullet()
 DEFINE_FUNCTION(ABullet::execinitialise_ABullet)
 {
 	P_GET_OBJECT(APawn,Z_Param_pawnRef);
-	P_GET_STRUCT_REF(FGameplayEffectSpecHandle,Z_Param_Out_effect);
+	P_GET_TARRAY_REF(FGameplayEffectSpecHandle,Z_Param_Out_effect);
+	P_GET_TARRAY_REF(float,Z_Param_Out_effectChances);
 	P_GET_PROPERTY(FFloatProperty,Z_Param_directionX);
 	P_GET_PROPERTY(FFloatProperty,Z_Param_directionZ);
 	P_GET_PROPERTY(FIntProperty,Z_Param_shape);
@@ -131,7 +145,7 @@ DEFINE_FUNCTION(ABullet::execinitialise_ABullet)
 	P_GET_PROPERTY(FFloatProperty,Z_Param_bounce);
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->initialise_ABullet(Z_Param_pawnRef,Z_Param_Out_effect,Z_Param_directionX,Z_Param_directionZ,Z_Param_shape,Z_Param_radius,Z_Param_isHoming,Z_Param_speed,Z_Param_range,Z_Param_pierce,Z_Param_bounce);
+	P_THIS->initialise_ABullet(Z_Param_pawnRef,Z_Param_Out_effect,Z_Param_Out_effectChances,Z_Param_directionX,Z_Param_directionZ,Z_Param_shape,Z_Param_radius,Z_Param_isHoming,Z_Param_speed,Z_Param_range,Z_Param_pierce,Z_Param_bounce);
 	P_NATIVE_END;
 }
 // ********** End Class ABullet Function initialise_ABullet ****************************************
@@ -182,7 +196,7 @@ struct Z_Construct_UClass_ABullet_Statics
 	};
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_ABullet_initialise_ABullet, "initialise_ABullet" }, // 2185456423
+		{ &Z_Construct_UFunction_ABullet_initialise_ABullet, "initialise_ABullet" }, // 1566677075
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -231,10 +245,10 @@ ABullet::~ABullet() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Bullet_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ABullet, ABullet::StaticClass, TEXT("ABullet"), &Z_Registration_Info_UClass_ABullet, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABullet), 368870715U) },
+		{ Z_Construct_UClass_ABullet, ABullet::StaticClass, TEXT("ABullet"), &Z_Registration_Info_UClass_ABullet, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABullet), 337271269U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Bullet_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Bullet_h__Script_i_love_vampires_2_2872529978{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Bullet_h__Script_i_love_vampires_2_4175907122{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Bullet_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Bullet_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

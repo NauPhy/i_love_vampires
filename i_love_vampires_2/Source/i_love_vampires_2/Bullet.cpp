@@ -58,8 +58,7 @@ void ABullet::executeBounce() {
 
 void ABullet::Tick(float delta) {
 	AAttackActor::Tick(delta);
-	static float distanceTravelled = 0;
-	if (distanceTravelled >= _range) {
+	if (_distanceTravelled >= _range) {
 		Destroy();
 		return;
 	}
@@ -71,5 +70,6 @@ void ABullet::Tick(float delta) {
 
 	FHitResult* throwaway = nullptr;
 	AddActorWorldOffset((end - start), false, throwaway, ETeleportType::TeleportPhysics);
+	_distanceTravelled += _speed * delta;
 }
 

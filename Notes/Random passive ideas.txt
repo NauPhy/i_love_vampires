@@ -1,0 +1,6 @@
+Add audio visualiser to hud?
+
+Passive Abilities
+Compounding luck
+Whenever you crit, there is a 1/100 chance you permanently gain X% crit chance
+

@@ -7,9 +7,11 @@
 			"Combatant.gen.cpp.obj",
 			"CombatantAttributeSet.gen.cpp.obj",
 			"CombatantTemplate.gen.cpp.obj",
+			"Definitions.gen.cpp.obj",
 			"EnemySubsystem.gen.cpp.obj",
 			"i_love_vampires_2.init.gen.cpp.obj",
 			"ProjectileTemplate.gen.cpp.obj",
+			"StatusEffect.gen.cpp.obj",
 			"WeaponTemplate.gen.cpp.obj"
 		]
 	}

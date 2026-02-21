@@ -19,5 +19,8 @@ void AAttackActor::applyEffect(AActor* target) {
 	}
 	if (targetASC == nullptr)
 		return;
-	targetASC->ApplyGameplayEffectSpecToSelf(*_effect);
+	for (const EffectStruct& effectSpec : _effect) {
+		if (FMath::FRand() <= effectSpec.chance)
+			targetASC->ApplyGameplayEffectSpecToSelf(*(effectSpec.effect));
+	}
 }

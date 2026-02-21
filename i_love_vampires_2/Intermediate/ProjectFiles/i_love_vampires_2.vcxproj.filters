@@ -164,6 +164,9 @@
     <ClInclude Include="..\..\Source\i_love_vampires_2\EnemySubsystem.h">
       <Filter>Source\i_love_vampires_2\Subsystems</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\StatusEffect.h">
+      <Filter>Source\i_love_vampires_2\Weapons</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source\i_love_vampires_2\Combatant">
@@ -203,6 +206,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\CombatantTemplate.cpp">
       <Filter>Source\i_love_vampires_2\Combatant</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\StatusEffect.cpp">
+      <Filter>Source\i_love_vampires_2\Weapons</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -4,6 +4,11 @@
 #include "GameplayEffect.h"
 #include "AttackActor.generated.h"
 
+struct EffectStruct {
+	TSharedPtr<FGameplayEffectSpec> effect;
+	float chance = 1;
+};
+
 
 UCLASS(Blueprintable)
 class AAttackActor : public AActor {
@@ -16,13 +21,18 @@ public:
 	virtual void Tick(float delta) override;
 
 	UFUNCTION(BlueprintCallable)
-	void initialise_AAttackActor(const FGameplayEffectSpecHandle& effect) {
-		_effect = effect.Data;
+	void initialise_AAttackActor(const TArray<FGameplayEffectSpecHandle>& effect, const TArray<float>& effectChances) {
+		for (int i = 0; i < effect.Num(); i++) {
+			EffectStruct newStruct;
+			newStruct.effect = effect[i].Data;
+			newStruct.chance = effectChances[i];
+			_effect.Add(newStruct);
+		}
 	}
 
 protected :
 	void applyEffect(AActor* target);
 
 private:
-	TSharedPtr<FGameplayEffectSpec> _effect = nullptr;
+	TArray<EffectStruct> _effect;
 };
