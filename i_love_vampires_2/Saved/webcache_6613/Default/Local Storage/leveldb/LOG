@@ -1,3 +1,15 @@
-2026/02/21-12:00:52.480 a8ec Reusing MANIFEST C:\Users\Byron\Documents\GitHub\i_love_vampires\i_love_vampires_2\Saved\webcache_6613\Default\Local Storage\leveldb/MANIFEST-000001
-2026/02/21-12:00:52.494 a8ec Recovering log #57
-2026/02/21-12:00:52.495 a8ec Reusing old log C:\Users\Byron\Documents\GitHub\i_love_vampires\i_love_vampires_2\Saved\webcache_6613\Default\Local Storage\leveldb/000057.log 
+2026/02/23-17:02:08.408 93ac Reusing MANIFEST C:\Users\Byron\Documents\GitHub\i_love_vampires\i_love_vampires_2\Saved\webcache_6613\Default\Local Storage\leveldb/MANIFEST-000001
+2026/02/23-17:02:08.411 93ac Recovering log #102
+2026/02/23-17:02:08.413 93ac Reusing old log C:\Users\Byron\Documents\GitHub\i_love_vampires\i_love_vampires_2\Saved\webcache_6613\Default\Local Storage\leveldb/000102.log 
+2026/02/23-17:03:02.840 5f50 Level-0 table #105: started
+2026/02/23-17:03:02.845 5f50 Level-0 table #105: 78557 bytes OK
+2026/02/23-17:03:02.847 5f50 Delete type=0 #102
+2026/02/23-17:03:02.847 5f50 Compacting 4@0 + 1@1 files
+2026/02/23-17:03:02.852 5f50 Generated table #106@0: 4 keys, 26430 bytes
+2026/02/23-17:03:02.852 5f50 Compacted 4@0 + 1@1 files => 26430 bytes
+2026/02/23-17:03:02.853 5f50 compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/02/23-17:03:02.854 5f50 Delete type=2 #93
+2026/02/23-17:03:02.854 5f50 Delete type=2 #96
+2026/02/23-17:03:02.854 5f50 Delete type=2 #98
+2026/02/23-17:03:02.855 5f50 Delete type=2 #101
+2026/02/23-17:03:02.855 5f50 Delete type=2 #105

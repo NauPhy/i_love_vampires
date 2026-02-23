@@ -7,6 +7,7 @@
 #include "UObject/GeneratedCppIncludes.h"
 #include "i_love_vampires_2/Bullet.h"
 #include "GameplayEffectTypes.h"
+#include "i_love_vampires_2/ProjectileTemplate.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 static_assert(!UE_WITH_CONSTINIT_UOBJECT, "This generated code can only be compiled with !UE_WITH_CONSTINIT_OBJECT");
@@ -18,8 +19,57 @@ GAMEPLAYABILITIES_API UScriptStruct* Z_Construct_UScriptStruct_FGameplayEffectSp
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AAttackActor();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_ABullet();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_ABullet_NoRegister();
+I_LOVE_VAMPIRES_2_API UScriptStruct* Z_Construct_UScriptStruct_FProjectileTemplate();
 UPackage* Z_Construct_UPackage__Script_i_love_vampires_2();
 // ********** End Cross Module References **********************************************************
+
+// ********** Begin Class ABullet Function bulletDeath *********************************************
+static FName NAME_ABullet_bulletDeath = FName(TEXT("bulletDeath"));
+void ABullet::bulletDeath()
+{
+	UFunction* Func = FindFunctionChecked(NAME_ABullet_bulletDeath);
+	if (!Func->GetOwnerClass()->HasAnyClassFlags(CLASS_Native))
+	{
+	ProcessEvent(Func,NULL);
+	}
+	else
+	{
+		bulletDeath_Implementation();
+	}
+}
+struct Z_Construct_UFunction_ABullet_bulletDeath_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Bullet.h" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Function bulletDeath constinit property declarations ***************************
+// ********** End Function bulletDeath constinit property declarations *****************************
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ABullet_bulletDeath_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_ABullet, nullptr, "bulletDeath", 	nullptr, 
+	0, 
+0,
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x08080C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ABullet_bulletDeath_Statics::Function_MetaDataParams), Z_Construct_UFunction_ABullet_bulletDeath_Statics::Function_MetaDataParams)},  };
+UFunction* Z_Construct_UFunction_ABullet_bulletDeath()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ABullet_bulletDeath_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ABullet::execbulletDeath)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->bulletDeath_Implementation();
+	P_NATIVE_END;
+}
+// ********** End Class ABullet Function bulletDeath ***********************************************
 
 // ********** Begin Class ABullet Function initialise_ABullet **************************************
 struct Z_Construct_UFunction_ABullet_initialise_ABullet_Statics
@@ -31,13 +81,7 @@ struct Z_Construct_UFunction_ABullet_initialise_ABullet_Statics
 		TArray<float> effectChances;
 		float directionX;
 		float directionZ;
-		int32 shape;
-		float radius;
-		bool isHoming;
-		float speed;
-		float range;
-		float pierce;
-		float bounce;
+		FProjectileTemplate bulletData;
 	};
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
@@ -55,6 +99,9 @@ struct Z_Construct_UFunction_ABullet_initialise_ABullet_Statics
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_effectChances_MetaData[] = {
 		{ "NativeConst", "" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_bulletData_MetaData[] = {
+		{ "NativeConst", "" },
+	};
 #endif // WITH_METADATA
 
 // ********** Begin Function initialise_ABullet constinit property declarations ********************
@@ -65,14 +112,7 @@ struct Z_Construct_UFunction_ABullet_initialise_ABullet_Statics
 	static const UECodeGen_Private::FArrayPropertyParams NewProp_effectChances;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_directionX;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_directionZ;
-	static const UECodeGen_Private::FIntPropertyParams NewProp_shape;
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_radius;
-	static void NewProp_isHoming_SetBit(void* Obj);
-	static const UECodeGen_Private::FBoolPropertyParams NewProp_isHoming;
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_speed;
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_range;
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_pierce;
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_bounce;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_bulletData;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Function initialise_ABullet constinit property declarations **********************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
@@ -86,17 +126,7 @@ const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ABullet_init
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_effectChances = { "effectChances", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Bullet_eventinitialise_ABullet_Parms, effectChances), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_effectChances_MetaData), NewProp_effectChances_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_directionX = { "directionX", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Bullet_eventinitialise_ABullet_Parms, directionX), METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_directionZ = { "directionZ", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Bullet_eventinitialise_ABullet_Parms, directionZ), METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FIntPropertyParams Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_shape = { "shape", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Bullet_eventinitialise_ABullet_Parms, shape), METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_radius = { "radius", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Bullet_eventinitialise_ABullet_Parms, radius), METADATA_PARAMS(0, nullptr) };
-void Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_isHoming_SetBit(void* Obj)
-{
-	((Bullet_eventinitialise_ABullet_Parms*)Obj)->isHoming = 1;
-}
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_isHoming = { "isHoming", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(Bullet_eventinitialise_ABullet_Parms), &Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_isHoming_SetBit, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_speed = { "speed", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Bullet_eventinitialise_ABullet_Parms, speed), METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_range = { "range", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Bullet_eventinitialise_ABullet_Parms, range), METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_pierce = { "pierce", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Bullet_eventinitialise_ABullet_Parms, pierce), METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_bounce = { "bounce", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Bullet_eventinitialise_ABullet_Parms, bounce), METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_bulletData = { "bulletData", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Bullet_eventinitialise_ABullet_Parms, bulletData), Z_Construct_UScriptStruct_FProjectileTemplate, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bulletData_MetaData), NewProp_bulletData_MetaData) }; // 72121466
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_pawnRef,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_effect_Inner,
@@ -105,13 +135,7 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ABulle
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_effectChances,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_directionX,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_directionZ,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_shape,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_radius,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_isHoming,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_speed,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_range,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_pierce,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_bounce,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::NewProp_bulletData,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ABullet_initialise_ABullet_Statics::PropPointers) < 2048);
 // ********** End Function initialise_ABullet Property Definitions *********************************
@@ -136,16 +160,10 @@ DEFINE_FUNCTION(ABullet::execinitialise_ABullet)
 	P_GET_TARRAY_REF(float,Z_Param_Out_effectChances);
 	P_GET_PROPERTY(FFloatProperty,Z_Param_directionX);
 	P_GET_PROPERTY(FFloatProperty,Z_Param_directionZ);
-	P_GET_PROPERTY(FIntProperty,Z_Param_shape);
-	P_GET_PROPERTY(FFloatProperty,Z_Param_radius);
-	P_GET_UBOOL(Z_Param_isHoming);
-	P_GET_PROPERTY(FFloatProperty,Z_Param_speed);
-	P_GET_PROPERTY(FFloatProperty,Z_Param_range);
-	P_GET_PROPERTY(FFloatProperty,Z_Param_pierce);
-	P_GET_PROPERTY(FFloatProperty,Z_Param_bounce);
+	P_GET_STRUCT_REF(FProjectileTemplate,Z_Param_Out_bulletData);
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->initialise_ABullet(Z_Param_pawnRef,Z_Param_Out_effect,Z_Param_Out_effectChances,Z_Param_directionX,Z_Param_directionZ,Z_Param_shape,Z_Param_radius,Z_Param_isHoming,Z_Param_speed,Z_Param_range,Z_Param_pierce,Z_Param_bounce);
+	P_THIS->initialise_ABullet(Z_Param_pawnRef,Z_Param_Out_effect,Z_Param_Out_effectChances,Z_Param_directionX,Z_Param_directionZ,Z_Param_Out_bulletData);
 	P_NATIVE_END;
 }
 // ********** End Class ABullet Function initialise_ABullet ****************************************
@@ -192,11 +210,13 @@ struct Z_Construct_UClass_ABullet_Statics
 // ********** Begin Class ABullet constinit property declarations **********************************
 // ********** End Class ABullet constinit property declarations ************************************
 	static constexpr UE::CodeGen::FClassNativeFunction Funcs[] = {
+		{ .NameUTF8 = UTF8TEXT("bulletDeath"), .Pointer = &ABullet::execbulletDeath },
 		{ .NameUTF8 = UTF8TEXT("initialise_ABullet"), .Pointer = &ABullet::execinitialise_ABullet },
 	};
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_ABullet_initialise_ABullet, "initialise_ABullet" }, // 1566677075
+		{ &Z_Construct_UFunction_ABullet_bulletDeath, "bulletDeath" }, // 366470946
+		{ &Z_Construct_UFunction_ABullet_initialise_ABullet, "initialise_ABullet" }, // 1462141752
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -245,10 +265,10 @@ ABullet::~ABullet() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Bullet_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ABullet, ABullet::StaticClass, TEXT("ABullet"), &Z_Registration_Info_UClass_ABullet, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABullet), 337271269U) },
+		{ Z_Construct_UClass_ABullet, ABullet::StaticClass, TEXT("ABullet"), &Z_Registration_Info_UClass_ABullet, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABullet), 2857610626U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Bullet_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Bullet_h__Script_i_love_vampires_2_4175907122{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Bullet_h__Script_i_love_vampires_2_4218947726{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Bullet_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Bullet_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

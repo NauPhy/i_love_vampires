@@ -20,6 +20,7 @@ GAMEPLAYABILITIES_API UScriptStruct* Z_Construct_UScriptStruct_FGameplayAttribut
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_ACombatant();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_ACombatant_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UCombatantAttributeSet_NoRegister();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UStatusAttributeSet_NoRegister();
 I_LOVE_VAMPIRES_2_API UScriptStruct* Z_Construct_UScriptStruct_FCombatantTemplate();
 UPackage* Z_Construct_UPackage__Script_i_love_vampires_2();
 // ********** End Cross Module References **********************************************************
@@ -180,35 +181,39 @@ struct Z_Construct_UClass_ACombatant_Statics
 		{ "IncludePath", "Combatant.h" },
 		{ "ModuleRelativePath", "Combatant.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_attributeSet_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_name_MetaData[] = {
+		{ "Category", "General" },
+		{ "ModuleRelativePath", "Combatant.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ID_MetaData[] = {
+		{ "Category", "General" },
+		{ "ModuleRelativePath", "Combatant.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_abilitySystemComponent_MetaData[] = {
+		{ "Category", "Ability System" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "Combatant.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_combatantAttributes_MetaData[] = {
 		{ "Category", "Ability System" },
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Combatant.h" },
 		{ "NativeConst", "" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_abilitySystemComponent_MetaData[] = {
-		{ "AllowPrivateAccess", "true" },
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_statusAttributes_MetaData[] = {
 		{ "Category", "Ability System" },
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Combatant.h" },
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_name_MetaData[] = {
-		{ "AllowPrivateAccess", "true" },
-		{ "Category", "General" },
-		{ "ModuleRelativePath", "Combatant.h" },
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ID_MetaData[] = {
-		{ "AllowPrivateAccess", "true" },
-		{ "Category", "General" },
-		{ "ModuleRelativePath", "Combatant.h" },
+		{ "NativeConst", "" },
 	};
 #endif // WITH_METADATA
 
 // ********** Begin Class ACombatant constinit property declarations *******************************
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_attributeSet;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_abilitySystemComponent;
 	static const UECodeGen_Private::FStrPropertyParams NewProp_name;
 	static const UECodeGen_Private::FNamePropertyParams NewProp_ID;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_abilitySystemComponent;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_combatantAttributes;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_statusAttributes;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class ACombatant constinit property declarations *********************************
 	static constexpr UE::CodeGen::FClassNativeFunction Funcs[] = {
@@ -227,15 +232,17 @@ struct Z_Construct_UClass_ACombatant_Statics
 }; // struct Z_Construct_UClass_ACombatant_Statics
 
 // ********** Begin Class ACombatant Property Definitions ******************************************
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ACombatant_Statics::NewProp_attributeSet = { "attributeSet", nullptr, (EPropertyFlags)0x00400000000a0009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACombatant, attributeSet), Z_Construct_UClass_UCombatantAttributeSet_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_attributeSet_MetaData), NewProp_attributeSet_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ACombatant_Statics::NewProp_abilitySystemComponent = { "abilitySystemComponent", nullptr, (EPropertyFlags)0x00400000000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACombatant, abilitySystemComponent), Z_Construct_UClass_UAbilitySystemComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_abilitySystemComponent_MetaData), NewProp_abilitySystemComponent_MetaData) };
-const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_ACombatant_Statics::NewProp_name = { "name", nullptr, (EPropertyFlags)0x0040000000020015, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACombatant, name), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_name_MetaData), NewProp_name_MetaData) };
-const UECodeGen_Private::FNamePropertyParams Z_Construct_UClass_ACombatant_Statics::NewProp_ID = { "ID", nullptr, (EPropertyFlags)0x0040000000020015, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACombatant, ID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ID_MetaData), NewProp_ID_MetaData) };
+const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_ACombatant_Statics::NewProp_name = { "name", nullptr, (EPropertyFlags)0x0010000000020015, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACombatant, name), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_name_MetaData), NewProp_name_MetaData) };
+const UECodeGen_Private::FNamePropertyParams Z_Construct_UClass_ACombatant_Statics::NewProp_ID = { "ID", nullptr, (EPropertyFlags)0x0010000000020015, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACombatant, ID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ID_MetaData), NewProp_ID_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ACombatant_Statics::NewProp_abilitySystemComponent = { "abilitySystemComponent", nullptr, (EPropertyFlags)0x00100000000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACombatant, abilitySystemComponent), Z_Construct_UClass_UAbilitySystemComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_abilitySystemComponent_MetaData), NewProp_abilitySystemComponent_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ACombatant_Statics::NewProp_combatantAttributes = { "combatantAttributes", nullptr, (EPropertyFlags)0x00100000000a0009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACombatant, combatantAttributes), Z_Construct_UClass_UCombatantAttributeSet_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_combatantAttributes_MetaData), NewProp_combatantAttributes_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ACombatant_Statics::NewProp_statusAttributes = { "statusAttributes", nullptr, (EPropertyFlags)0x00100000000a0009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACombatant, statusAttributes), Z_Construct_UClass_UStatusAttributeSet_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_statusAttributes_MetaData), NewProp_statusAttributes_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ACombatant_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACombatant_Statics::NewProp_attributeSet,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACombatant_Statics::NewProp_abilitySystemComponent,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACombatant_Statics::NewProp_name,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACombatant_Statics::NewProp_ID,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACombatant_Statics::NewProp_abilitySystemComponent,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACombatant_Statics::NewProp_combatantAttributes,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACombatant_Statics::NewProp_statusAttributes,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ACombatant_Statics::PropPointers) < 2048);
 // ********** End Class ACombatant Property Definitions ********************************************
@@ -280,10 +287,10 @@ ACombatant::~ACombatant() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ACombatant, ACombatant::StaticClass, TEXT("ACombatant"), &Z_Registration_Info_UClass_ACombatant, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ACombatant), 2196972212U) },
+		{ Z_Construct_UClass_ACombatant, ACombatant::StaticClass, TEXT("ACombatant"), &Z_Registration_Info_UClass_ACombatant, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ACombatant), 1626566710U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_156009866{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_221359730{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

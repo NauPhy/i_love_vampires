@@ -6,9 +6,8 @@
 	GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 	GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
-UENUM(BlueprintType)
-enum class EStatusEffect : uint8
-{
-	none        UMETA(DisplayName = "None"),
-	bleed       UMETA(DisplayName = "Bleed")
-};
+#define EPSILON 0.0001f
+
+#define LOGERROR(inputString) \
+	UE_LOG(LogTemp, Error, TEXT(inputString));\
+	checkSlow(false);

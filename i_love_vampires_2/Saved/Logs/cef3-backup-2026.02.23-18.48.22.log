@@ -1,0 +1,8 @@
+[50732:42924:0223/122824.051:WARNING:chrome_main_delegate.cc(745)] This is Chrome version 128.0.6613.138 (not a warning)
+[50732:42628:0223/122824.425:ERROR:google_update_settings.cc(265)] Failed opening key Software\Chromium to set usagestats; result: 5
+[50732:42924:0223/122824.600:WARNING:account_consistency_mode_manager.cc(77)] Desktop Identity Consistency cannot be enabled as no OAuth client ID and client secret have been configured.
+[50732:42924:0223/122833.395:WARNING:external_registry_loader_win.cc(232)] Error observing HKLM: 5
+[50732:42924:0223/122838.435:ERROR:browser_info_manager.cc(781)] Timeout of new browser info response for frame 6-CA69552F5980DF5C0DFA881A069C6D55 (has_rfh=1)
+[47500:46176:0223/122838.479:WARNING:frame_impl.cc(430)] virtual CefFrameImpl::SendProcessMessage sent to detached frame 5-26017398C4BBCAB3FA57640D96A5247D will be ignored
+[50732:42924:0223/122848.724:WARNING:page_discarding_helper.cc(138)] Discarding multiple pages with target (kb): 0
+[50732:42924:0223/124822.561:WARNING:pref_notifier_impl.cc(41)] Pref observer for media_router.cast_allow_all_ips found at shutdown.

@@ -93,6 +93,10 @@ struct Z_Construct_UScriptStruct_FProjectileTemplate_Statics
 		{ "Category", "ProjectileTemplate" },
 		{ "ModuleRelativePath", "ProjectileTemplate.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_isExplosive_MetaData[] = {
+		{ "Category", "ProjectileTemplate" },
+		{ "ModuleRelativePath", "ProjectileTemplate.h" },
+	};
 #endif // WITH_METADATA
 
 // ********** Begin ScriptStruct FProjectileTemplate constinit property declarations ***************
@@ -109,6 +113,8 @@ struct Z_Construct_UScriptStruct_FProjectileTemplate_Statics
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_pierce;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_bounce;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_projectileCount;
+	static void NewProp_isExplosive_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_isExplosive;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End ScriptStruct FProjectileTemplate constinit property declarations *****************
 	static void* NewStructOps()
@@ -145,6 +151,11 @@ const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FProject
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_pierce = { "pierce", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FProjectileTemplate, pierce), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_pierce_MetaData), NewProp_pierce_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_bounce = { "bounce", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FProjectileTemplate, bounce), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bounce_MetaData), NewProp_bounce_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_projectileCount = { "projectileCount", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FProjectileTemplate, projectileCount), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_projectileCount_MetaData), NewProp_projectileCount_MetaData) };
+void Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_isExplosive_SetBit(void* Obj)
+{
+	((FProjectileTemplate*)Obj)->isExplosive = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_isExplosive = { "isExplosive", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(FProjectileTemplate), &Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_isExplosive_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_isExplosive_MetaData), NewProp_isExplosive_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FProjectileTemplate_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_ID,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_shape,
@@ -158,6 +169,7 @@ const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FP
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_pierce,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_bounce,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_projectileCount,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_isExplosive,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FProjectileTemplate_Statics::PropPointers) < 2048);
 // ********** End ScriptStruct FProjectileTemplate Property Definitions ****************************
@@ -188,10 +200,10 @@ UScriptStruct* Z_Construct_UScriptStruct_FProjectileTemplate()
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ProjectileTemplate_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FStructRegisterCompiledInInfo ScriptStructInfo[] = {
-		{ FProjectileTemplate::StaticStruct, Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewStructOps, TEXT("ProjectileTemplate"),&Z_Registration_Info_UScriptStruct_FProjectileTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FProjectileTemplate), 2033053513U) },
+		{ FProjectileTemplate::StaticStruct, Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewStructOps, TEXT("ProjectileTemplate"),&Z_Registration_Info_UScriptStruct_FProjectileTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FProjectileTemplate), 72121466U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ProjectileTemplate_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ProjectileTemplate_h__Script_i_love_vampires_2_1807866245{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ProjectileTemplate_h__Script_i_love_vampires_2_3348916702{
 	TEXT("/Script/i_love_vampires_2"),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ProjectileTemplate_h__Script_i_love_vampires_2_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ProjectileTemplate_h__Script_i_love_vampires_2_Statics::ScriptStructInfo),

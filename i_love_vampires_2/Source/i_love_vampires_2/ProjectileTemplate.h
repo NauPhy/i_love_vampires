@@ -22,7 +22,8 @@ public:
 		range(1.f),
 		pierce(0.f),
 		bounce(0.f),
-		projectileCount(1.f)
+		projectileCount(1.f),
+		isExplosive(false)
 	{
 	}
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileTemplate")
@@ -54,4 +55,6 @@ public:
 	float bounce;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileTemplate")
 	float projectileCount;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileTemplate")
+	bool isExplosive;
 };

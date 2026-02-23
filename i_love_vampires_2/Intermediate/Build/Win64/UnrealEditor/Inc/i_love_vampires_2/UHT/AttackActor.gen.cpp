@@ -14,6 +14,7 @@ void EmptyLinkFunctionForGeneratedCodeAttackActor() {}
 
 // ********** Begin Cross Module References ********************************************************
 ENGINE_API UClass* Z_Construct_UClass_AActor();
+ENGINE_API UClass* Z_Construct_UClass_APawn_NoRegister();
 GAMEPLAYABILITIES_API UScriptStruct* Z_Construct_UScriptStruct_FGameplayEffectSpecHandle();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AAttackActor();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AAttackActor_NoRegister();
@@ -25,6 +26,7 @@ struct Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics
 {
 	struct AttackActor_eventinitialise_AAttackActor_Parms
 	{
+		APawn* pawnRef;
 		TArray<FGameplayEffectSpecHandle> effect;
 		TArray<float> effectChances;
 	};
@@ -41,6 +43,7 @@ struct Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics
 #endif // WITH_METADATA
 
 // ********** Begin Function initialise_AAttackActor constinit property declarations ***************
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_pawnRef;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_effect_Inner;
 	static const UECodeGen_Private::FArrayPropertyParams NewProp_effect;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp_effectChances_Inner;
@@ -51,11 +54,13 @@ struct Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics
 };
 
 // ********** Begin Function initialise_AAttackActor Property Definitions **************************
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics::NewProp_pawnRef = { "pawnRef", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AttackActor_eventinitialise_AAttackActor_Parms, pawnRef), Z_Construct_UClass_APawn_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics::NewProp_effect_Inner = { "effect", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FGameplayEffectSpecHandle, METADATA_PARAMS(0, nullptr) }; // 2221987375
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics::NewProp_effect = { "effect", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AttackActor_eventinitialise_AAttackActor_Parms, effect), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_effect_MetaData), NewProp_effect_MetaData) }; // 2221987375
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics::NewProp_effectChances_Inner = { "effectChances", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics::NewProp_effectChances = { "effectChances", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AttackActor_eventinitialise_AAttackActor_Parms, effectChances), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_effectChances_MetaData), NewProp_effectChances_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics::NewProp_pawnRef,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics::NewProp_effect_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics::NewProp_effect,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics::NewProp_effectChances_Inner,
@@ -79,11 +84,12 @@ UFunction* Z_Construct_UFunction_AAttackActor_initialise_AAttackActor()
 }
 DEFINE_FUNCTION(AAttackActor::execinitialise_AAttackActor)
 {
+	P_GET_OBJECT(APawn,Z_Param_pawnRef);
 	P_GET_TARRAY_REF(FGameplayEffectSpecHandle,Z_Param_Out_effect);
 	P_GET_TARRAY_REF(float,Z_Param_Out_effectChances);
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->initialise_AAttackActor(Z_Param_Out_effect,Z_Param_Out_effectChances);
+	P_THIS->initialise_AAttackActor(Z_Param_pawnRef,Z_Param_Out_effect,Z_Param_Out_effectChances);
 	P_NATIVE_END;
 }
 // ********** End Class AAttackActor Function initialise_AAttackActor ******************************
@@ -136,7 +142,7 @@ struct Z_Construct_UClass_AAttackActor_Statics
 	};
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_AAttackActor_initialise_AAttackActor, "initialise_AAttackActor" }, // 3998484010
+		{ &Z_Construct_UFunction_AAttackActor_initialise_AAttackActor, "initialise_AAttackActor" }, // 2346770435
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -185,10 +191,10 @@ AAttackActor::~AAttackActor() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AAttackActor, AAttackActor::StaticClass, TEXT("AAttackActor"), &Z_Registration_Info_UClass_AAttackActor, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AAttackActor), 416741935U) },
+		{ Z_Construct_UClass_AAttackActor, AAttackActor::StaticClass, TEXT("AAttackActor"), &Z_Registration_Info_UClass_AAttackActor, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AAttackActor), 2581867963U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_3629547506{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_996789233{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

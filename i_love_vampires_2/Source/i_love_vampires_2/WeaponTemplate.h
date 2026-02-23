@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
 #include "Definitions.h"
-#include "StatusEffect.h"
+#include "OutgoingStatusEffect.h"
 #include "WeaponTemplate.generated.h"
 
 USTRUCT(BlueprintType)
@@ -21,7 +21,8 @@ public:
 		critChance(0.f),
 		critMultiplier(1.f),
 		//status effects done automatically
-		hasProjectileData(false)
+		hasProjectileData(false),
+		hasAOEData(false)
 	{}
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponTemplate")
 	FString name;
@@ -38,7 +39,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponTemplate")
 	float critMultiplier;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponTemplate")
-	TArray<FStatusEffect> statusEffects;
+	TArray<FOutgoingStatusEffect> statusEffects;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponTemplate")
 	bool hasProjectileData;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponTemplate")
+	bool hasAOEData;
 };

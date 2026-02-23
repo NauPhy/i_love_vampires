@@ -3,8 +3,10 @@
 #include "GameFramework/Actor.h"
 #include "GameplayEffect.h"
 #include "AttackActor.generated.h"
+class ACombatant;
 
 struct EffectStruct {
+public:
 	TSharedPtr<FGameplayEffectSpec> effect;
 	float chance = 1;
 };
@@ -21,7 +23,8 @@ public:
 	virtual void Tick(float delta) override;
 
 	UFUNCTION(BlueprintCallable)
-	void initialise_AAttackActor(const TArray<FGameplayEffectSpecHandle>& effect, const TArray<float>& effectChances) {
+	void initialise_AAttackActor(APawn* pawnRef, const TArray<FGameplayEffectSpecHandle>& effect, const TArray<float>& effectChances) {
+		_pawnRef = TWeakObjectPtr<APawn>(pawnRef);
 		for (int i = 0; i < effect.Num(); i++) {
 			EffectStruct newStruct;
 			newStruct.effect = effect[i].Data;
@@ -29,10 +32,14 @@ public:
 			_effect.Add(newStruct);
 		}
 	}
+	void initialise_AAttackActor(TWeakObjectPtr<APawn> pawnRef, const TArray<EffectStruct>& effect) {
+		_pawnRef = pawnRef;
+		_effect = effect;
+	}
 
 protected :
-	void applyEffect(AActor* target);
-
-private:
+	void applyEffect(ACombatant* target);
+	TWeakObjectPtr<APawn> _pawnRef = nullptr;
 	TArray<EffectStruct> _effect;
+	TArray<TWeakObjectPtr<APawn>> _effectedPawns;
 };

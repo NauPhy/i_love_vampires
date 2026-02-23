@@ -161,11 +161,32 @@
     <ClInclude Include="..\..\Source\i_love_vampires_2\AttackActor.h">
       <Filter>Source\i_love_vampires_2\AttackActor</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\EnemySubsystem.h">
+    <ClInclude Include="..\..\Source\i_love_vampires_2\AOE.h">
+      <Filter>Source\i_love_vampires_2\AttackActor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\AOETemplate.h">
+      <Filter>Source\i_love_vampires_2\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\ExplosiveBullet.h">
+      <Filter>Source\i_love_vampires_2\AttackActor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\CombatantManager.h">
       <Filter>Source\i_love_vampires_2\Subsystems</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\StatusEffect.h">
-      <Filter>Source\i_love_vampires_2\Weapons</Filter>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\OutgoingStatusEffect.h">
+      <Filter>Source\i_love_vampires_2\StatusEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\StatusEnum.h">
+      <Filter>Source\i_love_vampires_2\StatusEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\StatusAttributeSet.h">
+      <Filter>Source\i_love_vampires_2\StatusEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\DamageEffect.h">
+      <Filter>Source\i_love_vampires_2\Subsystems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\BurnEffect.h">
+      <Filter>Source\i_love_vampires_2\Subsystems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +201,9 @@
     </Filter>
     <Filter Include="Source\i_love_vampires_2\Subsystems">
       <UniqueIdentifier>{05d930b0-0131-4178-bcea-d9e16865ad12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\i_love_vampires_2\StatusEffects">
+      <UniqueIdentifier>{89dc78f8-bf3f-4daf-8d4c-9f86289d3f36}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -201,14 +225,35 @@
     <ClCompile Include="..\..\Source\i_love_vampires_2\AttackActor.cpp">
       <Filter>Source\i_love_vampires_2\AttackActor</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\EnemySubsystem.cpp">
-      <Filter>Source\i_love_vampires_2\Subsystems</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\CombatantTemplate.cpp">
       <Filter>Source\i_love_vampires_2\Combatant</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\StatusEffect.cpp">
+    <ClCompile Include="..\..\Source\i_love_vampires_2\AOE.cpp">
+      <Filter>Source\i_love_vampires_2\AttackActor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\AOETemplate.cpp">
       <Filter>Source\i_love_vampires_2\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\ExplosiveBullet.cpp">
+      <Filter>Source\i_love_vampires_2\AttackActor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\CombatantManager.cpp">
+      <Filter>Source\i_love_vampires_2\Subsystems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\OutgoingStatusEffect.cpp">
+      <Filter>Source\i_love_vampires_2\StatusEffects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\StatusEnum.cpp">
+      <Filter>Source\i_love_vampires_2\StatusEffects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\StatusAttributeSet.cpp">
+      <Filter>Source\i_love_vampires_2\StatusEffects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\DamageEffect.cpp">
+      <Filter>Source\i_love_vampires_2\Subsystems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\BurnEffect.cpp">
+      <Filter>Source\i_love_vampires_2\Subsystems</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
