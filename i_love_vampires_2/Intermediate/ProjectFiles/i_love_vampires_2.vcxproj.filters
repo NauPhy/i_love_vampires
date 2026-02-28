@@ -171,7 +171,7 @@
       <Filter>Source\i_love_vampires_2\AttackActor</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\CombatantManager.h">
-      <Filter>Source\i_love_vampires_2\Subsystems</Filter>
+      <Filter>Source\i_love_vampires_2\World Subsystems</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\OutgoingStatusEffect.h">
       <Filter>Source\i_love_vampires_2\StatusEffects</Filter>
@@ -183,10 +183,19 @@
       <Filter>Source\i_love_vampires_2\StatusEffects</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\DamageEffect.h">
-      <Filter>Source\i_love_vampires_2\Subsystems</Filter>
+      <Filter>Source\i_love_vampires_2\World Subsystems</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\BurnEffect.h">
-      <Filter>Source\i_love_vampires_2\Subsystems</Filter>
+      <Filter>Source\i_love_vampires_2\World Subsystems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\EnemySpawner.h">
+      <Filter>Source\i_love_vampires_2\World Subsystems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\PassiveTemplate.h">
+      <Filter>Source\i_love_vampires_2\Passives</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\DefinitionLookups.h">
+      <Filter>Source\i_love_vampires_2\Instance Subsystems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -199,11 +208,17 @@
     <Filter Include="Source\i_love_vampires_2\AttackActor">
       <UniqueIdentifier>{3d76e1e3-4c7d-41af-8cc3-d96f69110882}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\i_love_vampires_2\Subsystems">
-      <UniqueIdentifier>{05d930b0-0131-4178-bcea-d9e16865ad12}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\i_love_vampires_2\StatusEffects">
       <UniqueIdentifier>{89dc78f8-bf3f-4daf-8d4c-9f86289d3f36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\i_love_vampires_2\Passives">
+      <UniqueIdentifier>{43ac572a-d447-4c4d-a592-a18eb66b2c06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\i_love_vampires_2\World Subsystems">
+      <UniqueIdentifier>{05d930b0-0131-4178-bcea-d9e16865ad12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\i_love_vampires_2\Instance Subsystems">
+      <UniqueIdentifier>{1bc86ce8-c060-4e24-86d1-237fd5d838dc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -238,7 +253,7 @@
       <Filter>Source\i_love_vampires_2\AttackActor</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\CombatantManager.cpp">
-      <Filter>Source\i_love_vampires_2\Subsystems</Filter>
+      <Filter>Source\i_love_vampires_2\World Subsystems</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\OutgoingStatusEffect.cpp">
       <Filter>Source\i_love_vampires_2\StatusEffects</Filter>
@@ -250,10 +265,19 @@
       <Filter>Source\i_love_vampires_2\StatusEffects</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\DamageEffect.cpp">
-      <Filter>Source\i_love_vampires_2\Subsystems</Filter>
+      <Filter>Source\i_love_vampires_2\World Subsystems</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\BurnEffect.cpp">
-      <Filter>Source\i_love_vampires_2\Subsystems</Filter>
+      <Filter>Source\i_love_vampires_2\World Subsystems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\EnemySpawner.cpp">
+      <Filter>Source\i_love_vampires_2\World Subsystems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\PassiveTemplate.cpp">
+      <Filter>Source\i_love_vampires_2\Passives</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\DefinitionLookups.cpp">
+      <Filter>Source\i_love_vampires_2\Instance Subsystems</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

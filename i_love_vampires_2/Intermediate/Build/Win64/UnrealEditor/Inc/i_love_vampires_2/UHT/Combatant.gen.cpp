@@ -49,7 +49,7 @@ struct Z_Construct_UFunction_ACombatant_initialiseFromTemplate_Statics
 };
 
 // ********** Begin Function initialiseFromTemplate Property Definitions ***************************
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_ACombatant_initialiseFromTemplate_Statics::NewProp_myTemplate = { "myTemplate", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Combatant_eventinitialiseFromTemplate_Parms, myTemplate), Z_Construct_UScriptStruct_FCombatantTemplate, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_myTemplate_MetaData), NewProp_myTemplate_MetaData) }; // 1274970551
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_ACombatant_initialiseFromTemplate_Statics::NewProp_myTemplate = { "myTemplate", nullptr, (EPropertyFlags)0x0010008008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Combatant_eventinitialiseFromTemplate_Parms, myTemplate), Z_Construct_UScriptStruct_FCombatantTemplate, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_myTemplate_MetaData), NewProp_myTemplate_MetaData) }; // 2814415407
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ACombatant_initialiseFromTemplate_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ACombatant_initialiseFromTemplate_Statics::NewProp_myTemplate,
 };
@@ -78,6 +78,54 @@ DEFINE_FUNCTION(ACombatant::execinitialiseFromTemplate)
 	P_NATIVE_END;
 }
 // ********** End Class ACombatant Function initialiseFromTemplate *********************************
+
+// ********** Begin Class ACombatant Function myInitialise *****************************************
+static FName NAME_ACombatant_myInitialise = FName(TEXT("myInitialise"));
+void ACombatant::myInitialise()
+{
+	UFunction* Func = FindFunctionChecked(NAME_ACombatant_myInitialise);
+	if (!Func->GetOwnerClass()->HasAnyClassFlags(CLASS_Native))
+	{
+	ProcessEvent(Func,NULL);
+	}
+	else
+	{
+		myInitialise_Implementation();
+	}
+}
+struct Z_Construct_UFunction_ACombatant_myInitialise_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Combatant.h" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Function myInitialise constinit property declarations **************************
+// ********** End Function myInitialise constinit property declarations ****************************
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ACombatant_myInitialise_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_ACombatant, nullptr, "myInitialise", 	nullptr, 
+	0, 
+0,
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x08020C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ACombatant_myInitialise_Statics::Function_MetaDataParams), Z_Construct_UFunction_ACombatant_myInitialise_Statics::Function_MetaDataParams)},  };
+UFunction* Z_Construct_UFunction_ACombatant_myInitialise()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ACombatant_myInitialise_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ACombatant::execmyInitialise)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->myInitialise_Implementation();
+	P_NATIVE_END;
+}
+// ********** End Class ACombatant Function myInitialise *******************************************
 
 // ********** Begin Class ACombatant Function onAttributeChanged ***********************************
 struct Combatant_eventonAttributeChanged_Parms
@@ -218,10 +266,12 @@ struct Z_Construct_UClass_ACombatant_Statics
 // ********** End Class ACombatant constinit property declarations *********************************
 	static constexpr UE::CodeGen::FClassNativeFunction Funcs[] = {
 		{ .NameUTF8 = UTF8TEXT("initialiseFromTemplate"), .Pointer = &ACombatant::execinitialiseFromTemplate },
+		{ .NameUTF8 = UTF8TEXT("myInitialise"), .Pointer = &ACombatant::execmyInitialise },
 	};
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_ACombatant_initialiseFromTemplate, "initialiseFromTemplate" }, // 3228784201
+		{ &Z_Construct_UFunction_ACombatant_initialiseFromTemplate, "initialiseFromTemplate" }, // 1327542338
+		{ &Z_Construct_UFunction_ACombatant_myInitialise, "myInitialise" }, // 2062943454
 		{ &Z_Construct_UFunction_ACombatant_onAttributeChanged, "onAttributeChanged" }, // 4242529444
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
@@ -287,10 +337,10 @@ ACombatant::~ACombatant() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ACombatant, ACombatant::StaticClass, TEXT("ACombatant"), &Z_Registration_Info_UClass_ACombatant, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ACombatant), 1626566710U) },
+		{ Z_Construct_UClass_ACombatant, ACombatant::StaticClass, TEXT("ACombatant"), &Z_Registration_Info_UClass_ACombatant, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ACombatant), 4143937032U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_221359730{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_1844418784{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

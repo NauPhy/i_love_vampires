@@ -324,9 +324,16 @@ struct Z_Construct_UClass_UCombatantManager_Statics
 		{ "IncludePath", "CombatantManager.h" },
 		{ "ModuleRelativePath", "CombatantManager.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_gameReady_MetaData[] = {
+		{ "Category", "Startup" },
+		{ "ModuleRelativePath", "CombatantManager.h" },
+	};
 #endif // WITH_METADATA
 
 // ********** Begin Class UCombatantManager constinit property declarations ************************
+	static void NewProp_gameReady_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_gameReady;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class UCombatantManager constinit property declarations **************************
 	static constexpr UE::CodeGen::FClassNativeFunction Funcs[] = {
 		{ .NameUTF8 = UTF8TEXT("getEnemyCount"), .Pointer = &UCombatantManager::execgetEnemyCount },
@@ -349,6 +356,18 @@ struct Z_Construct_UClass_UCombatantManager_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 }; // struct Z_Construct_UClass_UCombatantManager_Statics
+
+// ********** Begin Class UCombatantManager Property Definitions ***********************************
+void Z_Construct_UClass_UCombatantManager_Statics::NewProp_gameReady_SetBit(void* Obj)
+{
+	((UCombatantManager*)Obj)->gameReady = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UCombatantManager_Statics::NewProp_gameReady = { "gameReady", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UCombatantManager), &Z_Construct_UClass_UCombatantManager_Statics::NewProp_gameReady_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_gameReady_MetaData), NewProp_gameReady_MetaData) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UCombatantManager_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UCombatantManager_Statics::NewProp_gameReady,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UCombatantManager_Statics::PropPointers) < 2048);
+// ********** End Class UCombatantManager Property Definitions *************************************
 UObject* (*const Z_Construct_UClass_UCombatantManager_Statics::DependentSingletons[])() = {
 	(UObject* (*)())Z_Construct_UClass_UTickableWorldSubsystem,
 	(UObject* (*)())Z_Construct_UPackage__Script_i_love_vampires_2,
@@ -360,11 +379,11 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_UCombatantManager_Stati
 	&StaticCppClassTypeInfo,
 	DependentSingletons,
 	FuncInfo,
-	nullptr,
+	Z_Construct_UClass_UCombatantManager_Statics::PropPointers,
 	nullptr,
 	UE_ARRAY_COUNT(DependentSingletons),
 	UE_ARRAY_COUNT(FuncInfo),
-	0,
+	UE_ARRAY_COUNT(Z_Construct_UClass_UCombatantManager_Statics::PropPointers),
 	0,
 	0x001000A0u,
 	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UCombatantManager_Statics::Class_MetaDataParams), Z_Construct_UClass_UCombatantManager_Statics::Class_MetaDataParams)
@@ -390,10 +409,10 @@ UCombatantManager::~UCombatantManager() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantManager_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UCombatantManager, UCombatantManager::StaticClass, TEXT("UCombatantManager"), &Z_Registration_Info_UClass_UCombatantManager, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCombatantManager), 3882615068U) },
+		{ Z_Construct_UClass_UCombatantManager, UCombatantManager::StaticClass, TEXT("UCombatantManager"), &Z_Registration_Info_UClass_UCombatantManager, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCombatantManager), 4271288819U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantManager_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantManager_h__Script_i_love_vampires_2_2031943592{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantManager_h__Script_i_love_vampires_2_2722679249{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantManager_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantManager_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

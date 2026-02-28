@@ -3,6 +3,7 @@
 #include "CombatantTemplate.h"
 #include "StatusAttributeSet.h"
 #include "AbilitySystemComponent.h"
+#include "DefinitionLookups.h"
 
 ACombatant::ACombatant() : _combatantAttributeRefs()
 {
@@ -30,14 +31,26 @@ void ACombatant::initialiseFromTemplate(const FCombatantTemplate& myTemplate)
 	name = myTemplate.name;
 	ID = myTemplate.ID;
 
-	if (IsValid(combatantAttributes)) {
-		for (const FGameplayAttribute& attr : _combatantAttributeRefs) {
-			abilitySystemComponent->SetNumericAttributeBase(attr, myTemplate.getAttributeValue(attr));
-			abilitySystemComponent->GetGameplayAttributeValueChangeDelegate(attr).AddUObject(this, &ACombatant::onAttributeChangedReroute);
-		}
+	UDefinitionLookups* subsystem = GetWorld()->GetGameInstance()->GetSubsystem<UDefinitionLookups>();
+	if (!IsValid(subsystem)) {
+		LOGERROR("ACombatant::initialiseFromTemplate - failed to get UDefinitionLookups subsystem");
+		return;
 	}
-	else {
-		checkSlow(false)
+	bool allFloats = false;
+	TArray<float> values = subsystem->getFloatPropertiesAsArray(myTemplate.attributes, allFloats);
+	if (!allFloats) {
+		LOGERROR("ACombatant::initialiseFromTemplate - not all properties of template attributes are floats");
+		return;
+	}
+	TArray<FName> keys = subsystem->combatantAttributeKeys();
+	if (keys.Num() != values.Num()) {
+		LOGERROR("ACombatant::initialiseFromTemplate - number of attribute keys does not match number of attribute values");
+	}
+	for (auto i = 0; i < keys.Num();i++) {
+		FName key = keys[i];
+		float value = values[i];
+		FGameplayAttribute attribute = subsystem->getCombatantAttributeByName(key);
+		abilitySystemComponent->SetNumericAttributeBase(attribute, value);
 	}
 }
 void ACombatant::onAttributeChangedReroute(const FOnAttributeChangeData& data)

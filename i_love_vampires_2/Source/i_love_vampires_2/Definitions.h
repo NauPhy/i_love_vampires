@@ -7,7 +7,13 @@
 	GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
 #define EPSILON 0.0001f
+//#define PI 3.14159265359f
 
 #define LOGERROR(inputString) \
 	UE_LOG(LogTemp, Error, TEXT(inputString));\
 	checkSlow(false);
+
+#define ATTRIBUTE_MACRO(ClassName, PropertyName) \
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = TEXT(ClassName)) \
+	FGameplayAttributeData PropertyName; \
+	ATTRIBUTE_ACCESSORS(ClassName, PropertyName)

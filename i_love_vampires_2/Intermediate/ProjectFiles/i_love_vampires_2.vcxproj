@@ -542,7 +542,10 @@
     <ClCompile Include="..\..\Source\i_love_vampires_2\CombatantManager.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\CombatantTemplate.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\DamageEffect.cpp" />
+    <ClCompile Include="..\..\Source\i_love_vampires_2\DefinitionLookups.cpp" />
+    <ClCompile Include="..\..\Source\i_love_vampires_2\EnemySpawner.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\ExplosiveBullet.cpp" />
+    <ClCompile Include="..\..\Source\i_love_vampires_2\PassiveTemplate.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\ProjectileTemplate.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\OutgoingStatusEffect.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\StatusAttributeSet.cpp" />
@@ -557,7 +560,10 @@
     <ClInclude Include="..\..\Source\i_love_vampires_2\CombatantManager.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\CombatantTemplate.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\DamageEffect.h" />
+    <ClInclude Include="..\..\Source\i_love_vampires_2\DefinitionLookups.h" />
+    <ClInclude Include="..\..\Source\i_love_vampires_2\EnemySpawner.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\ExplosiveBullet.h" />
+    <ClInclude Include="..\..\Source\i_love_vampires_2\PassiveTemplate.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\ProjectileTemplate.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\OutgoingStatusEffect.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\StatusAttributeSet.h" />

@@ -15,83 +15,25 @@ class I_LOVE_VAMPIRES_2_API UCombatantAttributeSet : public UAttributeSet
 	GENERATED_BODY()
 public :
 	UCombatantAttributeSet();
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
-	FGameplayAttributeData maxHP;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
-	FGameplayAttributeData damageReduction_flat;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
-	FGameplayAttributeData damageReduction_percent;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
-	FGameplayAttributeData healthRegen_flat;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
-	FGameplayAttributeData healthRegen_percent;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
-	FGameplayAttributeData critChance;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
-	FGameplayAttributeData critMultiplier;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
-	FGameplayAttributeData attackSpeed;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
-	FGameplayAttributeData bonusBounces;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
-	FGameplayAttributeData bonusPierce;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
-	FGameplayAttributeData bonusProjectiles;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
-	FGameplayAttributeData projectileSpeed;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
-	FGameplayAttributeData projectileSize;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
-	FGameplayAttributeData AOESize;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
-	FGameplayAttributeData movementSpeed;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
-	FGameplayAttributeData range;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
-	FGameplayAttributeData contactDamage;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
-	FGameplayAttributeData selfSize;
 
-	// Exactly as mutable as the others in practice
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"), Category = "CombatantAttributeSet")
-	FGameplayAttributeData currentHP;
-
-public :
-	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, maxHP)
-
-	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, damageReduction_flat)
-
-	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, damageReduction_percent)
-
-	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, healthRegen_flat)
-
-	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, healthRegen_percent)
-
-	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, critChance)
-
-	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, critMultiplier)
-
-	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, attackSpeed)
-
-	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, bonusBounces)
-
-	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, bonusPierce)
-
-	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, bonusProjectiles)
-
-	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, projectileSpeed)
-
-	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, projectileSize)
-
-	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, AOESize)
-
-	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, movementSpeed)
-
-	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, range)
-
-	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, contactDamage)
-
-	ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, currentHP)
-
-		ATTRIBUTE_ACCESSORS(UCombatantAttributeSet, selfSize)
+	ATTRIBUTE_MACRO(UCombatantAttributeSet, maxHP);
+	ATTRIBUTE_MACRO(UCombatantAttributeSet, damageReduction_flat);
+	ATTRIBUTE_MACRO(UCombatantAttributeSet, damageReduction_percent);
+	ATTRIBUTE_MACRO(UCombatantAttributeSet, healthRegen_flat);
+	ATTRIBUTE_MACRO(UCombatantAttributeSet, healthRegen_percent);
+	ATTRIBUTE_MACRO(UCombatantAttributeSet, critChance);
+	ATTRIBUTE_MACRO(UCombatantAttributeSet, critMultiplier);
+	ATTRIBUTE_MACRO(UCombatantAttributeSet, attackSpeed);
+	ATTRIBUTE_MACRO(UCombatantAttributeSet, bonusBounces);
+	ATTRIBUTE_MACRO(UCombatantAttributeSet, bonusPierce);
+	ATTRIBUTE_MACRO(UCombatantAttributeSet, bonusProjectiles);
+	ATTRIBUTE_MACRO(UCombatantAttributeSet, projectileSpeed);
+	ATTRIBUTE_MACRO(UCombatantAttributeSet, projectileSize);
+	ATTRIBUTE_MACRO(UCombatantAttributeSet, AOESize);
+	ATTRIBUTE_MACRO(UCombatantAttributeSet, movementSpeed);
+	ATTRIBUTE_MACRO(UCombatantAttributeSet, range);
+	ATTRIBUTE_MACRO(UCombatantAttributeSet, contactDamage);
+	ATTRIBUTE_MACRO(UCombatantAttributeSet, selfSize);
+	ATTRIBUTE_MACRO(UCombatantAttributeSet, iFrameDuration);
+	ATTRIBUTE_MACRO(UCombatantAttributeSet, currentHP);
 };

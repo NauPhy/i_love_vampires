@@ -1,7 +1,5 @@
 #include "CombatantManager.h"
 #include "Combatant.h"
-#include <cstdlib>
-#include <time.h>
 #include "StatusEnum.h"
 #include "Definitions.h"
 #include "AbilitySystemComponent.h"
@@ -9,6 +7,7 @@
 #include "BurnEffect.h"
 #include "StatusAttributeSet.h"
 #include "CombatantAttributeSet.h"
+#include "Math/UnrealMathUtility.h"
 
 namespace {
 	void applyDamage(ACombatant* combatant, float magnitude) {
@@ -40,18 +39,44 @@ namespace {
 	}
 }
 
+void UCombatantManager::Tick(float delta) {
+	if (!gameReady)
+		return;
+	handleStatusEffects(delta);
+}
+
+/////////////////////////////////
+// Status Effects
 const std::unordered_map<EStatusEffect, float> statusEffectPeriods = {
 	{EStatusEffect::bleed, 0.f},
 	{EStatusEffect::burn, 1.f}
 };
+void UCombatantManager::handleStatusEffects(float delta) {
+	for (int i = 0; i < _nextStatusEffectTickDictionary.size(); i++) {
+		EStatusEffect effect = static_cast<EStatusEffect>(i);
+		if (_nextStatusEffectTickDictionary[effect] <= 0) {
+			if (_playerRef.Get() != nullptr) {
+				combatantTick(_playerRef.Get(), effect, delta);
+			}
+			for (FCombatantManager_MyStruct& combatant : _enemyReferences) {
+				if (combatant.value.Get() != nullptr) {
+					combatantTick(combatant.value.Get(), effect, delta);
+				}
+			}
+			_nextStatusEffectTickDictionary[effect] = statusEffectPeriods.at(effect);
+		}
+		_nextStatusEffectTickDictionary[effect] -= delta;
+	}
+}
+
+
 
 UCombatantManager::UCombatantManager() {
-	srand(time(NULL));
 	_nextStatusEffectTickDictionary = statusEffectPeriods;
 }
 
 int UCombatantManager::registerEnemy(ACombatant* enemy) {
-	MyStruct newStruct;
+	FCombatantManager_MyStruct newStruct;
 	newStruct.key = _nextKey;
 	_nextKey += 1;
 	newStruct.value = TWeakObjectPtr<ACombatant>(enemy);
@@ -60,7 +85,7 @@ int UCombatantManager::registerEnemy(ACombatant* enemy) {
 }
 
 void UCombatantManager::removeFromRegister(int key) {
-	for (std::vector<MyStruct>::iterator it = _enemyReferences.begin(); it != _enemyReferences.end();)
+	for (std::vector<FCombatantManager_MyStruct>::iterator it = _enemyReferences.begin(); it != _enemyReferences.end();)
 	{
 		if ((*it).key == key) {
 			_enemyReferences.erase(it);
@@ -76,7 +101,7 @@ TWeakObjectPtr<ACombatant> UCombatantManager::getRandomEnemyPtr() {
 		TWeakObjectPtr<ACombatant> ret = nullptr;
 		return ret;
 	}
-	int roll = rand() % _enemyReferences.size();
+	int roll = FMath::RandRange(static_cast<int>(0), static_cast<int>(_enemyReferences.size() - 1));
 	return _enemyReferences[roll].value;
 }
 
@@ -84,22 +109,9 @@ void UCombatantManager::setPlayerRef(ACombatant* playerRef) {
 	_playerRef = TWeakObjectPtr<ACombatant>(playerRef);
 }
 
-void UCombatantManager::Tick(float delta) {
-	for (int i = 0; i < _nextStatusEffectTickDictionary.size(); i++) {
-		EStatusEffect effect = static_cast<EStatusEffect>(i);
-		if (_nextStatusEffectTickDictionary[effect] <= 0) {
-			if (_playerRef.Get() != nullptr) {
-				combatantTick(_playerRef.Get(), effect, delta);
-			}
-			for (MyStruct& combatant : _enemyReferences) {
-				if (combatant.value.Get() != nullptr) {
-					combatantTick(combatant.value.Get(), effect, delta);
-				}
-			}
-			_nextStatusEffectTickDictionary[effect] = statusEffectPeriods.at(effect);
-		}
-	}
-}
+
+
+
 
 void UCombatantManager::combatantTick(ACombatant* combatant, EStatusEffect effect, float delta) {
 	if (effect == EStatusEffect::bleed) {
@@ -166,7 +178,7 @@ void UCombatantManager::inflictBurn(ACombatant* combatant, float magnitude, floa
 		LOGERROR("UCombatantManager::inflictBurn - SpecHandle is invalid");
 		return;
 	}
-	SpecHandle.Data->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag("UCombatantManager_burnEffect_magnitude"), finalMagnitude);
-	SpecHandle.Data->SetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag("UCombatantManager_burnEffect_duration"), finalDuration);
+	SpecHandle.Data->SetSetByCallerMagnitude(FName("UCombatantManager_burnEffect_magnitude"), finalMagnitude);
+	SpecHandle.Data->SetSetByCallerMagnitude(FName("UCombatantManager_burnEffect_duration"), finalDuration);
 	ASC->ApplyGameplayEffectSpecToSelf(*(SpecHandle.Data.Get()));
 }

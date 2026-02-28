@@ -17,6 +17,9 @@ class I_LOVE_VAMPIRES_2_API ACombatant : public APawn
 	ACombatant();
 	UFUNCTION(BlueprintCallable)
 	void initialiseFromTemplate(const FCombatantTemplate& myTemplate);
+	UFUNCTION(BlueprintNativeEvent)
+	void myInitialise();
+	virtual void myInitialise_Implementation() {}
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "General")
 	FString name;
@@ -34,7 +37,6 @@ class I_LOVE_VAMPIRES_2_API ACombatant : public APawn
 protected:
 	UFUNCTION(BlueprintImplementableEvent)
 	void onAttributeChanged(const FGameplayAttribute& attribute, float newValue, float oldValue);
-
 public:
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 private:

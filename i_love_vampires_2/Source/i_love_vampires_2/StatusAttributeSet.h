@@ -16,11 +16,7 @@ public :
 	UStatusAttributeSet();
 
 	// Bleed is continuous. Magnitude is dps.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "StatusAttributeSet")
-	FGameplayAttributeData bleed;
-	ATTRIBUTE_ACCESSORS(UStatusAttributeSet, bleed)
+	ATTRIBUTE_MACRO(UStatusAttributeSet, bleed);
 	// Burn is once per second. Magnitude is %max hp per tick.
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "StatusAttributeSet")
-	FGameplayAttributeData burn;
-	ATTRIBUTE_ACCESSORS(UStatusAttributeSet, burn)
+	ATTRIBUTE_MACRO(UStatusAttributeSet, burn);
 };

@@ -30,6 +30,9 @@ void ABullet::performSweep(const FVector& startPos, const FVector& endPos, TArra
 void ABullet::handleSweepResults(const TArray<struct FHitResult>& hits) {
 	for (const FHitResult& hit : hits) {
 		AActor* hitActor = hit.GetActor();
+		//hitActor is in the middle of construction or destruction
+		if (hitActor == nullptr)
+			continue;
 		ACombatant* combatantActor = Cast<ACombatant>(hitActor);
 		if (combatantActor == nullptr) {
 			LOGERROR("ABullet::handleSweepResults - hitActor is not a combatant");

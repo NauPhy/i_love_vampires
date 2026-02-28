@@ -20,6 +20,7 @@ struct FGameplayAttribute;
 
 // ********** Begin Class ACombatant ***************************************************************
 #define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execmyInitialise); \
 	DECLARE_FUNCTION(execinitialiseFromTemplate);
 
 
