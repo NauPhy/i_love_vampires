@@ -13,6 +13,9 @@ void EmptyLinkFunctionForGeneratedCodeProjectileTemplate() {}
 
 // ********** Begin Cross Module References ********************************************************
 ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FTableRowBase();
+I_LOVE_VAMPIRES_2_API UEnum* Z_Construct_UEnum_i_love_vampires_2_EAttackShape();
+I_LOVE_VAMPIRES_2_API UEnum* Z_Construct_UEnum_i_love_vampires_2_EProjectileShape();
+I_LOVE_VAMPIRES_2_API UEnum* Z_Construct_UEnum_i_love_vampires_2_EProjectileTargeting();
 I_LOVE_VAMPIRES_2_API UScriptStruct* Z_Construct_UScriptStruct_FProjectileTemplate();
 UPackage* Z_Construct_UPackage__Script_i_love_vampires_2();
 // ********** End Cross Module References **********************************************************
@@ -27,94 +30,79 @@ struct Z_Construct_UScriptStruct_FProjectileTemplate_Statics
 		{ "BlueprintType", "true" },
 		{ "ModuleRelativePath", "ProjectileTemplate.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ID_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__ID_MetaData[] = {
 		{ "Category", "ProjectileTemplate" },
 		{ "ModuleRelativePath", "ProjectileTemplate.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_shape_MetaData[] = {
-		{ "Category", "ProjectileTemplate" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "//0 is circle\n" },
-#endif
-		{ "ModuleRelativePath", "ProjectileTemplate.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "0 is circle" },
-#endif
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_attackShape_MetaData[] = {
-		{ "Category", "ProjectileTemplate" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "//0 is fan\n" },
-#endif
-		{ "ModuleRelativePath", "ProjectileTemplate.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "0 is fan" },
-#endif
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_spread_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__shape_MetaData[] = {
 		{ "Category", "ProjectileTemplate" },
 		{ "ModuleRelativePath", "ProjectileTemplate.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_radius_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__attackShape_MetaData[] = {
 		{ "Category", "ProjectileTemplate" },
 		{ "ModuleRelativePath", "ProjectileTemplate.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_targeting_MetaData[] = {
-		{ "Category", "ProjectileTemplate" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "//0 is skillshot\n//1 is closest\n//2 is random\n" },
-#endif
-		{ "ModuleRelativePath", "ProjectileTemplate.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "0 is skillshot\n1 is closest\n2 is random" },
-#endif
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_isHoming_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__spread_MetaData[] = {
 		{ "Category", "ProjectileTemplate" },
 		{ "ModuleRelativePath", "ProjectileTemplate.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_speed_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__radius_MetaData[] = {
 		{ "Category", "ProjectileTemplate" },
 		{ "ModuleRelativePath", "ProjectileTemplate.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_range_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__targeting_MetaData[] = {
 		{ "Category", "ProjectileTemplate" },
 		{ "ModuleRelativePath", "ProjectileTemplate.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_pierce_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__isHoming_MetaData[] = {
 		{ "Category", "ProjectileTemplate" },
 		{ "ModuleRelativePath", "ProjectileTemplate.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_bounce_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__speed_MetaData[] = {
 		{ "Category", "ProjectileTemplate" },
 		{ "ModuleRelativePath", "ProjectileTemplate.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_projectileCount_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__range_MetaData[] = {
 		{ "Category", "ProjectileTemplate" },
 		{ "ModuleRelativePath", "ProjectileTemplate.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_isExplosive_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__pierce_MetaData[] = {
+		{ "Category", "ProjectileTemplate" },
+		{ "ModuleRelativePath", "ProjectileTemplate.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__bounce_MetaData[] = {
+		{ "Category", "ProjectileTemplate" },
+		{ "ModuleRelativePath", "ProjectileTemplate.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__projectileCount_MetaData[] = {
+		{ "Category", "ProjectileTemplate" },
+		{ "ModuleRelativePath", "ProjectileTemplate.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__isExplosive_MetaData[] = {
 		{ "Category", "ProjectileTemplate" },
 		{ "ModuleRelativePath", "ProjectileTemplate.h" },
 	};
 #endif // WITH_METADATA
 
 // ********** Begin ScriptStruct FProjectileTemplate constinit property declarations ***************
-	static const UECodeGen_Private::FNamePropertyParams NewProp_ID;
-	static const UECodeGen_Private::FIntPropertyParams NewProp_shape;
-	static const UECodeGen_Private::FIntPropertyParams NewProp_attackShape;
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_spread;
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_radius;
-	static const UECodeGen_Private::FIntPropertyParams NewProp_targeting;
-	static void NewProp_isHoming_SetBit(void* Obj);
-	static const UECodeGen_Private::FBoolPropertyParams NewProp_isHoming;
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_speed;
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_range;
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_pierce;
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_bounce;
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_projectileCount;
-	static void NewProp_isExplosive_SetBit(void* Obj);
-	static const UECodeGen_Private::FBoolPropertyParams NewProp_isExplosive;
+	static const UECodeGen_Private::FNamePropertyParams NewProp__ID;
+	static const UECodeGen_Private::FBytePropertyParams NewProp__shape_Underlying;
+	static const UECodeGen_Private::FEnumPropertyParams NewProp__shape;
+	static const UECodeGen_Private::FBytePropertyParams NewProp__attackShape_Underlying;
+	static const UECodeGen_Private::FEnumPropertyParams NewProp__attackShape;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp__spread;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp__radius;
+	static const UECodeGen_Private::FBytePropertyParams NewProp__targeting_Underlying;
+	static const UECodeGen_Private::FEnumPropertyParams NewProp__targeting;
+	static void NewProp__isHoming_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp__isHoming;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp__speed;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp__range;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp__pierce;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp__bounce;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp__projectileCount;
+	static void NewProp__isExplosive_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp__isExplosive;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End ScriptStruct FProjectileTemplate constinit property declarations *****************
 	static void* NewStructOps()
@@ -135,41 +123,47 @@ class UScriptStruct* FProjectileTemplate::StaticStruct()
 	}
 
 // ********** Begin ScriptStruct FProjectileTemplate Property Definitions **************************
-const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_ID = { "ID", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FProjectileTemplate, ID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ID_MetaData), NewProp_ID_MetaData) };
-const UECodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_shape = { "shape", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FProjectileTemplate, shape), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_shape_MetaData), NewProp_shape_MetaData) };
-const UECodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_attackShape = { "attackShape", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FProjectileTemplate, attackShape), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_attackShape_MetaData), NewProp_attackShape_MetaData) };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_spread = { "spread", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FProjectileTemplate, spread), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_spread_MetaData), NewProp_spread_MetaData) };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_radius = { "radius", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FProjectileTemplate, radius), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_radius_MetaData), NewProp_radius_MetaData) };
-const UECodeGen_Private::FIntPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_targeting = { "targeting", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FProjectileTemplate, targeting), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_targeting_MetaData), NewProp_targeting_MetaData) };
-void Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_isHoming_SetBit(void* Obj)
+const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__ID = { "_ID", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FProjectileTemplate, _ID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__ID_MetaData), NewProp__ID_MetaData) };
+const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__shape_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__shape = { "_shape", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FProjectileTemplate, _shape), Z_Construct_UEnum_i_love_vampires_2_EProjectileShape, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__shape_MetaData), NewProp__shape_MetaData) }; // 20658499
+const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__attackShape_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__attackShape = { "_attackShape", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FProjectileTemplate, _attackShape), Z_Construct_UEnum_i_love_vampires_2_EAttackShape, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__attackShape_MetaData), NewProp__attackShape_MetaData) }; // 3518354426
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__spread = { "_spread", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FProjectileTemplate, _spread), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__spread_MetaData), NewProp__spread_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__radius = { "_radius", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FProjectileTemplate, _radius), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__radius_MetaData), NewProp__radius_MetaData) };
+const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__targeting_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__targeting = { "_targeting", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FProjectileTemplate, _targeting), Z_Construct_UEnum_i_love_vampires_2_EProjectileTargeting, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__targeting_MetaData), NewProp__targeting_MetaData) }; // 997212909
+void Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__isHoming_SetBit(void* Obj)
 {
-	((FProjectileTemplate*)Obj)->isHoming = 1;
+	((FProjectileTemplate*)Obj)->_isHoming = 1;
 }
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_isHoming = { "isHoming", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(FProjectileTemplate), &Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_isHoming_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_isHoming_MetaData), NewProp_isHoming_MetaData) };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_speed = { "speed", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FProjectileTemplate, speed), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_speed_MetaData), NewProp_speed_MetaData) };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_range = { "range", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FProjectileTemplate, range), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_range_MetaData), NewProp_range_MetaData) };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_pierce = { "pierce", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FProjectileTemplate, pierce), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_pierce_MetaData), NewProp_pierce_MetaData) };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_bounce = { "bounce", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FProjectileTemplate, bounce), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_bounce_MetaData), NewProp_bounce_MetaData) };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_projectileCount = { "projectileCount", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FProjectileTemplate, projectileCount), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_projectileCount_MetaData), NewProp_projectileCount_MetaData) };
-void Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_isExplosive_SetBit(void* Obj)
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__isHoming = { "_isHoming", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(FProjectileTemplate), &Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__isHoming_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__isHoming_MetaData), NewProp__isHoming_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__speed = { "_speed", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FProjectileTemplate, _speed), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__speed_MetaData), NewProp__speed_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__range = { "_range", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FProjectileTemplate, _range), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__range_MetaData), NewProp__range_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__pierce = { "_pierce", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FProjectileTemplate, _pierce), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__pierce_MetaData), NewProp__pierce_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__bounce = { "_bounce", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FProjectileTemplate, _bounce), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__bounce_MetaData), NewProp__bounce_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__projectileCount = { "_projectileCount", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FProjectileTemplate, _projectileCount), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__projectileCount_MetaData), NewProp__projectileCount_MetaData) };
+void Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__isExplosive_SetBit(void* Obj)
 {
-	((FProjectileTemplate*)Obj)->isExplosive = 1;
+	((FProjectileTemplate*)Obj)->_isExplosive = 1;
 }
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_isExplosive = { "isExplosive", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(FProjectileTemplate), &Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_isExplosive_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_isExplosive_MetaData), NewProp_isExplosive_MetaData) };
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__isExplosive = { "_isExplosive", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(FProjectileTemplate), &Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__isExplosive_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__isExplosive_MetaData), NewProp__isExplosive_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FProjectileTemplate_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_ID,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_shape,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_attackShape,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_spread,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_radius,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_targeting,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_isHoming,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_speed,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_range,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_pierce,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_bounce,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_projectileCount,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp_isExplosive,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__ID,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__shape_Underlying,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__shape,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__attackShape_Underlying,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__attackShape,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__spread,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__radius,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__targeting_Underlying,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__targeting,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__isHoming,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__speed,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__range,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__pierce,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__bounce,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__projectileCount,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewProp__isExplosive,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FProjectileTemplate_Statics::PropPointers) < 2048);
 // ********** End ScriptStruct FProjectileTemplate Property Definitions ****************************
@@ -200,10 +194,10 @@ UScriptStruct* Z_Construct_UScriptStruct_FProjectileTemplate()
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ProjectileTemplate_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FStructRegisterCompiledInInfo ScriptStructInfo[] = {
-		{ FProjectileTemplate::StaticStruct, Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewStructOps, TEXT("ProjectileTemplate"),&Z_Registration_Info_UScriptStruct_FProjectileTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FProjectileTemplate), 72121466U) },
+		{ FProjectileTemplate::StaticStruct, Z_Construct_UScriptStruct_FProjectileTemplate_Statics::NewStructOps, TEXT("ProjectileTemplate"),&Z_Registration_Info_UScriptStruct_FProjectileTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FProjectileTemplate), 3354212655U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ProjectileTemplate_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ProjectileTemplate_h__Script_i_love_vampires_2_3348916702{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ProjectileTemplate_h__Script_i_love_vampires_2_765382299{
 	TEXT("/Script/i_love_vampires_2"),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ProjectileTemplate_h__Script_i_love_vampires_2_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ProjectileTemplate_h__Script_i_love_vampires_2_Statics::ScriptStructInfo),

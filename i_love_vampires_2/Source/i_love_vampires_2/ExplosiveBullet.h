@@ -1,30 +1,36 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Bullet.h"
-#include "AOETemplate.h"
+#include "ExplosiveProjectileConfig.h"
+#include "ExplosiveProjectileAttributes.h"
 #include "ExplosiveBullet.generated.h"
 class AAOE;
 
 UCLASS()
 class AExplosiveBullet : public ABullet {
 	GENERATED_BODY()
-public:
-	AExplosiveBullet() : ABullet() {
-	}
 
-	// This is including attribute mods
-	UFUNCTION(BlueprintCallable)
-	void initialise_AExplosiveBullet(APawn* pawnRef, const TArray<FGameplayEffectSpecHandle>& effect, const TArray<float>& effectChances, float directionX, float directionZ, const FProjectileTemplate& projectileData, const FAOETemplate& explosionData);
+	UPROPERTY()
+	FAOEConfig _explosionData;
+	UPROPERTY()
+	FAOEAttributes _explosionAttributes;
+
+public:
+	AExplosiveBullet() : ABullet() {}
+	void initialise_AExplosiveBullet(
+		APawn* pawnRef,
+		float directionX,
+		float directionZ,
+		) {initialise_ABullet(pawnRef, directionX, directionZ);}
+	void initialise_AExplosiveBullet(
+		APawn* pawnRef,
+		float directionX,
+		float directionZ,
+		const FExplosiveProjectileConfig& config,
+		const FExplosiveProjectileAttributes& attributes,
+		);
 
 protected:
-	virtual void bulletDeath_Implementation() override;
+	virtual void bulletDeath() override;
 	virtual void handleSweepResults(const TArray<struct FHitResult>& hits) override;
-	UFUNCTION(BlueprintCallable)
-	float getExplosionRadius() const {
-		return _explosionData.radius;
-	}
-	UFUNCTION(BlueprintCallable)
-	void finishExplosionInitialisation(AAOE* aoe);
-private:
-	FAOETemplate _explosionData;
 };

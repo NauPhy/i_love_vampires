@@ -1,66 +1,92 @@
 #include "Combatant.h"
-#include "CombatantAttributeSet.h"
+#include <functional>
+#include "MyGameplayStatics.h"
 #include "CombatantTemplate.h"
-#include "StatusAttributeSet.h"
-#include "AbilitySystemComponent.h"
-#include "DefinitionLookups.h"
+#include "SpriteManager.h"
+#include "AssetRefs.h"
+#include "Definitions.h"
+#include "StatusEffect_Damage.h"
 
-ACombatant::ACombatant() : _combatantAttributeRefs()
+ACombatant::ACombatant()
 {
-	abilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
-	if (IsValid(abilitySystemComponent)) {
-		{
-			UCombatantAttributeSet* defaultSet = CreateDefaultSubobject<UCombatantAttributeSet>(TEXT("DefaultCombatantSet"));
-			abilitySystemComponent->AddAttributeSetSubobject(defaultSet);
-			combatantAttributes = abilitySystemComponent->GetSet<UCombatantAttributeSet>();
-			UCombatantAttributeSet::GetAttributesFromSetClass(UCombatantAttributeSet::StaticClass(), _combatantAttributeRefs);
-		}
-		{
-			UStatusAttributeSet* defaultSet = CreateDefaultSubobject<UStatusAttributeSet>(TEXT("DefaultStatusSet"));
-			abilitySystemComponent->AddAttributeSetSubobject(defaultSet);
-			statusAttributes = abilitySystemComponent->GetSet<UStatusAttributeSet>();
-			//UStatusAttributeSet::GetAttributesFromSetClass(UStatusAttributeSet::StaticClass(), _statusAttributeRefs);
-		}
+	{
+		PrimaryActorTick.bCanEverTick = true;
 	}
-	else {
-		checkSlow(false)
+	// Attribute init
+	{
+		//callbacks
+		std::function <void(CombatantAttribute::MyEnum, float, float)> callback = std::bind(&ACombatant::onCurrentHPChanged, this, std::placeholders::_1, std::placeholders::_2);
+		size_t offset = 0;
+		{
+			FCombatantTemplate_Attr temp;
+			offset = UMyAttributeSet::calculateOffset(temp, temp._currentHP);
+		}
+		_attributes.addCallback(offset, callback);
+	}
+	//Flipbook init
+	{
+		_combatantFlipbook = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("CombatantFlipbook"));
+		_combatantFlipbook->SetupAttachment(RootComponent);
+		_combatantFlipbook->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
+		_combatantFlipbook->SetCollisionObjectType(ECollisionChannel::ECC_Pawn);
 	}
 }
-void ACombatant::initialiseFromTemplate(const FCombatantTemplate& myTemplate)
-{
-	name = myTemplate.name;
-	ID = myTemplate.ID;
 
-	UDefinitionLookups* subsystem = GetWorld()->GetGameInstance()->GetSubsystem<UDefinitionLookups>();
-	if (!IsValid(subsystem)) {
-		LOGERROR("ACombatant::initialiseFromTemplate - failed to get UDefinitionLookups subsystem");
-		return;
-	}
-	bool allFloats = false;
-	TArray<float> values = subsystem->getFloatPropertiesAsArray(myTemplate.attributes, allFloats);
-	if (!allFloats) {
-		LOGERROR("ACombatant::initialiseFromTemplate - not all properties of template attributes are floats");
-		return;
-	}
-	TArray<FName> keys = subsystem->combatantAttributeKeys();
-	if (keys.Num() != values.Num()) {
-		LOGERROR("ACombatant::initialiseFromTemplate - number of attribute keys does not match number of attribute values");
-	}
-	for (auto i = 0; i < keys.Num();i++) {
-		FName key = keys[i];
-		float value = values[i];
-		FGameplayAttribute attribute = subsystem->getCombatantAttributeByName(key);
-		abilitySystemComponent->SetNumericAttributeBase(attribute, value);
-	}
-}
-void ACombatant::onAttributeChangedReroute(const FOnAttributeChangeData& data)
+void ACombatant::initialise_ACombatant(FName newID)
 {
-	onAttributeChanged(data.Attribute, data.NewValue, data.OldValue);
+	{
+		// basic
+		UAssetRefs* assetRefs = nullptr;
+		if (!MyGameplayStatics::getAssetRefs(this, assetRefs)) {
+			return;
+		}
+		FCombatantTemplate* myTemplate = assetRefs->getCombatantTemplate(newID);
+		_name = myTemplate._name;
+		_ID = newID;
+
+		// sprite
+		ESprite spriteName = myTemplate._sprite;
+		USpriteManager* spriteManager = nullptr;
+		if (!MyGameplayStatics::getSpriteManager(this, spriteManager)) {
+			return;
+		}
+		UPaperFlipbook* tempSprite = nullptr;
+		if (!tempSprite = spriteManager->getSprite(spriteName, tempSprite))
+			return;
+		_combatantFlipbook->SetFlipbook(tempSprite);
+	}
+	// attributes
+	{
+		_attributes.initialise_UMyCombatantAttributeSet(this, newID);
+	}
 }
 void ACombatant::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
-	for (const auto& attr : _combatantAttributeRefs) {
-		abilitySystemComponent->GetGameplayAttributeValueChangeDelegate(attr).RemoveAll(this);
-	}
+	_attributes.clearCallback();
 	Super::EndPlay(EndPlayReason);
+}
+void ACombatant::onCurrentHPChanged(float oldVal, float newVal)
+{
+	if (newVal <= 0.0f) {
+		Destroy();
+	}
+}
+void ACombatant::Tick(float DeltaTime) {
+	Super::Tick(DeltaTime);
+	_attributes.tick(DeltaTime);
+}
+void ACombatant::inflictStatus(std::unique_ptr<StatusEffect> newStatus) {
+	if (newStatus->getDuration() <= EPSILON) {
+		_attributes.inflictInstantStatus(std::move(newStatus));
+		return;
+	}
+	_attributes.inflictStatus(std::move(newStatus));
+}
+
+void ACombatant::exchangeContactDamage(ACombatant* left, ACombatant* right) {
+	const float leftThreat = left->_attributes.getAttributes()._contactDamage;
+	const float rightThreat = right->_attributes.getAttributes()._contactDamage;
+
+	left->inflictStatus(std::make_unique<StatusEffect_Damage>(rightThreat));
+	right->inflictStatus(std::make_unique<StatusEffect_Damage>(leftThreat));
 }

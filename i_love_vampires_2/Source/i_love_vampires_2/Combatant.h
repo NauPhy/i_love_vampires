@@ -2,43 +2,39 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include "GameplayEffectTypes.h"
+#include <memory>
+#include "MyCombatantAttributeSet.h"
+#include "PaperFlipbookComponent.h"
 #include "Combatant.generated.h"
-class UCombatantAttributeSet;
-class UStatusAttributeSet;
-struct FCombatantTemplate;
 
 UCLASS()
 class I_LOVE_VAMPIRES_2_API ACombatant : public APawn
 {
 	GENERATED_BODY()
 
-	public:
-	ACombatant();
-	UFUNCTION(BlueprintCallable)
-	void initialiseFromTemplate(const FCombatantTemplate& myTemplate);
-	UFUNCTION(BlueprintNativeEvent)
-	void myInitialise();
-	virtual void myInitialise_Implementation() {}
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "General")
-	FString name;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "General")
-	FName ID;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Ability System")
-	UAbilitySystemComponent* abilitySystemComponent;
-	UPROPERTY(VisibleAnywhere, Category = "Ability System")
-	const UCombatantAttributeSet* combatantAttributes;
-	TArray<FGameplayAttribute> _combatantAttributeRefs;
-	UPROPERTY(VisibleAnywhere, Category = "Ability System")
-	const UStatusAttributeSet* statusAttributes;
-	TArray<FGameplayAttribute> _statusAttributeRefs;
+public:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "ACombatant")
+	FString _name;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "ACombatant")
+	FName _ID;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "ACombatant")
+	UPaperFlipbookComponent* _combatantFlipbook;
 
 protected:
-	UFUNCTION(BlueprintImplementableEvent)
-	void onAttributeChanged(const FGameplayAttribute& attribute, float newValue, float oldValue);
+	UPROPERTY()
+	UMyCombatantAttributeSet _attributes;
+
 public:
+	ACombatant();
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
-private:
-	void onAttributeChangedReroute(const FOnAttributeChangeData& data);
+	void burnTick() { _attributes.burnTick(); }
+	virtual void Tick(float DeltaTime) override;
+	void inflictStatus(std::unique_ptr<StatusEffect>);
+
+	UFUNCTION(BlueprintCallable)
+	void initialise_ACombatant(FName ID);
+
+protected:
+	virtual void onCurrentHPChanged(float oldHP, float newHP);
+	static void exchangeContactDamage(ACombatant* left, ACombatant* right);
 };

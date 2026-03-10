@@ -15,16 +15,13 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
-class AAOE;
 class APawn;
 struct FAOETemplate;
-struct FGameplayEffectSpecHandle;
+struct FEffectStruct;
 struct FProjectileTemplate;
 
 // ********** Begin Class AExplosiveBullet *********************************************************
 #define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveBullet_h_10_RPC_WRAPPERS_NO_PURE_DECLS \
-	DECLARE_FUNCTION(execfinishExplosionInitialisation); \
-	DECLARE_FUNCTION(execgetExplosionRadius); \
 	DECLARE_FUNCTION(execinitialise_AExplosiveBullet);
 
 

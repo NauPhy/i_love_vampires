@@ -13,7 +13,3 @@
 	UE_LOG(LogTemp, Error, TEXT(inputString));\
 	checkSlow(false);
 
-#define ATTRIBUTE_MACRO(ClassName, PropertyName) \
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = TEXT(ClassName)) \
-	FGameplayAttributeData PropertyName; \
-	ATTRIBUTE_ACCESSORS(ClassName, PropertyName)

@@ -6,7 +6,7 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "i_love_vampires_2/AttackActor.h"
-#include "GameplayEffectTypes.h"
+#include "i_love_vampires_2/EffectStruct.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 static_assert(!UE_WITH_CONSTINIT_UOBJECT, "This generated code can only be compiled with !UE_WITH_CONSTINIT_OBJECT");
@@ -15,9 +15,9 @@ void EmptyLinkFunctionForGeneratedCodeAttackActor() {}
 // ********** Begin Cross Module References ********************************************************
 ENGINE_API UClass* Z_Construct_UClass_AActor();
 ENGINE_API UClass* Z_Construct_UClass_APawn_NoRegister();
-GAMEPLAYABILITIES_API UScriptStruct* Z_Construct_UScriptStruct_FGameplayEffectSpecHandle();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AAttackActor();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AAttackActor_NoRegister();
+I_LOVE_VAMPIRES_2_API UScriptStruct* Z_Construct_UScriptStruct_FEffectStruct();
 UPackage* Z_Construct_UPackage__Script_i_love_vampires_2();
 // ********** End Cross Module References **********************************************************
 
@@ -27,27 +27,21 @@ struct Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics
 	struct AttackActor_eventinitialise_AAttackActor_Parms
 	{
 		APawn* pawnRef;
-		TArray<FGameplayEffectSpecHandle> effect;
-		TArray<float> effectChances;
+		TArray<FEffectStruct> effects;
 	};
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
 		{ "ModuleRelativePath", "AttackActor.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_effect_MetaData[] = {
-		{ "NativeConst", "" },
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_effectChances_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_effects_MetaData[] = {
 		{ "NativeConst", "" },
 	};
 #endif // WITH_METADATA
 
 // ********** Begin Function initialise_AAttackActor constinit property declarations ***************
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_pawnRef;
-	static const UECodeGen_Private::FStructPropertyParams NewProp_effect_Inner;
-	static const UECodeGen_Private::FArrayPropertyParams NewProp_effect;
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_effectChances_Inner;
-	static const UECodeGen_Private::FArrayPropertyParams NewProp_effectChances;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_effects_Inner;
+	static const UECodeGen_Private::FArrayPropertyParams NewProp_effects;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Function initialise_AAttackActor constinit property declarations *****************
 	static const UECodeGen_Private::FFunctionParams FuncParams;
@@ -55,16 +49,12 @@ struct Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics
 
 // ********** Begin Function initialise_AAttackActor Property Definitions **************************
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics::NewProp_pawnRef = { "pawnRef", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AttackActor_eventinitialise_AAttackActor_Parms, pawnRef), Z_Construct_UClass_APawn_NoRegister, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics::NewProp_effect_Inner = { "effect", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FGameplayEffectSpecHandle, METADATA_PARAMS(0, nullptr) }; // 2221987375
-const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics::NewProp_effect = { "effect", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AttackActor_eventinitialise_AAttackActor_Parms, effect), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_effect_MetaData), NewProp_effect_MetaData) }; // 2221987375
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics::NewProp_effectChances_Inner = { "effectChances", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics::NewProp_effectChances = { "effectChances", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AttackActor_eventinitialise_AAttackActor_Parms, effectChances), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_effectChances_MetaData), NewProp_effectChances_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics::NewProp_effects_Inner = { "effects", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FEffectStruct, METADATA_PARAMS(0, nullptr) }; // 4244353823
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics::NewProp_effects = { "effects", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AttackActor_eventinitialise_AAttackActor_Parms, effects), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_effects_MetaData), NewProp_effects_MetaData) }; // 4244353823
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics::NewProp_pawnRef,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics::NewProp_effect_Inner,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics::NewProp_effect,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics::NewProp_effectChances_Inner,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics::NewProp_effectChances,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics::NewProp_effects_Inner,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics::NewProp_effects,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AAttackActor_initialise_AAttackActor_Statics::PropPointers) < 2048);
 // ********** End Function initialise_AAttackActor Property Definitions ****************************
@@ -85,11 +75,10 @@ UFunction* Z_Construct_UFunction_AAttackActor_initialise_AAttackActor()
 DEFINE_FUNCTION(AAttackActor::execinitialise_AAttackActor)
 {
 	P_GET_OBJECT(APawn,Z_Param_pawnRef);
-	P_GET_TARRAY_REF(FGameplayEffectSpecHandle,Z_Param_Out_effect);
-	P_GET_TARRAY_REF(float,Z_Param_Out_effectChances);
+	P_GET_TARRAY_REF(FEffectStruct,Z_Param_Out_effects);
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->initialise_AAttackActor(Z_Param_pawnRef,Z_Param_Out_effect,Z_Param_Out_effectChances);
+	P_THIS->initialise_AAttackActor(Z_Param_pawnRef,Z_Param_Out_effects);
 	P_NATIVE_END;
 }
 // ********** End Class AAttackActor Function initialise_AAttackActor ******************************
@@ -133,16 +122,31 @@ struct Z_Construct_UClass_AAttackActor_Statics
 		{ "IsBlueprintBase", "true" },
 		{ "ModuleRelativePath", "AttackActor.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__pawnRef_MetaData[] = {
+		{ "ModuleRelativePath", "AttackActor.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__effects_MetaData[] = {
+		{ "ModuleRelativePath", "AttackActor.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__effectedPawns_MetaData[] = {
+		{ "ModuleRelativePath", "AttackActor.h" },
+	};
 #endif // WITH_METADATA
 
 // ********** Begin Class AAttackActor constinit property declarations *****************************
+	static const UECodeGen_Private::FWeakObjectPropertyParams NewProp__pawnRef;
+	static const UECodeGen_Private::FStructPropertyParams NewProp__effects_Inner;
+	static const UECodeGen_Private::FArrayPropertyParams NewProp__effects;
+	static const UECodeGen_Private::FWeakObjectPropertyParams NewProp__effectedPawns_Inner;
+	static const UECodeGen_Private::FArrayPropertyParams NewProp__effectedPawns;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class AAttackActor constinit property declarations *******************************
 	static constexpr UE::CodeGen::FClassNativeFunction Funcs[] = {
 		{ .NameUTF8 = UTF8TEXT("initialise_AAttackActor"), .Pointer = &AAttackActor::execinitialise_AAttackActor },
 	};
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_AAttackActor_initialise_AAttackActor, "initialise_AAttackActor" }, // 2346770435
+		{ &Z_Construct_UFunction_AAttackActor_initialise_AAttackActor, "initialise_AAttackActor" }, // 264348646
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -150,6 +154,22 @@ struct Z_Construct_UClass_AAttackActor_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 }; // struct Z_Construct_UClass_AAttackActor_Statics
+
+// ********** Begin Class AAttackActor Property Definitions ****************************************
+const UECodeGen_Private::FWeakObjectPropertyParams Z_Construct_UClass_AAttackActor_Statics::NewProp__pawnRef = { "_pawnRef", nullptr, (EPropertyFlags)0x0024080000000000, UECodeGen_Private::EPropertyGenFlags::WeakObject, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAttackActor, _pawnRef), Z_Construct_UClass_APawn_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__pawnRef_MetaData), NewProp__pawnRef_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_AAttackActor_Statics::NewProp__effects_Inner = { "_effects", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FEffectStruct, METADATA_PARAMS(0, nullptr) }; // 4244353823
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_AAttackActor_Statics::NewProp__effects = { "_effects", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAttackActor, _effects), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__effects_MetaData), NewProp__effects_MetaData) }; // 4244353823
+const UECodeGen_Private::FWeakObjectPropertyParams Z_Construct_UClass_AAttackActor_Statics::NewProp__effectedPawns_Inner = { "_effectedPawns", nullptr, (EPropertyFlags)0x0004000000000000, UECodeGen_Private::EPropertyGenFlags::WeakObject, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_APawn_NoRegister, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_AAttackActor_Statics::NewProp__effectedPawns = { "_effectedPawns", nullptr, (EPropertyFlags)0x0024080000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAttackActor, _effectedPawns), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__effectedPawns_MetaData), NewProp__effectedPawns_MetaData) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AAttackActor_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AAttackActor_Statics::NewProp__pawnRef,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AAttackActor_Statics::NewProp__effects_Inner,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AAttackActor_Statics::NewProp__effects,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AAttackActor_Statics::NewProp__effectedPawns_Inner,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AAttackActor_Statics::NewProp__effectedPawns,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AAttackActor_Statics::PropPointers) < 2048);
+// ********** End Class AAttackActor Property Definitions ******************************************
 UObject* (*const Z_Construct_UClass_AAttackActor_Statics::DependentSingletons[])() = {
 	(UObject* (*)())Z_Construct_UClass_AActor,
 	(UObject* (*)())Z_Construct_UPackage__Script_i_love_vampires_2,
@@ -161,11 +181,11 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_AAttackActor_Statics::C
 	&StaticCppClassTypeInfo,
 	DependentSingletons,
 	FuncInfo,
-	nullptr,
+	Z_Construct_UClass_AAttackActor_Statics::PropPointers,
 	nullptr,
 	UE_ARRAY_COUNT(DependentSingletons),
 	UE_ARRAY_COUNT(FuncInfo),
-	0,
+	UE_ARRAY_COUNT(Z_Construct_UClass_AAttackActor_Statics::PropPointers),
 	0,
 	0x008000A4u,
 	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AAttackActor_Statics::Class_MetaDataParams), Z_Construct_UClass_AAttackActor_Statics::Class_MetaDataParams)
@@ -191,10 +211,10 @@ AAttackActor::~AAttackActor() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AAttackActor, AAttackActor::StaticClass, TEXT("AAttackActor"), &Z_Registration_Info_UClass_AAttackActor, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AAttackActor), 2581867963U) },
+		{ Z_Construct_UClass_AAttackActor, AAttackActor::StaticClass, TEXT("AAttackActor"), &Z_Registration_Info_UClass_AAttackActor, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AAttackActor), 1022669227U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_996789233{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_2920304127{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

@@ -13,8 +13,11 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="SortThisLater">
+    <Filter Include="Main">
       <UniqueIdentifier>{9ed5fe21-1cce-4c20-9824-3e8cc5538294}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\MyGAS">
+      <UniqueIdentifier>{cc9b70d2-0d9b-4545-8f8a-10b271531a64}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -24,23 +27,29 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Combatant.h">
-      <Filter>SortThisLater</Filter>
+    <ClInclude Include="MyAttributeSet_unused.h">
+      <Filter>Main\MyGAS</Filter>
     </ClInclude>
-    <ClInclude Include="Attack.h">
-      <Filter>SortThisLater</Filter>
+    <ClInclude Include="Definitions.h">
+      <Filter>Main\MyGAS</Filter>
     </ClInclude>
-    <ClInclude Include="Projectile.h">
-      <Filter>SortThisLater</Filter>
+    <ClInclude Include="StatusEffect.h">
+      <Filter>Main\MyGAS</Filter>
     </ClInclude>
-    <ClInclude Include="enums.h">
-      <Filter>SortThisLater</Filter>
+    <ClInclude Include="StatusEffect_Burn.h">
+      <Filter>Main\MyGAS</Filter>
     </ClInclude>
-    <ClInclude Include="AOE.h">
-      <Filter>SortThisLater</Filter>
+    <ClInclude Include="MyCombatantAttributeSet.h">
+      <Filter>Main\MyGAS</Filter>
     </ClInclude>
-    <ClInclude Include="Attack_Player.h">
-      <Filter>SortThisLater</Filter>
+    <ClInclude Include="CombatantAttributeList.h">
+      <Filter>Main\MyGAS</Filter>
+    </ClInclude>
+    <ClInclude Include="MessengerStructs.h">
+      <Filter>Main\MyGAS</Filter>
+    </ClInclude>
+    <ClInclude Include="StatusEffect_Bleed.h">
+      <Filter>Main\MyGAS</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -50,20 +59,20 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Combatant.cpp">
-      <Filter>SortThisLater</Filter>
+    <ClCompile Include="MyAttributeSet_unused.cpp">
+      <Filter>Main\MyGAS</Filter>
     </ClCompile>
-    <ClCompile Include="Attack.cpp">
-      <Filter>SortThisLater</Filter>
+    <ClCompile Include="StatusEffect.cpp">
+      <Filter>Main\MyGAS</Filter>
     </ClCompile>
-    <ClCompile Include="Projectile.cpp">
-      <Filter>SortThisLater</Filter>
+    <ClCompile Include="StatusEffect_Burn.cpp">
+      <Filter>Main\MyGAS</Filter>
     </ClCompile>
-    <ClCompile Include="AOE.cpp">
-      <Filter>SortThisLater</Filter>
+    <ClCompile Include="MyCombatantAttributeSet.cpp">
+      <Filter>Main\MyGAS</Filter>
     </ClCompile>
-    <ClCompile Include="Attack_Player.cpp">
-      <Filter>SortThisLater</Filter>
+    <ClCompile Include="StatusEffect_Bleed.cpp">
+      <Filter>Main\MyGAS</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

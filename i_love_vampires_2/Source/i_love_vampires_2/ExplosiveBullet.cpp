@@ -1,12 +1,22 @@
 #include "ExplosiveBullet.h"
 #include "AOE.h"
 
-void AExplosiveBullet::initialise_AExplosiveBullet(APawn* pawnRef, const TArray<FGameplayEffectSpecHandle>& effect, const TArray<float>& effectChances, float directionX, float directionZ, const FProjectileTemplate& projectileData, const FAOETemplate& explosionData) {
-	initialise_ABullet(pawnRef, effect, effectChances, directionX, directionZ, projectileData);
-	_explosionData = explosionData;
+void AExplosiveBullet::initialise_AExplosiveBullet(
+	APawn* pawnRef,
+	float directionX,
+	float directionZ,
+	const FExplosiveProjectileConfig& config,
+	const FExplosiveProjectileAttributes& attributes,
+	) 
+{
+	_config = MakeUnique<ExplosiveProjectileConfig>(config);
+	_attributes = MakeUnique<ExplosiveProjectileAttributes>(attributes);
+	AExplosiveBullet(pawnRef, directionX, directionZ);
 }
 
-void AExplosiveBullet::bulletDeath_Implementation() {
+void AExplosiveBullet::bulletDeath() {
+	//TODO
+	// IMPLEMENT SPAWN AOE
 	ABullet::bulletDeath();
 }
 
@@ -16,8 +26,9 @@ void AExplosiveBullet::handleSweepResults(const TArray<struct FHitResult>& hits)
 	}
 }
 
-void AExplosiveBullet::finishExplosionInitialisation(AAOE* aoe) {
-	if (aoe) {
-		aoe->initialise_AAOE(_pawnRef, _effect, _explosionData);
-	}
-}
+// Include this in bulletDeath()
+//void AExplosiveBullet::finishExplosionInitialisation(AAOE* aoe) {
+//	if (aoe) {
+//		aoe->initialise_AAOE(_pawnRef, _effect, _explosionData);
+//	}
+//}

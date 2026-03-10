@@ -18,7 +18,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
 // ********** Begin ScriptStruct FAOETemplate ******************************************************
 struct Z_Construct_UScriptStruct_FAOETemplate_Statics;
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOETemplate_h_10_GENERATED_BODY \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOETemplate_h_11_GENERATED_BODY \
 	friend struct ::Z_Construct_UScriptStruct_FAOETemplate_Statics; \
 	static class UScriptStruct* StaticStruct(); \
 	typedef FTableRowBase Super;

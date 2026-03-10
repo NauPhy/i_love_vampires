@@ -12,9 +12,9 @@ static_assert(!UE_WITH_CONSTINIT_UOBJECT, "This generated code can only be compi
 void EmptyLinkFunctionForGeneratedCodeCombatantTemplate() {}
 
 // ********** Begin Cross Module References ********************************************************
-ENGINE_API UClass* Z_Construct_UClass_UTexture2D_NoRegister();
 ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FTableRowBase();
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UCombatantAttributeSet_NoRegister();
+I_LOVE_VAMPIRES_2_API UEnum* Z_Construct_UEnum_i_love_vampires_2_ECombatantAttribute();
+I_LOVE_VAMPIRES_2_API UEnum* Z_Construct_UEnum_i_love_vampires_2_ESprite();
 I_LOVE_VAMPIRES_2_API UScriptStruct* Z_Construct_UScriptStruct_FCombatantTemplate();
 UPackage* Z_Construct_UPackage__Script_i_love_vampires_2();
 // ********** End Cross Module References **********************************************************
@@ -29,42 +29,28 @@ struct Z_Construct_UScriptStruct_FCombatantTemplate_Statics
 		{ "BlueprintType", "true" },
 		{ "ModuleRelativePath", "CombatantTemplate.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_name_MetaData[] = {
-		{ "Category", "FCombatantTemplate" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "//Deprecated in favour of DefinitionLookups.h\n//float getAttributeValue(const FGameplayAttribute& attribute) const;\n" },
-#endif
-		{ "ModuleRelativePath", "CombatantTemplate.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "Deprecated in favour of DefinitionLookups.h\nfloat getAttributeValue(const FGameplayAttribute& attribute) const;" },
-#endif
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ID_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__name_MetaData[] = {
 		{ "Category", "FCombatantTemplate" },
 		{ "ModuleRelativePath", "CombatantTemplate.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_sprite_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__sprite_MetaData[] = {
 		{ "Category", "FCombatantTemplate" },
 		{ "ModuleRelativePath", "CombatantTemplate.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_attributes_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__attributes_MetaData[] = {
 		{ "Category", "FCombatantTemplate" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "/*UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n\x09""float maxHP;\n\x09UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n\x09""float damageReduction_flat;\n\x09UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n\x09""float damageReduction_percent;\n\x09UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n\x09""float healthRegen_flat;\n\x09UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n\x09""float healthRegen_percent;\n\x09UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n\x09""float critChance;\n\x09UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n\x09""float critMultiplier;\n\x09UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n\x09""float attackSpeed;\n\x09UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n\x09""float bonusBounces;\n\x09UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n\x09""float bonusPierce;\n\x09UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n\x09""float bonusProjectiles;\n\x09UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n\x09""float projectileSpeed;\n\x09UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n\x09""float projectileSize;\n\x09UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n\x09""float AOESize;\n\x09UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n\x09""float movementSpeed;\n\x09UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n\x09""float range;\n\x09UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n\x09""float contactDamage;\n\x09UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n\x09""float selfSize;\n\x09UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n\x09""float iFrameDuration;*/" },
-#endif
-		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "CombatantTemplate.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n       float maxHP;\n       UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n       float damageReduction_flat;\n       UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n       float damageReduction_percent;\n       UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n       float healthRegen_flat;\n       UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n       float healthRegen_percent;\n       UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n       float critChance;\n       UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n       float critMultiplier;\n       UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n       float attackSpeed;\n       UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n       float bonusBounces;\n       UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n       float bonusPierce;\n       UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n       float bonusProjectiles;\n       UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n       float projectileSpeed;\n       UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n       float projectileSize;\n       UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n       float AOESize;\n       UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n       float movementSpeed;\n       UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n       float range;\n       UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n       float contactDamage;\n       UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n       float selfSize;\n       UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"A_CombatantAttribute\")\n       float iFrameDuration;" },
-#endif
 	};
 #endif // WITH_METADATA
 
 // ********** Begin ScriptStruct FCombatantTemplate constinit property declarations ****************
-	static const UECodeGen_Private::FStrPropertyParams NewProp_name;
-	static const UECodeGen_Private::FNamePropertyParams NewProp_ID;
-	static const UECodeGen_Private::FSoftObjectPropertyParams NewProp_sprite;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp_attributes;
+	static const UECodeGen_Private::FStrPropertyParams NewProp__name;
+	static const UECodeGen_Private::FBytePropertyParams NewProp__sprite_Underlying;
+	static const UECodeGen_Private::FEnumPropertyParams NewProp__sprite;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp__attributes_ValueProp;
+	static const UECodeGen_Private::FBytePropertyParams NewProp__attributes_Key_KeyProp_Underlying;
+	static const UECodeGen_Private::FEnumPropertyParams NewProp__attributes_Key_KeyProp;
+	static const UECodeGen_Private::FMapPropertyParams NewProp__attributes;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End ScriptStruct FCombatantTemplate constinit property declarations ******************
 	static void* NewStructOps()
@@ -85,15 +71,21 @@ class UScriptStruct* FCombatantTemplate::StaticStruct()
 	}
 
 // ********** Begin ScriptStruct FCombatantTemplate Property Definitions ***************************
-const UECodeGen_Private::FStrPropertyParams Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp_name = { "name", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FCombatantTemplate, name), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_name_MetaData), NewProp_name_MetaData) };
-const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp_ID = { "ID", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FCombatantTemplate, ID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ID_MetaData), NewProp_ID_MetaData) };
-const UECodeGen_Private::FSoftObjectPropertyParams Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp_sprite = { "sprite", nullptr, (EPropertyFlags)0x0014000000000005, UECodeGen_Private::EPropertyGenFlags::SoftObject, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FCombatantTemplate, sprite), Z_Construct_UClass_UTexture2D_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_sprite_MetaData), NewProp_sprite_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp_attributes = { "attributes", nullptr, (EPropertyFlags)0x001000000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FCombatantTemplate, attributes), Z_Construct_UClass_UCombatantAttributeSet_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_attributes_MetaData), NewProp_attributes_MetaData) };
+const UECodeGen_Private::FStrPropertyParams Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp__name = { "_name", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FCombatantTemplate, _name), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__name_MetaData), NewProp__name_MetaData) };
+const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp__sprite_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp__sprite = { "_sprite", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FCombatantTemplate, _sprite), Z_Construct_UEnum_i_love_vampires_2_ESprite, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__sprite_MetaData), NewProp__sprite_MetaData) }; // 1816186303
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp__attributes_ValueProp = { "_attributes", nullptr, (EPropertyFlags)0x0000000000000001, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 1, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FBytePropertyParams Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp__attributes_Key_KeyProp_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp__attributes_Key_KeyProp = { "_attributes_Key", nullptr, (EPropertyFlags)0x0000000000000001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UEnum_i_love_vampires_2_ECombatantAttribute, METADATA_PARAMS(0, nullptr) }; // 3249018120
+const UECodeGen_Private::FMapPropertyParams Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp__attributes = { "_attributes", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FCombatantTemplate, _attributes), EMapPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__attributes_MetaData), NewProp__attributes_MetaData) }; // 3249018120
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FCombatantTemplate_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp_name,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp_ID,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp_sprite,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp_attributes,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp__name,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp__sprite_Underlying,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp__sprite,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp__attributes_ValueProp,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp__attributes_Key_KeyProp_Underlying,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp__attributes_Key_KeyProp,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewProp__attributes,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FCombatantTemplate_Statics::PropPointers) < 2048);
 // ********** End ScriptStruct FCombatantTemplate Property Definitions *****************************
@@ -107,7 +99,7 @@ const UECodeGen_Private::FStructParams Z_Construct_UScriptStruct_FCombatantTempl
 	sizeof(FCombatantTemplate),
 	alignof(FCombatantTemplate),
 	RF_Public|RF_Transient|RF_MarkAsNative,
-	EStructFlags(0x00000205),
+	EStructFlags(0x00000201),
 	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FCombatantTemplate_Statics::Struct_MetaDataParams), Z_Construct_UScriptStruct_FCombatantTemplate_Statics::Struct_MetaDataParams)
 };
 UScriptStruct* Z_Construct_UScriptStruct_FCombatantTemplate()
@@ -124,10 +116,10 @@ UScriptStruct* Z_Construct_UScriptStruct_FCombatantTemplate()
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantTemplate_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FStructRegisterCompiledInInfo ScriptStructInfo[] = {
-		{ FCombatantTemplate::StaticStruct, Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewStructOps, TEXT("CombatantTemplate"),&Z_Registration_Info_UScriptStruct_FCombatantTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FCombatantTemplate), 2814415407U) },
+		{ FCombatantTemplate::StaticStruct, Z_Construct_UScriptStruct_FCombatantTemplate_Statics::NewStructOps, TEXT("CombatantTemplate"),&Z_Registration_Info_UScriptStruct_FCombatantTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FCombatantTemplate), 3764530331U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantTemplate_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantTemplate_h__Script_i_love_vampires_2_2477493183{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantTemplate_h__Script_i_love_vampires_2_3648559158{
 	TEXT("/Script/i_love_vampires_2"),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantTemplate_h__Script_i_love_vampires_2_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantTemplate_h__Script_i_love_vampires_2_Statics::ScriptStructInfo),

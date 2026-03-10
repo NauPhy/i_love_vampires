@@ -11,13 +11,22 @@ UEnemySpawner::UEnemySpawner() {
 
 const float spawnDistance = 300.f;
 void UEnemySpawner::Tick(float DeltaTime) {
-	if (!gameReady)
+	if (!_gameReady)
 		return;
 	const float time = GetWorld()->TimeSeconds;
 	if (time < _nextTick)
 		return;
-	if (testEnemy.enemyClass.Get() == nullptr) {
+	if (_testEnemy._enemyClass.Get() == nullptr) {
 		LOGERROR("UEnemySpawner::Tick - testEnemy is null");
+		return;
+	}
+	if (_combatantData == nullptr) {
+		LOGERROR("UEnemySpawner::Tick - combatant data is null");
+		return;
+	}
+	FCombatantTemplate* testEnemyData = _combatantData->FindRow<FCombatantTemplate>(_testEnemy._enemyID, TEXT("UEnemySpawner::Tick"));
+	if (testEnemyData == nullptr) {
+		LOGERROR("UEnemySpawner::Tick - failed to find enemy data in data table");
 		return;
 	}
 	APawn* player = UGameplayStatics::GetPlayerPawn(GetWorld(),0);
@@ -34,7 +43,7 @@ void UEnemySpawner::Tick(float DeltaTime) {
 	FActorSpawnParameters spawnParams;
 	spawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 	ACombatant* newEnemy = GetWorld()->SpawnActor<ACombatant>(
-		testEnemy.enemyClass,
+		_testEnemy._enemyClass,
 		spawnLocation,
 		spawnRotation,
 		spawnParams
@@ -43,8 +52,7 @@ void UEnemySpawner::Tick(float DeltaTime) {
 		LOGERROR("UEnemySpawner::Tick - failed to spawn enemy");
 		return;
 	}
-	newEnemy->myInitialise();
-	newEnemy->initialiseFromTemplate(testEnemy.enemyData);
+	newEnemy->initialiseFromTemplate(*testEnemyData, _testEnemy._enemyID);
 	_nextTick += 5.f;
 }
 

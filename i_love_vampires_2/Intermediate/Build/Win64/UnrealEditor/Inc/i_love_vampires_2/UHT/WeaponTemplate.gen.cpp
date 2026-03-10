@@ -6,7 +6,7 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "i_love_vampires_2/WeaponTemplate.h"
-#include "i_love_vampires_2/OutgoingStatusEffect.h"
+#include "i_love_vampires_2/EffectStruct.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 static_assert(!UE_WITH_CONSTINIT_UOBJECT, "This generated code can only be compiled with !UE_WITH_CONSTINIT_OBJECT");
@@ -14,7 +14,7 @@ void EmptyLinkFunctionForGeneratedCodeWeaponTemplate() {}
 
 // ********** Begin Cross Module References ********************************************************
 ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FTableRowBase();
-I_LOVE_VAMPIRES_2_API UScriptStruct* Z_Construct_UScriptStruct_FOutgoingStatusEffect();
+I_LOVE_VAMPIRES_2_API UScriptStruct* Z_Construct_UScriptStruct_FEffectStruct();
 I_LOVE_VAMPIRES_2_API UScriptStruct* Z_Construct_UScriptStruct_FWeaponTemplate();
 UPackage* Z_Construct_UPackage__Script_i_love_vampires_2();
 // ********** End Cross Module References **********************************************************
@@ -29,63 +29,58 @@ struct Z_Construct_UScriptStruct_FWeaponTemplate_Statics
 		{ "BlueprintType", "true" },
 		{ "ModuleRelativePath", "WeaponTemplate.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_name_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__name_MetaData[] = {
 		{ "Category", "WeaponTemplate" },
 		{ "ModuleRelativePath", "WeaponTemplate.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_ID_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__startOnCooldown_MetaData[] = {
 		{ "Category", "WeaponTemplate" },
 		{ "ModuleRelativePath", "WeaponTemplate.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_startOnCooldown_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__warmup_MetaData[] = {
 		{ "Category", "WeaponTemplate" },
 		{ "ModuleRelativePath", "WeaponTemplate.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_warmup_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__damage_MetaData[] = {
 		{ "Category", "WeaponTemplate" },
 		{ "ModuleRelativePath", "WeaponTemplate.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_damage_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__critChance_MetaData[] = {
 		{ "Category", "WeaponTemplate" },
 		{ "ModuleRelativePath", "WeaponTemplate.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_critChance_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__critMultiplier_MetaData[] = {
 		{ "Category", "WeaponTemplate" },
 		{ "ModuleRelativePath", "WeaponTemplate.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_critMultiplier_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__statusEffects_MetaData[] = {
 		{ "Category", "WeaponTemplate" },
 		{ "ModuleRelativePath", "WeaponTemplate.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_statusEffects_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__hasProjectileData_MetaData[] = {
 		{ "Category", "WeaponTemplate" },
 		{ "ModuleRelativePath", "WeaponTemplate.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_hasProjectileData_MetaData[] = {
-		{ "Category", "WeaponTemplate" },
-		{ "ModuleRelativePath", "WeaponTemplate.h" },
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_hasAOEData_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__hasAOEData_MetaData[] = {
 		{ "Category", "WeaponTemplate" },
 		{ "ModuleRelativePath", "WeaponTemplate.h" },
 	};
 #endif // WITH_METADATA
 
 // ********** Begin ScriptStruct FWeaponTemplate constinit property declarations *******************
-	static const UECodeGen_Private::FStrPropertyParams NewProp_name;
-	static const UECodeGen_Private::FNamePropertyParams NewProp_ID;
-	static void NewProp_startOnCooldown_SetBit(void* Obj);
-	static const UECodeGen_Private::FBoolPropertyParams NewProp_startOnCooldown;
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_warmup;
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_damage;
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_critChance;
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_critMultiplier;
-	static const UECodeGen_Private::FStructPropertyParams NewProp_statusEffects_Inner;
-	static const UECodeGen_Private::FArrayPropertyParams NewProp_statusEffects;
-	static void NewProp_hasProjectileData_SetBit(void* Obj);
-	static const UECodeGen_Private::FBoolPropertyParams NewProp_hasProjectileData;
-	static void NewProp_hasAOEData_SetBit(void* Obj);
-	static const UECodeGen_Private::FBoolPropertyParams NewProp_hasAOEData;
+	static const UECodeGen_Private::FStrPropertyParams NewProp__name;
+	static void NewProp__startOnCooldown_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp__startOnCooldown;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp__warmup;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp__damage;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp__critChance;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp__critMultiplier;
+	static const UECodeGen_Private::FStructPropertyParams NewProp__statusEffects_Inner;
+	static const UECodeGen_Private::FArrayPropertyParams NewProp__statusEffects;
+	static void NewProp__hasProjectileData_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp__hasProjectileData;
+	static void NewProp__hasAOEData_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp__hasAOEData;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End ScriptStruct FWeaponTemplate constinit property declarations *********************
 	static void* NewStructOps()
@@ -106,41 +101,39 @@ class UScriptStruct* FWeaponTemplate::StaticStruct()
 	}
 
 // ********** Begin ScriptStruct FWeaponTemplate Property Definitions ******************************
-const UECodeGen_Private::FStrPropertyParams Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_name = { "name", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWeaponTemplate, name), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_name_MetaData), NewProp_name_MetaData) };
-const UECodeGen_Private::FNamePropertyParams Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_ID = { "ID", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Name, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWeaponTemplate, ID), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ID_MetaData), NewProp_ID_MetaData) };
-void Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_startOnCooldown_SetBit(void* Obj)
+const UECodeGen_Private::FStrPropertyParams Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp__name = { "_name", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWeaponTemplate, _name), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__name_MetaData), NewProp__name_MetaData) };
+void Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp__startOnCooldown_SetBit(void* Obj)
 {
-	((FWeaponTemplate*)Obj)->startOnCooldown = 1;
+	((FWeaponTemplate*)Obj)->_startOnCooldown = 1;
 }
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_startOnCooldown = { "startOnCooldown", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(FWeaponTemplate), &Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_startOnCooldown_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_startOnCooldown_MetaData), NewProp_startOnCooldown_MetaData) };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_warmup = { "warmup", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWeaponTemplate, warmup), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_warmup_MetaData), NewProp_warmup_MetaData) };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_damage = { "damage", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWeaponTemplate, damage), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_damage_MetaData), NewProp_damage_MetaData) };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_critChance = { "critChance", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWeaponTemplate, critChance), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_critChance_MetaData), NewProp_critChance_MetaData) };
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_critMultiplier = { "critMultiplier", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWeaponTemplate, critMultiplier), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_critMultiplier_MetaData), NewProp_critMultiplier_MetaData) };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_statusEffects_Inner = { "statusEffects", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FOutgoingStatusEffect, METADATA_PARAMS(0, nullptr) }; // 2778772122
-const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_statusEffects = { "statusEffects", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWeaponTemplate, statusEffects), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_statusEffects_MetaData), NewProp_statusEffects_MetaData) }; // 2778772122
-void Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_hasProjectileData_SetBit(void* Obj)
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp__startOnCooldown = { "_startOnCooldown", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(FWeaponTemplate), &Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp__startOnCooldown_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__startOnCooldown_MetaData), NewProp__startOnCooldown_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp__warmup = { "_warmup", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWeaponTemplate, _warmup), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__warmup_MetaData), NewProp__warmup_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp__damage = { "_damage", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWeaponTemplate, _damage), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__damage_MetaData), NewProp__damage_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp__critChance = { "_critChance", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWeaponTemplate, _critChance), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__critChance_MetaData), NewProp__critChance_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp__critMultiplier = { "_critMultiplier", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWeaponTemplate, _critMultiplier), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__critMultiplier_MetaData), NewProp__critMultiplier_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp__statusEffects_Inner = { "_statusEffects", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FEffectStruct, METADATA_PARAMS(0, nullptr) }; // 4244353823
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp__statusEffects = { "_statusEffects", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(FWeaponTemplate, _statusEffects), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__statusEffects_MetaData), NewProp__statusEffects_MetaData) }; // 4244353823
+void Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp__hasProjectileData_SetBit(void* Obj)
 {
-	((FWeaponTemplate*)Obj)->hasProjectileData = 1;
+	((FWeaponTemplate*)Obj)->_hasProjectileData = 1;
 }
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_hasProjectileData = { "hasProjectileData", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(FWeaponTemplate), &Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_hasProjectileData_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_hasProjectileData_MetaData), NewProp_hasProjectileData_MetaData) };
-void Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_hasAOEData_SetBit(void* Obj)
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp__hasProjectileData = { "_hasProjectileData", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(FWeaponTemplate), &Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp__hasProjectileData_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__hasProjectileData_MetaData), NewProp__hasProjectileData_MetaData) };
+void Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp__hasAOEData_SetBit(void* Obj)
 {
-	((FWeaponTemplate*)Obj)->hasAOEData = 1;
+	((FWeaponTemplate*)Obj)->_hasAOEData = 1;
 }
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_hasAOEData = { "hasAOEData", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(FWeaponTemplate), &Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_hasAOEData_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_hasAOEData_MetaData), NewProp_hasAOEData_MetaData) };
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp__hasAOEData = { "_hasAOEData", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(FWeaponTemplate), &Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp__hasAOEData_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__hasAOEData_MetaData), NewProp__hasAOEData_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UScriptStruct_FWeaponTemplate_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_name,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_ID,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_startOnCooldown,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_warmup,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_damage,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_critChance,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_critMultiplier,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_statusEffects_Inner,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_statusEffects,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_hasProjectileData,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp_hasAOEData,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp__name,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp__startOnCooldown,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp__warmup,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp__damage,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp__critChance,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp__critMultiplier,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp__statusEffects_Inner,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp__statusEffects,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp__hasProjectileData,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewProp__hasAOEData,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UScriptStruct_FWeaponTemplate_Statics::PropPointers) < 2048);
 // ********** End ScriptStruct FWeaponTemplate Property Definitions ********************************
@@ -171,10 +164,10 @@ UScriptStruct* Z_Construct_UScriptStruct_FWeaponTemplate()
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_WeaponTemplate_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FStructRegisterCompiledInInfo ScriptStructInfo[] = {
-		{ FWeaponTemplate::StaticStruct, Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewStructOps, TEXT("WeaponTemplate"),&Z_Registration_Info_UScriptStruct_FWeaponTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWeaponTemplate), 1660615745U) },
+		{ FWeaponTemplate::StaticStruct, Z_Construct_UScriptStruct_FWeaponTemplate_Statics::NewStructOps, TEXT("WeaponTemplate"),&Z_Registration_Info_UScriptStruct_FWeaponTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FStructReloadVersionInfo, sizeof(FWeaponTemplate), 3407588627U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_WeaponTemplate_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_WeaponTemplate_h__Script_i_love_vampires_2_4103102036{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_WeaponTemplate_h__Script_i_love_vampires_2_2666204215{
 	TEXT("/Script/i_love_vampires_2"),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_WeaponTemplate_h__Script_i_love_vampires_2_Statics::ScriptStructInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_WeaponTemplate_h__Script_i_love_vampires_2_Statics::ScriptStructInfo),

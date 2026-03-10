@@ -3,25 +3,28 @@
 #include "Components/SphereComponent.h"
 #include "Combatant.h"
 #include "Definitions.h"
+#include "EnumConverter.h"
+#include "AOEUEnum.h"
 
-void AAOE::initialise_AAOE(APawn* pawnRef, const TArray<FGameplayEffectSpecHandle>& effect, const TArray<float>& effectChances, const FAOETemplate& AOEData) {
-	initialise_AAttackActor(pawnRef, effect, effectChances);
+void AAOE::initialise_AAOE(APawn* pawnRef, const TArray<FEffectStruct>& effects, FName ID) {
+	initialise_AAttackActor(pawnRef, effects, ID);
 	initialise_AAOE_int(AOEData);
 }
-void AAOE::initialise_AAOE(TWeakObjectPtr<APawn> pawnRef, const TArray<EffectStruct>& effect, const FAOETemplate& AOEData) {
-	initialise_AAttackActor(pawnRef, effect);
+void AAOE::initialise_AAOE(TWeakObjectPtr<APawn> pawnRef, const TArray<FEffectStruct>& effects, const FAOETemplate& AOEData) {
+	initialise_AAttackActor(pawnRef, effects);
 	initialise_AAOE_int(AOEData);
 }
 void AAOE::initialise_AAOE_int(const FAOETemplate& AOEData) {
-	_duration = AOEData.duration;
-	_shape = AOEData.shape;
-	_radius = AOEData.radius;
+	_duration = AOEData._duration;
+	auto converted = EnumConverter<AOEShape::MyEnum, EAOEShape>::toStdEnum(AOEData._shape);
+	_shape = converted;
+	_radius = AOEData._radius;
 	initShape();
 }
 
 void AAOE::initShape() {
-	//circle (sphere)
-	if (_shape == 0) {
+	//(sphere)
+	if (_shape == _CIRCLE) {
 		_collider = NewObject<USphereComponent>(this);
 		Cast<USphereComponent>(_collider)->InitSphereRadius(_radius);
 	}

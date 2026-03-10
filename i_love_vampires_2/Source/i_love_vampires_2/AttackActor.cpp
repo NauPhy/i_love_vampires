@@ -1,55 +1,70 @@
 #include "AttackActor.h"
-#include "AbilitySystemComponent.h"
-#include "CombatantManager.h"
 #include "Combatant.h"
+#include "StatusFactory.h"
 #include "Definitions.h"
 
-namespace {
-	void inflictBurn(ACombatant* combatant, TSharedPtr<FGameplayEffectSpec> effectSpec) {
-		if (effectSpec.Get() == nullptr) {
-			LOGERROR("AAttackActor::inflictBurn - effectSpec is null");
-			return;
-		}
-		float magnitude = effectSpec->GetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag("myMagnitude"));
-		float duration = effectSpec->GetSetByCallerMagnitude(FGameplayTag::RequestGameplayTag("myDuration"));
-		UCombatantManager* manager = GWorld->GetSubsystem<UCombatantManager>();
-		if (manager == nullptr) {
-			LOGERROR("AAttackActor::inflictBurn - manager is null");
-			return;
-		}
-		manager->inflictBurn(combatant, magnitude, duration);
-	}
+void AAttackActor::Tick(float delta) {}
+
+void AAttackActor::initialise_AAttackActor(APawn* pawnRef) {
+	_pawnRef = TWeakObjectPtr<APawn>(pawnRef);
 }
 
-void AAttackActor::Tick(float delta) {}
+void AAttackActor::initialise_AAttackActor(APawn* pawnRef, const FWeaponConfig& config, const FWeaponAttributes& attributes) {
+	initialise_AAttackActor(pawnRef);
+	_config = MakeUnique<FWeaponConfig>(config);
+	_attributes = MakeUnique<FWeaponAttributes>(attributes);
+}
 
 void AAttackActor::applyEffect(ACombatant* target) {
 	if (_pawnRef.Get() != nullptr)
 		if (target == _pawnRef.Get())
 			return;
-	UAbilitySystemComponent* targetASC = target->abilitySystemComponent;
-	if (targetASC == nullptr) {
-		LOGERROR("AAttackActor::applyEffect - targetASC is null");
-		return;
+	for (auto i = _effectedPawns.Num() - 1; i > -1; i--)
+	{
+		APawn* tempPawn = _effectedPawns[i].Get();
+		if (tempPawn == nullptr)
+		{
+			_effectedPawns.RemoveAt(i);
+		}
+		else if (tempPawn == target)
+		{
+			return;
+		}
 	}
-	for (const EffectStruct& tempStruct : _effect) {
-		if (FMath::FRand() <= tempStruct.chance) {
-			TSharedPtr<FGameplayEffectSpec> effectSpec = tempStruct.effect;
-			if (effectSpec.Get() == nullptr) {
-				LOGERROR("AAttackActor::applyEffect - effectSpec is null");
-				continue;
-			}
-			//Check tags
-			FGameplayTagContainer effectTags;
-			effectSpec->GetAllAssetTags(effectTags);
-			//Burn tag
-			if (effectTags.HasTag(FGameplayTag::RequestGameplayTag("burnRequest"))) {
-				inflictBurn(target, effectSpec);
-			}
-			//No tags
-			else
-				targetASC->ApplyGameplayEffectSpecToSelf(*effectSpec);
+	// Chance is included in the newly created effect, just in case
+	for (const FEffectStruct& tempStruct : _config->_statusEffects) {
+		if (FMath::FRand() <= tempStruct._chance) {
+
+			target->inflictStatus(StatusFactory::createStatusEffect(tempStruct));
 		}
 	}
 	_effectedPawns.Add(TWeakObjectPtr<APawn>(Cast<APawn>(target)));
+}
+
+template<typename configType>
+bool AAttackActor::castConfig(configType*& ret) {
+	if (!_config.IsValid()) {
+		LOGERROR("AAttackActor::castConfig - not valid");
+		return false;
+	}
+	ret = Cast<configType>(_config);
+	if (ret == nullptr) {
+		LOGERROR("AAttackActor::castConfig - cast failed");
+		return false;
+	}
+	return true;
+}
+
+template<typename attributeType>
+bool AAttackActor::castAttribute(attributeType*& ret) {
+	if (!_attributes.IsValid()) {
+		LOGERROR("AAttackActor::castAttribute - not valid");
+		return false;
+	}
+	ret = Cast<attributeType>(_attributes);
+	if (ret == nullptr) {
+		LOGERROR("AAttackActor::castAttribute - cast failed");
+		return false;
+	}
+	return true;
 }

@@ -3,10 +3,13 @@
 #include "StatusEnum.generated.h"
 
 UENUM(BlueprintType)
-enum class EStatusEffect : uint8
+enum class EStatus : uint8
 {
-	bleed       UMETA(DisplayName = "Bleed"),
-	burn        UMETA(DisplayName = "Burn"),
-	max         UMETA(Hidden)
+	damage UMETA(DisplayName = "damage"),
+	bleed UMETA(DisplayName = "bleed"),
+	burn UMETA(DisplayName = "burn")
 };
 
+// Dependencies
+// All
+//     - StatusFactory.h

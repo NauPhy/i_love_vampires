@@ -7,8 +7,8 @@
 #include "UObject/GeneratedCppIncludes.h"
 #include "i_love_vampires_2/AOE.h"
 #include "Engine/HitResult.h"
-#include "GameplayEffectTypes.h"
 #include "i_love_vampires_2/AOETemplate.h"
+#include "i_love_vampires_2/EffectStruct.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 static_assert(!UE_WITH_CONSTINIT_UOBJECT, "This generated code can only be compiled with !UE_WITH_CONSTINIT_OBJECT");
@@ -18,12 +18,13 @@ void EmptyLinkFunctionForGeneratedCodeAOE() {}
 ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_APawn_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UPrimitiveComponent_NoRegister();
+ENGINE_API UClass* Z_Construct_UClass_UShapeComponent_NoRegister();
 ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FHitResult();
-GAMEPLAYABILITIES_API UScriptStruct* Z_Construct_UScriptStruct_FGameplayEffectSpecHandle();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AAOE();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AAOE_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AAttackActor();
 I_LOVE_VAMPIRES_2_API UScriptStruct* Z_Construct_UScriptStruct_FAOETemplate();
+I_LOVE_VAMPIRES_2_API UScriptStruct* Z_Construct_UScriptStruct_FEffectStruct();
 UPackage* Z_Construct_UPackage__Script_i_love_vampires_2();
 // ********** End Cross Module References **********************************************************
 
@@ -33,8 +34,7 @@ struct Z_Construct_UFunction_AAOE_initialise_AAOE_Statics
 	struct AOE_eventinitialise_AAOE_Parms
 	{
 		APawn* pawnRef;
-		TArray<FGameplayEffectSpecHandle> effect;
-		TArray<float> effectChances;
+		TArray<FEffectStruct> effects;
 		FAOETemplate AOEData;
 	};
 #if WITH_METADATA
@@ -47,10 +47,7 @@ struct Z_Construct_UFunction_AAOE_initialise_AAOE_Statics
 		{ "ToolTip", "This is including attribute mods" },
 #endif
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_effect_MetaData[] = {
-		{ "NativeConst", "" },
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_effectChances_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_effects_MetaData[] = {
 		{ "NativeConst", "" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_AOEData_MetaData[] = {
@@ -60,10 +57,8 @@ struct Z_Construct_UFunction_AAOE_initialise_AAOE_Statics
 
 // ********** Begin Function initialise_AAOE constinit property declarations ***********************
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_pawnRef;
-	static const UECodeGen_Private::FStructPropertyParams NewProp_effect_Inner;
-	static const UECodeGen_Private::FArrayPropertyParams NewProp_effect;
-	static const UECodeGen_Private::FFloatPropertyParams NewProp_effectChances_Inner;
-	static const UECodeGen_Private::FArrayPropertyParams NewProp_effectChances;
+	static const UECodeGen_Private::FStructPropertyParams NewProp_effects_Inner;
+	static const UECodeGen_Private::FArrayPropertyParams NewProp_effects;
 	static const UECodeGen_Private::FStructPropertyParams NewProp_AOEData;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Function initialise_AAOE constinit property declarations *************************
@@ -72,17 +67,13 @@ struct Z_Construct_UFunction_AAOE_initialise_AAOE_Statics
 
 // ********** Begin Function initialise_AAOE Property Definitions **********************************
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_AAOE_initialise_AAOE_Statics::NewProp_pawnRef = { "pawnRef", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AOE_eventinitialise_AAOE_Parms, pawnRef), Z_Construct_UClass_APawn_NoRegister, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_AAOE_initialise_AAOE_Statics::NewProp_effect_Inner = { "effect", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FGameplayEffectSpecHandle, METADATA_PARAMS(0, nullptr) }; // 2221987375
-const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_AAOE_initialise_AAOE_Statics::NewProp_effect = { "effect", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AOE_eventinitialise_AAOE_Parms, effect), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_effect_MetaData), NewProp_effect_MetaData) }; // 2221987375
-const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_AAOE_initialise_AAOE_Statics::NewProp_effectChances_Inner = { "effectChances", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_AAOE_initialise_AAOE_Statics::NewProp_effectChances = { "effectChances", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AOE_eventinitialise_AAOE_Parms, effectChances), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_effectChances_MetaData), NewProp_effectChances_MetaData) };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_AAOE_initialise_AAOE_Statics::NewProp_AOEData = { "AOEData", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AOE_eventinitialise_AAOE_Parms, AOEData), Z_Construct_UScriptStruct_FAOETemplate, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AOEData_MetaData), NewProp_AOEData_MetaData) }; // 2339361029
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_AAOE_initialise_AAOE_Statics::NewProp_effects_Inner = { "effects", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FEffectStruct, METADATA_PARAMS(0, nullptr) }; // 4244353823
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_AAOE_initialise_AAOE_Statics::NewProp_effects = { "effects", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AOE_eventinitialise_AAOE_Parms, effects), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_effects_MetaData), NewProp_effects_MetaData) }; // 4244353823
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UFunction_AAOE_initialise_AAOE_Statics::NewProp_AOEData = { "AOEData", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AOE_eventinitialise_AAOE_Parms, AOEData), Z_Construct_UScriptStruct_FAOETemplate, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_AOEData_MetaData), NewProp_AOEData_MetaData) }; // 2896696098
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AAOE_initialise_AAOE_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AAOE_initialise_AAOE_Statics::NewProp_pawnRef,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AAOE_initialise_AAOE_Statics::NewProp_effect_Inner,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AAOE_initialise_AAOE_Statics::NewProp_effect,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AAOE_initialise_AAOE_Statics::NewProp_effectChances_Inner,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AAOE_initialise_AAOE_Statics::NewProp_effectChances,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AAOE_initialise_AAOE_Statics::NewProp_effects_Inner,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AAOE_initialise_AAOE_Statics::NewProp_effects,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AAOE_initialise_AAOE_Statics::NewProp_AOEData,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AAOE_initialise_AAOE_Statics::PropPointers) < 2048);
@@ -104,12 +95,11 @@ UFunction* Z_Construct_UFunction_AAOE_initialise_AAOE()
 DEFINE_FUNCTION(AAOE::execinitialise_AAOE)
 {
 	P_GET_OBJECT(APawn,Z_Param_pawnRef);
-	P_GET_TARRAY_REF(FGameplayEffectSpecHandle,Z_Param_Out_effect);
-	P_GET_TARRAY_REF(float,Z_Param_Out_effectChances);
+	P_GET_TARRAY_REF(FEffectStruct,Z_Param_Out_effects);
 	P_GET_STRUCT_REF(FAOETemplate,Z_Param_Out_AOEData);
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	P_THIS->initialise_AAOE(Z_Param_pawnRef,Z_Param_Out_effect,Z_Param_Out_effectChances,Z_Param_Out_AOEData);
+	P_THIS->initialise_AAOE(Z_Param_pawnRef,Z_Param_Out_effects,Z_Param_Out_AOEData);
 	P_NATIVE_END;
 }
 // ********** End Class AAOE Function initialise_AAOE **********************************************
@@ -241,9 +231,15 @@ struct Z_Construct_UClass_AAOE_Statics
 		{ "IncludePath", "AOE.h" },
 		{ "ModuleRelativePath", "AOE.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__collider_MetaData[] = {
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "AOE.h" },
+	};
 #endif // WITH_METADATA
 
 // ********** Begin Class AAOE constinit property declarations *************************************
+	static const UECodeGen_Private::FObjectPropertyParams NewProp__collider;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class AAOE constinit property declarations ***************************************
 	static constexpr UE::CodeGen::FClassNativeFunction Funcs[] = {
 		{ .NameUTF8 = UTF8TEXT("initialise_AAOE"), .Pointer = &AAOE::execinitialise_AAOE },
@@ -251,7 +247,7 @@ struct Z_Construct_UClass_AAOE_Statics
 	};
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_AAOE_initialise_AAOE, "initialise_AAOE" }, // 3669434771
+		{ &Z_Construct_UFunction_AAOE_initialise_AAOE, "initialise_AAOE" }, // 2438786850
 		{ &Z_Construct_UFunction_AAOE_OnOverlapBegin, "OnOverlapBegin" }, // 3246697632
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
@@ -260,6 +256,14 @@ struct Z_Construct_UClass_AAOE_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 }; // struct Z_Construct_UClass_AAOE_Statics
+
+// ********** Begin Class AAOE Property Definitions ************************************************
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AAOE_Statics::NewProp__collider = { "_collider", nullptr, (EPropertyFlags)0x0040000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAOE, _collider), Z_Construct_UClass_UShapeComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__collider_MetaData), NewProp__collider_MetaData) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AAOE_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AAOE_Statics::NewProp__collider,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AAOE_Statics::PropPointers) < 2048);
+// ********** End Class AAOE Property Definitions **************************************************
 UObject* (*const Z_Construct_UClass_AAOE_Statics::DependentSingletons[])() = {
 	(UObject* (*)())Z_Construct_UClass_AAttackActor,
 	(UObject* (*)())Z_Construct_UPackage__Script_i_love_vampires_2,
@@ -271,11 +275,11 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_AAOE_Statics::ClassPara
 	&StaticCppClassTypeInfo,
 	DependentSingletons,
 	FuncInfo,
-	nullptr,
+	Z_Construct_UClass_AAOE_Statics::PropPointers,
 	nullptr,
 	UE_ARRAY_COUNT(DependentSingletons),
 	UE_ARRAY_COUNT(FuncInfo),
-	0,
+	UE_ARRAY_COUNT(Z_Construct_UClass_AAOE_Statics::PropPointers),
 	0,
 	0x008000A4u,
 	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AAOE_Statics::Class_MetaDataParams), Z_Construct_UClass_AAOE_Statics::Class_MetaDataParams)
@@ -301,10 +305,10 @@ AAOE::~AAOE() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AAOE, AAOE::StaticClass, TEXT("AAOE"), &Z_Registration_Info_UClass_AAOE, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AAOE), 204984559U) },
+		{ Z_Construct_UClass_AAOE, AAOE::StaticClass, TEXT("AAOE"), &Z_Registration_Info_UClass_AAOE, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AAOE), 3962811433U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_1326555979{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_1415760518{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

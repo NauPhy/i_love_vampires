@@ -1,0 +1,1 @@
+#include "WeaponTemplate_Attr.h"

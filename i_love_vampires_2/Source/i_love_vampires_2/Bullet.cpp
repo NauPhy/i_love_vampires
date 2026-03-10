@@ -6,6 +6,8 @@
 #include "CombatantManager.h"
 #include "Combatant.h"
 #include "Definitions.h"
+#include "BulletUEnum.h"
+#include "EnumConverter.h"
 
 namespace {
 	float dist(float x, float y) {
@@ -18,13 +20,23 @@ void ABullet::performSweep(const FVector& startPos, const FVector& endPos, TArra
 	params.AddObjectTypesToQuery(ECC_Pawn);
 	FCollisionQueryParams params2;
 	params2.AddIgnoredActor(this);
-	if (_pawnRef.Get() == nullptr)
-		return;
-	params2.AddIgnoredActor(_pawnRef.Get());
+	if (_pawnRef.Get() != nullptr)
+		params2.AddIgnoredActor(_pawnRef.Get());
 	for (const auto& tempPawn : _effectedPawns) {
-		params2.AddIgnoredActor(tempPawn.Get());
+		if (tempPawn.Get() != nullptr)
+			params2.AddIgnoredActor(tempPawn.Get());
 	}
-	GetWorld()->SweepMultiByObjectType(OutHits, startPos, endPos, FQuat::Identity, params, FCollisionShape::MakeSphere(_radius), params2);
+	UWorld* world = GetWorld();
+	if (world == nullptr) {
+		LOGERROR("ABullet::performSweep - world is null");
+		return;
+	}
+	if (_shape == _CIRCLE) {
+		world->SweepMultiByObjectType(OutHits, startPos, endPos, FQuat::Identity, params, FCollisionShape::MakeSphere(_radius), params2);
+	}
+	else {
+		LOGERROR("ABullet::performSweep - shape not implemented");
+	}
 }
 
 void ABullet::handleSweepResults(const TArray<struct FHitResult>& hits) {
@@ -60,7 +72,23 @@ void ABullet::handleBouncePierce() {
 }
 
 void ABullet::executeBounce() {
-	TWeakObjectPtr<const ACombatant> newTarget = GetWorld()->GetSubsystem<UCombatantManager>()->getRandomEnemyPtr();
+	TWeakObjectPtr<ACombatant> newTarget = nullptr;
+	{
+		UWorld* world = GetWorld();
+		if (world == nullptr) {
+			LOGERROR("ABullet::executeBounce - world is null");
+			return;
+		}
+		UCombatantManager* manager = world->GetSubsystem<UCombatantManager>();
+		if (manager == nullptr) {
+			LOGERROR("ABullet::executeBounce - manager is null");
+			return;
+		}
+		if (!manager->getRandomEnemyPtr(newTarget)) {
+			bulletDeath();
+			return;
+		}
+	}
 	if (newTarget.Get() == nullptr) {
 		bulletDeath();
 		return;
@@ -90,22 +118,23 @@ void ABullet::Tick(float delta) {
 	_distanceTravelled += _speed * delta;
 }
 
-void ABullet::initialise_ABullet(APawn* pawnRef, const TArray<FGameplayEffectSpecHandle>& effect, const TArray<float>& effectChances, float directionX, float directionZ, const FProjectileTemplate& bulletData) {
-	initialise_AAttackActor(pawnRef, effect, effectChances);
+void ABullet::initialise_ABullet(APawn* pawnRef, const TArray<FEffectStruct>& effects, float directionX, float directionZ, const FProjectileTemplate& bulletData) {
+	initialise_AAttackActor(pawnRef, effects);
 	initialise_ABullet_int(directionX, directionZ, bulletData);
 }
-void ABullet::initialise_ABullet(TWeakObjectPtr<APawn> pawnRef, const TArray<EffectStruct>& effect, float directionX, float directionZ, const FProjectileTemplate& bulletData) {
-	initialise_AAttackActor(pawnRef, effect);
+void ABullet::initialise_ABullet(TWeakObjectPtr<APawn> pawnRef, const TArray<FEffectStruct>& effects, float directionX, float directionZ, const FProjectileTemplate& bulletData) {
+	initialise_AAttackActor(pawnRef, effects);
 	initialise_ABullet_int(directionX, directionZ, bulletData);
 }
 void ABullet::initialise_ABullet_int(float directionX, float directionZ, const FProjectileTemplate& bulletData) {
 	_directionX = directionX;
 	_directionZ = directionZ;
-	_shape = bulletData.shape;
-	_radius = bulletData.radius;
-	_isHoming = bulletData.isHoming;
-	_speed = bulletData.speed;
-	_range = bulletData.range;
-	_pierce = bulletData.pierce;
-	_bounce = bulletData.bounce;
+	auto converted = EnumConverter<ProjectileShape::MyEnum, EProjectileShape>::toStdEnum(bulletData._shape);
+	_shape = converted;
+	_radius = bulletData._radius;
+	_isHoming = bulletData._isHoming;
+	_speed = bulletData._speed;
+	_range = bulletData._range;
+	_pierce = bulletData._pierce;
+	_bounce = bulletData._bounce;
 }
