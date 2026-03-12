@@ -534,10 +534,13 @@
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\i_love_vampires_2\Active.cpp" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\AOETemplate_Attr.cpp" />
+    <ClCompile Include="..\..\Source\i_love_vampires_2\ActiveTemplate.cpp" />
+    <ClCompile Include="..\..\Source\i_love_vampires_2\AOEAttributes.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\AOEAttributes.h" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\AssetRefs.cpp" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\CombatantTemplate_Attr.cpp" />
+    <ClCompile Include="..\..\Source\i_love_vampires_2\CombatantAttributes.cpp" />
+    <ClCompile Include="..\..\Source\i_love_vampires_2\CombatantTemplateFull.cpp" />
+    <ClCompile Include="..\..\Source\i_love_vampires_2\EffectStruct.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\ExperienceShard.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\Item.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\MyAOEAttributeSet.cpp" />
@@ -546,12 +549,19 @@
     <ClCompile Include="..\..\Source\i_love_vampires_2\MyProjectileAttributeSet.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\MyWeaponAttributeSet.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\StatusEffect_Damage.cpp" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\WeaponTemplate_Attr.cpp" />
+    <ClCompile Include="..\..\Source\i_love_vampires_2\StatusFactory.cpp" />
+    <ClCompile Include="..\..\Source\i_love_vampires_2\SubActiveTemplate.cpp" />
+    <ClCompile Include="..\..\Source\i_love_vampires_2\WeaponAttributes.cpp" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\Active.h" />
+    <ClInclude Include="..\..\Source\i_love_vampires_2\ActiveTemplate.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\AOEEnum.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\AssetRefs.h" />
+    <ClInclude Include="..\..\Source\i_love_vampires_2\CombatantTemplateFull.h" />
+    <ClInclude Include="..\..\Source\i_love_vampires_2\EffectStruct.h" />
+    <ClInclude Include="..\..\Source\i_love_vampires_2\ExplosiveProjectileConfig.cpp" />
+    <ClInclude Include="..\..\Source\i_love_vampires_2\ExplosiveProjectileConfig.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\ProjectileEnum.h" />
-    <ClInclude Include="..\..\Source\i_love_vampires_2\CombatantTemplate_Attr.h" />
+    <ClInclude Include="..\..\Source\i_love_vampires_2\CombatantAttributes.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\ExperienceShard.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\Item.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\MyAOEAttributeSet.h" />
@@ -561,10 +571,13 @@
     <ClInclude Include="..\..\Source\i_love_vampires_2\MyPlayer.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\MyProjectileAttributeSet.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\MyWeaponAttributeSet.h" />
-    <ClInclude Include="..\..\Source\i_love_vampires_2\ProjectileTemplate_Attr.h" />
+    <ClInclude Include="..\..\Source\i_love_vampires_2\ProjectileAttributes.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\SpriteEnum.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\StatusEffect_Damage.h" />
-    <ClInclude Include="..\..\Source\i_love_vampires_2\WeaponTemplate_Attr.h" />
+    <ClInclude Include="..\..\Source\i_love_vampires_2\StatusEnum.h" />
+    <ClInclude Include="..\..\Source\i_love_vampires_2\StatusFactory.h" />
+    <ClInclude Include="..\..\Source\i_love_vampires_2\SubActiveTemplate.h" />
+    <ClInclude Include="..\..\Source\i_love_vampires_2\WeaponAttributes.h" />
     <None Include="..\..\.vsconfig" />
     <None Include="..\..\Config\DefaultEditor.ini" />
     <None Include="..\..\Config\DefaultEngine.ini" />
@@ -639,7 +652,7 @@
       <AdditionalOptions>$(ClCompile_AdditionalOptions_1)</AdditionalOptions>
     </ClCompile>
     <ClInclude Include="..\..\Source\i_love_vampires_2\AOE.h" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\AOETemplate.cpp">
+    <ClCompile Include="..\..\Source\i_love_vampires_2\AOEConfig.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories_2)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles_2)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions_1)</AdditionalOptions>
@@ -669,19 +682,13 @@
       <AdditionalOptions>$(ClCompile_AdditionalOptions_1)</AdditionalOptions>
     </ClCompile>
     <ClInclude Include="..\..\Source\i_love_vampires_2\CombatantManager.h" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\CombatantTemplate.cpp">
+    <ClCompile Include="..\..\Source\i_love_vampires_2\CombatantConfig.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories_2)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles_2)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions_1)</AdditionalOptions>
     </ClCompile>
     <ClInclude Include="..\..\Source\i_love_vampires_2\EnemyRef.h" />
-    <ClInclude Include="..\..\Source\i_love_vampires_2\CombatantTemplate.h" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\DefinitionLookups_old.cpp">
-      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories_2)</AdditionalIncludeDirectories>
-      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles_2)</ForcedIncludeFiles>
-      <AdditionalOptions>$(ClCompile_AdditionalOptions_1)</AdditionalOptions>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\DefinitionLookups_old.h" />
+    <ClInclude Include="..\..\Source\i_love_vampires_2\CombatantConfig.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\Definitions.h" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\EnemyBase.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\EnemyRef.cpp" />
@@ -713,13 +720,13 @@
     </ClCompile>
     <ClInclude Include="..\..\Source\i_love_vampires_2\PassiveTemplate.h" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\MyPlayer.cpp" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\ProjectileTemplate.cpp">
+    <ClCompile Include="..\..\Source\i_love_vampires_2\ProjectileConfig.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories_2)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles_2)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions_1)</AdditionalOptions>
     </ClCompile>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\ProjectileTemplate.h" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\ProjectileTemplate_Attr.cpp" />
+    <ClInclude Include="..\..\Source\i_love_vampires_2\ProjectileConfig.h" />
+    <ClCompile Include="..\..\Source\i_love_vampires_2\ProjectileAttributes.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\SpriteManager.cpp" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\SpriteManager.h" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\StatusEffect.cpp" />
@@ -728,12 +735,12 @@
     <ClInclude Include="..\..\Source\i_love_vampires_2\StatusEffect.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\StatusEffect_Bleed.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\StatusEffect_Burn.h" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\WeaponTemplate.cpp">
+    <ClCompile Include="..\..\Source\i_love_vampires_2\WeaponConfig.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories_2)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles_2)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions_1)</AdditionalOptions>
     </ClCompile>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\WeaponTemplate.h" />
+    <ClInclude Include="..\..\Source\i_love_vampires_2\WeaponConfig.h" />
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <PropertyGroup>

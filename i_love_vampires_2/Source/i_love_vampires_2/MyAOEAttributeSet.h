@@ -1,18 +1,15 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "MyAttributeSet.h"
-#include "MyAOEAttributeSet.generated.h"
+#include "AOEAttributes.h"
 class UMyCombatantAttributeSet;
 
-UCLASS()
-class I_LOVE_VAMPIRES_2_API UMyAOEAttributeSet : public UMyAttributeSet<FAOETemplate_Attr>
+class UMyAOEAttributeSet : public UMyAttributeSet<FAOEAttributes>
 {
-	GENERATED_BODY()
-
 protected:
 	virtual void updateFromModifiers() override;
 
 public:
 	UMyAOEAttributeSet() = default;
-	void initialise_UMyAOEAttributeSet(FName ID, FCombatantAttributeSet*);
+	void initialise_UMyAOEAttributeSet(const FAOEAttributes*, TSharedPtr<UMyCombatantAttributeSet>&);
 };

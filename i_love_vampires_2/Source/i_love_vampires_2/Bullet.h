@@ -10,7 +10,7 @@ UCLASS()
 class ABullet : public AAttackActor {
 	GENERATED_BODY()
 
-	const ProjectileShape::MyEnum _CIRCLE = ProjectileShape::MyEnum::circle;
+	const EProjectileShape _CIRCLE = EProjectileShape::circle;
 
 protected:
 	float _directionX = 0;
@@ -31,7 +31,6 @@ protected:
 	void handleBouncePierce();
 
 private:
-	void initialise_ABullet_int(float directionX, float directionZ, const FProjectileTemplate& bulletData);
 	void performSweep(const FVector&, const FVector&, TArray<struct FHitResult>&);
 	void executeBounce();
 };

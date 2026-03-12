@@ -1,12 +1,12 @@
 #pragma once
 #include "StatusEffect.h"
-#include "CombatantTemplate_Attr.h"
+#include "CombatantAttributes.h"
 
-class StatusEffect_Bleed : public StatusEffect<FCombatantTemplate_Attr> {
+class StatusEffect_Bleed : public StatusEffect<FCombatantAttributes> {
 public:
-	StatusEffect_Bleed(float duration, float magnitude) : StatusEffect(duration, magnitude) {}
+	StatusEffect_Bleed(float duration, float magnitude, float chance) : StatusEffect(duration, magnitude, chance) {}
 	StatusEffect_Bleed() = delete;
-	void prebonusStep(FCombatantTemplate_Attr& finalAttributes, FCombatantTemplate_Attr& attributeOffsets, float delta) override {}
-	void multiplierStep(FCombatantTemplate_Attr& finalAttributes, FCombatantTemplate_Attr& attributeOffsets, float delta) override {}
-	void postbonusStep(FCombatantTemplate_Attr& finalAttributes, FCombatantTemplate_Attr& attributeOffsets, float delta) override;
+	void prebonusStep(FCombatantAttributes& finalAttributes, FCombatantAttributes& attributeOffsets, float delta) override {}
+	void multiplierStep(FCombatantAttributes& finalAttributes, FCombatantAttributes& attributeOffsets, float delta) override {}
+	void postbonusStep(FCombatantAttributes& finalAttributes, FCombatantAttributes& attributeOffsets, float delta) override;
 };

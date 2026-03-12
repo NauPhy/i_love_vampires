@@ -16,16 +16,12 @@
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 class AActor;
-class APawn;
 class UPrimitiveComponent;
-struct FAOETemplate;
-struct FEffectStruct;
 struct FHitResult;
 
 // ********** Begin Class AAOE *********************************************************************
 #define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_12_RPC_WRAPPERS_NO_PURE_DECLS \
-	DECLARE_FUNCTION(execOnOverlapBegin); \
-	DECLARE_FUNCTION(execinitialise_AAOE);
+	DECLARE_FUNCTION(execOnOverlapBegin);
 
 
 struct Z_Construct_UClass_AAOE_Statics;
@@ -43,6 +39,8 @@ public: \
 
 
 #define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_12_ENHANCED_CONSTRUCTORS \
+	/** Standard constructor, called after all reflected properties have been initialized */ \
+	NO_API AAOE(); \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	AAOE(AAOE&&) = delete; \
 	AAOE(const AAOE&) = delete; \

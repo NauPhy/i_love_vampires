@@ -1,1 +1,1 @@
-#include "ProjectileTemplate.h"
+#include "ProjectileConfig.h"

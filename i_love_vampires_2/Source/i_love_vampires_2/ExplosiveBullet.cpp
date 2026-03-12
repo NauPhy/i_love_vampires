@@ -6,17 +6,17 @@ void AExplosiveBullet::initialise_AExplosiveBullet(
 	float directionX,
 	float directionZ,
 	const FExplosiveProjectileConfig& config,
-	const FExplosiveProjectileAttributes& attributes,
+	const FProjectileAttributes& attributes
 	) 
 {
-	_config = MakeUnique<ExplosiveProjectileConfig>(config);
-	_attributes = MakeUnique<ExplosiveProjectileAttributes>(attributes);
-	AExplosiveBullet(pawnRef, directionX, directionZ);
+	_config = MakeUnique<FExplosiveProjectileConfig>(config);
+	_attributes = MakeUnique<FProjectileAttributes>(attributes);
+	initialise_AExplosiveBullet(pawnRef, directionX, directionZ);
 }
 
+//TODO
+// IMPLEMENT SPAWN AOE
 void AExplosiveBullet::bulletDeath() {
-	//TODO
-	// IMPLEMENT SPAWN AOE
 	ABullet::bulletDeath();
 }
 

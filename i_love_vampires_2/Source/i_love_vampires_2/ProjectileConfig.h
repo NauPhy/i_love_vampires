@@ -1,27 +1,22 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Engine/DataTable.h"
-#include "BulletUEnum.h"
-#include "ProjectileTemplate.generated.h"
+#include "ProjectileEnum.h"
+#include "WeaponConfig.h"
+#include "ProjectileConfig.generated.h"
 
 USTRUCT(BlueprintType)
-struct I_LOVE_VAMPIRES_2_API FProjectileTemplate : public FTableRowBase
+struct I_LOVE_VAMPIRES_2_API FProjectileConfig : public FWeaponConfig
 {
 	GENERATED_USTRUCT_BODY()
 
 public:
-	FProjectileTemplate() = default;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileTemplate")
-	FName _ID = "projectile";
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileTemplate")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileConfig")
 	EProjectileShape _shape = static_cast<EProjectileShape>(0);
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileTemplate")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileConfig")
 	EAttackShape _attackShape = static_cast<EAttackShape>(0);
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileTemplate")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileConfig")
 	EProjectileTargeting _targeting = static_cast<EProjectileTargeting>(0);
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileTemplate")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileConfig")
 	bool _isHoming = false;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileTemplate")
-	bool _isExplosive = false;
 };

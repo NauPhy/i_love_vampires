@@ -6,13 +6,30 @@
 #include "CombatantManager.h"
 #include "Combatant.h"
 #include "Definitions.h"
-#include "BulletUEnum.h"
-#include "EnumConverter.h"
+#include "MyGameplayStatics.h"
 
 namespace {
 	float dist(float x, float y) {
 		return sqrt(pow(x, 2.0) + pow(y, 2.0));
 	}
+}
+
+void ABullet::initialise_ABullet(APawn* pawnRef, float directionX, float directionZ) { 
+	initialise_AAttackActor(pawnRef); 
+	_directionX = directionX; 
+	_directionZ = directionZ; 
+	_distanceTravelled = 0;
+
+	FProjectileAttributes* attr;
+	if (!castAttribute<FProjectileAttributes>(attr))
+		return;
+	_pierce = attr->_pierce;
+	_bounce = attr->_bounce;
+}
+void ABullet::initialise_ABullet(APawn* pawnRef, float directionX, float directionZ, const FProjectileConfig& config, const FProjectileAttributes& attributes) {
+	_config = MakeUnique<FProjectileConfig>(config);
+	_attributes = MakeUnique<FProjectileAttributes>(attributes);
+	initialise_ABullet(pawnRef, directionX, directionZ);
 }
 
 void ABullet::performSweep(const FVector& startPos, const FVector& endPos, TArray<struct FHitResult>& OutHits) {
@@ -31,7 +48,10 @@ void ABullet::performSweep(const FVector& startPos, const FVector& endPos, TArra
 		LOGERROR("ABullet::performSweep - world is null");
 		return;
 	}
-	if (_shape == _CIRCLE) {
+	FProjectileConfig* config;
+	if (!castConfig<FProjectileConfig>(config))
+		return;
+	if (config->_shape == _CIRCLE) {
 		world->SweepMultiByObjectType(OutHits, startPos, endPos, FQuat::Identity, params, FCollisionShape::MakeSphere(_radius), params2);
 	}
 	else {
@@ -72,24 +92,22 @@ void ABullet::handleBouncePierce() {
 }
 
 void ABullet::executeBounce() {
+	UCombatantManager* manager;
+	if (!MyGameplayStatics::getCombatantManager(this, manager))
+		return;
+	// It's possible that combatantManager will return a reference to a combatant that is in the middle of construction or destruction.
+	// If this happens 10 times in a row, there is likely a bug.
 	TWeakObjectPtr<ACombatant> newTarget = nullptr;
-	{
-		UWorld* world = GetWorld();
-		if (world == nullptr) {
-			LOGERROR("ABullet::executeBounce - world is null");
-			return;
-		}
-		UCombatantManager* manager = world->GetSubsystem<UCombatantManager>();
-		if (manager == nullptr) {
-			LOGERROR("ABullet::executeBounce - manager is null");
-			return;
-		}
+	for (int i = 0; i < 10; i++) {
+		if (newTarget.IsValid())
+			break;
 		if (!manager->getRandomEnemyPtr(newTarget)) {
 			bulletDeath();
 			return;
 		}
 	}
-	if (newTarget.Get() == nullptr) {
+	if (!newTarget.IsValid()) {
+		LOGERROR("ABullet::executeBounce - bullet could not find new target to bounce to")
 		bulletDeath();
 		return;
 	}
@@ -103,38 +121,20 @@ void ABullet::executeBounce() {
 
 void ABullet::Tick(float delta) {
 	AAttackActor::Tick(delta);
-	if (_distanceTravelled >= _range) {
+	FProjectileAttributes* attr;
+	if (!castAttribute<FProjectileAttributes>(attr))
+		return;
+	if (_distanceTravelled >= attr->_range) {
 		bulletDeath();
 		return;
 	}
 	FVector start = GetActorLocation();
-	FVector end = start + FVector(_directionX, 0, _directionZ) * _speed * delta;
+	FVector end = start + FVector(_directionX, 0, _directionZ) * attr->_speed * delta;
 	TArray<struct FHitResult> OutHits;
 	performSweep(start, end, OutHits);
 	handleSweepResults(OutHits);
 
 	FHitResult* throwaway = nullptr;
 	AddActorWorldOffset((end - start), false, throwaway, ETeleportType::TeleportPhysics);
-	_distanceTravelled += _speed * delta;
-}
-
-void ABullet::initialise_ABullet(APawn* pawnRef, const TArray<FEffectStruct>& effects, float directionX, float directionZ, const FProjectileTemplate& bulletData) {
-	initialise_AAttackActor(pawnRef, effects);
-	initialise_ABullet_int(directionX, directionZ, bulletData);
-}
-void ABullet::initialise_ABullet(TWeakObjectPtr<APawn> pawnRef, const TArray<FEffectStruct>& effects, float directionX, float directionZ, const FProjectileTemplate& bulletData) {
-	initialise_AAttackActor(pawnRef, effects);
-	initialise_ABullet_int(directionX, directionZ, bulletData);
-}
-void ABullet::initialise_ABullet_int(float directionX, float directionZ, const FProjectileTemplate& bulletData) {
-	_directionX = directionX;
-	_directionZ = directionZ;
-	auto converted = EnumConverter<ProjectileShape::MyEnum, EProjectileShape>::toStdEnum(bulletData._shape);
-	_shape = converted;
-	_radius = bulletData._radius;
-	_isHoming = bulletData._isHoming;
-	_speed = bulletData._speed;
-	_range = bulletData._range;
-	_pierce = bulletData._pierce;
-	_bounce = bulletData._bounce;
+	_distanceTravelled += attr->_speed * delta;
 }

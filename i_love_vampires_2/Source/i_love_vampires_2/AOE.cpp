@@ -2,34 +2,24 @@
 #include "Components/ShapeComponent.h"
 #include "Components/SphereComponent.h"
 #include "Combatant.h"
-#include "Definitions.h"
-#include "EnumConverter.h"
-#include "AOEUEnum.h"
 
-void AAOE::initialise_AAOE(APawn* pawnRef, const TArray<FEffectStruct>& effects, FName ID) {
-	initialise_AAttackActor(pawnRef, effects, ID);
-	initialise_AAOE_int(AOEData);
-}
-void AAOE::initialise_AAOE(TWeakObjectPtr<APawn> pawnRef, const TArray<FEffectStruct>& effects, const FAOETemplate& AOEData) {
-	initialise_AAttackActor(pawnRef, effects);
-	initialise_AAOE_int(AOEData);
-}
-void AAOE::initialise_AAOE_int(const FAOETemplate& AOEData) {
-	_duration = AOEData._duration;
-	auto converted = EnumConverter<AOEShape::MyEnum, EAOEShape>::toStdEnum(AOEData._shape);
-	_shape = converted;
-	_radius = AOEData._radius;
+void AAOE::initialise_AAOE(APawn* pawnRef, const FAOEConfig& config, const FAOEAttributes& attributes) {
+	initialise_AAttackActor(pawnRef);
+	_config = MakeUnique<FAOEConfig>(config);
+	_attributes = MakeUnique<FAOEAttributes>(attributes);
 	initShape();
 }
 
 void AAOE::initShape() {
-	//(sphere)
-	if (_shape == _CIRCLE) {
+	FAOEConfig* config = nullptr;
+	if (!castConfig<FAOEConfig>(config))
+		return;
+	if (config->_shape == _CIRCLE) {
 		_collider = NewObject<USphereComponent>(this);
 		Cast<USphereComponent>(_collider)->InitSphereRadius(_radius);
 	}
 	else {
-		UE_LOG(LogTemp, Warning, TEXT("Not implemented"));
+		LOGERROR("AAOE::initShape - shape not implemented");
 		return;
 	}
 	_collider->SetupAttachment(RootComponent);
@@ -41,7 +31,6 @@ void AAOE::initShape() {
 	_collider->RegisterComponent();
 	_collider->UpdateOverlaps();
 
-	UE_LOG(LogTemp, Warning, TEXT("AOE object type: %d"), (int32)_collider->GetCollisionObjectType());
 	TArray<AActor*> OverlappingActors;
 	_collider->GetOverlappingActors(OverlappingActors, APawn::StaticClass());
 	for (AActor* Actor : OverlappingActors)
@@ -75,7 +64,10 @@ void AAOE::OnOverlapBegin(
 
 void AAOE::Tick(float delta) {
 	AAttackActor::Tick(delta);
-	if (_duration == 0) {
+	FAOEAttributes* attr;
+	if (!castAttribute<FAOEAttributes>(attr))
+		return;
+	if (attr->_duration == 0) {
 		if (_consumedDuration >= 0.25) {
 			Destroy();
 			return;

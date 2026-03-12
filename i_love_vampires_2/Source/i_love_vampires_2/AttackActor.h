@@ -21,6 +21,12 @@ protected:
 	TUniquePtr<FWeaponConfig> _config = nullptr;
 	TUniquePtr<FWeaponAttributes> _attributes = nullptr;
 
+	template<typename configType>
+	bool castConfig(configType*&);
+	template<typename attributeType>
+	bool castAttribute(attributeType*&);
+
+private:
 	FName getID() const { return _ID; }
 
 public:
@@ -31,5 +37,5 @@ public:
 	// in the inheritance structure. In other words, initialise_AAttackActor(APawn* pawnRef) should only be called by child classes' initialise functions
 	void initialise_AAttackActor(APawn* pawnRef, const FWeaponConfig& config, const FWeaponAttributes& attributes);
 	virtual void Tick(float delta) override;
-	void applyEffect(ACombatant* target);
+	void applyEffect(ACombatant* target); 
 };

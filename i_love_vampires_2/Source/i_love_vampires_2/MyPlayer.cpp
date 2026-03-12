@@ -111,7 +111,7 @@ bool AMyPlayer::isOutOfDeadzone(float x, float z) const {
 void AMyPlayer::handleMovement(const FVector2D& input) {
 	if (!isOutOfDeadzone(input.X, input.Y))
 		return;
-	FVector movement = FVector(input.X * _MOVEMENT_SPEED, 0, input.Y * _MOVEMENT_SPEED);
+	FVector movement = FVector(input.X * _MOVEMENT_SPEED, 0, input.Y * _MOVEMENT_SPEED * _attributeSet.getAttributes()._movementSpeed);
 	{
 		FHitResult* unused = nullptr;
 		AddActorWorldOffset(movement, false, unused, ETeleportType::TeleportPhysics);

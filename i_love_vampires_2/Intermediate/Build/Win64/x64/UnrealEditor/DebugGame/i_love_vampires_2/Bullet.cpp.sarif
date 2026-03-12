@@ -3,7 +3,517 @@
     "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
     "runs": [
         {
-            "results": [],
+            "results": [
+                {
+                    "ruleId": "C3203",
+                    "level": "error",
+                    "message": {
+                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Bullet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 52,
+                                    "startColumn": 36,
+                                    "snippet": {
+                                        "text": "\tconst std::vector<std::unique_ptr<StatusEffect>>& getStatusEffects() const { return _statusEffects; }"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 52,
+                                    "startColumn": 36,
+                                    "snippet": {
+                                        "text": "\tconst std::vector<std::unique_ptr<StatusEffect>>& getStatusEffects() const { return _statusEffects; }"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "the template instantiation context (the oldest one first) is"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 13,
+                                    "startColumn": 7,
+                                    "snippet": {
+                                        "text": "class UMyAttributeSet {"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "while compiling class template 'UMyAttributeSet'"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3203",
+                    "level": "error",
+                    "message": {
+                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Bullet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 57,
+                                    "startColumn": 44,
+                                    "snippet": {
+                                        "text": "\tvoid inflictInstantStatus(std::unique_ptr<StatusEffect>);"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3203",
+                    "level": "error",
+                    "message": {
+                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Bullet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 58,
+                                    "startColumn": 37,
+                                    "snippet": {
+                                        "text": "\tvoid inflictStatus(std::unique_ptr<StatusEffect>);"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C4265",
+                    "message": {
+                        "text": "'UMyAttributeSet<FCombatantAttributes>': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Bullet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 60,
+                                    "startColumn": 1,
+                                    "snippet": {
+                                        "text": "};"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C4265",
+                    "message": {
+                        "text": "'UMyCombatantAttributeSet': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Bullet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyCombatantAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 16,
+                                    "startColumn": 1,
+                                    "snippet": {
+                                        "text": "};"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3203",
+                    "level": "error",
+                    "message": {
+                        "text": "'UMyAttributeSet': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Bullet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Active.h"
+                                },
+                                "region": {
+                                    "startLine": 21,
+                                    "startColumn": 30,
+                                    "snippet": {
+                                        "text": "\tstd::vector<std::unique_ptr<UMyAttributeSet>> _attributeSets;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3203",
+                    "level": "error",
+                    "message": {
+                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Bullet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.h"
+                                },
+                                "region": {
+                                    "startLine": 38,
+                                    "startColumn": 37,
+                                    "snippet": {
+                                        "text": "\tvoid inflictStatus(std::unique_ptr<StatusEffect>);"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2084",
+                    "level": "error",
+                    "message": {
+                        "text": "function 'void ABullet::initialise_ABullet(APawn *,float,float)' already has a body"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Bullet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Bullet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 17,
+                                    "startColumn": 15,
+                                    "snippet": {
+                                        "text": "void ABullet::initialise_ABullet(APawn* pawnRef, float directionX, float directionZ) { "
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Bullet.h"
+                                },
+                                "region": {
+                                    "startLine": 24,
+                                    "startColumn": 7,
+                                    "snippet": {
+                                        "text": "\tvoid initialise_ABullet(APawn* pawnRef, float directionX, float directionZ) { initialise_AAttackActor(pawnRef); _directionX = directionX; _directionZ = directionZ; }"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see previous definition of 'ABullet::initialise_ABullet'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C4390",
+                    "level": "error",
+                    "message": {
+                        "text": "';': empty controlled statement found; is this the intent?"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Bullet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Bullet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 24,
+                                    "startColumn": 2,
+                                    "snippet": {
+                                        "text": "\tif (!castAttribute<FProjectileAttributes>(attr))"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2264",
+                    "level": "error",
+                    "message": {
+                        "text": "'ABullet::initialise_ABullet': error in function definition or declaration; function not called"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Bullet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Bullet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 32,
+                                    "startColumn": 2,
+                                    "snippet": {
+                                        "text": "\tinitialise_ABullet(pawnRef, directionX, directionZ);"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2065",
+                    "level": "error",
+                    "message": {
+                        "text": "'_radius': undeclared identifier"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Bullet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Bullet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 55,
+                                    "startColumn": 113,
+                                    "snippet": {
+                                        "text": "\t\tworld->SweepMultiByObjectType(OutHits, startPos, endPos, FQuat::Identity, params, FCollisionShape::MakeSphere(_radius), params2);"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2664",
+                    "level": "error",
+                    "message": {
+                        "text": "'bool UWorld::SweepMultiByObjectType(TArray<FHitResult,FDefaultAllocator> &,const FVector &,const FVector &,const FQuat &,const FCollisionObjectQueryParams &,const FCollisionShape &,const FCollisionQueryParams &) const': cannot convert argument 6 from 'FCollisionQueryParams' to 'const FCollisionShape &'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Bullet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Bullet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 55,
+                                    "startColumn": 10,
+                                    "snippet": {
+                                        "text": "\t\tworld->SweepMultiByObjectType(OutHits, startPos, endPos, FQuat::Identity, params, FCollisionShape::MakeSphere(_radius), params2);"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Bullet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 55,
+                                    "startColumn": 123,
+                                    "snippet": {
+                                        "text": "\t\tworld->SweepMultiByObjectType(OutHits, startPos, endPos, FQuat::Identity, params, FCollisionShape::MakeSphere(_radius), params2);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "Reason: cannot convert from 'FCollisionQueryParams' to 'const FCollisionShape'"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Bullet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 55,
+                                    "startColumn": 123,
+                                    "snippet": {
+                                        "text": "\t\tworld->SweepMultiByObjectType(OutHits, startPos, endPos, FQuat::Identity, params, FCollisionShape::MakeSphere(_radius), params2);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called"
+                            }
+                        },
+                        {
+                            "id": 2,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Epic Games/UE_5.7/Engine/Source/Runtime/Engine/Classes/Engine/World.h"
+                                },
+                                "region": {
+                                    "startLine": 2234,
+                                    "startColumn": 14,
+                                    "snippet": {
+                                        "text": "\tUE_API bool SweepMultiByObjectType(TArray<struct FHitResult>& OutHits, const FVector& Start, const FVector& End, const FQuat& Rot, const FCollisionObjectQueryParams& ObjectQueryParams, const FCollisionShape& CollisionShape, const FCollisionQueryParams& Params = FCollisionQueryParams::DefaultQueryParam) const;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UWorld::SweepMultiByObjectType'"
+                            }
+                        },
+                        {
+                            "id": 3,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Bullet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 55,
+                                    "startColumn": 10,
+                                    "snippet": {
+                                        "text": "\t\tworld->SweepMultiByObjectType(OutHits, startPos, endPos, FQuat::Identity, params, FCollisionShape::MakeSphere(_radius), params2);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "while trying to match the argument list '(TArray<FHitResult,FDefaultAllocator>, const FVector, const FVector, const UE::Math::TQuat<double>, FCollisionObjectQueryParams, FCollisionQueryParams)'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2248",
+                    "level": "error",
+                    "message": {
+                        "text": "'MyGameplayStatics::getCombatantManager': cannot access private member declared in class 'MyGameplayStatics'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Bullet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Bullet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 96,
+                                    "startColumn": 26,
+                                    "snippet": {
+                                        "text": "\tif (!MyGameplayStatics::getCombatantManager(this, manager))"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyGameplayStatics.h"
+                                },
+                                "region": {
+                                    "startLine": 15,
+                                    "startColumn": 14,
+                                    "snippet": {
+                                        "text": "\tstatic bool getCombatantManager(const UObject* caller, UCombatantManager*&);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'MyGameplayStatics::getCombatantManager'"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyGameplayStatics.h"
+                                },
+                                "region": {
+                                    "startLine": 10,
+                                    "startColumn": 7,
+                                    "snippet": {
+                                        "text": "class MyGameplayStatics {"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'MyGameplayStatics'"
+                            }
+                        }
+                    ]
+                }
+            ],
             "tool": {
                 "driver": {
                     "name": "MSVC",

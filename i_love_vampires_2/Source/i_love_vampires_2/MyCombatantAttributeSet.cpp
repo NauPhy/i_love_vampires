@@ -1,19 +1,10 @@
 #include "MyCombatantAttributeSet.h"
 #include "StatusEffect_Burn.h"
-#include "MyGameplayStatics.h"
-#include "AssetRefs.h"
+#include <vector>
+#include <memory>
 
-void UMyCombatantAttributeSet::initialise_UMyCombatantAttributeSet(const UObject* caller, FName ID) {
-	UAssetRefs* assetRefs = nullptr;
-	if (!MyGameplayStatics::getAssetRefs(caller, assetRefs)) {
-		return;
-	}
-	FCombatantTemplate_Attr* rowReference = assetRefs->getCombatantTemplate_Attr(ID);
-	if (rowReference == nullptr) {
-		LOGERROR("UMyCombatantAttributeSet::initialise_UMyCombatantAttributeSet - rowReference is null");
-		return;
-	}
-	Initialise_UMyAttributeSet(ID, rowReference);
+void UMyCombatantAttributeSet::initialise_UMyCombatantAttributeSet(const FCombatantAttributes* rowRef) {
+	Initialise_UMyAttributeSet(rowRef);
 }
 
 void UMyCombatantAttributeSet::burnTick() {

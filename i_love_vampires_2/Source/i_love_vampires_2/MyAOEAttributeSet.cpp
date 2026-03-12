@@ -1,18 +1,10 @@
 #include "MyAOEAttributeSet.h"
-#include "MyAOEAttributeSet.h"
+#include "CombatantAttributes.h"
+#include "MyCombatantAttributeSet.h"
 
-void UMyAOEAttributeSet::initialise_UMyAOEAttributeSet(FName ID, const FAOETemplate_Attr* rowReference, UMyAOEAttributeSet* modifiers) {
-	_modifiers = TWeakObjectPtr<UMyAOEAttributeSet>(modifiers);
-	UAssetRefs* assetRefs = nullptr;
-	if (!MyGameplayStatics::getAssetRefs(assetRefs)) {
-		return;
-	}
-	FAOETemplate_Attr* rowReference = assetRefs->getAOETemplate_Attr(ID);
-	if (rowReference == nullptr) {
-		LOGERROR("UMyAOEAttributeSet::initialise_UMyAOEAttributeSet - rowReference is null");
-		return;
-	}
-	Initialise_UMyAttributeSet(ID, rowReference);
+void UMyAOEAttributeSet::initialise_UMyAOEAttributeSet(const FAOEAttributes* rowReference, TSharedPtr<UMyCombatantAttributeSet>& modifiers) {
+	_modifiers = TWeakPtr<UMyAttributeSet>(modifiers);
+	initialise_UMyAttributeSet(rowReference);
 }
 
 void UMyAOEAttributeSet::updateFromModifiers() {
@@ -20,6 +12,6 @@ void UMyAOEAttributeSet::updateFromModifiers() {
 	if (!_modifiers.IsValid()) {
 		return;
 	}
-	const FAOETemplate_Attr& combatantAttributes = _modifiers->_finalAttributes;
+	const FCombatantAttributes& combatantAttributes = _modifiers->getAttributes();
 	_finalAttributes._radius = _baseAttributes._radius * combatantAttributes.projectileSize;
 }

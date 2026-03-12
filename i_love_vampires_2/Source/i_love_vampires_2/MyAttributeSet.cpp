@@ -51,13 +51,11 @@ virtual void UMyAttributeSet::tick(delta) {
 	_instantStatusQueue.clear();
 }
 
-void UMyAttributeSet::Initialise_UMyAttributeSet(FName ID, const TRow* rowReference) {
+void UMyAttributeSet::Initialise_UMyAttributeSet(const TRow* rowReference) {
 	if (rowReference == nullptr) {
 		LOGERROR("UMyAttributeSet::Initialise_UMyAttributeSet - rowReference is null");
-		Destroy();
 		return;
 	}
-	_ID = ID;
 	_baseAttributes = *rowReference;
 	_finalAttributes = *rowReference;
 	_rowSize = sizeof(TRow);

@@ -1,9 +1,9 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "AttackActor.h"
-#include "AOETemplate.h"
 #include "AOEEnum.h"
-#include "MyAOEAttributeSet.h"
+#include "AOEConfig.h"
+#include "AOEAttributes.h"
 #include "AOE.generated.h"
 class UShapeComponent;
 
@@ -15,20 +15,13 @@ class AAOE : public AAttackActor {
 
 	float _consumedDuration = 0;
 	bool _isAfterimage = false;
-	float _duration = 0;
-	float _radius = 1;
-	EAOEShape _shape = static_cast<EAOEShape>(0);
 	UPROPERTY()
 	UShapeComponent* _collider = nullptr;
-	UPROPERTY()
-	UMyAOEAttributeSet _AOEAttributes;
 
 public:
-	AAOE() : AAttackActor() {};
-	// This is including attribute mods
-	UFUNCTION(BlueprintCallable)
-	void initialise_AAOE(APawn* pawnRef, const TArray<FEffectStruct>& effects, FName ID);
-	void initialise_AAOE(TWeakObjectPtr<APawn> pawnRef, const TArray<FEffectStruct>& effects, FName ID);
+	void initialise_AAOE(APawn* pawnRef) { initialise_AAttackActor(pawnRef); initShape(); }
+	void initialise_AAOE(APawn* pawnRef, const FAOEConfig& config, const FAOEAttributes& attributes);
+
 	virtual void Tick(float delta) override;
 	UFUNCTION()
 	void OnOverlapBegin(
@@ -41,5 +34,4 @@ public:
 	);
 private:
 	void initShape();
-	void initialise_AAOE_int();
 };

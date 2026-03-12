@@ -3,7 +3,1224 @@
     "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
     "runs": [
         {
-            "results": [],
+            "results": [
+                {
+                    "ruleId": "C3203",
+                    "level": "error",
+                    "message": {
+                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 52,
+                                    "startColumn": 36,
+                                    "snippet": {
+                                        "text": "\tconst std::vector<std::unique_ptr<StatusEffect>>& getStatusEffects() const { return _statusEffects; }"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 52,
+                                    "startColumn": 36,
+                                    "snippet": {
+                                        "text": "\tconst std::vector<std::unique_ptr<StatusEffect>>& getStatusEffects() const { return _statusEffects; }"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "the template instantiation context (the oldest one first) is"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 13,
+                                    "startColumn": 7,
+                                    "snippet": {
+                                        "text": "class UMyAttributeSet {"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "while compiling class template 'UMyAttributeSet'"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3203",
+                    "level": "error",
+                    "message": {
+                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 57,
+                                    "startColumn": 44,
+                                    "snippet": {
+                                        "text": "\tvoid inflictInstantStatus(std::unique_ptr<StatusEffect>);"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3203",
+                    "level": "error",
+                    "message": {
+                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 58,
+                                    "startColumn": 37,
+                                    "snippet": {
+                                        "text": "\tvoid inflictStatus(std::unique_ptr<StatusEffect>);"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C4265",
+                    "message": {
+                        "text": "'UMyAttributeSet<FCombatantAttributes>': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 60,
+                                    "startColumn": 1,
+                                    "snippet": {
+                                        "text": "};"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C4265",
+                    "message": {
+                        "text": "'UMyCombatantAttributeSet': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyCombatantAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 16,
+                                    "startColumn": 1,
+                                    "snippet": {
+                                        "text": "};"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3203",
+                    "level": "error",
+                    "message": {
+                        "text": "'UMyAttributeSet': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Active.h"
+                                },
+                                "region": {
+                                    "startLine": 21,
+                                    "startColumn": 30,
+                                    "snippet": {
+                                        "text": "\tstd::vector<std::unique_ptr<UMyAttributeSet>> _attributeSets;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3203",
+                    "level": "error",
+                    "message": {
+                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.h"
+                                },
+                                "region": {
+                                    "startLine": 38,
+                                    "startColumn": 37,
+                                    "snippet": {
+                                        "text": "\tvoid inflictStatus(std::unique_ptr<StatusEffect>);"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C4265",
+                    "message": {
+                        "text": "'StatusEffect<TRow>': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly\n        with\n        [\n            TRow=FCombatantAttributes\n        ]"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusEffect.h"
+                                },
+                                "region": {
+                                    "startLine": 13,
+                                    "startColumn": 3,
+                                    "snippet": {
+                                        "text": "\t~StatusEffect() {}"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusEffect.h"
+                                },
+                                "region": {
+                                    "startLine": 13,
+                                    "startColumn": 3,
+                                    "snippet": {
+                                        "text": "\t~StatusEffect() {}"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "the template instantiation context (the oldest one first) is"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusEffect_Damage.h"
+                                },
+                                "region": {
+                                    "startLine": 5,
+                                    "startColumn": 36,
+                                    "snippet": {
+                                        "text": "class StatusEffect_Damage : public StatusEffect<FCombatantAttributes> {"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see reference to class template instantiation 'StatusEffect<TRow>' being compiled\n        with\n        [\n            TRow=FCombatantAttributes\n        ]"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C4265",
+                    "message": {
+                        "text": "'StatusEffect_Damage': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusEffect_Damage.h"
+                                },
+                                "region": {
+                                    "startLine": 14,
+                                    "startColumn": 1,
+                                    "snippet": {
+                                        "text": "};"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2653",
+                    "level": "error",
+                    "message": {
+                        "text": "'CombatantAttribute': is not a class or namespace name"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 19,
+                                    "startColumn": 23,
+                                    "snippet": {
+                                        "text": "\t\tstd::function <void(CombatantAttribute::MyEnum, float, float)> callback = std::bind(&ACombatant::onCurrentHPChanged, this, std::placeholders::_1, std::placeholders::_2);"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2065",
+                    "level": "error",
+                    "message": {
+                        "text": "'MyEnum': undeclared identifier"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 19,
+                                    "startColumn": 43,
+                                    "snippet": {
+                                        "text": "\t\tstd::function <void(CombatantAttribute::MyEnum, float, float)> callback = std::bind(&ACombatant::onCurrentHPChanged, this, std::placeholders::_1, std::placeholders::_2);"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2062",
+                    "level": "error",
+                    "message": {
+                        "text": "type 'float' unexpected"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 19,
+                                    "startColumn": 51,
+                                    "snippet": {
+                                        "text": "\t\tstd::function <void(CombatantAttribute::MyEnum, float, float)> callback = std::bind(&ACombatant::onCurrentHPChanged, this, std::placeholders::_1, std::placeholders::_2);"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2955",
+                    "level": "error",
+                    "message": {
+                        "text": "'UMyAttributeSet': use of class template requires template argument list"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 23,
+                                    "startColumn": 30,
+                                    "snippet": {
+                                        "text": "\t\t\toffset = UMyAttributeSet::calculateOffset(temp, temp._currentHP);"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 13,
+                                    "startColumn": 7,
+                                    "snippet": {
+                                        "text": "class UMyAttributeSet {"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UMyAttributeSet'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2248",
+                    "level": "error",
+                    "message": {
+                        "text": "'UMyAttributeSet<FCombatantAttributes>::addCallback': cannot access protected member declared in class 'UMyAttributeSet<FCombatantAttributes>'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 25,
+                                    "startColumn": 18,
+                                    "snippet": {
+                                        "text": "\t\t_attributeSet->addCallback(offset, callback);"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 43,
+                                    "startColumn": 7,
+                                    "snippet": {
+                                        "text": "\tvoid addCallback(size_t offset, std::function<void(float,float)> callback);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UMyAttributeSet<FCombatantAttributes>::addCallback'"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 13,
+                                    "startColumn": 7,
+                                    "snippet": {
+                                        "text": "class UMyAttributeSet {"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UMyAttributeSet<FCombatantAttributes>'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2065",
+                    "level": "error",
+                    "message": {
+                        "text": "'ID': undeclared identifier"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 39,
+                                    "startColumn": 8,
+                                    "snippet": {
+                                        "text": "\t_ID = ID;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2248",
+                    "level": "error",
+                    "message": {
+                        "text": "'MyGameplayStatics::getAssetRefs': cannot access private member declared in class 'MyGameplayStatics'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 42,
+                                    "startColumn": 26,
+                                    "snippet": {
+                                        "text": "\tif (!MyGameplayStatics::getAssetRefs(this, assetRefs)) {"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyGameplayStatics.h"
+                                },
+                                "region": {
+                                    "startLine": 14,
+                                    "startColumn": 14,
+                                    "snippet": {
+                                        "text": "\tstatic bool getAssetRefs(const UObject* caller, UAssetRefs*&);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'MyGameplayStatics::getAssetRefs'"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyGameplayStatics.h"
+                                },
+                                "region": {
+                                    "startLine": 10,
+                                    "startColumn": 7,
+                                    "snippet": {
+                                        "text": "class MyGameplayStatics {"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'MyGameplayStatics'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2039",
+                    "level": "error",
+                    "message": {
+                        "text": "'getCombatantTemplate': is not a member of 'UAssetRefs'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 45,
+                                    "startColumn": 58,
+                                    "snippet": {
+                                        "text": "\tconst FCombatantTemplateFull* templateData = assetRefs->getCombatantTemplate(newID);"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AssetRefs.h"
+                                },
+                                "region": {
+                                    "startLine": 11,
+                                    "startColumn": 29,
+                                    "snippet": {
+                                        "text": "class I_LOVE_VAMPIRES_2_API UAssetRefs : public UGameInstanceSubsystem"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UAssetRefs'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2039",
+                    "level": "error",
+                    "message": {
+                        "text": "'Back': is not a member of 'TArray<UActive *,FDefaultAllocator>'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 55,
+                                    "startColumn": 20,
+                                    "snippet": {
+                                        "text": "\t\t_activeAbilities.Back()->initialise_UActive(this, activeID, _attributeSet);"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Epic Games/UE_5.7/Engine/Source/Runtime/Core/Public/Containers/Array.h"
+                                },
+                                "region": {
+                                    "startLine": 669,
+                                    "startColumn": 7,
+                                    "snippet": {
+                                        "text": "class TArray"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'TArray<UActive *,FDefaultAllocator>'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2065",
+                    "level": "error",
+                    "message": {
+                        "text": "'myTemplate': undeclared identifier"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 58,
+                                    "startColumn": 23,
+                                    "snippet": {
+                                        "text": "\tESprite spriteName = myTemplate._sprite;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2248",
+                    "level": "error",
+                    "message": {
+                        "text": "'MyGameplayStatics::getSpriteManager': cannot access private member declared in class 'MyGameplayStatics'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 60,
+                                    "startColumn": 26,
+                                    "snippet": {
+                                        "text": "\tif (!MyGameplayStatics::getSpriteManager(this, spriteManager)) {"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyGameplayStatics.h"
+                                },
+                                "region": {
+                                    "startLine": 16,
+                                    "startColumn": 14,
+                                    "snippet": {
+                                        "text": "\tstatic bool getSpriteManager(const UObject* caller, USpriteManager*&);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'MyGameplayStatics::getSpriteManager'"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyGameplayStatics.h"
+                                },
+                                "region": {
+                                    "startLine": 10,
+                                    "startColumn": 7,
+                                    "snippet": {
+                                        "text": "class MyGameplayStatics {"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'MyGameplayStatics'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2106",
+                    "level": "error",
+                    "message": {
+                        "text": "'=': left operand must be l-value"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 64,
+                                    "startColumn": 6,
+                                    "snippet": {
+                                        "text": "\tif (!tempSprite = spriteManager->getSprite(spriteName, tempSprite))"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C4706",
+                    "level": "error",
+                    "message": {
+                        "text": "assignment used as a condition"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 64,
+                                    "startColumn": 18,
+                                    "snippet": {
+                                        "text": "\tif (!tempSprite = spriteManager->getSprite(spriteName, tempSprite))"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 64,
+                                    "startColumn": 18,
+                                    "snippet": {
+                                        "text": "\tif (!tempSprite = spriteManager->getSprite(spriteName, tempSprite))"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "if an assignment is intended you can enclose it in parentheses, '(e1 = e2)', to silence this warning"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2039",
+                    "level": "error",
+                    "message": {
+                        "text": "'clearCallback': is not a member of 'UMyCombatantAttributeSet'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 70,
+                                    "startColumn": 17,
+                                    "snippet": {
+                                        "text": "\t_attributeSet->clearCallback();"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyCombatantAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 6,
+                                    "startColumn": 7,
+                                    "snippet": {
+                                        "text": "class UMyCombatantAttributeSet : public UMyAttributeSet<FCombatantAttributes>"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UMyCombatantAttributeSet'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2248",
+                    "level": "error",
+                    "message": {
+                        "text": "'UMyAttributeSet<FCombatantAttributes>::tick': cannot access protected member declared in class 'UMyAttributeSet<FCombatantAttributes>'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 81,
+                                    "startColumn": 17,
+                                    "snippet": {
+                                        "text": "\t_attributeSet->tick(DeltaTime);"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 45,
+                                    "startColumn": 15,
+                                    "snippet": {
+                                        "text": "\tvirtual void tick(float delta);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UMyAttributeSet<FCombatantAttributes>::tick'"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 13,
+                                    "startColumn": 7,
+                                    "snippet": {
+                                        "text": "class UMyAttributeSet {"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UMyAttributeSet<FCombatantAttributes>'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3203",
+                    "level": "error",
+                    "message": {
+                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 86,
+                                    "startColumn": 48,
+                                    "snippet": {
+                                        "text": "void ACombatant::inflictStatus(std::unique_ptr<StatusEffect> newStatus) {"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2839",
+                    "level": "error",
+                    "message": {
+                        "text": "invalid return type 'int *' for overloaded 'operator ->'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 87,
+                                    "startColumn": 6,
+                                    "snippet": {
+                                        "text": "\tif (newStatus->getDuration() <= EPSILON) {"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2039",
+                    "level": "error",
+                    "message": {
+                        "text": "'getDuration': is not a member of 'std::unique_ptr<<error type>,std::default_delete<<error type>>>'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 87,
+                                    "startColumn": 17,
+                                    "snippet": {
+                                        "text": "\tif (newStatus->getDuration() <= EPSILON) {"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/INCLUDE/memory"
+                                },
+                                "region": {
+                                    "startLine": 3347,
+                                    "startColumn": 7,
+                                    "snippet": {
+                                        "text": "class unique_ptr { // non-copyable pointer to an object"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'std::unique_ptr<<error type>,std::default_delete<<error type>>>'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2664",
+                    "level": "error",
+                    "message": {
+                        "text": "'void ACombatant::inflictStatus(std::unique_ptr<<error type>,std::default_delete<<error type>>>)': cannot convert argument 1 from 'std::unique_ptr<StatusEffect_Damage,std::default_delete<StatusEffect_Damage>>' to 'std::unique_ptr<<error type>,std::default_delete<<error type>>>'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 98,
+                                    "startColumn": 8,
+                                    "snippet": {
+                                        "text": "\tleft->inflictStatus(std::make_unique<StatusEffect_Damage>(rightThreat));"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 98,
+                                    "startColumn": 59,
+                                    "snippet": {
+                                        "text": "\tleft->inflictStatus(std::make_unique<StatusEffect_Damage>(rightThreat));"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 86,
+                                    "startColumn": 18,
+                                    "snippet": {
+                                        "text": "void ACombatant::inflictStatus(std::unique_ptr<StatusEffect> newStatus) {"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'ACombatant::inflictStatus'"
+                            }
+                        },
+                        {
+                            "id": 2,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 98,
+                                    "startColumn": 8,
+                                    "snippet": {
+                                        "text": "\tleft->inflictStatus(std::make_unique<StatusEffect_Damage>(rightThreat));"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "while trying to match the argument list '(std::unique_ptr<StatusEffect_Damage,std::default_delete<StatusEffect_Damage>>)'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2664",
+                    "level": "error",
+                    "message": {
+                        "text": "'void ACombatant::inflictStatus(std::unique_ptr<<error type>,std::default_delete<<error type>>>)': cannot convert argument 1 from 'std::unique_ptr<StatusEffect_Damage,std::default_delete<StatusEffect_Damage>>' to 'std::unique_ptr<<error type>,std::default_delete<<error type>>>'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 99,
+                                    "startColumn": 9,
+                                    "snippet": {
+                                        "text": "\tright->inflictStatus(std::make_unique<StatusEffect_Damage>(leftThreat));"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 99,
+                                    "startColumn": 60,
+                                    "snippet": {
+                                        "text": "\tright->inflictStatus(std::make_unique<StatusEffect_Damage>(leftThreat));"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 86,
+                                    "startColumn": 18,
+                                    "snippet": {
+                                        "text": "void ACombatant::inflictStatus(std::unique_ptr<StatusEffect> newStatus) {"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'ACombatant::inflictStatus'"
+                            }
+                        },
+                        {
+                            "id": 2,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                                },
+                                "region": {
+                                    "startLine": 99,
+                                    "startColumn": 9,
+                                    "snippet": {
+                                        "text": "\tright->inflictStatus(std::make_unique<StatusEffect_Damage>(leftThreat));"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "while trying to match the argument list '(std::unique_ptr<StatusEffect_Damage,std::default_delete<StatusEffect_Damage>>)'"
+                            }
+                        }
+                    ]
+                }
+            ],
             "tool": {
                 "driver": {
                     "name": "MSVC",

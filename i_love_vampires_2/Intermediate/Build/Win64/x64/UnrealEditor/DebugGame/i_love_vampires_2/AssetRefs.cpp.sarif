@@ -3,7 +3,334 @@
     "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
     "runs": [
         {
-            "results": [],
+            "results": [
+                {
+                    "ruleId": "C2065",
+                    "level": "error",
+                    "message": {
+                        "text": "'ContextString': undeclared identifier"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AssetRefs.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AssetRefs.cpp"
+                                },
+                                "region": {
+                                    "startLine": 17,
+                                    "startColumn": 52,
+                                    "snippet": {
+                                        "text": "\treturn _activeTable->FindRow<FActiveTemplate>(ID, ContextString:\"bluh\");"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2143",
+                    "level": "error",
+                    "message": {
+                        "text": "syntax error: missing ')' before ':'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AssetRefs.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AssetRefs.cpp"
+                                },
+                                "region": {
+                                    "startLine": 17,
+                                    "startColumn": 65,
+                                    "snippet": {
+                                        "text": "\treturn _activeTable->FindRow<FActiveTemplate>(ID, ContextString:\"bluh\");"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2143",
+                    "level": "error",
+                    "message": {
+                        "text": "syntax error: missing ';' before ':'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AssetRefs.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AssetRefs.cpp"
+                                },
+                                "region": {
+                                    "startLine": 17,
+                                    "startColumn": 65,
+                                    "snippet": {
+                                        "text": "\treturn _activeTable->FindRow<FActiveTemplate>(ID, ContextString:\"bluh\");"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2059",
+                    "level": "error",
+                    "message": {
+                        "text": "syntax error: ':'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AssetRefs.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AssetRefs.cpp"
+                                },
+                                "region": {
+                                    "startLine": 17,
+                                    "startColumn": 65,
+                                    "snippet": {
+                                        "text": "\treturn _activeTable->FindRow<FActiveTemplate>(ID, ContextString:\"bluh\");"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2059",
+                    "level": "error",
+                    "message": {
+                        "text": "syntax error: ')'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AssetRefs.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AssetRefs.cpp"
+                                },
+                                "region": {
+                                    "startLine": 17,
+                                    "startColumn": 72,
+                                    "snippet": {
+                                        "text": "\treturn _activeTable->FindRow<FActiveTemplate>(ID, ContextString:\"bluh\");"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2511",
+                    "level": "error",
+                    "message": {
+                        "text": "'const FCombatantTemplateFull *UAssetRefs::getCombatantTemplateFull(FName) const': overloaded member function not found in 'UAssetRefs'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AssetRefs.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AssetRefs.cpp"
+                                },
+                                "region": {
+                                    "startLine": 20,
+                                    "startColumn": 43,
+                                    "snippet": {
+                                        "text": "const FCombatantTemplateFull* UAssetRefs::getCombatantTemplateFull(FName ID) const {"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AssetRefs.h"
+                                },
+                                "region": {
+                                    "startLine": 11,
+                                    "startColumn": 29,
+                                    "snippet": {
+                                        "text": "class I_LOVE_VAMPIRES_2_API UAssetRefs : public UGameInstanceSubsystem"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UAssetRefs'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2597",
+                    "level": "error",
+                    "message": {
+                        "text": "illegal reference to non-static member 'UAssetRefs::_combatantTable'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AssetRefs.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AssetRefs.cpp"
+                                },
+                                "region": {
+                                    "startLine": 21,
+                                    "startColumn": 6,
+                                    "snippet": {
+                                        "text": "\tif (_combatantTable == nullptr) {"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AssetRefs.cpp"
+                                },
+                                "region": {
+                                    "startLine": 21,
+                                    "startColumn": 6,
+                                    "snippet": {
+                                        "text": "\tif (_combatantTable == nullptr) {"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UAssetRefs::_combatantTable'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3867",
+                    "level": "error",
+                    "message": {
+                        "text": "'UAssetRefs::_combatantTable': non-standard syntax; use '&' to create a pointer to member"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AssetRefs.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AssetRefs.cpp"
+                                },
+                                "region": {
+                                    "startLine": 21,
+                                    "startColumn": 6,
+                                    "snippet": {
+                                        "text": "\tif (_combatantTable == nullptr) {"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2568",
+                    "level": "error",
+                    "message": {
+                        "text": "'==': unable to resolve function overload"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AssetRefs.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AssetRefs.cpp"
+                                },
+                                "region": {
+                                    "startLine": 21,
+                                    "startColumn": 6,
+                                    "snippet": {
+                                        "text": "\tif (_combatantTable == nullptr) {"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2065",
+                    "level": "error",
+                    "message": {
+                        "text": "'ContextString': undeclared identifier"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AssetRefs.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AssetRefs.cpp"
+                                },
+                                "region": {
+                                    "startLine": 25,
+                                    "startColumn": 62,
+                                    "snippet": {
+                                        "text": "\treturn _combatantTable->FindRow<FCombatantTemplateFull>(ID, ContextString:\"bluh\");"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2059",
+                    "level": "error",
+                    "message": {
+                        "text": "syntax error: ':'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AssetRefs.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AssetRefs.cpp"
+                                },
+                                "region": {
+                                    "startLine": 25,
+                                    "startColumn": 75,
+                                    "snippet": {
+                                        "text": "\treturn _combatantTable->FindRow<FCombatantTemplateFull>(ID, ContextString:\"bluh\");"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            ],
             "tool": {
                 "driver": {
                     "name": "MSVC",

@@ -1,6 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "CombatantUEnum.h"
+#include "StatusEnum.h"
 #include "EffectStruct.generated.h"
 
 USTRUCT(BlueprintType)

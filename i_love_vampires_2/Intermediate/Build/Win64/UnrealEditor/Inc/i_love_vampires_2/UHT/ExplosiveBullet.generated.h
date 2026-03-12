@@ -15,16 +15,8 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
-class APawn;
-struct FAOETemplate;
-struct FEffectStruct;
-struct FProjectileTemplate;
 
 // ********** Begin Class AExplosiveBullet *********************************************************
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveBullet_h_10_RPC_WRAPPERS_NO_PURE_DECLS \
-	DECLARE_FUNCTION(execinitialise_AExplosiveBullet);
-
-
 struct Z_Construct_UClass_AExplosiveBullet_Statics;
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AExplosiveBullet_NoRegister();
 
@@ -53,7 +45,6 @@ public: \
 #define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveBullet_h_10_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveBullet_h_10_RPC_WRAPPERS_NO_PURE_DECLS \
 	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveBullet_h_10_INCLASS_NO_PURE_DECLS \
 	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveBullet_h_10_ENHANCED_CONSTRUCTORS \
 private: \

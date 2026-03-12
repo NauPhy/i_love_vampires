@@ -1,18 +1,18 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Engine/DataTable.h"
-#include "SpriteManagerUEnum.h"
-#include "CombatantTemplate.generated.h"
+#include "SpriteEnum.h"
+#include "CombatantConfig.generated.h"
 USTRUCT(BlueprintType)
-struct I_LOVE_VAMPIRES_2_API FCombatantTemplate : public FTableRowBase
+struct I_LOVE_VAMPIRES_2_API FCombatantConfig
 {
 	GENERATED_USTRUCT_BODY()
 
 public:
-	FCombatantTemplate() = default;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "FCombatantTemplate")
 	FString _name = "Combatant";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "FCombatantTemplate")
 	ESprite _sprite = static_cast<ESprite>(0);
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "FCombatantTemplate")
+	TArray<FName> _startingWeapons;
 };

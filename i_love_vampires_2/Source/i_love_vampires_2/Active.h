@@ -1,68 +1,39 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "UObject/Object.h"
-#include <unordered_map>
-
-#include "WeaponTemplate.h"
-#include "ProjectileTemplate.h"
-#include "AOETemplate.h"
-
-#include "CombatantAttributeSetEnum.h"
-#include "WeaponEnum.h"
-#include "ProjectileEnum.h"
-#include "AOEEnum.h"
-
+#include "SubActiveTemplate.h"
+#include "MyCombatantAttributeSet.h"
+#include "StructUtils/InstancedStruct.h"
+#include "WeaponConfig.h"
+#include "WeaponAttributes.h"
+#include <memory>
+#include <vector>
 #include "Active.generated.h"
-class UAssetRefs;
 class APawn;
+
 
 UCLASS()
 class I_LOVE_VAMPIRES_2_API UActive : public UObject {
 	GENERATED_BODY()
-
-	static const WeaponAttribute::MyEnum _WARMUP = WeaponAttribute::MyEnum::warmup;
-	static const WeaponAttribute::MyEnum _CRIT_CHANCE = WeaponAttribute::MyEnum::critChance;
-	static const WeaponAttribute::MyEnum _CRIT_MULTIPLIER = WeaponAttribute::MyEnum::critMultiplier;
-	static const CombatantAttribute::MyEnum _ATTACK_SPEED = CombatantAttribute::MyEnum::attackSpeed;
-	static const CombatantAttribute::MyEnum _COMBATANT_CRIT_CHANCE = CombatantAttribute::MyEnum::critChance;
-	static const CombatantAttribute::MyEnum _COMBATANT_CRIT_MULTIPLIER = CombatantAttribute::MyEnum::critMultiplier;
 	
-	FName _ID = "weapon";
-	FString _name = "Weapon";
 	float _timeSinceLastActivation = 0;
+	// not a UObject
+	std::vector<std::unique_ptr<UMyAttributeSet>> _attributeSets;
 
-	FWeaponTemplate* _weaponTemplate = nullptr;
-	FProjectileTemplate* _projectileTemplate = nullptr;
-	FAOETemplate* _AOETemplate = nullptr;
-
+	// I may at some point need separate _config and MyAttributeSet for UActive, but for now the only float I have is warmup.
 	UPROPERTY()
-	FWeaponTemplate _modifiedWeaponTemplate;
+	FSubActiveTemplate _myTemplate;
+	std::unique_ptr<FWeaponConfig> _config = nullptr;
 	UPROPERTY()
-	FProjectileTemplate _modifiedProjectileTemplate;
-	UPROPERTY()
-	FAOETemplate _modifiedAOETemplate;
-
 	TWeakObjectPtr<APawn> _pawnRef = nullptr;
+	TWeakPtr<UMyCombatantAttributeSet> _combatantAttributeSet = nullptr;
 
-	void updateWarmup(const std::unordered_map < CombatantAttribute::MyEnum, float>& snapshot);
-	void updateWeaponAttributes(const std::unordered_map<CombatantAttribute::MyEnum, float>& attributeSnapshot);
-	void updateProjectileAttributes()
-	void updateAOEAttributes()
+	void updateWarmup(float delta);
+	template<typename attackType>
+	void activate();
+	bool initConfigAndAttributes(const TInstancedStruct<FWeaponConfig>&, const TInstancedStruct<FWeaponAttributes>&);
 
-	bool getTemplateAttribute(WeaponAttribute::MyEnum, float&) const;
-	static bool getCombatantAttribute(std::unordered_map<const CombatantAttribute::MyEnum, float>& input, CombatantAttribute::MyEnum, float&);
-	void activate(const std::unordered_map<CombatantAttribute::MyEnum, float>& snapshot);
-	//bool getWeaponTemplate(FWeaponTemplate&) const;
-	//bool getProjectileTemplate(FProjectileTemplate&) const;
-	//bool getAOETemplate(FAOETemplate&) const;
-	bool getAssetRefs(UAssetRefs*&)const;
-	
 public:
-	Active() = delete;
-	Active(const Active& other) = delete;
-	Active(const Active&& other) = delete;
-	Active& operator=(const Active& other) = delete;
-	Active& operator=(const Active&& other) = delete;
-	Active(FName ID, const std::unordered_map<CombatantAttribute::MyEnum, float>& attributeSnapshot, APawn* pawnRef);
-	virtual void tick(float delta, const std::unordered_map<CombatantAttribute::MyEnum, float>& attributeSnapshot);
+	void initialise_UActive(const APawn* caller, FName ID, const TSharedPtr<UMyCombatantAttributeSet>& callerAttributes);
+	virtual void tick(float delta);
 };

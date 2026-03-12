@@ -1,0 +1,938 @@
+{
+    "version": "2.1.0",
+    "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+    "runs": [
+        {
+            "results": [
+                {
+                    "ruleId": "C3203",
+                    "level": "error",
+                    "message": {
+                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 52,
+                                    "startColumn": 36,
+                                    "snippet": {
+                                        "text": "\tconst std::vector<std::unique_ptr<StatusEffect>>& getStatusEffects() const { return _statusEffects; }"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 52,
+                                    "startColumn": 36,
+                                    "snippet": {
+                                        "text": "\tconst std::vector<std::unique_ptr<StatusEffect>>& getStatusEffects() const { return _statusEffects; }"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "the template instantiation context (the oldest one first) is"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 13,
+                                    "startColumn": 7,
+                                    "snippet": {
+                                        "text": "class UMyAttributeSet {"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "while compiling class template 'UMyAttributeSet'"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3203",
+                    "level": "error",
+                    "message": {
+                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 57,
+                                    "startColumn": 44,
+                                    "snippet": {
+                                        "text": "\tvoid inflictInstantStatus(std::unique_ptr<StatusEffect>);"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3203",
+                    "level": "error",
+                    "message": {
+                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 58,
+                                    "startColumn": 37,
+                                    "snippet": {
+                                        "text": "\tvoid inflictStatus(std::unique_ptr<StatusEffect>);"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C4265",
+                    "message": {
+                        "text": "'UMyAttributeSet<FWeaponAttributes>': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 60,
+                                    "startColumn": 1,
+                                    "snippet": {
+                                        "text": "};"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C4265",
+                    "message": {
+                        "text": "'UMyWeaponAttributeSet': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 15,
+                                    "startColumn": 1,
+                                    "snippet": {
+                                        "text": "};"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C4265",
+                    "message": {
+                        "text": "'UMyAttributeSet<FCombatantAttributes>': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 60,
+                                    "startColumn": 1,
+                                    "snippet": {
+                                        "text": "};"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C4265",
+                    "message": {
+                        "text": "'UMyCombatantAttributeSet': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyCombatantAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 16,
+                                    "startColumn": 1,
+                                    "snippet": {
+                                        "text": "};"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2039",
+                    "level": "error",
+                    "message": {
+                        "text": "'initialise_UWeaponAttributeSet': is not a member of 'UMyWeaponAttributeSet'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 5,
+                                    "startColumn": 29,
+                                    "snippet": {
+                                        "text": "void UMyWeaponAttributeSet::initialise_UWeaponAttributeSet(const FWeaponAttributes* rowRef, TSharedObjectPtr<UMyCombatantAttributeSet>& modifiers) {"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.h"
+                                },
+                                "region": {
+                                    "startLine": 7,
+                                    "startColumn": 7,
+                                    "snippet": {
+                                        "text": "class UMyWeaponAttributeSet : public UMyAttributeSet<FWeaponAttributes>"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UMyWeaponAttributeSet'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C7568",
+                    "level": "error",
+                    "message": {
+                        "text": "argument list missing after assumed function template 'TSharedObjectPtr'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 5,
+                                    "startColumn": 93,
+                                    "snippet": {
+                                        "text": "void UMyWeaponAttributeSet::initialise_UWeaponAttributeSet(const FWeaponAttributes* rowRef, TSharedObjectPtr<UMyCombatantAttributeSet>& modifiers) {"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2065",
+                    "level": "error",
+                    "message": {
+                        "text": "'_modifiers': undeclared identifier"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 6,
+                                    "startColumn": 2,
+                                    "snippet": {
+                                        "text": "\t_modifiers = TWeakObjectPtr<UMyAttributeSet>(modifiers);"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3203",
+                    "level": "error",
+                    "message": {
+                        "text": "'UMyAttributeSet': unspecialized class template can't be used as a template argument for template parameter 'T', expected a real type"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 6,
+                                    "startColumn": 30,
+                                    "snippet": {
+                                        "text": "\t_modifiers = TWeakObjectPtr<UMyAttributeSet>(modifiers);"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3861",
+                    "level": "error",
+                    "message": {
+                        "text": "'Initialise_UMyAttributeSet': identifier not found"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 7,
+                                    "startColumn": 2,
+                                    "snippet": {
+                                        "text": "\tInitialise_UMyAttributeSet(rowRef);"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2819",
+                    "level": "error",
+                    "message": {
+                        "text": "type 'TWeakPtr<UMyAttributeSet<FWeaponAttributes>,ESPMode::ThreadSafe>' does not have an overloaded member 'operator ->'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 15,
+                                    "startColumn": 52,
+                                    "snippet": {
+                                        "text": "\tconst FCombatantAttributes& combatantAttributes = _modifiers->getAttributes();"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Epic Games/UE_5.7/Engine/Source/Runtime/Core/Public/Templates/SharedPointer.h"
+                                },
+                                "region": {
+                                    "startLine": 1294,
+                                    "startColumn": 7,
+                                    "snippet": {
+                                        "text": "class TWeakPtr"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'TWeakPtr<UMyAttributeSet<FWeaponAttributes>,ESPMode::ThreadSafe>'"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 15,
+                                    "startColumn": 52,
+                                    "snippet": {
+                                        "text": "\tconst FCombatantAttributes& combatantAttributes = _modifiers->getAttributes();"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "did you intend to use '.' instead?"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2039",
+                    "level": "error",
+                    "message": {
+                        "text": "'getAttributes': is not a member of 'TWeakPtr<UMyAttributeSet<FWeaponAttributes>,ESPMode::ThreadSafe>'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 15,
+                                    "startColumn": 64,
+                                    "snippet": {
+                                        "text": "\tconst FCombatantAttributes& combatantAttributes = _modifiers->getAttributes();"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Epic Games/UE_5.7/Engine/Source/Runtime/Core/Public/Templates/SharedPointer.h"
+                                },
+                                "region": {
+                                    "startLine": 1294,
+                                    "startColumn": 7,
+                                    "snippet": {
+                                        "text": "class TWeakPtr"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'TWeakPtr<UMyAttributeSet<FWeaponAttributes>,ESPMode::ThreadSafe>'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2530",
+                    "level": "error",
+                    "message": {
+                        "text": "'combatantAttributes': references must be initialized"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 15,
+                                    "startColumn": 50,
+                                    "snippet": {
+                                        "text": "\tconst FCombatantAttributes& combatantAttributes = _modifiers->getAttributes();"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2039",
+                    "level": "error",
+                    "message": {
+                        "text": "'_warmup': is not a member of 'FWeaponAttributes'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 17,
+                                    "startColumn": 19,
+                                    "snippet": {
+                                        "text": "\t_finalAttributes._warmup = _baseAttributes._warmup * (1.0f/combatantAttributes.attackSpeed);"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/WeaponAttributes.h"
+                                },
+                                "region": {
+                                    "startLine": 8,
+                                    "startColumn": 30,
+                                    "snippet": {
+                                        "text": "struct I_LOVE_VAMPIRES_2_API FWeaponAttributes : public FTableRowBase"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'FWeaponAttributes'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2039",
+                    "level": "error",
+                    "message": {
+                        "text": "'_warmup': is not a member of 'FWeaponAttributes'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 17,
+                                    "startColumn": 45,
+                                    "snippet": {
+                                        "text": "\t_finalAttributes._warmup = _baseAttributes._warmup * (1.0f/combatantAttributes.attackSpeed);"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/WeaponAttributes.h"
+                                },
+                                "region": {
+                                    "startLine": 8,
+                                    "startColumn": 30,
+                                    "snippet": {
+                                        "text": "struct I_LOVE_VAMPIRES_2_API FWeaponAttributes : public FTableRowBase"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'FWeaponAttributes'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2039",
+                    "level": "error",
+                    "message": {
+                        "text": "'attackSpeed': is not a member of 'FCombatantAttributes'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 17,
+                                    "startColumn": 81,
+                                    "snippet": {
+                                        "text": "\t_finalAttributes._warmup = _baseAttributes._warmup * (1.0f/combatantAttributes.attackSpeed);"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/CombatantAttributes.h"
+                                },
+                                "region": {
+                                    "startLine": 11,
+                                    "startColumn": 30,
+                                    "snippet": {
+                                        "text": "struct I_LOVE_VAMPIRES_2_API FCombatantAttributes"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'FCombatantAttributes'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2039",
+                    "level": "error",
+                    "message": {
+                        "text": "'_critChance': is not a member of 'FWeaponAttributes'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 18,
+                                    "startColumn": 19,
+                                    "snippet": {
+                                        "text": "\t_finalAttributes._critChance = _baseAttributes._critChance + combatantAttributes.critChance;"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/WeaponAttributes.h"
+                                },
+                                "region": {
+                                    "startLine": 8,
+                                    "startColumn": 30,
+                                    "snippet": {
+                                        "text": "struct I_LOVE_VAMPIRES_2_API FWeaponAttributes : public FTableRowBase"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'FWeaponAttributes'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2039",
+                    "level": "error",
+                    "message": {
+                        "text": "'_critChance': is not a member of 'FWeaponAttributes'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 18,
+                                    "startColumn": 49,
+                                    "snippet": {
+                                        "text": "\t_finalAttributes._critChance = _baseAttributes._critChance + combatantAttributes.critChance;"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/WeaponAttributes.h"
+                                },
+                                "region": {
+                                    "startLine": 8,
+                                    "startColumn": 30,
+                                    "snippet": {
+                                        "text": "struct I_LOVE_VAMPIRES_2_API FWeaponAttributes : public FTableRowBase"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'FWeaponAttributes'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2039",
+                    "level": "error",
+                    "message": {
+                        "text": "'critChance': is not a member of 'FCombatantAttributes'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 18,
+                                    "startColumn": 83,
+                                    "snippet": {
+                                        "text": "\t_finalAttributes._critChance = _baseAttributes._critChance + combatantAttributes.critChance;"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/CombatantAttributes.h"
+                                },
+                                "region": {
+                                    "startLine": 11,
+                                    "startColumn": 30,
+                                    "snippet": {
+                                        "text": "struct I_LOVE_VAMPIRES_2_API FCombatantAttributes"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'FCombatantAttributes'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2039",
+                    "level": "error",
+                    "message": {
+                        "text": "'_critMultiplier': is not a member of 'FWeaponAttributes'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 19,
+                                    "startColumn": 19,
+                                    "snippet": {
+                                        "text": "\t_finalAttributes._critMultiplier = _baseAttributes._critMultiplier + combatantAttributes.critMultiplier;"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/WeaponAttributes.h"
+                                },
+                                "region": {
+                                    "startLine": 8,
+                                    "startColumn": 30,
+                                    "snippet": {
+                                        "text": "struct I_LOVE_VAMPIRES_2_API FWeaponAttributes : public FTableRowBase"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'FWeaponAttributes'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2039",
+                    "level": "error",
+                    "message": {
+                        "text": "'_critMultiplier': is not a member of 'FWeaponAttributes'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 19,
+                                    "startColumn": 53,
+                                    "snippet": {
+                                        "text": "\t_finalAttributes._critMultiplier = _baseAttributes._critMultiplier + combatantAttributes.critMultiplier;"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/WeaponAttributes.h"
+                                },
+                                "region": {
+                                    "startLine": 8,
+                                    "startColumn": 30,
+                                    "snippet": {
+                                        "text": "struct I_LOVE_VAMPIRES_2_API FWeaponAttributes : public FTableRowBase"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'FWeaponAttributes'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2039",
+                    "level": "error",
+                    "message": {
+                        "text": "'critMultiplier': is not a member of 'FCombatantAttributes'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyWeaponAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 19,
+                                    "startColumn": 91,
+                                    "snippet": {
+                                        "text": "\t_finalAttributes._critMultiplier = _baseAttributes._critMultiplier + combatantAttributes.critMultiplier;"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/CombatantAttributes.h"
+                                },
+                                "region": {
+                                    "startLine": 11,
+                                    "startColumn": 30,
+                                    "snippet": {
+                                        "text": "struct I_LOVE_VAMPIRES_2_API FCombatantAttributes"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'FCombatantAttributes'"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "tool": {
+                "driver": {
+                    "name": "MSVC",
+                    "shortDescription": {
+                        "text": "Microsoft Visual C++ Compiler Warnings/Errors"
+                    },
+                    "informationUri": "https://docs.microsoft.com/cpp/error-messages/compiler-errors-1/c-cpp-build-errors"
+                }
+            }
+        }
+    ]
+}

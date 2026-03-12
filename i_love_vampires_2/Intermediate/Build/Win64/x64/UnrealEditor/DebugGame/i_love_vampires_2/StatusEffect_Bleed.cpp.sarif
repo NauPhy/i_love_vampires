@@ -3,7 +3,99 @@
     "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
     "runs": [
         {
-            "results": [],
+            "results": [
+                {
+                    "ruleId": "C4265",
+                    "message": {
+                        "text": "'StatusEffect<FCombatantAttributes>': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusEffect_Bleed.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusEffect.h"
+                                },
+                                "region": {
+                                    "startLine": 13,
+                                    "startColumn": 3,
+                                    "snippet": {
+                                        "text": "\t~StatusEffect() {}"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusEffect.h"
+                                },
+                                "region": {
+                                    "startLine": 13,
+                                    "startColumn": 3,
+                                    "snippet": {
+                                        "text": "\t~StatusEffect() {}"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "the template instantiation context (the oldest one first) is"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusEffect_Bleed.h"
+                                },
+                                "region": {
+                                    "startLine": 5,
+                                    "startColumn": 35,
+                                    "snippet": {
+                                        "text": "class StatusEffect_Bleed : public StatusEffect<FCombatantAttributes> {"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see reference to class template instantiation 'StatusEffect<FCombatantAttributes>' being compiled"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C4265",
+                    "message": {
+                        "text": "'StatusEffect_Bleed': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusEffect_Bleed.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusEffect_Bleed.h"
+                                },
+                                "region": {
+                                    "startLine": 12,
+                                    "startColumn": 1,
+                                    "snippet": {
+                                        "text": "};"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            ],
             "tool": {
                 "driver": {
                     "name": "MSVC",

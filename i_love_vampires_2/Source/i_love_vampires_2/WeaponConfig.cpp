@@ -1,1 +1,1 @@
-#include "WeaponTemplate.h"
+#include "WeaponConfig.h"

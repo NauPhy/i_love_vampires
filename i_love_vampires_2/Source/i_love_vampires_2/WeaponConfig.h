@@ -3,24 +3,15 @@
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
 #include "EffectStruct.h"
-#include "WeaponUEnum.h"
-#include "WeaponTemplate.generated.h"
+#include "WeaponEnum.h"
+#include "WeaponConfig.generated.h"
 
 USTRUCT(BlueprintType)
-struct I_LOVE_VAMPIRES_2_API FWeaponTemplate : public FTableRowBase
+struct I_LOVE_VAMPIRES_2_API FWeaponConfig : public FTableRowBase
 {
 	GENERATED_USTRUCT_BODY()
 	
 public:
-	FWeaponTemplate() = default;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponTemplate")
-	FString _name = "Weapon";
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponTemplate")
-	bool _startOnCooldown = true;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponTemplate")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponConfig")
 	TArray<FEffectStruct> _statusEffects;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponTemplate")
-	bool _hasProjectileData = false;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponTemplate")
-	bool _hasAOEData = false;
 };

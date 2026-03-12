@@ -2,7 +2,6 @@
 #include "CoreMinimal.h"
 #include "Bullet.h"
 #include "ExplosiveProjectileConfig.h"
-#include "ExplosiveProjectileAttributes.h"
 #include "ExplosiveBullet.generated.h"
 class AAOE;
 
@@ -20,14 +19,14 @@ public:
 	void initialise_AExplosiveBullet(
 		APawn* pawnRef,
 		float directionX,
-		float directionZ,
+		float directionZ
 		) {initialise_ABullet(pawnRef, directionX, directionZ);}
 	void initialise_AExplosiveBullet(
 		APawn* pawnRef,
 		float directionX,
 		float directionZ,
 		const FExplosiveProjectileConfig& config,
-		const FExplosiveProjectileAttributes& attributes,
+		const FProjectileAttributes& attributes
 		);
 
 protected:

@@ -1,1 +1,1 @@
-#include "WeaponTemplate_Attr.h"
+#include "WeaponAttributes.h"

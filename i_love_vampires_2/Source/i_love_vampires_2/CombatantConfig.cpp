@@ -1,1 +1,1 @@
-#include "CombatantTemplate.h"
+#include "CombatantConfig.h"

@@ -5,7 +5,7 @@
 
 #include "Definitions.h"
 
-std::unique_ptr<StatusEffect> StatusFactory::createStatusEffect(const EffectStruct& specs) {
+std::unique_ptr<StatusEffect> StatusFactory::createStatusEffect(const FEffectStruct& specs) {
 	std::unique_ptr<StatusEffect> ret = nullptr;
 	if (specs._type == _DAMAGE) {
 		ret = std::make_unique<StatusEffect_Damage>(specs._magnitude, specs._chance);

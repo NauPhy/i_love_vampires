@@ -1,20 +1,10 @@
 #include "MyProjectileAttributeSet.h"
 #include "MyCombatantAttributeSet.h"
-#include "MyGameplayStatics.h"
-#include "AssetRefs.h"
+#include "CombatantAttributes.h"
 
-void UMyProjectileAttributeSet::initialise_UProjectileAttributeSet(FName ID, const FProjectileTemplate_Attr* rowReference, UMyCombatantAttributeSet* modifiers) {
-	_modifiers = TWeakObjectPtr<UMyCombatantAttributeSet>(modifiers);
-	UAssetRefs* assetRefs = nullptr;
-	if (!MyGameplayStatics::getAssetRefs(assetRefs)) {
-		return;
-	}
-	FProjectileTemplate_Attr* rowReference = assetRefs->getProjectileTemplate_Attr(ID);
-	if (rowReference == nullptr) {
-		LOGERROR("UMyProjectileAttributeSet::initialise_UMyProjectileAttributeSet - rowReference is null");
-		return;
-	}
-	Initialise_UMyAttributeSet(ID, rowReference);
+void UMyProjectileAttributeSet::initialise_UProjectileAttributeSet(const FProjectileAttributes* rowRef, TSharedPtr<UMyCombatantAttributeSet>& modifiers) {
+	_modifiers = TWeakObjectPtr<UMyAttributeSet>(modifiers);
+	Initialise_UMyAttributeSet(rowRef);
 }
 
 void UMyProjectileAttributeSet::updateFromModifiers() {
@@ -22,7 +12,7 @@ void UMyProjectileAttributeSet::updateFromModifiers() {
 	if (!_modifiers.IsValid()) {
 		return;
 	}
-	const FCombatantTemplate_Attr& combatantAttributes = _modifiers->_finalAttributes;
+	const FCombatantAttributes& combatantAttributes = _modifiers->getAttributes();
 	_finalAttributes._radius = _baseAttributes._radius * combatantAttributes.projectileSize;
 	_finalAttributes._speed = _baseAttributes._speed * combatantAttributes.projectileSpeed;
 	_finalAttributes._pierce = _baseAttributes._pierce + combatantAttributes.bonusPierce;

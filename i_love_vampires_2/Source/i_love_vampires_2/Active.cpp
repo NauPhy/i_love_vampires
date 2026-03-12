@@ -1,155 +1,118 @@
 #include "Active.h"
-#include "EnumConverter.h"
-#include "WeaponUEnum.h"
-#include "Definitions.h"
+#include "MyGameplayStatics.h"
 #include "AssetRefs.h"
-#include "Kismet/GameplayStatics.h"
+#include "ActiveTemplate.h"
+#include "AttackActor.h"
+#include "Bullet.h"
+#include "AOE.h"
+#include "ExplosiveBullet.h"
+#include "Definitions.h"
 #include "Framework/Pawn.h"
 
-using std::unordered_map;
+void UActive::initialise_UActive(const APawn* caller, FName ID, const TSharedPtr<UMyCombatantAttributeSet>& callerAttributes) {
+	_pawnRef = TWeakObjectPtr<APawn>(caller);
+	_combatantAttributeSet = TWeakPtr<UMyCombatantAttributeSet>(callerAttributes);
 
-Active::Active(FName ID, const unordered_map<CombatantAttribute::MyEnum, float>& attributeSnapshot, APawn* pawnRef) :
-	_ID(ID),
-	_pawnRef(TWeakObjectPtr<APawn>(pawnRef))
-{
-	// Initialise template references
-	{
-		UAssetRefs* refs = nullptr;
-		if (!getAssetRefs(refs))
-			return;
-		_weaponTemplate = refs->getWeaponTemplate(_ID);
-		if (_weaponTemplate == nullptr) {
-			LOGERROR("Active::Active weapon template is nullptr");
-			return;
-		}
-		if (_weaponTemplate->_hasProjectileData) {
-			_projectileTemplate = refs->getProjectileTemplate(_ID);
-			if (_projectileTemplate == nullptr) {
-				LOGERROR("Active::Active projectile template is nullptr");
-				return;
-			}
-		}
-		if (_weaponTemplate->_hasAOEData) {
-			_AOETemplate = refs->getAOETemplate(_ID);
-			if (_AOETemplate == nullptr) {
-				LOGERROR("Active::Active AOE template is nullptr");
-				return;
-			}
-		}
-	}
-	//warmup
-	float warmup = 0;
-	if (!getWeaponAttribute(_WARMUP, warmup))
+	// get template from table
+	UAssetRefs* refs = nullptr;
+	if (!getAssetRefs(refs))
 		return;
-	_timeSinceLastActivation = template._startOnCooldown ? 0 : warmup;
-	//other
-	_name = _weaponTemplate->_name;
+	const FActiveTemplate* fullTemplate = refs->getActiveTemplate(ID);
+	if (fullTemplate == nullptr) {
+		LOGERROR("UActive::initialise_UActive - fullTemplate is nullptr");
+		return;
+	}
+	//set myTemplate
+	_myTemplate = fullTemplate->_template;
+	//set combatant ref
+	_combatantAttributeSet = TWeakPtr<UMyCombatantAttributeSet>(&callerAttributes);
+	if (!fullTemplate->_config.IsValid() || !fullTemplate->_attributes.IsValid()) {
+		LOGERROR("UActive::initialise_UActive - template config or attributes is not valid");
+		return;
+	}
+	//set attributes and config
+	if (!initConfigAndAttributes(_fullTemplate->_config, _fullTemplate->_attributes))
+		return;
+	//warmup
+	_timeSinceLastActivation = myTemplate._startOnCooldown ? 0 : _myTemplate->_warmup;
 }
 
-void Active::tick(float delta, const unordered_map<CombatantAttribute::MyEnum, float>& attributeSnapshot) {
+bool UActive::initConfigAndAttributes(const TInstancedStruct<const TInstancedStruct<FWeaponConfig>& configData, FWeaponAttributes>& attributeData) {
+	if (_template->_attackActorClass == ABullet::StaticClass()) {
+		const FProjectileConfig& config = configData.Get<FProjectileConfig>();
+		const FWeaponAttributes& attributes = attributeData.Get<FProjectileAttributes>();
+
+		_config = MakeUnique<FProjectileConfig>(config);
+		_attributeSets.push_back(std::make_unique<UMyProjectileAttributeSet>());
+		_attributeSets.back()->initialise_UMyProjectileAttributeSet(&attributes, &_combatantAttributeSet);
+	}
+	else if (_template->_attackActorClass == AAOE::StaticClass()) {
+		const FAOEConfig& config = configData.Get<FAOEConfig>();
+		const FAOEAttributes& attributes = attributeData.Get<FAOEAttributes>();
+
+		_config = MakeUnique<FAOEConfig>(config);
+		_attributeSets.push_back(std::make_unique<UMyAOEAttributeSet>());
+		_attributeSetsback()->_initialise_UMyAOEAttributeSet(&attributes, &_combatantAttributeSet);
+	}
+	else if (_template->_attackActorClass == AExplosiveBullet::StaticClass()) {
+		const FExplosiveProjectileConfig& config = configData.Get<FExplosiveProjectileConfig>();
+		const FProjectileAttributes& attributes = attributeData.Get<FProjectileAttributes>();
+		const FAOEAttributes& explosionAttributes = config._explosionAttributes;
+
+		_config = MakeUnique<FExplosiveProjectileConfig>(config);
+		_attributeSets.push_back(std::make_unique<UMyProjectileAttributeSet>());
+		_attributeSets.back()->_initialise_UMyProjectileAttributeSet(&attributes, &_combatantAttributeSet);
+		_attributeSets.push_back(std::make_unique<UMyAOEAttributeSet>());
+		_attributeSets.back()->_initialise_UMyAOEAttributeSet(&explosionAttributes, &_combatantAttributeSet);
+	}
+	else {
+		LOGERROR("UActive::initConfigAndAttributes - not implemented");
+		return false;
+	}
+	return true;
+}
+
+void UActive::tick(float delta) {
 	if (!_pawnRef.IsValid()) {
-		Destroy();
 		return;
 	}
 	//If this is performance intensive I can change the trigger to onAttributeChanged
-	updateWeaponTemplate(attributeSnapshot);
-	if (_projectileTemplate != nullptr)
-		updateProjectileTemplate(attributeSnapshot);
-	if (_AOETemplate != nullptr)
-		updateProjectileTemplate(attributeSnapshot);
-
-	float warmup = 0;
-	if (!getWeaponAttribute(_WARMUP, warmup))
-		return;
-	if (_timeSinceLastActivation >= warmup) {
-		activate();
+	for (const auto& set : _attributeSets) {
+		set->tick(delta);
+	}
+	updateWarmup(delta);
+	if (_timeSinceLastActivation >= _myTemplate._warmup) {
+		activate<_myTemplate._attackActorClass>();
 		_timeSinceLastActivation = 0;
 	}
-	else
-		_timeSinceLastActivation += delta;
 }
 
-bool Active::activate(const unordered_map<CombatantAttribute::MyEnum, float>& snapshot) {
-	if (_originalTemplate).
+void UActive::updateWarmup(float delta) {
+	if (!_combatantAttributeSet.IsValid())
+		return;
+	static float oldAttackSpeed = _combatantAttributeSet->getAttributes()._attackSpeed;
+	const float newAttackSpeed = _combatantAttributeSet->getAttributes()._attackSpeed;
+
+	const float baseWarmup = _myTemplate._warmup;
+	const float modifiedWarmup = baseWarmup * (1.0f / _combatantAttributeSet->getAttributes()._attackSpeed);
+	const float oldProportion = _timeSinceLastActivation / (baseWarmup * (1.0f / oldAttackSpeed));
+	_timeSinceLastActivation = oldProportion * modifiedWarmup + delta;
+	oldAttackSpeed = newAttackSpeed;
 }
 
-void Active::updateWarmup(const std::unordered_map < CombatantAttribute::MyEnum, float>& snapshot) {
-	float warmup = 0;
-	if (!getTemplateAttribute(_WARMUP, warmup))
-		return;
-	float currentWarmup = 0;
-	if (!getWeaponAttribute(_WARMUP, currentWarmup))
-		return;
-	auto proportion = _timeSinceLastActivation / currentWarmup;
-	_attributes[_WARMUP] = warmup / attackSpeed;
-	_timeSinceLastActivaton = proportion * _attributes[_WARMUP];
+template<typename attackType>
+void UActive::activate() {
+	LOGERROR("UActive::activate - not implemented for this attackType");)
 }
-
-void Active::updateWeaponAttributes(const unordered_map<CombatantAttribute::MyEnum, float>& snapshot) {
-	//damage not in combatantattributes yet
-	float critChance = 0;
-	if (!getTemplateAttribute(_CRIT_CHANCE, warmup))
-		return;
-	float critMult = 0;
-	if (!getTemplateAttribute(_CRIT_MULTIPLIER, critMult))
-		return;
-	float attackSpeed = 0;
-	if (!getCombatantAttribute(snapshot, _ATTACK_SPEED, attackSpeed))
-		return;
-	float combatantCritChance = 0;
-	if (!getCombatantAttribute(snapshot, _COMBATANT_CRIT_CHANCE, combatantCritChance))
-		return;
-	float combatantCritMult = 0;
-	if (!getCombatantAttribute(snapshot, _COMBATANT_CRIT_MULTIPLIER, combatantCritMult))
-		return;
-
-	updateWarmup(snapshot);
-	_attributes[_CRIT_CHANCE] = critChance + combatantCritChance;
-	_attributes[_CRIT_MULTIPLIER] = critMult + combatantCritMult;
+template<>
+void UActive::activate<ABullet>() {
+	//todo (I have to look at the blueprint)
 }
-
-bool Active::getWeaponAttribute(WeaponAttribute::MyEnum type, float& ret) const {
-	auto it = _attributes.find(type);
-	if (it == _attributes.end()) {
-		LOGERROR("Active::getWeaponAttribute - attribute not found");
-		return false;
-	}
-	ret = *it;
-	return true;
+template<>
+void UActive::activate<AAOE>() {
+	//todo (I have to look at the blueprint)
 }
-bool Active::getTemplateAttribute(WeaponAttribute::MyEnum type, float& ret) const {
-	auto converted = EnumConverter<WeaponAttribute::MyEnum, EWeaponAttribute>::toUEnum(type);
-	if (!_originalTemplate._attributes.Contains(converted)) {
-		LOGERROR("Active::getTemplateAttribute - attribute not found");
-		return false;
-	}
-	ret = _originalTemplate._attributes[converted];
-	return true;
-}
-bool Active::getCombatantAttribute(const std::unordered_map<CombatantAttribute::MyEnum, float>& input, CombatantAttribute::MyEnum type, float& ret) {
-	auto it = input.find(type);
-	if (it == input.end()) {
-		LOGERROR("Active::getCombatantAttribute - attribute not found");
-		return false;
-	}
-	ret = *it;
-	return true;
-}
-
-bool Active::getAssetRefs(UAssetRefs*& ret) {
-	if (!_pawnRef.IsValid()) {
-		Destroy();
-		return;
-	}
-	UGameInstance* gameInstance = UGameplayStatics::GetGameInstance(_pawnRef.Get());
-	if (gameInstance == nullptr) {
-		LOGERROR("Active::getAssetRefs - gameInstance is nullptr");
-		return false;
-	}
-	ret = gameInstance->GetSubsystem<UAssetRefs>();
-	if (ret == nullptr) {
-		LOGERROR("Active::getAssetRefs = ret is nullptr");
-		return false;
-	}
-	return true;
+template<>
+void UActive::activate<AExplosiveBullet>() {
+	//todo (I have to look at the blueprint)
 }

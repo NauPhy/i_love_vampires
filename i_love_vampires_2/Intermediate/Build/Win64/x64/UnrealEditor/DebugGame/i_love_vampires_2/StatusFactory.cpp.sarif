@@ -1,0 +1,1258 @@
+{
+    "version": "2.1.0",
+    "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+    "runs": [
+        {
+            "results": [
+                {
+                    "ruleId": "C3203",
+                    "level": "error",
+                    "message": {
+                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.h"
+                                },
+                                "region": {
+                                    "startLine": 12,
+                                    "startColumn": 25,
+                                    "snippet": {
+                                        "text": "\tstatic std::unique_ptr<StatusEffect> createStatusEffect(const FEffectStruct& effectStruct);"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C4265",
+                    "message": {
+                        "text": "'StatusEffect<FCombatantAttributes>': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusEffect.h"
+                                },
+                                "region": {
+                                    "startLine": 13,
+                                    "startColumn": 3,
+                                    "snippet": {
+                                        "text": "\t~StatusEffect() {}"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusEffect.h"
+                                },
+                                "region": {
+                                    "startLine": 13,
+                                    "startColumn": 3,
+                                    "snippet": {
+                                        "text": "\t~StatusEffect() {}"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "the template instantiation context (the oldest one first) is"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusEffect_Bleed.h"
+                                },
+                                "region": {
+                                    "startLine": 5,
+                                    "startColumn": 35,
+                                    "snippet": {
+                                        "text": "class StatusEffect_Bleed : public StatusEffect<FCombatantAttributes> {"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see reference to class template instantiation 'StatusEffect<FCombatantAttributes>' being compiled"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C4265",
+                    "message": {
+                        "text": "'StatusEffect_Bleed': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusEffect_Bleed.h"
+                                },
+                                "region": {
+                                    "startLine": 12,
+                                    "startColumn": 1,
+                                    "snippet": {
+                                        "text": "};"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C4265",
+                    "message": {
+                        "text": "'StatusEffect_Damage': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusEffect_Damage.h"
+                                },
+                                "region": {
+                                    "startLine": 14,
+                                    "startColumn": 1,
+                                    "snippet": {
+                                        "text": "};"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C4265",
+                    "message": {
+                        "text": "'StatusEffect_Burn': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusEffect_Burn.h"
+                                },
+                                "region": {
+                                    "startLine": 15,
+                                    "startColumn": 1,
+                                    "snippet": {
+                                        "text": "};"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3203",
+                    "level": "error",
+                    "message": {
+                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 8,
+                                    "startColumn": 17,
+                                    "snippet": {
+                                        "text": "std::unique_ptr<StatusEffect> StatusFactory::createStatusEffect(const FEffectStruct& specs) {"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3203",
+                    "level": "error",
+                    "message": {
+                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 9,
+                                    "startColumn": 18,
+                                    "snippet": {
+                                        "text": "\tstd::unique_ptr<StatusEffect> ret = nullptr;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2679",
+                    "level": "error",
+                    "message": {
+                        "text": "binary '=': no operator found which takes a right-hand operand of type 'std::unique_ptr<StatusEffect_Damage,std::default_delete<StatusEffect_Damage>>' (or there is no acceptable conversion)"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 11,
+                                    "startColumn": 3,
+                                    "snippet": {
+                                        "text": "\t\tret = std::make_unique<StatusEffect_Damage>(specs._magnitude, specs._chance);"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/INCLUDE/memory"
+                                },
+                                "region": {
+                                    "startLine": 3476,
+                                    "startColumn": 17,
+                                    "snippet": {
+                                        "text": "    unique_ptr& operator=(const unique_ptr&) = delete;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "could be 'std::unique_ptr<<error type>,std::default_delete<<error type>>> &std::unique_ptr<<error type>,std::default_delete<<error type>>>::operator =(const std::unique_ptr<<error type>,std::default_delete<<error type>>> &)'"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 11,
+                                    "startColumn": 3,
+                                    "snippet": {
+                                        "text": "\t\tret = std::make_unique<StatusEffect_Damage>(specs._magnitude, specs._chance);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "'std::unique_ptr<<error type>,std::default_delete<<error type>>> &std::unique_ptr<<error type>,std::default_delete<<error type>>>::operator =(const std::unique_ptr<<error type>,std::default_delete<<error type>>> &)': cannot convert argument 2 from 'std::unique_ptr<StatusEffect_Damage,std::default_delete<StatusEffect_Damage>>' to 'const std::unique_ptr<<error type>,std::default_delete<<error type>>> &'"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        },
+                        {
+                            "id": 2,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 11,
+                                    "startColumn": 46,
+                                    "snippet": {
+                                        "text": "\t\tret = std::make_unique<StatusEffect_Damage>(specs._magnitude, specs._chance);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "Reason: cannot convert from 'std::unique_ptr<StatusEffect_Damage,std::default_delete<StatusEffect_Damage>>' to 'const std::unique_ptr<<error type>,std::default_delete<<error type>>>'"
+                            },
+                            "properties": {
+                                "nestingLevel": 2
+                            }
+                        },
+                        {
+                            "id": 3,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 11,
+                                    "startColumn": 46,
+                                    "snippet": {
+                                        "text": "\t\tret = std::make_unique<StatusEffect_Damage>(specs._magnitude, specs._chance);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called"
+                            },
+                            "properties": {
+                                "nestingLevel": 2
+                            }
+                        },
+                        {
+                            "id": 4,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/INCLUDE/memory"
+                                },
+                                "region": {
+                                    "startLine": 3362,
+                                    "startColumn": 30,
+                                    "snippet": {
+                                        "text": "    _CONSTEXPR23 unique_ptr& operator=(nullptr_t) noexcept {"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "or       'std::unique_ptr<<error type>,std::default_delete<<error type>>> &std::unique_ptr<<error type>,std::default_delete<<error type>>>::operator =(std::nullptr_t) noexcept'"
+                            }
+                        },
+                        {
+                            "id": 5,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 11,
+                                    "startColumn": 3,
+                                    "snippet": {
+                                        "text": "\t\tret = std::make_unique<StatusEffect_Damage>(specs._magnitude, specs._chance);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "'std::unique_ptr<<error type>,std::default_delete<<error type>>> &std::unique_ptr<<error type>,std::default_delete<<error type>>>::operator =(std::nullptr_t) noexcept': cannot convert argument 2 from 'std::unique_ptr<StatusEffect_Damage,std::default_delete<StatusEffect_Damage>>' to 'std::nullptr_t'"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        },
+                        {
+                            "id": 6,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 11,
+                                    "startColumn": 46,
+                                    "snippet": {
+                                        "text": "\t\tret = std::make_unique<StatusEffect_Damage>(specs._magnitude, specs._chance);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called"
+                            },
+                            "properties": {
+                                "nestingLevel": 2
+                            }
+                        },
+                        {
+                            "id": 7,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/INCLUDE/memory"
+                                },
+                                "region": {
+                                    "startLine": 3413,
+                                    "startColumn": 30,
+                                    "snippet": {
+                                        "text": "    _CONSTEXPR23 unique_ptr& operator=(unique_ptr&& _Right) noexcept {"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "or       'std::unique_ptr<<error type>,std::default_delete<<error type>>> &std::unique_ptr<<error type>,std::default_delete<<error type>>>::operator =(std::unique_ptr<<error type>,std::default_delete<<error type>>> &&) noexcept'"
+                            }
+                        },
+                        {
+                            "id": 8,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 11,
+                                    "startColumn": 46,
+                                    "snippet": {
+                                        "text": "\t\tret = std::make_unique<StatusEffect_Damage>(specs._magnitude, specs._chance);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "'initializing': cannot convert from 'std::unique_ptr<StatusEffect_Damage,std::default_delete<StatusEffect_Damage>>' to 'std::unique_ptr<<error type>,std::default_delete<<error type>>> &&'"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        },
+                        {
+                            "id": 9,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 11,
+                                    "startColumn": 46,
+                                    "snippet": {
+                                        "text": "\t\tret = std::make_unique<StatusEffect_Damage>(specs._magnitude, specs._chance);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "Reason: cannot convert from 'std::unique_ptr<StatusEffect_Damage,std::default_delete<StatusEffect_Damage>>' to 'std::unique_ptr<<error type>,std::default_delete<<error type>>>'"
+                            },
+                            "properties": {
+                                "nestingLevel": 2
+                            }
+                        },
+                        {
+                            "id": 10,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 11,
+                                    "startColumn": 46,
+                                    "snippet": {
+                                        "text": "\t\tret = std::make_unique<StatusEffect_Damage>(specs._magnitude, specs._chance);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called"
+                            },
+                            "properties": {
+                                "nestingLevel": 2
+                            }
+                        },
+                        {
+                            "id": 11,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/INCLUDE/memory"
+                                },
+                                "region": {
+                                    "startLine": 3406,
+                                    "startColumn": 30,
+                                    "snippet": {
+                                        "text": "    _CONSTEXPR23 unique_ptr& operator=(unique_ptr<_Ty2, _Dx2>&& _Right) noexcept {"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "or       'std::unique_ptr<<error type>,std::default_delete<<error type>>> &std::unique_ptr<<error type>,std::default_delete<<error type>>>::operator =(std::unique_ptr<_Ux,_Dx> &&) noexcept'"
+                            }
+                        },
+                        {
+                            "id": 12,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 11,
+                                    "startColumn": 3,
+                                    "snippet": {
+                                        "text": "\t\tret = std::make_unique<StatusEffect_Damage>(specs._magnitude, specs._chance);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "'std::unique_ptr<<error type>,std::default_delete<<error type>>> &std::unique_ptr<<error type>,std::default_delete<<error type>>>::operator =(std::unique_ptr<_Ux,_Dx> &&) noexcept': could not deduce template argument for '__formal'"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        },
+                        {
+                            "id": 13,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/INCLUDE/memory"
+                                },
+                                "region": {
+                                    "startLine": 3403,
+                                    "startColumn": 9,
+                                    "snippet": {
+                                        "text": "        enable_if_t<conjunction_v<negation<is_array<_Ty2>>, is_assignable<_Dx&, _Dx2>,"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "'std::enable_if_t<false,int>' : Failed to specialize alias template"
+                            },
+                            "properties": {
+                                "nestingLevel": 2
+                            }
+                        },
+                        {
+                            "id": 14,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 11,
+                                    "startColumn": 3,
+                                    "snippet": {
+                                        "text": "\t\tret = std::make_unique<StatusEffect_Damage>(specs._magnitude, specs._chance);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "while trying to match the argument list '(std::unique_ptr<<error type>,std::default_delete<<error type>>>, std::unique_ptr<StatusEffect_Damage,std::default_delete<StatusEffect_Damage>>)'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3861",
+                    "level": "error",
+                    "message": {
+                        "text": "'elif': identifier not found"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 13,
+                                    "startColumn": 2,
+                                    "snippet": {
+                                        "text": "\telif(specs._type == _BLEED) {"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2679",
+                    "level": "error",
+                    "message": {
+                        "text": "binary '=': no operator found which takes a right-hand operand of type 'std::unique_ptr<StatusEffect_Bleed,std::default_delete<StatusEffect_Bleed>>' (or there is no acceptable conversion)"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 14,
+                                    "startColumn": 3,
+                                    "snippet": {
+                                        "text": "\t\tret = std::make_unique<StatusEffect_Bleed>(specs._magnitude, specs._duration, specs._chance);"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/INCLUDE/memory"
+                                },
+                                "region": {
+                                    "startLine": 3476,
+                                    "startColumn": 17,
+                                    "snippet": {
+                                        "text": "    unique_ptr& operator=(const unique_ptr&) = delete;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "could be 'std::unique_ptr<<error type>,std::default_delete<<error type>>> &std::unique_ptr<<error type>,std::default_delete<<error type>>>::operator =(const std::unique_ptr<<error type>,std::default_delete<<error type>>> &)'"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 14,
+                                    "startColumn": 3,
+                                    "snippet": {
+                                        "text": "\t\tret = std::make_unique<StatusEffect_Bleed>(specs._magnitude, specs._duration, specs._chance);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "'std::unique_ptr<<error type>,std::default_delete<<error type>>> &std::unique_ptr<<error type>,std::default_delete<<error type>>>::operator =(const std::unique_ptr<<error type>,std::default_delete<<error type>>> &)': cannot convert argument 2 from 'std::unique_ptr<StatusEffect_Bleed,std::default_delete<StatusEffect_Bleed>>' to 'const std::unique_ptr<<error type>,std::default_delete<<error type>>> &'"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        },
+                        {
+                            "id": 2,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 14,
+                                    "startColumn": 45,
+                                    "snippet": {
+                                        "text": "\t\tret = std::make_unique<StatusEffect_Bleed>(specs._magnitude, specs._duration, specs._chance);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "Reason: cannot convert from 'std::unique_ptr<StatusEffect_Bleed,std::default_delete<StatusEffect_Bleed>>' to 'const std::unique_ptr<<error type>,std::default_delete<<error type>>>'"
+                            },
+                            "properties": {
+                                "nestingLevel": 2
+                            }
+                        },
+                        {
+                            "id": 3,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 14,
+                                    "startColumn": 45,
+                                    "snippet": {
+                                        "text": "\t\tret = std::make_unique<StatusEffect_Bleed>(specs._magnitude, specs._duration, specs._chance);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called"
+                            },
+                            "properties": {
+                                "nestingLevel": 2
+                            }
+                        },
+                        {
+                            "id": 4,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/INCLUDE/memory"
+                                },
+                                "region": {
+                                    "startLine": 3362,
+                                    "startColumn": 30,
+                                    "snippet": {
+                                        "text": "    _CONSTEXPR23 unique_ptr& operator=(nullptr_t) noexcept {"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "or       'std::unique_ptr<<error type>,std::default_delete<<error type>>> &std::unique_ptr<<error type>,std::default_delete<<error type>>>::operator =(std::nullptr_t) noexcept'"
+                            }
+                        },
+                        {
+                            "id": 5,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 14,
+                                    "startColumn": 3,
+                                    "snippet": {
+                                        "text": "\t\tret = std::make_unique<StatusEffect_Bleed>(specs._magnitude, specs._duration, specs._chance);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "'std::unique_ptr<<error type>,std::default_delete<<error type>>> &std::unique_ptr<<error type>,std::default_delete<<error type>>>::operator =(std::nullptr_t) noexcept': cannot convert argument 2 from 'std::unique_ptr<StatusEffect_Bleed,std::default_delete<StatusEffect_Bleed>>' to 'std::nullptr_t'"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        },
+                        {
+                            "id": 6,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 14,
+                                    "startColumn": 45,
+                                    "snippet": {
+                                        "text": "\t\tret = std::make_unique<StatusEffect_Bleed>(specs._magnitude, specs._duration, specs._chance);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called"
+                            },
+                            "properties": {
+                                "nestingLevel": 2
+                            }
+                        },
+                        {
+                            "id": 7,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/INCLUDE/memory"
+                                },
+                                "region": {
+                                    "startLine": 3413,
+                                    "startColumn": 30,
+                                    "snippet": {
+                                        "text": "    _CONSTEXPR23 unique_ptr& operator=(unique_ptr&& _Right) noexcept {"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "or       'std::unique_ptr<<error type>,std::default_delete<<error type>>> &std::unique_ptr<<error type>,std::default_delete<<error type>>>::operator =(std::unique_ptr<<error type>,std::default_delete<<error type>>> &&) noexcept'"
+                            }
+                        },
+                        {
+                            "id": 8,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 14,
+                                    "startColumn": 45,
+                                    "snippet": {
+                                        "text": "\t\tret = std::make_unique<StatusEffect_Bleed>(specs._magnitude, specs._duration, specs._chance);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "'initializing': cannot convert from 'std::unique_ptr<StatusEffect_Bleed,std::default_delete<StatusEffect_Bleed>>' to 'std::unique_ptr<<error type>,std::default_delete<<error type>>> &&'"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        },
+                        {
+                            "id": 9,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 14,
+                                    "startColumn": 45,
+                                    "snippet": {
+                                        "text": "\t\tret = std::make_unique<StatusEffect_Bleed>(specs._magnitude, specs._duration, specs._chance);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "Reason: cannot convert from 'std::unique_ptr<StatusEffect_Bleed,std::default_delete<StatusEffect_Bleed>>' to 'std::unique_ptr<<error type>,std::default_delete<<error type>>>'"
+                            },
+                            "properties": {
+                                "nestingLevel": 2
+                            }
+                        },
+                        {
+                            "id": 10,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 14,
+                                    "startColumn": 45,
+                                    "snippet": {
+                                        "text": "\t\tret = std::make_unique<StatusEffect_Bleed>(specs._magnitude, specs._duration, specs._chance);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called"
+                            },
+                            "properties": {
+                                "nestingLevel": 2
+                            }
+                        },
+                        {
+                            "id": 11,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/INCLUDE/memory"
+                                },
+                                "region": {
+                                    "startLine": 3406,
+                                    "startColumn": 30,
+                                    "snippet": {
+                                        "text": "    _CONSTEXPR23 unique_ptr& operator=(unique_ptr<_Ty2, _Dx2>&& _Right) noexcept {"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "or       'std::unique_ptr<<error type>,std::default_delete<<error type>>> &std::unique_ptr<<error type>,std::default_delete<<error type>>>::operator =(std::unique_ptr<_Ux,_Dx> &&) noexcept'"
+                            }
+                        },
+                        {
+                            "id": 12,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 14,
+                                    "startColumn": 3,
+                                    "snippet": {
+                                        "text": "\t\tret = std::make_unique<StatusEffect_Bleed>(specs._magnitude, specs._duration, specs._chance);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "'std::unique_ptr<<error type>,std::default_delete<<error type>>> &std::unique_ptr<<error type>,std::default_delete<<error type>>>::operator =(std::unique_ptr<_Ux,_Dx> &&) noexcept': could not deduce template argument for '__formal'"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        },
+                        {
+                            "id": 13,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/INCLUDE/memory"
+                                },
+                                "region": {
+                                    "startLine": 3403,
+                                    "startColumn": 9,
+                                    "snippet": {
+                                        "text": "        enable_if_t<conjunction_v<negation<is_array<_Ty2>>, is_assignable<_Dx&, _Dx2>,"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "'std::enable_if_t<false,int>' : Failed to specialize alias template"
+                            },
+                            "properties": {
+                                "nestingLevel": 2
+                            }
+                        },
+                        {
+                            "id": 14,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 14,
+                                    "startColumn": 3,
+                                    "snippet": {
+                                        "text": "\t\tret = std::make_unique<StatusEffect_Bleed>(specs._magnitude, specs._duration, specs._chance);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "while trying to match the argument list '(std::unique_ptr<<error type>,std::default_delete<<error type>>>, std::unique_ptr<StatusEffect_Bleed,std::default_delete<StatusEffect_Bleed>>)'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2059",
+                    "level": "error",
+                    "message": {
+                        "text": "syntax error: ';'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 14,
+                                    "startColumn": 95,
+                                    "snippet": {
+                                        "text": "\t\tret = std::make_unique<StatusEffect_Bleed>(specs._magnitude, specs._duration, specs._chance);"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C4430",
+                    "level": "error",
+                    "message": {
+                        "text": "missing type specifier - int assumed. Note: C++ does not support default-int"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 16,
+                                    "startColumn": 2,
+                                    "snippet": {
+                                        "text": "\telif(specs._type == _BURN) {"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2065",
+                    "level": "error",
+                    "message": {
+                        "text": "'specs': undeclared identifier"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 16,
+                                    "startColumn": 7,
+                                    "snippet": {
+                                        "text": "\telif(specs._type == _BURN) {"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2065",
+                    "level": "error",
+                    "message": {
+                        "text": "'_BURN': undeclared identifier"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 16,
+                                    "startColumn": 22,
+                                    "snippet": {
+                                        "text": "\telif(specs._type == _BURN) {"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2059",
+                    "level": "error",
+                    "message": {
+                        "text": "syntax error: '{'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 16,
+                                    "startColumn": 29,
+                                    "snippet": {
+                                        "text": "\telif(specs._type == _BURN) {"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2143",
+                    "level": "error",
+                    "message": {
+                        "text": "syntax error: missing ';' before '{'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 16,
+                                    "startColumn": 29,
+                                    "snippet": {
+                                        "text": "\telif(specs._type == _BURN) {"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2447",
+                    "level": "error",
+                    "message": {
+                        "text": "'{': missing function header (old-style formal list?)"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 16,
+                                    "startColumn": 29,
+                                    "snippet": {
+                                        "text": "\telif(specs._type == _BURN) {"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2059",
+                    "level": "error",
+                    "message": {
+                        "text": "syntax error: 'else'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 19,
+                                    "startColumn": 2,
+                                    "snippet": {
+                                        "text": "\telse {"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2143",
+                    "level": "error",
+                    "message": {
+                        "text": "syntax error: missing ';' before '{'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 19,
+                                    "startColumn": 7,
+                                    "snippet": {
+                                        "text": "\telse {"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2447",
+                    "level": "error",
+                    "message": {
+                        "text": "'{': missing function header (old-style formal list?)"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 19,
+                                    "startColumn": 7,
+                                    "snippet": {
+                                        "text": "\telse {"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2059",
+                    "level": "error",
+                    "message": {
+                        "text": "syntax error: 'return'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 22,
+                                    "startColumn": 2,
+                                    "snippet": {
+                                        "text": "\treturn std::move(ret);"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2059",
+                    "level": "error",
+                    "message": {
+                        "text": "syntax error: '}'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 23,
+                                    "startColumn": 1,
+                                    "snippet": {
+                                        "text": "}"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2143",
+                    "level": "error",
+                    "message": {
+                        "text": "syntax error: missing ';' before '}'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusFactory.cpp"
+                                },
+                                "region": {
+                                    "startLine": 23,
+                                    "startColumn": 1,
+                                    "snippet": {
+                                        "text": "}"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            ],
+            "tool": {
+                "driver": {
+                    "name": "MSVC",
+                    "shortDescription": {
+                        "text": "Microsoft Visual C++ Compiler Warnings/Errors"
+                    },
+                    "informationUri": "https://docs.microsoft.com/cpp/error-messages/compiler-errors-1/c-cpp-build-errors"
+                }
+            }
+        }
+    ]
+}
