@@ -9,10 +9,14 @@ void AAttackActor::initialise_AAttackActor(APawn* pawnRef) {
 	_pawnRef = TWeakObjectPtr<APawn>(pawnRef);
 }
 
-void AAttackActor::initialise_AAttackActor(APawn* pawnRef, const FWeaponConfig& config, const FWeaponAttributes& attributes) {
+void AAttackActor::initialise_AAttackActor(APawn* pawnRef, const UAttackData* data) {
+	initialise_AAttackActor(pawnRef, data->_config, data->_attributes);
+}
+
+void AAttackActor::initialise_AAttackActor(APawn* pawnRef, UAttackConfig* config, UAttackAttributes* attributes) {
+	_config = DuplicateObject<UAttackConfig>(config, this);
+	_attributes = DuplicateObject<UAttackAttributes>(attributes, this);
 	initialise_AAttackActor(pawnRef);
-	_config = MakeUnique<FWeaponConfig>(config);
-	_attributes = MakeUnique<FWeaponAttributes>(attributes);
 }
 
 void AAttackActor::applyEffect(ACombatant* target) {
@@ -41,13 +45,26 @@ void AAttackActor::applyEffect(ACombatant* target) {
 	_effectedPawns.Add(TWeakObjectPtr<APawn>(Cast<APawn>(target)));
 }
 
-template<typename configType>
-bool AAttackActor::castConfig(configType*& ret) {
-	if (!_config.IsValid()) {
+template<typename castType>
+bool AAttackActor::castConfig(castType*& ret) {
+	if (_config == nullptr || !IsValid(_config)) {
 		LOGERROR("AAttackActor::castConfig - not valid");
 		return false;
 	}
-	ret = Cast<configType>(_config);
+	ret = Cast<castType>(_config);
+	if (ret == nullptr) {
+		LOGERROR("AAttackActor::castConfig - cast failed");
+		return false;
+	}
+	return true;
+}
+template<typename castType>
+bool AAttackActor::castAttributes(castType*& ret) {
+	if (_attributes == nullptr || !IsValid(_attributes)) {
+		LOGERROR("AAttackActor::castConfig - not valid");
+		return false;
+	}
+	ret = Cast<castType>(_attributes);
 	if (ret == nullptr) {
 		LOGERROR("AAttackActor::castConfig - cast failed");
 		return false;
@@ -55,16 +72,7 @@ bool AAttackActor::castConfig(configType*& ret) {
 	return true;
 }
 
-template<typename attributeType>
-bool AAttackActor::castAttribute(attributeType*& ret) {
-	if (!_attributes.IsValid()) {
-		LOGERROR("AAttackActor::castAttribute - not valid");
-		return false;
-	}
-	ret = Cast<attributeType>(_attributes);
-	if (ret == nullptr) {
-		LOGERROR("AAttackActor::castAttribute - cast failed");
-		return false;
-	}
-	return true;
+void UAttackAttributes::modifyAttributes(const UCombatantAttributes* modifiers, const UAttackAttributes* baseAttributes, UAttackAttributes* finalAttributes) {
+	finalAttributes->_critChance = baseAttributes->_critChance + modifiers->_critChance;
+	finalAttributes->_critMultiplier = baseAttributes->_critMultiplier + modifiers->_critMultiplier;
 }

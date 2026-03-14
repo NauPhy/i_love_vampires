@@ -1,13 +1,15 @@
 #include "StatusEffect_Burn.h"
-#include "MyGameplayStatics.h"
+#include "Combatant.h"
 
-StatusEffect_Burn::StatusEffect_Burn(float duration, float magnitude, float chance) : StatusEffect(duration, magnitude, chance), _burnThisFrame(false) {
-
-}
-
-void StatusEffect_Burn::postbonusStep(FCombatantAttributes& finalAttributes, FCombatantAttributes& attributeOffsets, float delta) {
+void UStatusEffect_Burn::postbonusStep(float delta) {
+	UCombatantAttributes* finalAttr = nullptr;
+	if (!castFinal<UCombatantAttributes>(finalAttr))
+		return;
+	UCombatantAttributes* attrOffsets = nullptr;
+	if (!castOffsets<UCombatantAttributes>(attrOffsets))
+		return;
 	if (_burnThisFrame) {
-		attributeOffsets._currentHP -= (_magnitude / 100.0f) * finalAttributes._maxHP;
+		attrOffsets->_currentHP -= (_magnitude / 100.0f) * finalAttr->_maxHP;
 		_burnThisFrame = false;
 	}
 }

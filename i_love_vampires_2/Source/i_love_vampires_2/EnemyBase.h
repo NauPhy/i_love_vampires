@@ -19,6 +19,8 @@ protected:
 public:
 	AEnemyBase();
 	virtual void BeginPlay() override;
-	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+	virtual void EndPlay(EEndPlayReason::Type EndPlayReason) override;
 	virtual void Tick(float delta) override;
+	void initialise_AEnemyBase(const UCombatantTemplate* temp) { initialise_ACombatant(temp); }
+	virtual void myInitialise(const UCombatantTemplate* temp) override { initialise_AEnemyBase(temp); }
 };

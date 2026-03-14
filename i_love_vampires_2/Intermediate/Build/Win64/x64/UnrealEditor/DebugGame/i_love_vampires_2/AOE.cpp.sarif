@@ -5,10 +5,9 @@
         {
             "results": [
                 {
-                    "ruleId": "C3203",
-                    "level": "error",
+                    "ruleId": "C4263",
                     "message": {
-                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
+                        "text": "'void UAOEAttributes::modifyAttributes(const UCombatantAttributes *,const UAOEAttributes *,UAOEAttributes *)': member function does not override any base class virtual member function"
                     },
                     "analysisTarget": {
                         "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
@@ -17,13 +16,38 @@
                         {
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.h"
                                 },
                                 "region": {
-                                    "startLine": 52,
-                                    "startColumn": 36,
+                                    "startLine": 84,
+                                    "startColumn": 15,
                                     "snippet": {
-                                        "text": "\tconst std::vector<std::unique_ptr<StatusEffect>>& getStatusEffects() const { return _statusEffects; }"
+                                        "text": "\tvirtual void modifyAttributes(const UCombatantAttributes*, const UAOEAttributes*, UAOEAttributes*);"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C4264",
+                    "message": {
+                        "text": "'void UAttackAttributes::modifyAttributes(const UCombatantAttributes *,const UAttackAttributes *,UAttackAttributes *)': no override available for virtual member function from base 'UAttackAttributes'; function is hidden"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.h"
+                                },
+                                "region": {
+                                    "startLine": 74,
+                                    "startColumn": 29,
+                                    "snippet": {
+                                        "text": "class I_LOVE_VAMPIRES_2_API UAOEAttributes : public UAttackAttributes"
                                     }
                                 }
                             }
@@ -34,297 +58,36 @@
                             "id": 0,
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AttackActor.h"
                                 },
                                 "region": {
-                                    "startLine": 52,
-                                    "startColumn": 36,
+                                    "startLine": 87,
+                                    "startColumn": 15,
                                     "snippet": {
-                                        "text": "\tconst std::vector<std::unique_ptr<StatusEffect>>& getStatusEffects() const { return _statusEffects; }"
+                                        "text": "\tvirtual void modifyAttributes(const UCombatantAttributes* modifiers, const UAttackAttributes* baseAttributes, UAttackAttributes* finalAttributes);"
                                     }
                                 }
                             },
                             "message": {
-                                "text": "the template instantiation context (the oldest one first) is"
+                                "text": "see declaration of 'UAttackAttributes::modifyAttributes'"
                             }
                         },
                         {
                             "id": 1,
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AttackActor.h"
                                 },
                                 "region": {
-                                    "startLine": 13,
-                                    "startColumn": 7,
+                                    "startLine": 75,
+                                    "startColumn": 29,
                                     "snippet": {
-                                        "text": "class UMyAttributeSet {"
+                                        "text": "class I_LOVE_VAMPIRES_2_API UAttackAttributes : public UBaseAttributes"
                                     }
                                 }
                             },
                             "message": {
-                                "text": "while compiling class template 'UMyAttributeSet'"
-                            },
-                            "properties": {
-                                "nestingLevel": 1
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C3203",
-                    "level": "error",
-                    "message": {
-                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 57,
-                                    "startColumn": 44,
-                                    "snippet": {
-                                        "text": "\tvoid inflictInstantStatus(std::unique_ptr<StatusEffect>);"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C3203",
-                    "level": "error",
-                    "message": {
-                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 58,
-                                    "startColumn": 37,
-                                    "snippet": {
-                                        "text": "\tvoid inflictStatus(std::unique_ptr<StatusEffect>);"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C4265",
-                    "message": {
-                        "text": "'UMyAttributeSet<FCombatantAttributes>': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 60,
-                                    "startColumn": 1,
-                                    "snippet": {
-                                        "text": "};"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C4265",
-                    "message": {
-                        "text": "'UMyCombatantAttributeSet': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyCombatantAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 16,
-                                    "startColumn": 1,
-                                    "snippet": {
-                                        "text": "};"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C3203",
-                    "level": "error",
-                    "message": {
-                        "text": "'UMyAttributeSet': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Active.h"
-                                },
-                                "region": {
-                                    "startLine": 21,
-                                    "startColumn": 30,
-                                    "snippet": {
-                                        "text": "\tstd::vector<std::unique_ptr<UMyAttributeSet>> _attributeSets;"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C3203",
-                    "level": "error",
-                    "message": {
-                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.h"
-                                },
-                                "region": {
-                                    "startLine": 38,
-                                    "startColumn": 37,
-                                    "snippet": {
-                                        "text": "\tvoid inflictStatus(std::unique_ptr<StatusEffect>);"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2065",
-                    "level": "error",
-                    "message": {
-                        "text": "'_radius': undeclared identifier"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
-                                },
-                                "region": {
-                                    "startLine": 19,
-                                    "startColumn": 55,
-                                    "snippet": {
-                                        "text": "\t\tCast<USphereComponent>(_collider)->InitSphereRadius(_radius);"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C3861",
-                    "level": "error",
-                    "message": {
-                        "text": "'LOGERROR': identifier not found"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
-                                },
-                                "region": {
-                                    "startLine": 22,
-                                    "startColumn": 3,
-                                    "snippet": {
-                                        "text": "\t\tLOGERROR(\"AAOE::initShape - shape not implemented\");"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C3861",
-                    "level": "error",
-                    "message": {
-                        "text": "'LOGERROR': identifier not found"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
-                                },
-                                "region": {
-                                    "startLine": 59,
-                                    "startColumn": 3,
-                                    "snippet": {
-                                        "text": "\t\tLOGERROR(\"AAOE::OnOverlapBegin - OtherActor is not a combatant\");"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2065",
-                    "level": "error",
-                    "message": {
-                        "text": "'_duration': undeclared identifier"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
-                                },
-                                "region": {
-                                    "startLine": 78,
-                                    "startColumn": 31,
-                                    "snippet": {
-                                        "text": "\telse if(_consumedDuration >= _duration) {"
-                                    }
-                                }
+                                "text": "see declaration of 'UAttackAttributes'"
                             }
                         }
                     ]

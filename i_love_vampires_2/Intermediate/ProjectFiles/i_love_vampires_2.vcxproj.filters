@@ -159,9 +159,6 @@
     <Filter Include="Source\i_love_vampires_2\Items\Attacks\Inherited">
       <UniqueIdentifier>{ac7eaa9c-3152-4cb7-8937-1f1b82efbdbf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\i_love_vampires_2\WorldSubsystems\Defs">
-      <UniqueIdentifier>{31c61079-2e4f-43c0-bfd0-19f91527a3e4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\i_love_vampires_2\Combatants\Inherited">
       <UniqueIdentifier>{94bb6276-6916-4b96-94b7-3d43cef7b20d}</UniqueIdentifier>
     </Filter>
@@ -195,17 +192,8 @@
     <Filter Include="Source\i_love_vampires_2\Items\Attacks\Enums">
       <UniqueIdentifier>{a5072812-f1ca-42cc-b6e2-c8ea83125d5c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\i_love_vampires_2\Items\Attacks\DataTables">
-      <UniqueIdentifier>{7c281cb4-7ce6-45c3-b694-3e81c9a71821}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\i_love_vampires_2\Items\Attacks\DataTables\cpp">
-      <UniqueIdentifier>{2ce6ef4e-2ada-4963-b424-b5dcc395722a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\i_love_vampires_2\MyGAS\StatusEffects\Factory">
       <UniqueIdentifier>{891e2689-a1e8-4699-84cb-da43acb73904}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\i_love_vampires_2\Combatants\DataTables">
-      <UniqueIdentifier>{3f45c980-484d-4718-aa42-d685fff16806}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -233,14 +221,8 @@
     <ClCompile Include="..\..\Source\i_love_vampires_2\AOE.cpp">
       <Filter>Source\i_love_vampires_2\Items\Attacks\Inherited</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\ExplosiveBullet.cpp">
+    <ClCompile Include="..\..\Source\i_love_vampires_2\Projectile.cpp">
       <Filter>Source\i_love_vampires_2\Items\Attacks\Inherited</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\Bullet.cpp">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\Inherited</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\EnemyRef.cpp">
-      <Filter>Source\i_love_vampires_2\WorldSubsystems\Defs</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\EnemyBase.cpp">
       <Filter>Source\i_love_vampires_2\Combatants\Inherited\Enemies</Filter>
@@ -251,9 +233,6 @@
     <ClCompile Include="..\..\Source\i_love_vampires_2\AssetRefs.cpp">
       <Filter>Source\i_love_vampires_2\GameInstanceSubsystems</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\Item.cpp">
-      <Filter>Source\i_love_vampires_2\Items</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\MyPlayer.cpp">
       <Filter>Source\i_love_vampires_2\Combatants\Inherited</Filter>
     </ClCompile>
@@ -263,29 +242,11 @@
     <ClCompile Include="..\..\Source\i_love_vampires_2\SpriteManager.cpp">
       <Filter>Source\i_love_vampires_2\GameInstanceSubsystems</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\AOEAttributes.h">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\DataTables</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\PassiveTemplate.cpp">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\DataTables\cpp</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\MyCombatantAttributeSet.cpp">
       <Filter>Source\i_love_vampires_2\MyGAS\AttributeSets\Inherited</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\MyGameplayStatics.cpp">
       <Filter>Source\i_love_vampires_2\Admin</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\MyWeaponAttributeSet.cpp">
-      <Filter>Source\i_love_vampires_2\MyGAS\AttributeSets\Inherited</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\MyAOEAttributeSet.cpp">
-      <Filter>Source\i_love_vampires_2\MyGAS\AttributeSets\Inherited</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\MyProjectileAttributeSet.cpp">
-      <Filter>Source\i_love_vampires_2\MyGAS\AttributeSets\Inherited</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\MyAttributeSet.cpp">
-      <Filter>Source\i_love_vampires_2\MyGAS\AttributeSets</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\StatusEffect_Damage.cpp">
       <Filter>Source\i_love_vampires_2\MyGAS\StatusEffects\Inherited</Filter>
@@ -293,41 +254,23 @@
     <ClCompile Include="..\..\Source\i_love_vampires_2\EffectStruct.cpp">
       <Filter>Source\i_love_vampires_2\MyGAS\StatusEffects\Factory</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\AOEConfig.cpp">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\DataTables\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\ProjectileAttributes.cpp">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\DataTables\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\ProjectileConfig.cpp">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\DataTables\cpp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\AOEAttributes.cpp">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\DataTables\cpp</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\StatusFactory.cpp">
       <Filter>Source\i_love_vampires_2\MyGAS\StatusEffects\Factory</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\WeaponAttributes.cpp">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\DataTables\cpp</Filter>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\ExplosiveProjectile.cpp">
+      <Filter>Source\i_love_vampires_2\Items\Attacks\Inherited</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\WeaponConfig.cpp">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\DataTables\cpp</Filter>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseAttributes.cpp">
+      <Filter>Source\i_love_vampires_2\MyGAS\AttributeSets</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\ActiveTemplate.cpp">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\DataTables\cpp</Filter>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\MyAttributeSet.cpp">
+      <Filter>Source\i_love_vampires_2\MyGAS\AttributeSets</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\SubActiveTemplate.cpp">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\DataTables\cpp</Filter>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\MyAttackAttributeSet.cpp">
+      <Filter>Source\i_love_vampires_2\MyGAS\AttributeSets\Inherited</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\CombatantConfig.cpp">
-      <Filter>Source\i_love_vampires_2\Combatants\DataTables</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\CombatantAttributes.cpp">
-      <Filter>Source\i_love_vampires_2\Combatants\DataTables</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\CombatantTemplateFull.cpp">
-      <Filter>Source\i_love_vampires_2\Combatants\DataTables</Filter>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\StatusEffectInterface.cpp">
+      <Filter>Source\i_love_vampires_2\MyGAS\StatusEffects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -358,14 +301,8 @@
     <ClInclude Include="..\..\Source\i_love_vampires_2\AOE.h">
       <Filter>Source\i_love_vampires_2\Items\Attacks\Inherited</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\ExplosiveBullet.h">
+    <ClInclude Include="..\..\Source\i_love_vampires_2\Projectile.h">
       <Filter>Source\i_love_vampires_2\Items\Attacks\Inherited</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\Bullet.h">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\Inherited</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\EnemyRef.h">
-      <Filter>Source\i_love_vampires_2\WorldSubsystems\Defs</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\EnemyBase.h">
       <Filter>Source\i_love_vampires_2\Combatants\Inherited\Enemies</Filter>
@@ -379,35 +316,17 @@
     <ClInclude Include="..\..\Source\i_love_vampires_2\ExperienceShard.h">
       <Filter>Source\i_love_vampires_2\Arena</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\Item.h">
-      <Filter>Source\i_love_vampires_2\Items</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\MyPlayer.h">
       <Filter>Source\i_love_vampires_2\Combatants\Inherited</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\SpriteManager.h">
       <Filter>Source\i_love_vampires_2\GameInstanceSubsystems</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\AOEConfig.h">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\DataTables</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\PassiveTemplate.h">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\DataTables</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\MyCombatantAttributeSet.h">
       <Filter>Source\i_love_vampires_2\MyGAS\AttributeSets\Inherited</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\MyGameplayStatics.h">
       <Filter>Source\i_love_vampires_2\Admin</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\MyWeaponAttributeSet.h">
-      <Filter>Source\i_love_vampires_2\MyGAS\AttributeSets\Inherited</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\MyAOEAttributeSet.h">
-      <Filter>Source\i_love_vampires_2\MyGAS\AttributeSets\Inherited</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\MyProjectileAttributeSet.h">
-      <Filter>Source\i_love_vampires_2\MyGAS\AttributeSets\Inherited</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\MyAttributeSet.h">
       <Filter>Source\i_love_vampires_2\MyGAS\AttributeSets</Filter>
@@ -427,44 +346,23 @@
     <ClInclude Include="..\..\Source\i_love_vampires_2\EffectStruct.h">
       <Filter>Source\i_love_vampires_2\MyGAS\StatusEffects\Factory</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\ExplosiveProjectileConfig.h">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\DataTables</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\ProjectileAttributes.h">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\DataTables</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\ProjectileConfig.h">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\DataTables</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\ExplosiveProjectileConfig.cpp">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\DataTables\cpp</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\StatusEnum.h">
       <Filter>Source\i_love_vampires_2\MyGAS\StatusEffects\Factory</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\StatusFactory.h">
       <Filter>Source\i_love_vampires_2\MyGAS\StatusEffects\Factory</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\WeaponAttributes.h">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\DataTables</Filter>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\ExplosiveProjectile.h">
+      <Filter>Source\i_love_vampires_2\Items\Attacks\Inherited</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\WeaponConfig.h">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\DataTables</Filter>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\BaseAttributes.h">
+      <Filter>Source\i_love_vampires_2\MyGAS\AttributeSets</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\ActiveTemplate.h">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\DataTables</Filter>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\MyAttackAttributeSet.h">
+      <Filter>Source\i_love_vampires_2\MyGAS\AttributeSets\Inherited</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\SubActiveTemplate.h">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\DataTables</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\CombatantConfig.h">
-      <Filter>Source\i_love_vampires_2\Combatants\DataTables</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\CombatantAttributes.h">
-      <Filter>Source\i_love_vampires_2\Combatants\DataTables</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\CombatantTemplateFull.h">
-      <Filter>Source\i_love_vampires_2\Combatants\DataTables</Filter>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\StatusEffectInterface.h">
+      <Filter>Source\i_love_vampires_2\MyGAS\StatusEffects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

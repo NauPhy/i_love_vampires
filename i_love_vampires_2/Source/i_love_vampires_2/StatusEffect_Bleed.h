@@ -1,12 +1,17 @@
 #pragma once
 #include "StatusEffect.h"
-#include "CombatantAttributes.h"
+#include <memory>
+#include "StatusEffect_Bleed.generated.h"
+class UCombatantAttributes;
 
-class StatusEffect_Bleed : public StatusEffect<FCombatantAttributes> {
+UCLASS()
+class I_LOVE_VAMPIRES_2_API UStatusEffect_Bleed : public UStatusEffect {
+	GENERATED_BODY()
 public:
-	StatusEffect_Bleed(float duration, float magnitude, float chance) : StatusEffect(duration, magnitude, chance) {}
-	StatusEffect_Bleed() = delete;
-	void prebonusStep(FCombatantAttributes& finalAttributes, FCombatantAttributes& attributeOffsets, float delta) override {}
-	void multiplierStep(FCombatantAttributes& finalAttributes, FCombatantAttributes& attributeOffsets, float delta) override {}
-	void postbonusStep(FCombatantAttributes& finalAttributes, FCombatantAttributes& attributeOffsets, float delta) override;
+	void initialise_UStatusEffect_Bleed(float duration, float magnitude, float chance) {
+		initialise_UStatusEffect(duration, magnitude, chance);
+	}
+	void prebonusStep(float delta) override {}
+	void multiplierStep(float delta) override {}
+	void postbonusStep(float delta) override;
 };

@@ -1,5 +1,4 @@
 #pragma once
-
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
 	GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \
 	GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
@@ -10,6 +9,6 @@
 //#define PI 3.14159265359f
 
 #define LOGERROR(inputString) \
-	UE_LOG(LogTemp, Error, TEXT(inputString));\
+	UE_LOG(LogTemp, Warning, TEXT(inputString))\
 	checkSlow(false);
 

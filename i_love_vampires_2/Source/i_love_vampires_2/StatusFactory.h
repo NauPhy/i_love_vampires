@@ -2,6 +2,7 @@
 #include "StatusEffect.h"
 #include <memory>
 #include "EffectStruct.h"
+class UObject;
 
 class StatusFactory {
 	const static EStatus _DAMAGE = EStatus::damage;
@@ -9,5 +10,5 @@ class StatusFactory {
 	const static EStatus _BURN = EStatus::burn;
 
 public:
-	static std::unique_ptr<StatusEffect> createStatusEffect(const FEffectStruct& effectStruct);
+	static UStatusEffect* createStatusEffect(const FEffectStruct& effectStruct);
 };

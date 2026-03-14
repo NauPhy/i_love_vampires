@@ -6,18 +6,17 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "i_love_vampires_2/EnemySpawner.h"
-#include "i_love_vampires_2/EnemyRef.h"
+#include "UObject/PrimaryAssetId.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 static_assert(!UE_WITH_CONSTINIT_UOBJECT, "This generated code can only be compiled with !UE_WITH_CONSTINIT_OBJECT");
 void EmptyLinkFunctionForGeneratedCodeEnemySpawner() {}
 
 // ********** Begin Cross Module References ********************************************************
-ENGINE_API UClass* Z_Construct_UClass_UDataTable_NoRegister();
+COREUOBJECT_API UScriptStruct* Z_Construct_UScriptStruct_FPrimaryAssetId();
 ENGINE_API UClass* Z_Construct_UClass_UTickableWorldSubsystem();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UEnemySpawner();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UEnemySpawner_NoRegister();
-I_LOVE_VAMPIRES_2_API UScriptStruct* Z_Construct_UScriptStruct_FEnemyRef();
 UPackage* Z_Construct_UPackage__Script_i_love_vampires_2();
 // ********** End Cross Module References **********************************************************
 
@@ -58,10 +57,6 @@ struct Z_Construct_UClass_UEnemySpawner_Statics
 		{ "IncludePath", "EnemySpawner.h" },
 		{ "ModuleRelativePath", "EnemySpawner.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__combatantData_MetaData[] = {
-		{ "Category", "UEnemySpawner" },
-		{ "ModuleRelativePath", "EnemySpawner.h" },
-	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__testEnemy_MetaData[] = {
 		{ "Category", "UEnemySpawner" },
 		{ "ModuleRelativePath", "EnemySpawner.h" },
@@ -73,7 +68,6 @@ struct Z_Construct_UClass_UEnemySpawner_Statics
 #endif // WITH_METADATA
 
 // ********** Begin Class UEnemySpawner constinit property declarations ****************************
-	static const UECodeGen_Private::FObjectPropertyParams NewProp__combatantData;
 	static const UECodeGen_Private::FStructPropertyParams NewProp__testEnemy;
 	static void NewProp__gameReady_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp__gameReady;
@@ -87,15 +81,13 @@ struct Z_Construct_UClass_UEnemySpawner_Statics
 }; // struct Z_Construct_UClass_UEnemySpawner_Statics
 
 // ********** Begin Class UEnemySpawner Property Definitions ***************************************
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UEnemySpawner_Statics::NewProp__combatantData = { "_combatantData", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UEnemySpawner, _combatantData), Z_Construct_UClass_UDataTable_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__combatantData_MetaData), NewProp__combatantData_MetaData) };
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UEnemySpawner_Statics::NewProp__testEnemy = { "_testEnemy", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UEnemySpawner, _testEnemy), Z_Construct_UScriptStruct_FEnemyRef, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__testEnemy_MetaData), NewProp__testEnemy_MetaData) }; // 542635178
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UEnemySpawner_Statics::NewProp__testEnemy = { "_testEnemy", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UEnemySpawner, _testEnemy), Z_Construct_UScriptStruct_FPrimaryAssetId, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__testEnemy_MetaData), NewProp__testEnemy_MetaData) }; // 265326925
 void Z_Construct_UClass_UEnemySpawner_Statics::NewProp__gameReady_SetBit(void* Obj)
 {
 	((UEnemySpawner*)Obj)->_gameReady = 1;
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UEnemySpawner_Statics::NewProp__gameReady = { "_gameReady", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UEnemySpawner), &Z_Construct_UClass_UEnemySpawner_Statics::NewProp__gameReady_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__gameReady_MetaData), NewProp__gameReady_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UEnemySpawner_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UEnemySpawner_Statics::NewProp__combatantData,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UEnemySpawner_Statics::NewProp__testEnemy,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UEnemySpawner_Statics::NewProp__gameReady,
 };
@@ -140,10 +132,10 @@ UEnemySpawner::~UEnemySpawner() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UEnemySpawner, UEnemySpawner::StaticClass, TEXT("UEnemySpawner"), &Z_Registration_Info_UClass_UEnemySpawner, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UEnemySpawner), 2962509086U) },
+		{ Z_Construct_UClass_UEnemySpawner, UEnemySpawner::StaticClass, TEXT("UEnemySpawner"), &Z_Registration_Info_UClass_UEnemySpawner, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UEnemySpawner), 416553698U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h__Script_i_love_vampires_2_1572353390{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h__Script_i_love_vampires_2_2137881726{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

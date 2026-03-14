@@ -5,10 +5,10 @@
         {
             "results": [
                 {
-                    "ruleId": "C3203",
+                    "ruleId": "C2440",
                     "level": "error",
                     "message": {
-                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
+                        "text": "'<function-style-cast>': cannot convert from 'const UBaseAttributes *' to 'TWeakObjectPtr<UBaseAttributes,FWeakObjectPtr>'"
                     },
                     "analysisTarget": {
                         "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
@@ -17,13 +17,13 @@
                         {
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
                                 },
                                 "region": {
-                                    "startLine": 52,
-                                    "startColumn": 36,
+                                    "startLine": 69,
+                                    "startColumn": 52,
                                     "snippet": {
-                                        "text": "\tconst std::vector<std::unique_ptr<StatusEffect>>& getStatusEffects() const { return _statusEffects; }"
+                                        "text": "\t_finalAttributes = TWeakObjectPtr<UBaseAttributes>(rowReference);"
                                     }
                                 }
                             }
@@ -34,36 +34,141 @@
                             "id": 0,
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
                                 },
                                 "region": {
-                                    "startLine": 52,
-                                    "startColumn": 36,
+                                    "startLine": 69,
+                                    "startColumn": 52,
                                     "snippet": {
-                                        "text": "\tconst std::vector<std::unique_ptr<StatusEffect>>& getStatusEffects() const { return _statusEffects; }"
+                                        "text": "\t_finalAttributes = TWeakObjectPtr<UBaseAttributes>(rowReference);"
                                     }
                                 }
                             },
                             "message": {
-                                "text": "the template instantiation context (the oldest one first) is"
+                                "text": "'TWeakObjectPtr<UBaseAttributes,FWeakObjectPtr>::TWeakObjectPtr': no overloaded function could convert all the argument types"
                             }
                         },
                         {
                             "id": 1,
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                    "uri": "file:///C:/Program Files/Epic Games/UE_5.7/Engine/Source/Runtime/Core/Public/UObject/WeakObjectPtrTemplates.h"
                                 },
                                 "region": {
-                                    "startLine": 13,
-                                    "startColumn": 7,
+                                    "startLine": 48,
+                                    "startColumn": 16,
                                     "snippet": {
-                                        "text": "class UMyAttributeSet {"
+                                        "text": "\t[[nodiscard]] FORCEINLINE TWeakObjectPtr(TYPE_OF_NULLPTR) :"
                                     }
                                 }
                             },
                             "message": {
-                                "text": "while compiling class template 'UMyAttributeSet'"
+                                "text": "could be 'TWeakObjectPtr<UBaseAttributes,FWeakObjectPtr>::TWeakObjectPtr(TYPE_OF_NULLPTR)'"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        },
+                        {
+                            "id": 2,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 69,
+                                    "startColumn": 52,
+                                    "snippet": {
+                                        "text": "\t_finalAttributes = TWeakObjectPtr<UBaseAttributes>(rowReference);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "'TWeakObjectPtr<UBaseAttributes,FWeakObjectPtr>::TWeakObjectPtr(TYPE_OF_NULLPTR)': cannot convert argument 1 from 'const UBaseAttributes *' to 'TYPE_OF_NULLPTR'"
+                            },
+                            "properties": {
+                                "nestingLevel": 2
+                            }
+                        },
+                        {
+                            "id": 3,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 69,
+                                    "startColumn": 53,
+                                    "snippet": {
+                                        "text": "\t_finalAttributes = TWeakObjectPtr<UBaseAttributes>(rowReference);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "nullptr can only be converted to pointer or handle types"
+                            },
+                            "properties": {
+                                "nestingLevel": 3
+                            }
+                        },
+                        {
+                            "id": 4,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Epic Games/UE_5.7/Engine/Source/Runtime/Core/Public/UObject/WeakObjectPtrTemplates.h"
+                                },
+                                "region": {
+                                    "startLine": 77,
+                                    "startColumn": 16,
+                                    "snippet": {
+                                        "text": "\t[[nodiscard]] FORCEINLINE TWeakObjectPtr(const TWeakObjectPtr<OtherT, TWeakObjectPtrBase>& Other) :"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "or       'TWeakObjectPtr<UBaseAttributes,FWeakObjectPtr>::TWeakObjectPtr(const TWeakObjectPtr<OtherT,TWeakObjectPtrBase> &)'\n        with\n        [\n            TWeakObjectPtrBase=FWeakObjectPtr\n        ]"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        },
+                        {
+                            "id": 5,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Epic Games/UE_5.7/Engine/Source/Runtime/Core/Public/UObject/WeakObjectPtrTemplates.h"
+                                },
+                                "region": {
+                                    "startLine": 61,
+                                    "startColumn": 16,
+                                    "snippet": {
+                                        "text": "\t[[nodiscard]] FORCEINLINE TWeakObjectPtr(U Object) :"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "or       'TWeakObjectPtr<UBaseAttributes,FWeakObjectPtr>::TWeakObjectPtr(U)'"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        },
+                        {
+                            "id": 6,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 69,
+                                    "startColumn": 52,
+                                    "snippet": {
+                                        "text": "\t_finalAttributes = TWeakObjectPtr<UBaseAttributes>(rowReference);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "while trying to match the argument list '(const UBaseAttributes *)'"
                             },
                             "properties": {
                                 "nestingLevel": 1
@@ -72,62 +177,10 @@
                     ]
                 },
                 {
-                    "ruleId": "C3203",
+                    "ruleId": "C2440",
                     "level": "error",
                     "message": {
-                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 57,
-                                    "startColumn": 44,
-                                    "snippet": {
-                                        "text": "\tvoid inflictInstantStatus(std::unique_ptr<StatusEffect>);"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C3203",
-                    "level": "error",
-                    "message": {
-                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 58,
-                                    "startColumn": 37,
-                                    "snippet": {
-                                        "text": "\tvoid inflictStatus(std::unique_ptr<StatusEffect>);"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2065",
-                    "level": "error",
-                    "message": {
-                        "text": "'TRow': undeclared identifier"
+                        "text": "'initializing': cannot convert from 'UBaseAttributes *' to 'uint8 *'"
                     },
                     "analysisTarget": {
                         "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
@@ -139,760 +192,10 @@
                                     "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
                                 },
                                 "region": {
-                                    "startLine": 7,
-                                    "startColumn": 24,
+                                    "startLine": 73,
+                                    "startColumn": 15,
                                     "snippet": {
-                                        "text": "\t\tif (offset >= sizeof(TRow)) {"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2955",
-                    "level": "error",
-                    "message": {
-                        "text": "'UMyAttributeSet': use of class template requires template argument list"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 16,
-                                    "startColumn": 24,
-                                    "snippet": {
-                                        "text": "float UMyAttributeSet::getBaseValue(size_t offset) const {"
-                                    }
-                                }
-                            }
-                        }
-                    ],
-                    "relatedLocations": [
-                        {
-                            "id": 0,
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 13,
-                                    "startColumn": 7,
-                                    "snippet": {
-                                        "text": "class UMyAttributeSet {"
-                                    }
-                                }
-                            },
-                            "message": {
-                                "text": "see declaration of 'UMyAttributeSet'"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2509",
-                    "level": "error",
-                    "message": {
-                        "text": "'getBaseValue': member function not declared in 'UMyAttributeSet'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 16,
-                                    "startColumn": 24,
-                                    "snippet": {
-                                        "text": "float UMyAttributeSet::getBaseValue(size_t offset) const {"
-                                    }
-                                }
-                            }
-                        }
-                    ],
-                    "relatedLocations": [
-                        {
-                            "id": 0,
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 13,
-                                    "startColumn": 7,
-                                    "snippet": {
-                                        "text": "class UMyAttributeSet {"
-                                    }
-                                }
-                            },
-                            "message": {
-                                "text": "see declaration of 'UMyAttributeSet'"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2955",
-                    "level": "error",
-                    "message": {
-                        "text": "'UMyAttributeSet': use of class template requires template argument list"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 23,
-                                    "startColumn": 24,
-                                    "snippet": {
-                                        "text": "float UMyAttributeSet::getFinalValue(size_t offset) const {"
-                                    }
-                                }
-                            }
-                        }
-                    ],
-                    "relatedLocations": [
-                        {
-                            "id": 0,
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 13,
-                                    "startColumn": 7,
-                                    "snippet": {
-                                        "text": "class UMyAttributeSet {"
-                                    }
-                                }
-                            },
-                            "message": {
-                                "text": "see declaration of 'UMyAttributeSet'"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2509",
-                    "level": "error",
-                    "message": {
-                        "text": "'getFinalValue': member function not declared in 'UMyAttributeSet'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 23,
-                                    "startColumn": 24,
-                                    "snippet": {
-                                        "text": "float UMyAttributeSet::getFinalValue(size_t offset) const {"
-                                    }
-                                }
-                            }
-                        }
-                    ],
-                    "relatedLocations": [
-                        {
-                            "id": 0,
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 13,
-                                    "startColumn": 7,
-                                    "snippet": {
-                                        "text": "class UMyAttributeSet {"
-                                    }
-                                }
-                            },
-                            "message": {
-                                "text": "see declaration of 'UMyAttributeSet'"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2955",
-                    "level": "error",
-                    "message": {
-                        "text": "'UMyAttributeSet': use of class template requires template argument list"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 32,
-                                    "startColumn": 31,
-                                    "snippet": {
-                                        "text": "virtual void UMyAttributeSet::tick(delta) {"
-                                    }
-                                }
-                            }
-                        }
-                    ],
-                    "relatedLocations": [
-                        {
-                            "id": 0,
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 13,
-                                    "startColumn": 7,
-                                    "snippet": {
-                                        "text": "class UMyAttributeSet {"
-                                    }
-                                }
-                            },
-                            "message": {
-                                "text": "see declaration of 'UMyAttributeSet'"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2761",
-                    "level": "error",
-                    "message": {
-                        "text": "'void UMyAttributeSet<TRow>::tick(float)': redeclaration of member is not allowed"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 32,
-                                    "startColumn": 31,
-                                    "snippet": {
-                                        "text": "virtual void UMyAttributeSet::tick(delta) {"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2065",
-                    "level": "error",
-                    "message": {
-                        "text": "'delta': undeclared identifier"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 32,
-                                    "startColumn": 36,
-                                    "snippet": {
-                                        "text": "virtual void UMyAttributeSet::tick(delta) {"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2143",
-                    "level": "error",
-                    "message": {
-                        "text": "syntax error: missing ';' before '{'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 32,
-                                    "startColumn": 43,
-                                    "snippet": {
-                                        "text": "virtual void UMyAttributeSet::tick(delta) {"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2065",
-                    "level": "error",
-                    "message": {
-                        "text": "'_callbacks': undeclared identifier"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 34,
-                                    "startColumn": 26,
-                                    "snippet": {
-                                        "text": "\tfor (const auto& pair : _callbacks) {"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2059",
-                    "level": "error",
-                    "message": {
-                        "text": "syntax error: 'for'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 34,
-                                    "startColumn": 2,
-                                    "snippet": {
-                                        "text": "\tfor (const auto& pair : _callbacks) {"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2059",
-                    "level": "error",
-                    "message": {
-                        "text": "syntax error: ')'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 34,
-                                    "startColumn": 36,
-                                    "snippet": {
-                                        "text": "\tfor (const auto& pair : _callbacks) {"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C4430",
-                    "level": "error",
-                    "message": {
-                        "text": "missing type specifier - int assumed. Note: C++ does not support default-int"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 34,
-                                    "startColumn": 26,
-                                    "snippet": {
-                                        "text": "\tfor (const auto& pair : _callbacks) {"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2065",
-                    "level": "error",
-                    "message": {
-                        "text": "'pair': undeclared identifier"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 35,
-                                    "startColumn": 13,
-                                    "snippet": {
-                                        "text": "\t\toldValues[pair.first] = getFinalValue(pair.first);"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C7732",
-                    "level": "error",
-                    "message": {
-                        "text": "expected an expression before ']'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 35,
-                                    "startColumn": 23,
-                                    "snippet": {
-                                        "text": "\t\toldValues[pair.first] = getFinalValue(pair.first);"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2065",
-                    "level": "error",
-                    "message": {
-                        "text": "'pair': undeclared identifier"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 35,
-                                    "startColumn": 41,
-                                    "snippet": {
-                                        "text": "\t\toldValues[pair.first] = getFinalValue(pair.first);"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C3861",
-                    "level": "error",
-                    "message": {
-                        "text": "'getFinalValue': identifier not found"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 35,
-                                    "startColumn": 27,
-                                    "snippet": {
-                                        "text": "\t\toldValues[pair.first] = getFinalValue(pair.first);"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2059",
-                    "level": "error",
-                    "message": {
-                        "text": "syntax error: ';'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 35,
-                                    "startColumn": 52,
-                                    "snippet": {
-                                        "text": "\t\toldValues[pair.first] = getFinalValue(pair.first);"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2059",
-                    "level": "error",
-                    "message": {
-                        "text": "syntax error: '}'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 36,
-                                    "startColumn": 2,
-                                    "snippet": {
-                                        "text": "\t}"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2143",
-                    "level": "error",
-                    "message": {
-                        "text": "syntax error: missing ';' before '}'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 36,
-                                    "startColumn": 2,
-                                    "snippet": {
-                                        "text": "\t}"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C3312",
-                    "level": "error",
-                    "message": {
-                        "text": "no callable 'begin' function found for type 'int'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 38,
-                                    "startColumn": 26,
-                                    "snippet": {
-                                        "text": "\tfor (const auto& pair : _callbacks) {"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C3312",
-                    "level": "error",
-                    "message": {
-                        "text": "no callable 'end' function found for type 'int'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 38,
-                                    "startColumn": 26,
-                                    "snippet": {
-                                        "text": "\tfor (const auto& pair : _callbacks) {"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2059",
-                    "level": "error",
-                    "message": {
-                        "text": "syntax error: 'for'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 38,
-                                    "startColumn": 2,
-                                    "snippet": {
-                                        "text": "\tfor (const auto& pair : _callbacks) {"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2059",
-                    "level": "error",
-                    "message": {
-                        "text": "syntax error: ')'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 38,
-                                    "startColumn": 36,
-                                    "snippet": {
-                                        "text": "\tfor (const auto& pair : _callbacks) {"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C4430",
-                    "level": "error",
-                    "message": {
-                        "text": "missing type specifier - int assumed. Note: C++ does not support default-int"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 38,
-                                    "startColumn": 26,
-                                    "snippet": {
-                                        "text": "\tfor (const auto& pair : _callbacks) {"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2374",
-                    "level": "error",
-                    "message": {
-                        "text": "'_callbacks': redefinition; multiple initialization"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 38,
-                                    "startColumn": 26,
-                                    "snippet": {
-                                        "text": "\tfor (const auto& pair : _callbacks) {"
+                                        "text": "\t\tuint8* byte = _attributeOffsets + i;"
                                     }
                                 }
                             }
@@ -906,549 +209,15 @@
                                     "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
                                 },
                                 "region": {
-                                    "startLine": 34,
-                                    "startColumn": 26,
+                                    "startLine": 73,
+                                    "startColumn": 15,
                                     "snippet": {
-                                        "text": "\tfor (const auto& pair : _callbacks) {"
+                                        "text": "\t\tuint8* byte = _attributeOffsets + i;"
                                     }
                                 }
                             },
                             "message": {
-                                "text": "see declaration of '_callbacks'"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2086",
-                    "level": "error",
-                    "message": {
-                        "text": "'int _callbacks': redefinition"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 38,
-                                    "startColumn": 26,
-                                    "snippet": {
-                                        "text": "\tfor (const auto& pair : _callbacks) {"
-                                    }
-                                }
-                            }
-                        }
-                    ],
-                    "relatedLocations": [
-                        {
-                            "id": 0,
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 34,
-                                    "startColumn": 26,
-                                    "snippet": {
-                                        "text": "\tfor (const auto& pair : _callbacks) {"
-                                    }
-                                }
-                            },
-                            "message": {
-                                "text": "see declaration of '_callbacks'"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2062",
-                    "level": "error",
-                    "message": {
-                        "text": "type 'float' unexpected"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 39,
-                                    "startColumn": 3,
-                                    "snippet": {
-                                        "text": "\t\tfloat newValue = getMemberValue(pair.first);"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2059",
-                    "level": "error",
-                    "message": {
-                        "text": "syntax error: 'if'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 40,
-                                    "startColumn": 3,
-                                    "snippet": {
-                                        "text": "\t\tif (abs(newValue - oldValues[pair.first]) > EPSILON)"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2059",
-                    "level": "error",
-                    "message": {
-                        "text": "syntax error: '}'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 42,
-                                    "startColumn": 2,
-                                    "snippet": {
-                                        "text": "\t}"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2143",
-                    "level": "error",
-                    "message": {
-                        "text": "syntax error: missing ';' before '}'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 42,
-                                    "startColumn": 2,
-                                    "snippet": {
-                                        "text": "\t}"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2143",
-                    "level": "error",
-                    "message": {
-                        "text": "syntax error: missing ')' before ';'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 44,
-                                    "startColumn": 39,
-                                    "snippet": {
-                                        "text": "\tfor (auto it = _statusEffects.begin(); it != _statusEffects.end();)"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2143",
-                    "level": "error",
-                    "message": {
-                        "text": "syntax error: missing ';' before '!='"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 44,
-                                    "startColumn": 44,
-                                    "snippet": {
-                                        "text": "\tfor (auto it = _statusEffects.begin(); it != _statusEffects.end();)"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C4430",
-                    "level": "error",
-                    "message": {
-                        "text": "missing type specifier - int assumed. Note: C++ does not support default-int"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 44,
-                                    "startColumn": 41,
-                                    "snippet": {
-                                        "text": "\tfor (auto it = _statusEffects.begin(); it != _statusEffects.end();)"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2059",
-                    "level": "error",
-                    "message": {
-                        "text": "syntax error: '!='"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 44,
-                                    "startColumn": 44,
-                                    "snippet": {
-                                        "text": "\tfor (auto it = _statusEffects.begin(); it != _statusEffects.end();)"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2059",
-                    "level": "error",
-                    "message": {
-                        "text": "syntax error: ')'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 44,
-                                    "startColumn": 68,
-                                    "snippet": {
-                                        "text": "\tfor (auto it = _statusEffects.begin(); it != _statusEffects.end();)"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2447",
-                    "level": "error",
-                    "message": {
-                        "text": "'{': missing function header (old-style formal list?)"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 45,
-                                    "startColumn": 2,
-                                    "snippet": {
-                                        "text": "\t{"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C3927",
-                    "level": "error",
-                    "message": {
-                        "text": "'->': trailing return type is not allowed after a non-function declarator"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 51,
-                                    "startColumn": 2,
-                                    "snippet": {
-                                        "text": "\t_instantStatusQueue.clear();"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C3484",
-                    "level": "error",
-                    "message": {
-                        "text": "syntax error: expected '->' before the return type"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 51,
-                                    "startColumn": 21,
-                                    "snippet": {
-                                        "text": "\t_instantStatusQueue.clear();"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C3613",
-                    "level": "error",
-                    "message": {
-                        "text": "missing return type after '->' ('int' assumed)"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 51,
-                                    "startColumn": 22,
-                                    "snippet": {
-                                        "text": "\t_instantStatusQueue.clear();"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C4430",
-                    "level": "error",
-                    "message": {
-                        "text": "missing type specifier - int assumed. Note: C++ does not support default-int"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 51,
-                                    "startColumn": 2,
-                                    "snippet": {
-                                        "text": "\t_instantStatusQueue.clear();"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2146",
-                    "level": "error",
-                    "message": {
-                        "text": "syntax error: missing ';' before identifier 'clear'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 51,
-                                    "startColumn": 22,
-                                    "snippet": {
-                                        "text": "\t_instantStatusQueue.clear();"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2059",
-                    "level": "error",
-                    "message": {
-                        "text": "syntax error: '}'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 52,
-                                    "startColumn": 1,
-                                    "snippet": {
-                                        "text": "}"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2143",
-                    "level": "error",
-                    "message": {
-                        "text": "syntax error: missing ';' before '}'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 52,
-                                    "startColumn": 1,
-                                    "snippet": {
-                                        "text": "}"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2955",
-                    "level": "error",
-                    "message": {
-                        "text": "'UMyAttributeSet': use of class template requires template argument list"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 54,
-                                    "startColumn": 23,
-                                    "snippet": {
-                                        "text": "void UMyAttributeSet::Initialise_UMyAttributeSet(const TRow* rowReference) {"
-                                    }
-                                }
-                            }
-                        }
-                    ],
-                    "relatedLocations": [
-                        {
-                            "id": 0,
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 13,
-                                    "startColumn": 7,
-                                    "snippet": {
-                                        "text": "class UMyAttributeSet {"
-                                    }
-                                }
-                            },
-                            "message": {
-                                "text": "see declaration of 'UMyAttributeSet'"
+                                "text": "Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or parenthesized function-style cast"
                             }
                         }
                     ]
@@ -1457,7 +226,7 @@
                     "ruleId": "C2039",
                     "level": "error",
                     "message": {
-                        "text": "'Initialise_UMyAttributeSet': is not a member of 'UMyAttributeSet<TRow>'"
+                        "text": "'_modificationAllowed': is not a member of 'StatusEffectInterface'"
                     },
                     "analysisTarget": {
                         "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
@@ -1469,10 +238,10 @@
                                     "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
                                 },
                                 "region": {
-                                    "startLine": 54,
-                                    "startColumn": 23,
+                                    "startLine": 91,
+                                    "startColumn": 26,
                                     "snippet": {
-                                        "text": "void UMyAttributeSet::Initialise_UMyAttributeSet(const TRow* rowReference) {"
+                                        "text": "\t_statusEffectInterface->_modificationAllowed = true;"
                                     }
                                 }
                             }
@@ -1483,18 +252,208 @@
                             "id": 0,
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusEffectInterface.h"
                                 },
                                 "region": {
-                                    "startLine": 13,
+                                    "startLine": 3,
                                     "startColumn": 7,
                                     "snippet": {
-                                        "text": "class UMyAttributeSet {"
+                                        "text": "class StatusEffectInterface {"
                                     }
                                 }
                             },
                             "message": {
-                                "text": "see declaration of 'UMyAttributeSet<TRow>'"
+                                "text": "see declaration of 'StatusEffectInterface'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2039",
+                    "level": "error",
+                    "message": {
+                        "text": "'_modificationAllowed': is not a member of 'StatusEffectInterface'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 105,
+                                    "startColumn": 26,
+                                    "snippet": {
+                                        "text": "\t_statusEffectInterface->_modificationAllowed = false;"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusEffectInterface.h"
+                                },
+                                "region": {
+                                    "startLine": 3,
+                                    "startColumn": 7,
+                                    "snippet": {
+                                        "text": "class StatusEffectInterface {"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'StatusEffectInterface'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2597",
+                    "level": "error",
+                    "message": {
+                        "text": "illegal reference to non-static member 'UMyAttributeSet::_rowSize'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 116,
+                                    "startColumn": 16,
+                                    "snippet": {
+                                        "text": "\tif (offset >= _rowSize) {"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 116,
+                                    "startColumn": 16,
+                                    "snippet": {
+                                        "text": "\tif (offset >= _rowSize) {"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UMyAttributeSet::_rowSize'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3867",
+                    "level": "error",
+                    "message": {
+                        "text": "'UMyAttributeSet::_rowSize': non-standard syntax; use '&' to create a pointer to member"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 116,
+                                    "startColumn": 16,
+                                    "snippet": {
+                                        "text": "\tif (offset >= _rowSize) {"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2568",
+                    "level": "error",
+                    "message": {
+                        "text": "'>=': unable to resolve function overload"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 116,
+                                    "startColumn": 16,
+                                    "snippet": {
+                                        "text": "\tif (offset >= _rowSize) {"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2039",
+                    "level": "error",
+                    "message": {
+                        "text": "'Back': is not a member of 'TArray<UStatusEffect *,FDefaultAllocator>'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 125,
+                                    "startColumn": 22,
+                                    "snippet": {
+                                        "text": "\t_instantStatusQueue.Back()->initialise_secondStep(_statusEffectInterface, _finalAttributes, _attributeOffsets)"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Epic Games/UE_5.7/Engine/Source/Runtime/Core/Public/Containers/Array.h"
+                                },
+                                "region": {
+                                    "startLine": 669,
+                                    "startColumn": 7,
+                                    "snippet": {
+                                        "text": "class TArray"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'TArray<UStatusEffect *,FDefaultAllocator>'"
                             }
                         }
                     ]
@@ -1503,7 +462,7 @@
                     "ruleId": "C2143",
                     "level": "error",
                     "message": {
-                        "text": "syntax error: missing ';' before '{'"
+                        "text": "syntax error: missing ';' before '}'"
                     },
                     "analysisTarget": {
                         "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
@@ -1515,602 +474,12 @@
                                     "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
                                 },
                                 "region": {
-                                    "startLine": 54,
-                                    "startColumn": 76,
+                                    "startLine": 126,
+                                    "startColumn": 1,
                                     "snippet": {
-                                        "text": "void UMyAttributeSet::Initialise_UMyAttributeSet(const TRow* rowReference) {"
+                                        "text": "}"
                                     }
                                 }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2447",
-                    "level": "error",
-                    "message": {
-                        "text": "'{': missing function header (old-style formal list?)"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 54,
-                                    "startColumn": 76,
-                                    "snippet": {
-                                        "text": "void UMyAttributeSet::Initialise_UMyAttributeSet(const TRow* rowReference) {"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2955",
-                    "level": "error",
-                    "message": {
-                        "text": "'UMyAttributeSet': use of class template requires template argument list"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 65,
-                                    "startColumn": 23,
-                                    "snippet": {
-                                        "text": "void UMyAttributeSet::reconstruct(float delta) {"
-                                    }
-                                }
-                            }
-                        }
-                    ],
-                    "relatedLocations": [
-                        {
-                            "id": 0,
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 13,
-                                    "startColumn": 7,
-                                    "snippet": {
-                                        "text": "class UMyAttributeSet {"
-                                    }
-                                }
-                            },
-                            "message": {
-                                "text": "see declaration of 'UMyAttributeSet'"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2509",
-                    "level": "error",
-                    "message": {
-                        "text": "'reconstruct': member function not declared in 'UMyAttributeSet'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 65,
-                                    "startColumn": 23,
-                                    "snippet": {
-                                        "text": "void UMyAttributeSet::reconstruct(float delta) {"
-                                    }
-                                }
-                            }
-                        }
-                    ],
-                    "relatedLocations": [
-                        {
-                            "id": 0,
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 13,
-                                    "startColumn": 7,
-                                    "snippet": {
-                                        "text": "class UMyAttributeSet {"
-                                    }
-                                }
-                            },
-                            "message": {
-                                "text": "see declaration of 'UMyAttributeSet'"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2955",
-                    "level": "error",
-                    "message": {
-                        "text": "'UMyAttributeSet': use of class template requires template argument list"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 82,
-                                    "startColumn": 23,
-                                    "snippet": {
-                                        "text": "void UMyAttributeSet::addCallback(size_t offset, std::function<void(float, float)> callback) {"
-                                    }
-                                }
-                            }
-                        }
-                    ],
-                    "relatedLocations": [
-                        {
-                            "id": 0,
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 13,
-                                    "startColumn": 7,
-                                    "snippet": {
-                                        "text": "class UMyAttributeSet {"
-                                    }
-                                }
-                            },
-                            "message": {
-                                "text": "see declaration of 'UMyAttributeSet'"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2509",
-                    "level": "error",
-                    "message": {
-                        "text": "'addCallback': member function not declared in 'UMyAttributeSet'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 82,
-                                    "startColumn": 23,
-                                    "snippet": {
-                                        "text": "void UMyAttributeSet::addCallback(size_t offset, std::function<void(float, float)> callback) {"
-                                    }
-                                }
-                            }
-                        }
-                    ],
-                    "relatedLocations": [
-                        {
-                            "id": 0,
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 13,
-                                    "startColumn": 7,
-                                    "snippet": {
-                                        "text": "class UMyAttributeSet {"
-                                    }
-                                }
-                            },
-                            "message": {
-                                "text": "see declaration of 'UMyAttributeSet'"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2955",
-                    "level": "error",
-                    "message": {
-                        "text": "'UMyAttributeSet': use of class template requires template argument list"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 86,
-                                    "startColumn": 25,
-                                    "snippet": {
-                                        "text": "size_t UMyAttributeSet::calculateOffset(const TRow& structRef, const float& memberRef) {"
-                                    }
-                                }
-                            }
-                        }
-                    ],
-                    "relatedLocations": [
-                        {
-                            "id": 0,
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 13,
-                                    "startColumn": 7,
-                                    "snippet": {
-                                        "text": "class UMyAttributeSet {"
-                                    }
-                                }
-                            },
-                            "message": {
-                                "text": "see declaration of 'UMyAttributeSet'"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C4430",
-                    "level": "error",
-                    "message": {
-                        "text": "missing type specifier - int assumed. Note: C++ does not support default-int"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 86,
-                                    "startColumn": 41,
-                                    "snippet": {
-                                        "text": "size_t UMyAttributeSet::calculateOffset(const TRow& structRef, const float& memberRef) {"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2143",
-                    "level": "error",
-                    "message": {
-                        "text": "syntax error: missing ',' before '&'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 86,
-                                    "startColumn": 51,
-                                    "snippet": {
-                                        "text": "size_t UMyAttributeSet::calculateOffset(const TRow& structRef, const float& memberRef) {"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2509",
-                    "level": "error",
-                    "message": {
-                        "text": "'calculateOffset': member function not declared in 'UMyAttributeSet'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 86,
-                                    "startColumn": 25,
-                                    "snippet": {
-                                        "text": "size_t UMyAttributeSet::calculateOffset(const TRow& structRef, const float& memberRef) {"
-                                    }
-                                }
-                            }
-                        }
-                    ],
-                    "relatedLocations": [
-                        {
-                            "id": 0,
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 13,
-                                    "startColumn": 7,
-                                    "snippet": {
-                                        "text": "class UMyAttributeSet {"
-                                    }
-                                }
-                            },
-                            "message": {
-                                "text": "see declaration of 'UMyAttributeSet'"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2955",
-                    "level": "error",
-                    "message": {
-                        "text": "'UMyAttributeSet': use of class template requires template argument list"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 97,
-                                    "startColumn": 23,
-                                    "snippet": {
-                                        "text": "void UMyAttributeSet::inflictInstantStatus(std::unique_ptr<StatusEffect> statusEffect) {"
-                                    }
-                                }
-                            }
-                        }
-                    ],
-                    "relatedLocations": [
-                        {
-                            "id": 0,
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 13,
-                                    "startColumn": 7,
-                                    "snippet": {
-                                        "text": "class UMyAttributeSet {"
-                                    }
-                                }
-                            },
-                            "message": {
-                                "text": "see declaration of 'UMyAttributeSet'"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C3203",
-                    "level": "error",
-                    "message": {
-                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 97,
-                                    "startColumn": 60,
-                                    "snippet": {
-                                        "text": "void UMyAttributeSet::inflictInstantStatus(std::unique_ptr<StatusEffect> statusEffect) {"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2509",
-                    "level": "error",
-                    "message": {
-                        "text": "'inflictInstantStatus': member function not declared in 'UMyAttributeSet'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 97,
-                                    "startColumn": 23,
-                                    "snippet": {
-                                        "text": "void UMyAttributeSet::inflictInstantStatus(std::unique_ptr<StatusEffect> statusEffect) {"
-                                    }
-                                }
-                            }
-                        }
-                    ],
-                    "relatedLocations": [
-                        {
-                            "id": 0,
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 13,
-                                    "startColumn": 7,
-                                    "snippet": {
-                                        "text": "class UMyAttributeSet {"
-                                    }
-                                }
-                            },
-                            "message": {
-                                "text": "see declaration of 'UMyAttributeSet'"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2955",
-                    "level": "error",
-                    "message": {
-                        "text": "'UMyAttributeSet': use of class template requires template argument list"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 101,
-                                    "startColumn": 23,
-                                    "snippet": {
-                                        "text": "void UMyAttributeSet::inflictStatus(std::unique_ptr<StatusEffect> statusEffect) {"
-                                    }
-                                }
-                            }
-                        }
-                    ],
-                    "relatedLocations": [
-                        {
-                            "id": 0,
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 13,
-                                    "startColumn": 7,
-                                    "snippet": {
-                                        "text": "class UMyAttributeSet {"
-                                    }
-                                }
-                            },
-                            "message": {
-                                "text": "see declaration of 'UMyAttributeSet'"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C3203",
-                    "level": "error",
-                    "message": {
-                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 101,
-                                    "startColumn": 53,
-                                    "snippet": {
-                                        "text": "void UMyAttributeSet::inflictStatus(std::unique_ptr<StatusEffect> statusEffect) {"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2509",
-                    "level": "error",
-                    "message": {
-                        "text": "'inflictStatus': member function not declared in 'UMyAttributeSet'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.cpp"
-                                },
-                                "region": {
-                                    "startLine": 101,
-                                    "startColumn": 23,
-                                    "snippet": {
-                                        "text": "void UMyAttributeSet::inflictStatus(std::unique_ptr<StatusEffect> statusEffect) {"
-                                    }
-                                }
-                            }
-                        }
-                    ],
-                    "relatedLocations": [
-                        {
-                            "id": 0,
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 13,
-                                    "startColumn": 7,
-                                    "snippet": {
-                                        "text": "class UMyAttributeSet {"
-                                    }
-                                }
-                            },
-                            "message": {
-                                "text": "see declaration of 'UMyAttributeSet'"
                             }
                         }
                     ]

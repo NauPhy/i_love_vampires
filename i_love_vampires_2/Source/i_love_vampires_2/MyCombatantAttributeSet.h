@@ -1,16 +1,18 @@
 #pragma once
 #include "CoreMinimal.h"
-#include "CombatantAttributes.h"
 #include "MyAttributeSet.h"
+#include "MyCombatantAttributeSet.generated.h"
+class UCombatantAttributes;
 
-class UMyCombatantAttributeSet : public UMyAttributeSet<FCombatantAttributes>
+UCLASS()
+class I_LOVE_VAMPIRES_2_API UMyCombatantAttributeSet : public UMyAttributeSet
 {
+	GENERATED_BODY()
 protected:
-	virtual void updateFromModifiers() override {}
+	virtual bool updateFromModifiers() override { return true; }
 
 public:
-	UMyCombatantAttributeSet() = default;
 	// no other attribute set modifies combatant attribute set
-	void initialise_UMyCombatantAttributeSet(const FCombatantAttributes*);
+	void initialise_UMyCombatantAttributeSet() { initialise_UMyAttributeSet(nullptr, UCombatantAttributes::StaticClass()); }
 	void burnTick();
 };

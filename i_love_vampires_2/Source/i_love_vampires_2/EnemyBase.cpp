@@ -4,18 +4,19 @@
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "MyGameplayStatics.h"
 
 AEnemyBase::AEnemyBase() : ACombatant() {};
 
 void AEnemyBase::BeginPlay() {
 	Super::BeginPlay();
 	UCombatantManager* combatantManager = nullptr;
-	if (!getCombatantManager(combatantManager))
+	if (!MyGameplayStatics::getCombatantManager(this, combatantManager))
 		return;
 	_registerKey = combatantManager->registerEnemy(this);
 }
 
-void AEnemyBase::EndPlay(const EEndPlayReason::Type EndPlayReason) {
+void AEnemyBase::EndPlay(EEndPlayReason::Type EndPlayReason) {
 	UWorld* world = GetWorld();
 	if (!world) {
 		LOGERROR("EnemyBase::EndPlay - failed to get world");

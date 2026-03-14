@@ -1,14 +1,20 @@
 #pragma once
 #include "StatusEffect.h"
-#include "CombatantAttributes.h"
+#include "StatusEffect_Damage.generated.h"
+class UCombatantAttributes;
 
-class StatusEffect_Damage : public StatusEffect<FCombatantAttributes> {
+UCLASS()
+class UStatusEffect_Damage : public UStatusEffect {
+	GENERATED_BODY()
 
 public:
-	StatusEffect_Damage(float magnitude, float chance) : StatusEffect(0, magnitude, chance) {}
-	StatusEffect_Damage(float magnitude) : StatusEffect(0, magnitude, 1) {}
-	StatusEffect_Damage() = delete;
-	void prebonusStep(FCombatantAttributes& finalAttributes, FCombatantAttributes& attributeOffsets, float delta) override {}
-	void multiplierStep(FCombatantAttributes& finalAttributes, FCombatantAttributes& attributeOffsets, float delta) override {}
-	void postbonusStep(FCombatantAttributes& finalAttributes, FCombatantAttributes& attributeOffsets, float delta) override;
+	void initialise_UStatusEffect_Damage(float magnitude, float chance) {
+		initialise_UStatusEffect(0, magnitude, chance);
+	}
+	void initialise_UStatusEffect_Damage(float magnitude) {
+		initialise_UStatusEffect_Damage(magnitude, 1);
+	} 
+	virtual void prebonusStep(float delta) override {}
+	virtual void multiplierStep(float delta) override {}
+	virtual void postbonusStep(float delta) override;
 };

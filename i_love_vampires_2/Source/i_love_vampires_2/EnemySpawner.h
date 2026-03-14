@@ -2,10 +2,9 @@
 
 #include "CoreMinimal.h"
 #include "Subsystems/WorldSubsystem.h"
-#include "CombatantTemplate.h"
-#include "EnemyRef.h"
-#include "Engine/DataTable.h"
+#include "UObject/PrimaryAssetId.h"
 #include "EnemySpawner.generated.h"
+class ACombatant;
 
 UCLASS()
 class I_LOVE_VAMPIRES_2_API UEnemySpawner : public UTickableWorldSubsystem
@@ -13,11 +12,12 @@ class I_LOVE_VAMPIRES_2_API UEnemySpawner : public UTickableWorldSubsystem
 	GENERATED_BODY()
 
 	float _nextTick = 0.f;
+	bool spawnTestEnemy(ACombatant*& ret);
+	bool spawnEnemy(const FVector& location, const FPrimaryAssetId& ID, ACombatant*& ret);
+
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UEnemySpawner")
-	UDataTable* _combatantData;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UEnemySpawner")
-	FEnemyRef _testEnemy;
+	FPrimaryAssetId _testEnemy;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UEnemySpawner")
 	bool _gameReady = false;
 

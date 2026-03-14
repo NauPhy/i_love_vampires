@@ -40,6 +40,7 @@ class I_LOVE_VAMPIRES_2_API AMyPlayer : public ACombatant
 
 public:
 	AMyPlayer();
-	void initialise_AMyPlayer(FName);
+	void initialise_AMyPlayer(const UCombatantTemplate*);
+	virtual void myInitialise(const UCombatantTemplate* temp) override { initialise_AMyPlayer(temp); }
 	virtual void Tick(float delta) override;
 };	

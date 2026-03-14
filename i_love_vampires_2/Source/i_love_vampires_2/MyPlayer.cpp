@@ -2,8 +2,8 @@
 //#include "Kismet/GameplayStatics.h"
 //#include "Definitions.h"
 #include "InputMappingContext.h"
-//#include "EnhancedInputSubsystems.h"
-//#include "AssetRefs.h"
+#include "EnhancedInputSubsystems.h"
+#include "AssetRefs.h"
 #include "ExperienceShard.h"
 #include "EnemyBase.h"
 //#include "Kismet/KismetMathLibrary.h"
@@ -93,8 +93,8 @@ bool AMyPlayer::addKeyboardContext() {
 	return true;
 }
 
-void AMyPlayer::initialise_AMyPlayer(FName ID) {
-	initialise_ACombatant(ID);
+void AMyPlayer::initialise_AMyPlayer(const UCombatantTemplate* data) {
+	initialise_ACombatant(data);
 	if (!addKeyboardContext())
 		return;
 	UCombatantManager* combatantManager = nullptr;

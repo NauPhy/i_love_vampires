@@ -5,270 +5,10 @@
         {
             "results": [
                 {
-                    "ruleId": "C3203",
+                    "ruleId": "C3859",
                     "level": "error",
                     "message": {
-                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyCombatantAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 52,
-                                    "startColumn": 36,
-                                    "snippet": {
-                                        "text": "\tconst std::vector<std::unique_ptr<StatusEffect>>& getStatusEffects() const { return _statusEffects; }"
-                                    }
-                                }
-                            }
-                        }
-                    ],
-                    "relatedLocations": [
-                        {
-                            "id": 0,
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 52,
-                                    "startColumn": 36,
-                                    "snippet": {
-                                        "text": "\tconst std::vector<std::unique_ptr<StatusEffect>>& getStatusEffects() const { return _statusEffects; }"
-                                    }
-                                }
-                            },
-                            "message": {
-                                "text": "the template instantiation context (the oldest one first) is"
-                            }
-                        },
-                        {
-                            "id": 1,
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 13,
-                                    "startColumn": 7,
-                                    "snippet": {
-                                        "text": "class UMyAttributeSet {"
-                                    }
-                                }
-                            },
-                            "message": {
-                                "text": "while compiling class template 'UMyAttributeSet'"
-                            },
-                            "properties": {
-                                "nestingLevel": 1
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C3203",
-                    "level": "error",
-                    "message": {
-                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyCombatantAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 57,
-                                    "startColumn": 44,
-                                    "snippet": {
-                                        "text": "\tvoid inflictInstantStatus(std::unique_ptr<StatusEffect>);"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C3203",
-                    "level": "error",
-                    "message": {
-                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyCombatantAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 58,
-                                    "startColumn": 37,
-                                    "snippet": {
-                                        "text": "\tvoid inflictStatus(std::unique_ptr<StatusEffect>);"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C4265",
-                    "message": {
-                        "text": "'UMyAttributeSet<FCombatantAttributes>': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyCombatantAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 60,
-                                    "startColumn": 1,
-                                    "snippet": {
-                                        "text": "};"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C4265",
-                    "message": {
-                        "text": "'UMyCombatantAttributeSet': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyCombatantAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyCombatantAttributeSet.h"
-                                },
-                                "region": {
-                                    "startLine": 16,
-                                    "startColumn": 1,
-                                    "snippet": {
-                                        "text": "};"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C4265",
-                    "message": {
-                        "text": "'StatusEffect<TRow>': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly\n        with\n        [\n            TRow=FCombatantAttributes\n        ]"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyCombatantAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusEffect.h"
-                                },
-                                "region": {
-                                    "startLine": 13,
-                                    "startColumn": 3,
-                                    "snippet": {
-                                        "text": "\t~StatusEffect() {}"
-                                    }
-                                }
-                            }
-                        }
-                    ],
-                    "relatedLocations": [
-                        {
-                            "id": 0,
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusEffect.h"
-                                },
-                                "region": {
-                                    "startLine": 13,
-                                    "startColumn": 3,
-                                    "snippet": {
-                                        "text": "\t~StatusEffect() {}"
-                                    }
-                                }
-                            },
-                            "message": {
-                                "text": "the template instantiation context (the oldest one first) is"
-                            }
-                        },
-                        {
-                            "id": 1,
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusEffect_Burn.h"
-                                },
-                                "region": {
-                                    "startLine": 5,
-                                    "startColumn": 34,
-                                    "snippet": {
-                                        "text": "class StatusEffect_Burn : public StatusEffect<FCombatantAttributes> {"
-                                    }
-                                }
-                            },
-                            "message": {
-                                "text": "see reference to class template instantiation 'StatusEffect<TRow>' being compiled\n        with\n        [\n            TRow=FCombatantAttributes\n        ]"
-                            },
-                            "properties": {
-                                "nestingLevel": 1
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C4265",
-                    "message": {
-                        "text": "'StatusEffect_Burn': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyCombatantAttributeSet.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/StatusEffect_Burn.h"
-                                },
-                                "region": {
-                                    "startLine": 15,
-                                    "startColumn": 1,
-                                    "snippet": {
-                                        "text": "};"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C3861",
-                    "level": "error",
-                    "message": {
-                        "text": "'Initialise_UMyAttributeSet': identifier not found"
+                        "text": "Failed to create virtual memory for PCH"
                     },
                     "analysisTarget": {
                         "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyCombatantAttributeSet.cpp"
@@ -280,21 +20,50 @@
                                     "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyCombatantAttributeSet.cpp"
                                 },
                                 "region": {
-                                    "startLine": 7,
-                                    "startColumn": 2,
-                                    "snippet": {
-                                        "text": "\tInitialise_UMyAttributeSet(rowRef);"
-                                    }
+                                    "startLine": 1,
+                                    "startColumn": 1
                                 }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyCombatantAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 1,
+                                    "startColumn": 1
+                                }
+                            },
+                            "message": {
+                                "text": "the system returned code 1455: The paging file is too small for this operation to complete.\r\n"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyCombatantAttributeSet.cpp"
+                                },
+                                "region": {
+                                    "startLine": 1,
+                                    "startColumn": 1
+                                }
+                            },
+                            "message": {
+                                "text": "please visit https://aka.ms/pch-help for more details"
                             }
                         }
                     ]
                 },
                 {
-                    "ruleId": "C3203",
+                    "ruleId": "C1076",
                     "level": "error",
                     "message": {
-                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
+                        "text": "compiler limit: internal heap limit reached"
                     },
                     "analysisTarget": {
                         "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyCombatantAttributeSet.cpp"
@@ -306,11 +75,8 @@
                                     "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyCombatantAttributeSet.cpp"
                                 },
                                 "region": {
-                                    "startLine": 11,
-                                    "startColumn": 36,
-                                    "snippet": {
-                                        "text": "\tconst std::vector<std::unique_ptr<StatusEffect>>& statusEffects = getStatusEffects();"
-                                    }
+                                    "startLine": 1,
+                                    "startColumn": 1
                                 }
                             }
                         }

@@ -1,29 +1,23 @@
 #include "Combatant.h"
 #include <functional>
 #include "MyGameplayStatics.h"
-#include "CombatantTemplateFull.h"
+#include "PaperFlipbookComponent.h"
+#include "Active.h"
+#include "StatusEffect.h"
+#include "MyCombatantAttributeSet.h"
 #include "SpriteManager.h"
 #include "AssetRefs.h"
 #include "Definitions.h"
 #include "StatusEffect_Damage.h"
+#include "Engine/AssetManager.h"
+
 
 ACombatant::ACombatant()
 {
 	{
 		PrimaryActorTick.bCanEverTick = true;
 	}
-	// Attribute init
-	{
-		_attributeSet = MakeShared<UMyCombatantAttributeSet>();
-		//callbacks
-		std::function <void(CombatantAttribute::MyEnum, float, float)> callback = std::bind(&ACombatant::onCurrentHPChanged, this, std::placeholders::_1, std::placeholders::_2);
-		size_t offset = 0;
-		{
-			FCombatantAttributes temp;
-			offset = UMyAttributeSet::calculateOffset(temp, temp._currentHP);
-		}
-		_attributeSet->addCallback(offset, callback);
-	}
+
 	//Flipbook init
 	{
 		_combatantFlipbook = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("CombatantFlipbook"));
@@ -33,39 +27,54 @@ ACombatant::ACombatant()
 	}
 }
 
-void ACombatant::initialise_ACombatant(FName newID)
-{
-	//basic
-	_ID = ID;
-	//attributes and config
-	UAssetRefs* assetRefs = nullptr;
-	if (!MyGameplayStatics::getAssetRefs(this, assetRefs)) {
-		return;
+void ACombatant::burnTick() { _attributeSet->burnTick(); }
+
+void ACombatant::initialise_ACombatant() {
+	// attribute set
+	{
+		_attributeSet = NewObject<UMyCombatantAttributeSet>(this);
+		_attributeSet->initialise_UMyCombatantAttributeSet(_attributes);
+		//callbacks
+		std::function <void(CombatantAttribute::MyEnum, float, float)> callback = std::bind(&ACombatant::onCurrentHPChanged, this, std::placeholders::_1, std::placeholders::_2);
+		size_t offset = UMyAttributeSet::calculateOffset(_attributes, _attributes->_currentHP);
+		_attributeSet->addCallback(offset, callback);
 	}
-	const FCombatantTemplateFull* templateData = assetRefs->getCombatantTemplate(newID);
-	if (templateData == nullptr) {
-		LOGERROR("ACombatant::initialise_ACombatant - templateData is null");
-		return;
-	}
-	_config = templateData->_config;
-	_attributeSet->initialise_UMyCombatantAttributeSet(&templateData->_attributes);
-	//weapons
-	for (const FName& activeID : templateData->_config._startingWeapons) {
-		_activeAbilities.Add(NewObject<UActive>(this));
-		_activeAbilities.Back()->initialise_UActive(this, activeID, _attributeSet);
+	// weapons
+	for (const auto& data : _config._startingWeapons) {
+		UActive* active = NewObject<UActive>(this);
+		active->initialise_UActive(this, data, _attributes);
+		_activeAbilities.Add(active);
 	}
 	//sprite
-	ESprite spriteName = myTemplate._sprite;
+	ESprite spriteName = _config->_sprite;
 	USpriteManager* spriteManager = nullptr;
 	if (!MyGameplayStatics::getSpriteManager(this, spriteManager)) {
 		return;
 	}
 	UPaperFlipbook* tempSprite = nullptr;
-	if (!tempSprite = spriteManager->getSprite(spriteName, tempSprite))
+	if (!spriteManager->getSprite(spriteName, tempSprite))
 		return;
+	if (tempSprite == nullptr) {
+		LOGERROR("ACombatant::initialise_ACombatant - sprite is null");
+		return;
+	}
 	_combatantFlipbook->SetFlipbook(tempSprite);
+	_isInitialised = true;
 }
-void ACombatant::EndPlay(const EEndPlayReason::Type EndPlayReason)
+
+void ACombatant::initialise_ACombatant(const UCombatantTemplate* rawData)
+{
+	_config = DuplicateObject(rawData->_config, this);
+	_attributes = DuplicateObject(rawData->_attributes, this);
+	initialise_ACombatant();
+}
+void ACombatant::initialise_ACombatant(const UCombatantConfig* config, const UCombatantAttributes* attributes)
+{
+	_config = DuplicateObject(config, this);
+	_attributes = DuplicateObject(attributes, this);
+	initialise_ACombatant();
+}
+void ACombatant::EndPlay(EEndPlayReason::Type EndPlayReason)
 {
 	_attributeSet->clearCallback();
 	Super::EndPlay(EndPlayReason);
@@ -77,24 +86,32 @@ void ACombatant::onCurrentHPChanged(float oldVal, float newVal)
 	}
 }
 void ACombatant::Tick(float DeltaTime) {
+	if (!_isInitialised)
+		return;
 	Super::Tick(DeltaTime);
 	_attributeSet->tick(DeltaTime);
 	for (auto& active : _activeAbilities) {
 		active->tick(DeltaTime);
 	}
 }
-void ACombatant::inflictStatus(std::unique_ptr<StatusEffect> newStatus) {
+void ACombatant::inflictStatus(UStatusEffect* newStatus) {
 	if (newStatus->getDuration() <= EPSILON) {
-		_attributeSet->inflictInstantStatus(std::move(newStatus));
-		return;
+		_attributeSet->inflictInstantStatus(newStatus);
 	}
-	_attributeSet->inflictStatus(std::move(newStatus));
+	else {
+		_attributeSet->inflictStatus(newStatus);
+	}
 }
 
 void ACombatant::exchangeContactDamage(ACombatant* left, ACombatant* right) {
-	const float leftThreat = left->_attributeSet->getAttributes()._contactDamage;
-	const float rightThreat = right->_attributeSet->getAttributes()._contactDamage;
+	const float leftThreat = left->_attributes->_contactDamage;
+	const float rightThreat = right->_attributes->_contactDamage;
 
-	left->inflictStatus(std::make_unique<StatusEffect_Damage>(rightThreat));
-	right->inflictStatus(std::make_unique<StatusEffect_Damage>(leftThreat));
+	UStatusEffect_Damage* leftDamage = NewObject<UStatusEffect_Damage>(this);
+	leftDamage->initialise_UStatusEffect_Damage(rightThreat);
+	UStatusEffect_Damage* rightDamage = NewObject<UStatusEffect_Damage>(this);
+	rightDamage->initialise_UStatusEffect_Damage(leftThreat);
+
+	left->inflictStatus(rightThreat);
+	right->inflictStatus(leftThreat);
 }

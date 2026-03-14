@@ -1,15 +1,21 @@
 #pragma once
 #include "StatusEffect.h"
-#include "CombatantAttributes.h"
+#include <memory>
+#include "StatusEffect_Burn.generated.h"
+class UCombatantAttributes;
 
-class StatusEffect_Burn : public StatusEffect<FCombatantAttributes> {
+UCLASS()
+class I_LOVE_VAMPIRES_2_API UStatusEffect_Burn : public UStatusEffect {
+	GENERATED_BODY()
+
 	bool _burnThisFrame = false;
 
 public:
-	StatusEffect_Burn(float duration, float magnitude, float chance);
-	StatusEffect_Burn() = delete;
-	void prebonusStep(FCombatantAttributes& finalAttributes, FCombatantAttributes& attributeOffsets, float delta) override {}
-	void multiplierStep(FCombatantAttributes& finalAttributes, FCombatantAttributes& attributeOffsets, float delta) override {}
-	void postbonusStep(FCombatantAttributes& finalAttributes, FCombatantAttributes& attributeOffsets, float delta) override;
+	void initialise_UStatusEffect_Burn(float duration, float magnitude, float chance) {
+		initialise_UStatusEffect(duration, magnitude, chance);
+	}
+	void prebonusStep(float delta) override {}
+	void multiplierStep(float delta) override {}
+	void postbonusStep(float delta) override;
 	void burnTick() { _burnThisFrame = true; }
 };

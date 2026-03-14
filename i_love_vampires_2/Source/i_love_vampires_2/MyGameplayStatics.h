@@ -8,6 +8,7 @@ class UCombatantManager;
 class USpriteManager;
 
 class MyGameplayStatics {
+public:
 	static bool myGetEnhancedInputLocalPlayerSubsystem(const UObject* caller, UEnhancedInputLocalPlayerSubsystem*&);
 	static bool myGetPlayerController(const UObject* caller, APlayerController*&);
 	static bool myGetGameInstance(const UObject* caller, UGameInstance*&);

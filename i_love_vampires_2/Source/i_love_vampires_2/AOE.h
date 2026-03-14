@@ -2,10 +2,11 @@
 #include "CoreMinimal.h"
 #include "AttackActor.h"
 #include "AOEEnum.h"
-#include "AOEConfig.h"
-#include "AOEAttributes.h"
 #include "AOE.generated.h"
 class UShapeComponent;
+class UAOEData;
+class UAOEConfig;
+class UAOEAttributes;
 
 UCLASS()
 class AAOE : public AAttackActor {
@@ -18,9 +19,19 @@ class AAOE : public AAttackActor {
 	UPROPERTY()
 	UShapeComponent* _collider = nullptr;
 
+private:
+	void initShape();
+	TWeakObjectPtr<APawn> _delayedConstruction_pawnRef = nullptr;
+	UAOEConfig* _delayedConstruction_config = nullptr;
+	UAOEAttributes* _delayedConstruction_attributes = nullptr;
+
+protected:
+	void initialise_AAOE(APawn* pawnRef, bool delayFullConstruction = false);
+
 public:
-	void initialise_AAOE(APawn* pawnRef) { initialise_AAttackActor(pawnRef); initShape(); }
-	void initialise_AAOE(APawn* pawnRef, const FAOEConfig& config, const FAOEAttributes& attributes);
+	void initialise_AAOE(APawn* pawnRef, const UAOEData*, bool delayFullConstruction = false);
+	void initialise_AAOE(APawn*, const UAOEConfig*, const UAOEAttributes*, bool delayFullConstruction = false);
+	void completeDelayedConstruction();
 
 	virtual void Tick(float delta) override;
 	UFUNCTION()
@@ -32,6 +43,43 @@ public:
 		bool bFromSweep,
 		const FHitResult& SweepResult
 	);
-private:
-	void initShape();
+
+	//virtual static void getAttributeType() override { return UAOEAttributes::StaticClass(); }
+};
+
+UCLASS(BlueprintType)
+class I_LOVE_VAMPIRES_2_API UAOEData : public UPrimaryDataAsset
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere, Instanced, Category = "AOEData")
+	UAOEConfig* _config;
+	UPROPERTY(EditAnywhere, Instanced, Category = "AOEData")
+	UAOEAttributes* _attributes;
+};
+
+UCLASS(BlueprintType)
+class I_LOVE_VAMPIRES_2_API UAOEConfig : public UAttackConfig
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AOEConfig")
+	EAOEShape _shape = static_cast<EAOEShape>(0);
+	UAOEConfig() { _attackClass = AAOE::StaticClass(); }
+};
+
+
+UCLASS(BlueprintType)
+class I_LOVE_VAMPIRES_2_API UAOEAttributes : public UAttackAttributes
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AOEAttributes")
+	float _radius = 1.f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AOEAttributes")
+	float _duration = 0.f;
+
+	virtual void modifyAttributes(const UCombatantAttributes*, const UAOEAttributes*, UAOEAttributes*);
 };

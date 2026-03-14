@@ -1,5 +1,9 @@
 #include "StatusEffect_Bleed.h"
+#include "Combatant.h"
 
-void StatusEffect_Bleed::postbonusStep(FCombatantAttributes& finalAttributes, FCombatantAttributes& attributeOffsets, float delta) {
-	attributeOffsets._currentHP -= _magnitude * delta;
+void UStatusEffect_Bleed::postbonusStep(float delta) {
+	UCombatantAttributes* attr = nullptr;
+	if (!castOffsets<UCombatantAttributes>(attr))
+		return;
+	attr->_currentHP -= _magnitude * delta;
 }

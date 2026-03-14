@@ -5,10 +5,9 @@
         {
             "results": [
                 {
-                    "ruleId": "C3203",
-                    "level": "error",
+                    "ruleId": "C4263",
                     "message": {
-                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
+                        "text": "'void UAOEAttributes::modifyAttributes(const UCombatantAttributes *,const UAOEAttributes *,UAOEAttributes *)': member function does not override any base class virtual member function"
                     },
                     "analysisTarget": {
                         "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/x64/UnrealEditor/DebugGame/i_love_vampires_2/Module.i_love_vampires_2.cpp"
@@ -17,13 +16,38 @@
                         {
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.h"
                                 },
                                 "region": {
-                                    "startLine": 52,
-                                    "startColumn": 36,
+                                    "startLine": 84,
+                                    "startColumn": 15,
                                     "snippet": {
-                                        "text": "\tconst std::vector<std::unique_ptr<StatusEffect>>& getStatusEffects() const { return _statusEffects; }"
+                                        "text": "\tvirtual void modifyAttributes(const UCombatantAttributes*, const UAOEAttributes*, UAOEAttributes*);"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C4264",
+                    "message": {
+                        "text": "'void UAttackAttributes::modifyAttributes(const UCombatantAttributes *,const UAttackAttributes *,UAttackAttributes *)': no override available for virtual member function from base 'UAttackAttributes'; function is hidden"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/x64/UnrealEditor/DebugGame/i_love_vampires_2/Module.i_love_vampires_2.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.h"
+                                },
+                                "region": {
+                                    "startLine": 74,
+                                    "startColumn": 29,
+                                    "snippet": {
+                                        "text": "class I_LOVE_VAMPIRES_2_API UAOEAttributes : public UAttackAttributes"
                                     }
                                 }
                             }
@@ -34,48 +58,132 @@
                             "id": 0,
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AttackActor.h"
                                 },
                                 "region": {
-                                    "startLine": 52,
-                                    "startColumn": 36,
+                                    "startLine": 87,
+                                    "startColumn": 15,
                                     "snippet": {
-                                        "text": "\tconst std::vector<std::unique_ptr<StatusEffect>>& getStatusEffects() const { return _statusEffects; }"
+                                        "text": "\tvirtual void modifyAttributes(const UCombatantAttributes* modifiers, const UAttackAttributes* baseAttributes, UAttackAttributes* finalAttributes);"
                                     }
                                 }
                             },
                             "message": {
-                                "text": "the template instantiation context (the oldest one first) is"
+                                "text": "see declaration of 'UAttackAttributes::modifyAttributes'"
                             }
                         },
                         {
                             "id": 1,
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AttackActor.h"
                                 },
                                 "region": {
-                                    "startLine": 13,
-                                    "startColumn": 7,
+                                    "startLine": 75,
+                                    "startColumn": 29,
                                     "snippet": {
-                                        "text": "class UMyAttributeSet {"
+                                        "text": "class I_LOVE_VAMPIRES_2_API UAttackAttributes : public UBaseAttributes"
                                     }
                                 }
                             },
                             "message": {
-                                "text": "while compiling class template 'UMyAttributeSet'"
+                                "text": "see declaration of 'UAttackAttributes'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C4263",
+                    "message": {
+                        "text": "'void UProjectileAttributes::modifyAttributes(const UCombatantAttributes *,const UProjectileAttributes *,UProjectileAttributes *)': member function does not override any base class virtual member function"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/x64/UnrealEditor/DebugGame/i_love_vampires_2/Module.i_love_vampires_2.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.h"
+                                },
+                                "region": {
+                                    "startLine": 89,
+                                    "startColumn": 7,
+                                    "snippet": {
+                                        "text": "\tvoid modifyAttributes(const UCombatantAttributes*, const UProjectileAttributes*, UProjectileAttributes*);"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C4264",
+                    "message": {
+                        "text": "'void UAttackAttributes::modifyAttributes(const UCombatantAttributes *,const UAttackAttributes *,UAttackAttributes *)': no override available for virtual member function from base 'UAttackAttributes'; function is hidden"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/x64/UnrealEditor/DebugGame/i_love_vampires_2/Module.i_love_vampires_2.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.h"
+                                },
+                                "region": {
+                                    "startLine": 70,
+                                    "startColumn": 29,
+                                    "snippet": {
+                                        "text": "class I_LOVE_VAMPIRES_2_API UProjectileAttributes : public UAttackAttributes"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AttackActor.h"
+                                },
+                                "region": {
+                                    "startLine": 87,
+                                    "startColumn": 15,
+                                    "snippet": {
+                                        "text": "\tvirtual void modifyAttributes(const UCombatantAttributes* modifiers, const UAttackAttributes* baseAttributes, UAttackAttributes* finalAttributes);"
+                                    }
+                                }
                             },
-                            "properties": {
-                                "nestingLevel": 1
+                            "message": {
+                                "text": "see declaration of 'UAttackAttributes::modifyAttributes'"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AttackActor.h"
+                                },
+                                "region": {
+                                    "startLine": 75,
+                                    "startColumn": 29,
+                                    "snippet": {
+                                        "text": "class I_LOVE_VAMPIRES_2_API UAttackAttributes : public UBaseAttributes"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UAttackAttributes'"
                             }
                         }
                     ]
                 },
                 {
-                    "ruleId": "C3203",
-                    "level": "error",
+                    "ruleId": "C4263",
                     "message": {
-                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
+                        "text": "'void UExplosiveProjectileAttributes::modifyAttributes(const UCombatantAttributes *,const UExplosiveProjectileAttributes *,UExplosiveProjectileAttributes *)': member function does not override any base class virtual member function"
                     },
                     "analysisTarget": {
                         "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/x64/UnrealEditor/DebugGame/i_love_vampires_2/Module.i_love_vampires_2.cpp"
@@ -84,13 +192,13 @@
                         {
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/ExplosiveProjectile.h"
                                 },
                                 "region": {
-                                    "startLine": 57,
-                                    "startColumn": 44,
+                                    "startLine": 77,
+                                    "startColumn": 15,
                                     "snippet": {
-                                        "text": "\tvoid inflictInstantStatus(std::unique_ptr<StatusEffect>);"
+                                        "text": "\tvirtual void modifyAttributes(const UCombatantAttributes*, const UExplosiveProjectileAttributes*, UExplosiveProjectileAttributes*);"
                                     }
                                 }
                             }
@@ -98,10 +206,9 @@
                     ]
                 },
                 {
-                    "ruleId": "C3203",
-                    "level": "error",
+                    "ruleId": "C4264",
                     "message": {
-                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
+                        "text": "'void UAttackAttributes::modifyAttributes(const UCombatantAttributes *,const UAttackAttributes *,UAttackAttributes *)': no override available for virtual member function from base 'UAttackAttributes'; function is hidden"
                     },
                     "analysisTarget": {
                         "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/x64/UnrealEditor/DebugGame/i_love_vampires_2/Module.i_love_vampires_2.cpp"
@@ -110,143 +217,53 @@
                         {
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/ExplosiveProjectile.h"
                                 },
                                 "region": {
-                                    "startLine": 58,
-                                    "startColumn": 37,
+                                    "startLine": 72,
+                                    "startColumn": 29,
                                     "snippet": {
-                                        "text": "\tvoid inflictStatus(std::unique_ptr<StatusEffect>);"
+                                        "text": "class I_LOVE_VAMPIRES_2_API UExplosiveProjectileAttributes : public UProjectileAttributes"
                                     }
                                 }
                             }
                         }
-                    ]
-                },
-                {
-                    "ruleId": "C4265",
-                    "message": {
-                        "text": "'UMyAttributeSet<FCombatantAttributes>': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/x64/UnrealEditor/DebugGame/i_love_vampires_2/Module.i_love_vampires_2.cpp"
-                    },
-                    "locations": [
+                    ],
+                    "relatedLocations": [
                         {
+                            "id": 0,
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyAttributeSet.h"
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AttackActor.h"
                                 },
                                 "region": {
-                                    "startLine": 60,
-                                    "startColumn": 1,
+                                    "startLine": 87,
+                                    "startColumn": 15,
                                     "snippet": {
-                                        "text": "};"
+                                        "text": "\tvirtual void modifyAttributes(const UCombatantAttributes* modifiers, const UAttackAttributes* baseAttributes, UAttackAttributes* finalAttributes);"
                                     }
                                 }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UAttackAttributes::modifyAttributes'"
                             }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C4265",
-                    "message": {
-                        "text": "'UMyCombatantAttributeSet': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/x64/UnrealEditor/DebugGame/i_love_vampires_2/Module.i_love_vampires_2.cpp"
-                    },
-                    "locations": [
+                        },
                         {
+                            "id": 1,
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyCombatantAttributeSet.h"
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AttackActor.h"
                                 },
                                 "region": {
-                                    "startLine": 16,
-                                    "startColumn": 1,
+                                    "startLine": 75,
+                                    "startColumn": 29,
                                     "snippet": {
-                                        "text": "};"
+                                        "text": "class I_LOVE_VAMPIRES_2_API UAttackAttributes : public UBaseAttributes"
                                     }
                                 }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C3203",
-                    "level": "error",
-                    "message": {
-                        "text": "'UMyAttributeSet': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/x64/UnrealEditor/DebugGame/i_love_vampires_2/Module.i_love_vampires_2.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Active.h"
-                                },
-                                "region": {
-                                    "startLine": 21,
-                                    "startColumn": 30,
-                                    "snippet": {
-                                        "text": "\tstd::vector<std::unique_ptr<UMyAttributeSet>> _attributeSets;"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C3203",
-                    "level": "error",
-                    "message": {
-                        "text": "'StatusEffect': unspecialized class template can't be used as a template argument for template parameter '_Ty', expected a real type"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/x64/UnrealEditor/DebugGame/i_love_vampires_2/Module.i_love_vampires_2.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.h"
-                                },
-                                "region": {
-                                    "startLine": 38,
-                                    "startColumn": 37,
-                                    "snippet": {
-                                        "text": "\tvoid inflictStatus(std::unique_ptr<StatusEffect>);"
-                                    }
-                                }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C1083",
-                    "level": "error",
-                    "message": {
-                        "text": "Cannot open include file: 'CombatantTemplate.h': No such file or directory"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/x64/UnrealEditor/DebugGame/i_love_vampires_2/Module.i_love_vampires_2.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/EnemyRef.h"
-                                },
-                                "region": {
-                                    "startLine": 3,
-                                    "startColumn": 1,
-                                    "snippet": {
-                                        "text": "#include \"CombatantTemplate.h\""
-                                    }
-                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UAttackAttributes'"
                             }
                         }
                     ]

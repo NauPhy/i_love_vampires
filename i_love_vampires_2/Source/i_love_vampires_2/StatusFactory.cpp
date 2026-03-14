@@ -2,22 +2,30 @@
 #include "StatusEffect_Bleed.h"
 #include "StatusEffect_Damage.h"
 #include "StatusEffect_Burn.h"
+#include "CoreMinimal.h"
 
 #include "Definitions.h"
 
-std::unique_ptr<StatusEffect> StatusFactory::createStatusEffect(const FEffectStruct& specs) {
-	std::unique_ptr<StatusEffect> ret = nullptr;
+UStatusEffect* StatusFactory::createStatusEffect(const FEffectStruct& specs) {
 	if (specs._type == _DAMAGE) {
-		ret = std::make_unique<StatusEffect_Damage>(specs._magnitude, specs._chance);
+		UStatusEffect_Damage* ret = NewObject<UStatusEffect_Damage>();
+		ret->initialise_UStatusEffect_Damage(specs._magnitude, specs._chance);
+		return ret;
 	}
-	elif(specs._type == _BLEED) {
-		ret = std::make_unique<StatusEffect_Bleed>(specs._magnitude, specs._duration, specs._chance);
+	else if(specs._type == _BLEED) {
+		UStatusEffect_Bleed* ret = NewObject<UStatusEffect_Bleed>();
+		ret->initialise_UStatusEffect_Bleed(specs._magnitude, specs._duration, specs._chance);
+		return ret;
 	}
-	elif(specs._type == _BURN) {
-		ret = std::make_unique<StatusEffect_Burn>(specs._magnitude, specs._duration, specs._chance);
+	else if(specs._type == _BURN) {
+		UStatusEffect_Burn* ret = NewObject<UStatusEffect_Burn>();
+		ret->initialise_UStatusEffect_Burn(specs._magnitude, specs._duration, specs._chance);
+		return ret;
 	}
 	else {
 		LOGERROR("StatusFactory::createStatusEffect - not implemented");
 	}
-	return std::move(ret);
+	UStatusEffect* ret = NewObject<UStatusEffect>();
+	ret->initialise_UStatusEffect(specs._duration, specs._magnitude, specs._chance);
+	return ret;
 }

@@ -1,10 +1,9 @@
 #include "SpriteManager.h"
 #include "PaperFlipbook.h"
 #include "Definitions.h"
-#include "EnumConverter.h"
 
 namespace {
-	const std::TMap<ESprite, const char*> SPRITE_PATH = {
+	const TMap<ESprite, const char*> SPRITE_PATH = {
 		{ESprite::testPlayer, "/Game/Sprites/athena.athena"},
 		{ESprite::testEnemy, "/Game/Sprites/enemy.enemy"},
 		{ESprite::testBullet, "/Game/Sprites/placeholder_bullet.placeholder_bullet"},
@@ -19,7 +18,7 @@ USpriteManager::USpriteManager() {
 		FStringView paramPath = FStringView(FString(pair.Value));
 		UPaperFlipbook* flipbook = LoadObject<UPaperFlipbook>(nullptr, paramPath);
 		if (flipbook == nullptr) {
-			_sprites.Add(Key, flipbook);
+			_sprites.Add(pair.Key, flipbook);
 		}
 		else {
 			LOGERROR("Failed to load sprite");

@@ -5,10 +5,10 @@
         {
             "results": [
                 {
-                    "ruleId": "C2511",
+                    "ruleId": "C3859",
                     "level": "error",
                     "message": {
-                        "text": "'bool MyGameplayStatics::myGetEnhancedInputLocalPlayerSubsystem(const UObject *,UEnhancedInputLocalPlayerSubsystem *&) const': overloaded member function not found in 'MyGameplayStatics'"
+                        "text": "Failed to create virtual memory for PCH"
                     },
                     "analysisTarget": {
                         "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyGameplayStatics.cpp"
@@ -20,11 +20,8 @@
                                     "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyGameplayStatics.cpp"
                                 },
                                 "region": {
-                                    "startLine": 9,
-                                    "startColumn": 25,
-                                    "snippet": {
-                                        "text": "bool MyGameplayStatics::myGetEnhancedInputLocalPlayerSubsystem(const UObject* caller, UEnhancedInputLocalPlayerSubsystem*& ret) const {"
-                                    }
+                                    "startLine": 1,
+                                    "startColumn": 1
                                 }
                             }
                         }
@@ -34,27 +31,39 @@
                             "id": 0,
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyGameplayStatics.h"
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyGameplayStatics.cpp"
                                 },
                                 "region": {
-                                    "startLine": 10,
-                                    "startColumn": 7,
-                                    "snippet": {
-                                        "text": "class MyGameplayStatics {"
-                                    }
+                                    "startLine": 1,
+                                    "startColumn": 1
                                 }
                             },
                             "message": {
-                                "text": "see declaration of 'MyGameplayStatics'"
+                                "text": "the system returned code 1455: The paging file is too small for this operation to complete.\r\n"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyGameplayStatics.cpp"
+                                },
+                                "region": {
+                                    "startLine": 1,
+                                    "startColumn": 1
+                                }
+                            },
+                            "message": {
+                                "text": "please visit https://aka.ms/pch-help for more details"
                             }
                         }
                     ]
                 },
                 {
-                    "ruleId": "C4390",
+                    "ruleId": "C1076",
                     "level": "error",
                     "message": {
-                        "text": "';': empty controlled statement found; is this the intent?"
+                        "text": "compiler limit: internal heap limit reached"
                     },
                     "analysisTarget": {
                         "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyGameplayStatics.cpp"
@@ -66,150 +75,9 @@
                                     "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyGameplayStatics.cpp"
                                 },
                                 "region": {
-                                    "startLine": 12,
-                                    "startColumn": 2,
-                                    "snippet": {
-                                        "text": "\tif (!myGetPlayerController(caller, controller))"
-                                    }
+                                    "startLine": 1,
+                                    "startColumn": 1
                                 }
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2511",
-                    "level": "error",
-                    "message": {
-                        "text": "'bool MyGameplayStatics::myGetPlayerController(const UObject *,APlayerController *&) const': overloaded member function not found in 'MyGameplayStatics'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyGameplayStatics.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyGameplayStatics.cpp"
-                                },
-                                "region": {
-                                    "startLine": 27,
-                                    "startColumn": 25,
-                                    "snippet": {
-                                        "text": "bool MyGameplayStatics::myGetPlayerController(const UObject* caller, APlayerController*& ret) const {"
-                                    }
-                                }
-                            }
-                        }
-                    ],
-                    "relatedLocations": [
-                        {
-                            "id": 0,
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyGameplayStatics.h"
-                                },
-                                "region": {
-                                    "startLine": 10,
-                                    "startColumn": 7,
-                                    "snippet": {
-                                        "text": "class MyGameplayStatics {"
-                                    }
-                                }
-                            },
-                            "message": {
-                                "text": "see declaration of 'MyGameplayStatics'"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2511",
-                    "level": "error",
-                    "message": {
-                        "text": "'bool MyGameplayStatics::myGetGameInstance(const UObject *,UGameInstance *&) const': overloaded member function not found in 'MyGameplayStatics'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyGameplayStatics.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyGameplayStatics.cpp"
-                                },
-                                "region": {
-                                    "startLine": 36,
-                                    "startColumn": 25,
-                                    "snippet": {
-                                        "text": "bool MyGameplayStatics::myGetGameInstance(const UObject* caller, UGameInstance*& ret) const {"
-                                    }
-                                }
-                            }
-                        }
-                    ],
-                    "relatedLocations": [
-                        {
-                            "id": 0,
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyGameplayStatics.h"
-                                },
-                                "region": {
-                                    "startLine": 10,
-                                    "startColumn": 7,
-                                    "snippet": {
-                                        "text": "class MyGameplayStatics {"
-                                    }
-                                }
-                            },
-                            "message": {
-                                "text": "see declaration of 'MyGameplayStatics'"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "ruleId": "C2511",
-                    "level": "error",
-                    "message": {
-                        "text": "'bool MyGameplayStatics::getAssetRefs(const UObject *,UAssetRefs *&) const': overloaded member function not found in 'MyGameplayStatics'"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyGameplayStatics.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyGameplayStatics.cpp"
-                                },
-                                "region": {
-                                    "startLine": 51,
-                                    "startColumn": 25,
-                                    "snippet": {
-                                        "text": "bool MyGameplayStatics::getAssetRefs(const UObject* caller, UAssetRefs*& ret) const {"
-                                    }
-                                }
-                            }
-                        }
-                    ],
-                    "relatedLocations": [
-                        {
-                            "id": 0,
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyGameplayStatics.h"
-                                },
-                                "region": {
-                                    "startLine": 10,
-                                    "startColumn": 7,
-                                    "snippet": {
-                                        "text": "class MyGameplayStatics {"
-                                    }
-                                }
-                            },
-                            "message": {
-                                "text": "see declaration of 'MyGameplayStatics'"
                             }
                         }
                     ]
