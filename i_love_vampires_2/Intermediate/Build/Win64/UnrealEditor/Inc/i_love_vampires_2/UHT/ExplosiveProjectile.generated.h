@@ -96,45 +96,6 @@ class UExplosiveProjectileData;
 
 // ********** End Class UExplosiveProjectileData ***************************************************
 
-// ********** Begin Class UExplosiveProjectileConfig ***********************************************
-struct Z_Construct_UClass_UExplosiveProjectileConfig_Statics;
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UExplosiveProjectileConfig_NoRegister();
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h_66_INCLASS_NO_PURE_DECLS \
-private: \
-	static void StaticRegisterNativesUExplosiveProjectileConfig(); \
-	friend struct ::Z_Construct_UClass_UExplosiveProjectileConfig_Statics; \
-	static UClass* GetPrivateStaticClass(); \
-	friend I_LOVE_VAMPIRES_2_API UClass* ::Z_Construct_UClass_UExplosiveProjectileConfig_NoRegister(); \
-public: \
-	DECLARE_CLASS2(UExplosiveProjectileConfig, UProjectileConfig, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_UExplosiveProjectileConfig_NoRegister) \
-	DECLARE_SERIALIZER(UExplosiveProjectileConfig)
-
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h_66_ENHANCED_CONSTRUCTORS \
-	/** Deleted move- and copy-constructors, should never be used */ \
-	UExplosiveProjectileConfig(UExplosiveProjectileConfig&&) = delete; \
-	UExplosiveProjectileConfig(const UExplosiveProjectileConfig&) = delete; \
-	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UExplosiveProjectileConfig); \
-	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UExplosiveProjectileConfig); \
-	DEFINE_DEFAULT_CONSTRUCTOR_CALL(UExplosiveProjectileConfig) \
-	NO_API virtual ~UExplosiveProjectileConfig();
-
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h_63_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h_66_GENERATED_BODY \
-PRAGMA_DISABLE_DEPRECATION_WARNINGS \
-public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h_66_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h_66_ENHANCED_CONSTRUCTORS \
-private: \
-PRAGMA_ENABLE_DEPRECATION_WARNINGS
-
-
-class UExplosiveProjectileConfig;
-
-// ********** End Class UExplosiveProjectileConfig *************************************************
-
 // ********** Begin Class UExplosiveProjectileAttributes *******************************************
 struct Z_Construct_UClass_UExplosiveProjectileAttributes_Statics;
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UExplosiveProjectileAttributes_NoRegister();

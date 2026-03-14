@@ -5,12 +5,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "MyPlayer.generated.h"
-struct FCombatantTemplate;
 class UEnhancedInputLocalPlayerSubsystem;
-class UAssetRefs;
-class AExperienceShard;
-class AEnemyBase;
-class APlayerController;
 
 UCLASS()
 class I_LOVE_VAMPIRES_2_API AMyPlayer : public ACombatant
@@ -40,7 +35,7 @@ class I_LOVE_VAMPIRES_2_API AMyPlayer : public ACombatant
 
 public:
 	AMyPlayer();
-	void initialise_AMyPlayer(const UCombatantTemplate*);
-	virtual void myInitialise(const UCombatantTemplate* temp) override { initialise_AMyPlayer(temp); }
+	void initialise_AMyPlayer(const FPrimaryAssetId&);
+	/*virtual void myInitialise(const UCombatantTemplate* temp) override { initialise_AMyPlayer(temp); }*/
 	virtual void Tick(float delta) override;
 };	

@@ -1,8 +1,6 @@
 #pragma once
 #include "StatusEffect.h"
-#include <memory>
 #include "StatusEffect_Bleed.generated.h"
-class UCombatantAttributes;
 
 UCLASS()
 class I_LOVE_VAMPIRES_2_API UStatusEffect_Bleed : public UStatusEffect {
@@ -11,7 +9,5 @@ public:
 	void initialise_UStatusEffect_Bleed(float duration, float magnitude, float chance) {
 		initialise_UStatusEffect(duration, magnitude, chance);
 	}
-	void prebonusStep(float delta) override {}
-	void multiplierStep(float delta) override {}
-	void postbonusStep(float delta) override;
+	void postbonusStep(float delta, UBaseAttributeSet*) override;
 };

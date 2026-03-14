@@ -19,12 +19,10 @@ I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AExplosiveProjectile_NoRegister
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AProjectile();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UExplosiveProjectileAttributes();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UExplosiveProjectileAttributes_NoRegister();
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UExplosiveProjectileConfig();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UExplosiveProjectileConfig_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UExplosiveProjectileData();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UExplosiveProjectileData_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UProjectileAttributes();
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UProjectileConfig();
 UPackage* Z_Construct_UPackage__Script_i_love_vampires_2();
 // ********** End Cross Module References **********************************************************
 
@@ -230,89 +228,6 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, UExplosiveProjectileData);
 UExplosiveProjectileData::~UExplosiveProjectileData() {}
 // ********** End Class UExplosiveProjectileData ***************************************************
 
-// ********** Begin Class UExplosiveProjectileConfig ***********************************************
-FClassRegistrationInfo Z_Registration_Info_UClass_UExplosiveProjectileConfig;
-UClass* UExplosiveProjectileConfig::GetPrivateStaticClass()
-{
-	using TClass = UExplosiveProjectileConfig;
-	if (!Z_Registration_Info_UClass_UExplosiveProjectileConfig.InnerSingleton)
-	{
-		GetPrivateStaticClassBody(
-			TClass::StaticPackage(),
-			TEXT("ExplosiveProjectileConfig"),
-			Z_Registration_Info_UClass_UExplosiveProjectileConfig.InnerSingleton,
-			StaticRegisterNativesUExplosiveProjectileConfig,
-			sizeof(TClass),
-			alignof(TClass),
-			TClass::StaticClassFlags,
-			TClass::StaticClassCastFlags(),
-			TClass::StaticConfigName(),
-			(UClass::ClassConstructorType)InternalConstructor<TClass>,
-			(UClass::ClassVTableHelperCtorCallerType)InternalVTableHelperCtorCaller<TClass>,
-			UOBJECT_CPPCLASS_STATICFUNCTIONS_FORCLASS(TClass),
-			&TClass::Super::StaticClass,
-			&TClass::WithinClass::StaticClass
-		);
-	}
-	return Z_Registration_Info_UClass_UExplosiveProjectileConfig.InnerSingleton;
-}
-UClass* Z_Construct_UClass_UExplosiveProjectileConfig_NoRegister()
-{
-	return UExplosiveProjectileConfig::GetPrivateStaticClass();
-}
-struct Z_Construct_UClass_UExplosiveProjectileConfig_Statics
-{
-#if WITH_METADATA
-	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
-		{ "BlueprintType", "true" },
-		{ "IncludePath", "ExplosiveProjectile.h" },
-		{ "ModuleRelativePath", "ExplosiveProjectile.h" },
-	};
-#endif // WITH_METADATA
-
-// ********** Begin Class UExplosiveProjectileConfig constinit property declarations ***************
-// ********** End Class UExplosiveProjectileConfig constinit property declarations *****************
-	static UObject* (*const DependentSingletons[])();
-	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
-		TCppClassTypeTraits<UExplosiveProjectileConfig>::IsAbstract,
-	};
-	static const UECodeGen_Private::FClassParams ClassParams;
-}; // struct Z_Construct_UClass_UExplosiveProjectileConfig_Statics
-UObject* (*const Z_Construct_UClass_UExplosiveProjectileConfig_Statics::DependentSingletons[])() = {
-	(UObject* (*)())Z_Construct_UClass_UProjectileConfig,
-	(UObject* (*)())Z_Construct_UPackage__Script_i_love_vampires_2,
-};
-static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UExplosiveProjectileConfig_Statics::DependentSingletons) < 16);
-const UECodeGen_Private::FClassParams Z_Construct_UClass_UExplosiveProjectileConfig_Statics::ClassParams = {
-	&UExplosiveProjectileConfig::StaticClass,
-	nullptr,
-	&StaticCppClassTypeInfo,
-	DependentSingletons,
-	nullptr,
-	nullptr,
-	nullptr,
-	UE_ARRAY_COUNT(DependentSingletons),
-	0,
-	0,
-	0,
-	0x001000A0u,
-	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UExplosiveProjectileConfig_Statics::Class_MetaDataParams), Z_Construct_UClass_UExplosiveProjectileConfig_Statics::Class_MetaDataParams)
-};
-void UExplosiveProjectileConfig::StaticRegisterNativesUExplosiveProjectileConfig()
-{
-}
-UClass* Z_Construct_UClass_UExplosiveProjectileConfig()
-{
-	if (!Z_Registration_Info_UClass_UExplosiveProjectileConfig.OuterSingleton)
-	{
-		UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_UExplosiveProjectileConfig.OuterSingleton, Z_Construct_UClass_UExplosiveProjectileConfig_Statics::ClassParams);
-	}
-	return Z_Registration_Info_UClass_UExplosiveProjectileConfig.OuterSingleton;
-}
-DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, UExplosiveProjectileConfig);
-UExplosiveProjectileConfig::~UExplosiveProjectileConfig() {}
-// ********** End Class UExplosiveProjectileConfig *************************************************
-
 // ********** Begin Class UExplosiveProjectileAttributes *******************************************
 FClassRegistrationInfo Z_Registration_Info_UClass_UExplosiveProjectileAttributes;
 UClass* UExplosiveProjectileAttributes::GetPrivateStaticClass()
@@ -348,8 +263,14 @@ struct Z_Construct_UClass_UExplosiveProjectileAttributes_Statics
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
 		{ "BlueprintType", "true" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "//UCLASS(BlueprintType)\n//class I_LOVE_VAMPIRES_2_API UExplosiveProjectileConfig : public UProjectileConfig\n//{\n//\x09GENERATED_BODY()\n//public:\n//\x09UExplosiveProjectileConfig() { _attackClass = AExplosiveProjectile::StaticClass(); }\n//};\n" },
+#endif
 		{ "IncludePath", "ExplosiveProjectile.h" },
 		{ "ModuleRelativePath", "ExplosiveProjectile.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "UCLASS(BlueprintType)\nclass I_LOVE_VAMPIRES_2_API UExplosiveProjectileConfig : public UProjectileConfig\n{\n       GENERATED_BODY()\npublic:\n       UExplosiveProjectileConfig() { _attackClass = AExplosiveProjectile::StaticClass(); }\n};" },
+#endif
 	};
 #endif // WITH_METADATA
 
@@ -403,11 +324,10 @@ struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
 		{ Z_Construct_UClass_AExplosiveProjectile, AExplosiveProjectile::StaticClass, TEXT("AExplosiveProjectile"), &Z_Registration_Info_UClass_AExplosiveProjectile, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AExplosiveProjectile), 3840322796U) },
 		{ Z_Construct_UClass_UExplosiveProjectileData, UExplosiveProjectileData::StaticClass, TEXT("UExplosiveProjectileData"), &Z_Registration_Info_UClass_UExplosiveProjectileData, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UExplosiveProjectileData), 3859867488U) },
-		{ Z_Construct_UClass_UExplosiveProjectileConfig, UExplosiveProjectileConfig::StaticClass, TEXT("UExplosiveProjectileConfig"), &Z_Registration_Info_UClass_UExplosiveProjectileConfig, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UExplosiveProjectileConfig), 2889929701U) },
-		{ Z_Construct_UClass_UExplosiveProjectileAttributes, UExplosiveProjectileAttributes::StaticClass, TEXT("UExplosiveProjectileAttributes"), &Z_Registration_Info_UClass_UExplosiveProjectileAttributes, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UExplosiveProjectileAttributes), 3768250681U) },
+		{ Z_Construct_UClass_UExplosiveProjectileAttributes, UExplosiveProjectileAttributes::StaticClass, TEXT("UExplosiveProjectileAttributes"), &Z_Registration_Info_UClass_UExplosiveProjectileAttributes, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UExplosiveProjectileAttributes), 1653536963U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h__Script_i_love_vampires_2_1229078881{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h__Script_i_love_vampires_2_1538767344{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

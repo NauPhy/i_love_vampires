@@ -106,45 +106,6 @@ class UAOEData;
 
 // ********** End Class UAOEData *******************************************************************
 
-// ********** Begin Class UAOEConfig ***************************************************************
-struct Z_Construct_UClass_UAOEConfig_Statics;
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAOEConfig_NoRegister();
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_64_INCLASS_NO_PURE_DECLS \
-private: \
-	static void StaticRegisterNativesUAOEConfig(); \
-	friend struct ::Z_Construct_UClass_UAOEConfig_Statics; \
-	static UClass* GetPrivateStaticClass(); \
-	friend I_LOVE_VAMPIRES_2_API UClass* ::Z_Construct_UClass_UAOEConfig_NoRegister(); \
-public: \
-	DECLARE_CLASS2(UAOEConfig, UAttackConfig, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_UAOEConfig_NoRegister) \
-	DECLARE_SERIALIZER(UAOEConfig)
-
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_64_ENHANCED_CONSTRUCTORS \
-	/** Deleted move- and copy-constructors, should never be used */ \
-	UAOEConfig(UAOEConfig&&) = delete; \
-	UAOEConfig(const UAOEConfig&) = delete; \
-	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UAOEConfig); \
-	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UAOEConfig); \
-	DEFINE_DEFAULT_CONSTRUCTOR_CALL(UAOEConfig) \
-	NO_API virtual ~UAOEConfig();
-
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_61_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_64_GENERATED_BODY \
-PRAGMA_DISABLE_DEPRECATION_WARNINGS \
-public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_64_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_64_ENHANCED_CONSTRUCTORS \
-private: \
-PRAGMA_ENABLE_DEPRECATION_WARNINGS
-
-
-class UAOEConfig;
-
-// ********** End Class UAOEConfig *****************************************************************
-
 // ********** Begin Class UAOEAttributes ***********************************************************
 struct Z_Construct_UClass_UAOEAttributes_Statics;
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAOEAttributes_NoRegister();

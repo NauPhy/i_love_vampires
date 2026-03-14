@@ -17,13 +17,13 @@ static_assert(!UE_WITH_CONSTINIT_UOBJECT, "This generated code can only be compi
 			nullptr,
 			0,
 			PKG_CompiledIn | 0x00000000,
-			0x938894A7,
-			0x7828DD34,
+			0x1BE57810,
+			0x91D283F1,
 			METADATA_PARAMS(0, nullptr)
 		};
 		UECodeGen_Private::ConstructUPackage(Z_Registration_Info_UPackage__Script_i_love_vampires_2.OuterSingleton, PackageParams);
 	}
 	return Z_Registration_Info_UPackage__Script_i_love_vampires_2.OuterSingleton;
 }
-static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_i_love_vampires_2(Z_Construct_UPackage__Script_i_love_vampires_2, TEXT("/Script/i_love_vampires_2"), Z_Registration_Info_UPackage__Script_i_love_vampires_2, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x938894A7, 0x7828DD34));
+static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_i_love_vampires_2(Z_Construct_UPackage__Script_i_love_vampires_2, TEXT("/Script/i_love_vampires_2"), Z_Registration_Info_UPackage__Script_i_love_vampires_2, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x1BE57810, 0x91D283F1));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

@@ -5,14 +5,10 @@
 #include "SpriteEnum.h"
 #include "UObject/PrimaryAssetId.h"
 #include "Engine/DataAsset.h"
-#include "Combatant.generated.h"
-class UCombatantConfig;
-class UCombatantAttributes;
-class UCombatantTemplate;
-class UStatusEffect;
-class UMyCombatantAttributeSet;
 class UPaperFlipbookComponent;
 class UActive;
+
+class ACombatantAttributeSet;
 
 UCLASS()
 class I_LOVE_VAMPIRES_2_API ACombatant : public APawn
@@ -22,44 +18,31 @@ class I_LOVE_VAMPIRES_2_API ACombatant : public APawn
 	bool _isInitialised = false;
 
 protected:
-	void initialise_ACombatant();
 	UPROPERTY()
 	UCombatantConfig* _config = nullptr;
 	UPROPERTY()
-	UCombatantAttributes* _attributes = nullptr;
-	UPROPERTY()
-	UMyCombatantAttributeSet* _attributeSet = nullptr;
+	ACombatantAttributeSet* _attributeSet = nullptr;
 	UPROPERTY()
 	TArray<UActive*> _activeAbilities;
 
 	virtual void onCurrentHPChanged(float oldHP, float newHP);
 	static void exchangeContactDamage(ACombatant* left, ACombatant* right);
+	void initialise_ACombatant(const UCombatantConfig*, const UCombatantAttributes*);
+	bool getAttributes(UCombatantAttributes*&);
 
 public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "ACombatant")
 	UPaperFlipbookComponent* _combatantFlipbook;
 
 	ACombatant();
-	void initialise_ACombatant(const UCombatantTemplate*);
-	void initialise_ACombatant(const UCombatantConfig*, const UCombatantAttributes*);
-	virtual void myInitialise(const UCombatantTemplate* temp) { initialise_ACombatant(temp); }
+	void initialise_ACombatant(const FPrimaryAssetId&);
 	virtual void EndPlay(EEndPlayReason::Type EndPlayReason) override;
 	void burnTick();
 	virtual void Tick(float DeltaTime) override;
 	void inflictStatus(UStatusEffect*);
-	//FName getID() const { return _ID; }
+	void inflictStatus(const FEffectStruct&);
 };
-
-UCLASS(BlueprintType)
-class I_LOVE_VAMPIRES_2_API UCombatantTemplate : public UPrimaryDataAsset
-{
-	GENERATED_BODY()
-public:
-	UPROPERTY(EditAnywhere, Instanced, Category = "UCombatantTemplate")
-	UCombatantConfig* _config;
-	UPROPERTY(EditAnywhere, Instanced, Category = "UCombatantTemplate")
-	UCombatantAttributes* _attributes;
-};
+///////////////////////////////////////////////////////////////////////////////
 
 UCLASS(BlueprintType)
 class I_LOVE_VAMPIRES_2_API UCombatantConfig : public UObject
@@ -67,8 +50,6 @@ class I_LOVE_VAMPIRES_2_API UCombatantConfig : public UObject
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, Category = "UCombatantTemplate")
-	TSubclassOf<ACombatant> _combatantClass;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UCombatantConfig")
 	FString _name = "Combatant";
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UCombatantConfig")
@@ -76,6 +57,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UCombatantConfig")
 	TArray<FPrimaryAssetId> _startingWeapons;
 };
+///////////////////////////////////////////////////////////////////////////////
 
 UCLASS(BlueprintType)
 class I_LOVE_VAMPIRES_2_API UCombatantAttributes : public UObject
@@ -141,3 +123,54 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UCombatantAttributes")
 	float _iFrameDuration = 1;
 };
+///////////////////////////////////////////////////////////////////////////////
+
+#include "BaseAttributeSet.h"
+UCLASS()
+class I_LOVE_VAMPIRES_2_API ACombatantAttributeSet : public ABaseAttributeSet
+{
+	GENERATED_BODY()
+	UCombatantComponent* _combatantComponent;
+public:
+	void initialise_ACombatantAttributeSet(const UCombatantAttributes* baseAttributes) {
+		_combatantComponent = NewObject<UCombatantComponent>(this);
+		_combatantComponent->initialise_UCombatantComponent(baseAttributes);
+	}
+};
+///////////////////////////////////////////////////////////////////////////////
+
+#include "BaseAttributeComponent.h"
+UCLASS()
+class I_LOVE_VAMPIRES_2_API UCombatantComponent : public UBaseAttributeComponent
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY()
+	UCombatantAttributes* _base;
+	UPROPERTY()
+	UCombatantAttributes* _final;
+	UPROPERTY()
+	UCombatantAttributes* _offsets;
+	void initialise_UCombatantComponent(const UCombatantAttributes* baseAttributes) {
+		_base = DuplicateObject(baseAttributes, this);
+		_final = DuplicateObject(baseAttributes, this);
+		_offsets = DuplicateObject(baseAttributes, this);
+	}
+	virtual UBaseAttributes* getFinal() const override { return _final; }
+};
+
+///////////////////////////////////////////////////////////////////////////////
+#include "BaseTemplate.h"
+
+UCLASS(BlueprintType)
+class I_LOVE_VAMPIRES_2_API UCombatantTemplate : public UBaseTemplate
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere, Instanced, Category = "UCombatantTemplate")
+	UCombatantConfig* _config;
+	UPROPERTY(EditAnywhere, Instanced, Category = "UCombatantTemplate")
+	UCombatantAttributes* _attributes;
+};
+
+#include "Combatant.generated.h"

@@ -10,6 +10,7 @@
 //#include "CombatantManager.h"
 #include "MyGameplayStatics.h"
 
+
 AMyPlayer::AMyPlayer() : ACombatant() {
 	_camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	_camera->ProjectionMode = ECameraProjectionMode::Orthographic;
@@ -93,7 +94,7 @@ bool AMyPlayer::addKeyboardContext() {
 	return true;
 }
 
-void AMyPlayer::initialise_AMyPlayer(const UCombatantTemplate* data) {
+void AMyPlayer::initialise_AMyPlayer(const FPrimaryAssetId& data) {
 	initialise_ACombatant(data);
 	if (!addKeyboardContext())
 		return;

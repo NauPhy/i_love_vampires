@@ -1,10 +1,8 @@
 #pragma once
 #include "CoreMinimal.h"
+
 #include "AttackActor.h"
-#include "AOEEnum.h"
-#include "AOE.generated.h"
 class UShapeComponent;
-class UAOEData;
 class UAOEConfig;
 class UAOEAttributes;
 
@@ -19,21 +17,37 @@ class AAOE : public AAttackActor {
 	UPROPERTY()
 	UShapeComponent* _collider = nullptr;
 
+protected:
+	_AOEConfig* _AOEConfig = nullptr;
+	_AOEAttributes* _AOEAttributes = nullptr;
+
 private:
 	void initShape();
 	TWeakObjectPtr<APawn> _delayedConstruction_pawnRef = nullptr;
-	UAOEConfig* _delayedConstruction_config = nullptr;
-	UAOEAttributes* _delayedConstruction_attributes = nullptr;
+	UPROPERTY()
+	UAOEConfig* _delayedConstruction_AOEConfig = nullptr;
+	UPROPERTY()
+	UAOEAttributes* _delayedConstruction_AOEAttributes = nullptr;
+	UPROPERTY()
+	UAttackConfig* _delayedConstruction_attackConfig = nullptr;
+	UPROPERTY()
+	UAttackAttributes* _delayedConstruction_attackAttributes = nullptr;
 
 protected:
-	void initialise_AAOE(APawn* pawnRef, bool delayFullConstruction = false);
+	virtual void factoryInitQuery(const UAttackFactory* factory) override;
 
 public:
-	void initialise_AAOE(APawn* pawnRef, const UAOEData*, bool delayFullConstruction = false);
-	void initialise_AAOE(APawn*, const UAOEConfig*, const UAOEAttributes*, bool delayFullConstruction = false);
+	void initialise_AAOE(
+		APawn*, 
+		const UAttackConfg*,
+		const UAttackAttributes*,
+		const UAOEConfig*,
+		const UAOEAttributes*,
+		bool delayFullConstruction = false);
 	void completeDelayedConstruction();
 
 	virtual void Tick(float delta) override;
+
 	UFUNCTION()
 	void OnOverlapBegin(
 		UPrimitiveComponent* OverlappedComponent,
@@ -43,23 +57,12 @@ public:
 		bool bFromSweep,
 		const FHitResult& SweepResult
 	);
-
-	//virtual static void getAttributeType() override { return UAOEAttributes::StaticClass(); }
 };
+///////////////////////////////////////////////////////////////////////////////
 
+#include "AOEEnum.h"
 UCLASS(BlueprintType)
-class I_LOVE_VAMPIRES_2_API UAOEData : public UPrimaryDataAsset
-{
-	GENERATED_BODY()
-public:
-	UPROPERTY(EditAnywhere, Instanced, Category = "AOEData")
-	UAOEConfig* _config;
-	UPROPERTY(EditAnywhere, Instanced, Category = "AOEData")
-	UAOEAttributes* _attributes;
-};
-
-UCLASS(BlueprintType)
-class I_LOVE_VAMPIRES_2_API UAOEConfig : public UAttackConfig
+class I_LOVE_VAMPIRES_2_API UAOEConfig : public UBaseConfig
 {
 	GENERATED_BODY()
 
@@ -68,10 +71,10 @@ public:
 	EAOEShape _shape = static_cast<EAOEShape>(0);
 	UAOEConfig() { _attackClass = AAOE::StaticClass(); }
 };
-
+///////////////////////////////////////////////////////////////////////////////
 
 UCLASS(BlueprintType)
-class I_LOVE_VAMPIRES_2_API UAOEAttributes : public UAttackAttributes
+class I_LOVE_VAMPIRES_2_API UAOEAttributes : public UBaseAttributes
 {
 	GENERATED_BODY()
 
@@ -83,3 +86,65 @@ public:
 
 	virtual void modifyAttributes(const UCombatantAttributes*, const UAOEAttributes*, UAOEAttributes*);
 };
+///////////////////////////////////////////////////////////////////////////////
+
+UCLASS()
+class I_LOVE_VAMPIRES_2_API UAOEComponent : public UBaseAttributeComponent
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY()
+	UAOEAttributes* _base;
+	UPROPERTY()
+	UAOEAttributes* _final;
+	UPROPERTY()
+	UAOEAttributes* _offsets;
+	void initialise_UAOEComponent(const UAOEAttributes* baseAttributes) {
+		_base = DuplicateObject(baseAttributes, this);
+		_final = DuplicateObject(baseAttributes, this);
+		_offsets = DuplicateObject(baseAttributes, this);
+	}
+	virtual UBaseAttributes* getFinal() const override { return _final; }
+};
+///////////////////////////////////////////////////////////////////////////////
+
+UCLASS()
+class I_LOVE_VAMPIRES_2_API UAOEFactory : public UAttackFactory
+{
+	GENERATED_BODY()
+
+	UPROPERTY()
+	UAOEConfig* _AOEConfig;
+	UPROPERTY()
+	UAOEComponent* _AOEComponent = nullptr;
+
+protected:
+	virtual void initAOE(AAOE*) const override;
+
+public:
+	initialise_UAOEFactory(
+		APawn*,
+		const UAttackConfig*,
+		const UAttackAttributes*,
+		const UAOEConfig*,
+		const UAOEAttributes*);
+};
+///////////////////////////////////////////////////////////////////////////////
+
+UCLASS(BlueprintType)
+class I_LOVE_VAMPIRES_2_API UAOEFactoryTemplate : public UAttackFactoryTemplate {
+	GENERATED_BODY()
+
+protected:
+	virtual bool isValid() const override;
+
+public:
+	UPROPERTY(EditAnywhere, Instanced, Category = "UProjectileFactoryTemplate")
+	UAOEConfig* _AOEConfig;
+	UPROPERTY(EditAnywhere, Instanced, Category = "UProjectileFactoryTemplate")
+	UProjectileAttributes* _AOEAttributes;
+
+	virtual UAttackFactory* createFactory(APawn*, const UObject*) const override;
+};
+
+#include "AOE.generated.h"

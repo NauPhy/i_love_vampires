@@ -1,51 +1,56 @@
 #include "AOE.h"
+#include "Definitions.h"
+
 #include "Components/ShapeComponent.h"
 #include "Components/SphereComponent.h"
 #include "Combatant.h"
-#include "Definitions.h"
 
-void AAOE::initialise_AAOE(APawn* pawnRef, bool delayFullConstruction) {
+void AAOE::initialise_AAOE(
+	APawn* pawnRef,
+	const UAttackConfg* attackConfig,
+	const UAttackAttributes* attackAttributes,
+	const UAOEConfig* AOEConfig,
+	const UAOEAttributes* AOEAttributes,
+	bool delayFullConstruction) 
+{
 	if (delayFullConstruction) {
 		SetActorHiddenInGame(true);
 		SetActorEnableCollision(false);
 		SetActorTickEnabled(false);
+		_delayedConstruction_AOEconfig = DuplicateObject<UAOEConfig>(AOEConfig, this);
+		_delayedConstruction_AOEattributes = DuplicateObject<UAOEAttributes>(AOEAttributes, this);
+		_delayedConstruction_AttackConfig = DuplicateObject<UAttackConfg>(attackConfig, this);
+		_delayedConstruction_AttackAttributes = DuplicateObject<UAttackAttributes>(attackAttributes, this);
 		_delayedConstruction_pawnRef = TWeakObjectPtr<APawn>(pawnRef);
 	}
 	else {
-		initialise_AAttackActor(pawnRef);
+		initialise_AAttackActor(pawnRef, attackConfig, attackAttributes);
+		_AOEConfig = DuplicateObject<UAOEConfig>(AOEConfig, this);
+		_AOEAttributes = DuplicateObject<UAOEAttributes>(AOEAttributes, this);
 		initShape();
 	}
 }
 
-void AAOE::initialise_AAOE(APawn* pawnRef, const UAOEData* data, bool delayFullConstruction) {
-	initialise_AAOE(pawnRef, data->_config, data->_attributes, delayFullConstruction);
-}
-
-void AAOE::initialise_AAOE(APawn* pawnRef, const UAOEConfig* config, const UAOEAttributes* attributes, bool delayFullConstruction) {
-	if (delayFullConstruction) {
-		_delayedConstruction_config = DuplicateObject<UAOEConfig>(config, this);
-		_delayedConstruction_attributes = DuplicateObject<UAOEAttributes>(attributes, this);
-	}
-	else {
-		_config = DuplicateObject<UAOEConfig>(config, this);
-		_attributes = DuplicateObject<UAOEAttributes>(attributes, this);
-		initialise_AAOE(pawnRef);
-	}
-}
-
 void AAOE::completeDelayedConstruction() {
-	if (_delayedConstruction_config == nullptr || _delayedConstruction_attributes == nullptr) {
+	if (_delayedConstruction_attackConfig == nullptr ||
+		_delayedConstruction_attackAttributes == nullptr ||
+		_delayedConstruction_pawnRef == nullptr ||
+		_delayedConstruction_AOEattributes == nullptr ||
+		_delayedConstruction_AOEconfig == nullptr
+		) {
 		LOGERROR("AAOE::completeDelayedConstruction - delayed construction data not set");
 		return;
 	}
-	_config = _delayedConstruction_config;
-	_delayedConstruction_config = nullptr;
-
-	_attributes = _delayedConstruction_attributes;
-	_delayedConstruction_attributes = nullptr;
-
-	initialise_AAttackActor(_delayedConstruction_pawnRef.Get());
+	initialise_AAttackActor(_delayedConstruction_pawnRef.Get(), _delayedConstruction_attackConfig, _delayedConstruction_attackAttributes);
+	_delayedConstruction_attackConfig = nullptr;
+	_delayedConstruction_attackAttributes = nullptr;
 	_delayedConstruction_pawnRef = nullptr;
+
+	_AOEConfig = _delayedConstruction_AOEConfig;
+	_delayedConstruction_AOEConfig = nullptr;
+
+	_AOEAttributes = _delayedConstruction_AOEAttributes;
+	_delayedConstruction_AOEAttributes = nullptr;
 
 	SetActorHiddenInGame(false);
 	SetActorEnableCollision(true);
@@ -54,15 +59,13 @@ void AAOE::completeDelayedConstruction() {
 }
 
 void AAOE::initShape() {
-	UAOEAttributes* attr = nullptr;
-	if (!castAttributes<UAOEAttributes>(attr))
+	if (!IsValid(_aoeAttributes) || !IsValid(_aoeConfig)) {
+		LOGERROR("AAOE::initShape - attributes or config not valid");
 		return;
-	UAOEConfig* config = nullptr;
-	if (!castConfig<UAOEConfig>(config))
-		return;
-	if (config->_shape == _CIRCLE) {
+	}
+	if (_AOEConfig->_shape == _CIRCLE) {
 		_collider = NewObject<USphereComponent>(this);
-		Cast<USphereComponent>(_collider)->InitSphereRadius(attr->_radius);
+		Cast<USphereComponent>(_collider)->InitSphereRadius(_AOEAttributes->_radius);
 	}
 	else {
 		LOGERROR("AAOE::initShape - shape not implemented");
@@ -110,10 +113,11 @@ void AAOE::OnOverlapBegin(
 
 void AAOE::Tick(float delta) {
 	AAttackActor::Tick(delta);
-	UAOEAttributes* attr;
-	if (!castAttributes<UAOEAttributes>(attr))
+	if (!IsValid(_AOEAttributes)) {
+		LOGERROR("AAOE::Tick - attributes not valid");
 		return;
-	if (attr->_duration == 0) {
+	}
+	if (_AOEAttributes->_duration == 0) {
 		if (_consumedDuration >= 0.25) {
 			Destroy();
 			return;
@@ -121,12 +125,21 @@ void AAOE::Tick(float delta) {
 		if (_consumedDuration > 0)
 			_isAfterimage = true;
 	}
-	else if(_consumedDuration >= attr->_duration) {
+	else if(_consumedDuration >= _AOEAttributes->_duration) {
 		Destroy();
 		return;
 	}
 	_consumedDuration += delta;
 }
+
+void AAOE::factoryInitQuery(const UAttackFactory* factory) {
+	if (!IsValid(factory)) {
+		LOGERROR("AAOE::factoryInitQuery - factory is not valid");
+		return;
+	}
+	factory->initAOE(this);
+}
+///////////////////////////////////////////////////////////////////////////////
 
 void UAOEAttributes::modifyAttributes(const UCombatantAttributes* combatantAttributes, const UAOEAttributes* baseAttributes, UAOEAttributes* finalAttributes) {
 	const UAttackAttributes* superBase = Cast<UAttackAttributes>(baseAttributes);
@@ -141,4 +154,45 @@ void UAOEAttributes::modifyAttributes(const UCombatantAttributes* combatantAttri
 	}
 	UAttackAttributes::modifyAttributes(combatantAttributes, superBase, superFinal);
 	finalAttributes->_radius = baseAttributes->_radius * combatantAttributes->_projectileSize;
+}
+///////////////////////////////////////////////////////////////////////////////
+
+void UAOEFactory::initialise_UAOEFactory(
+	APawn* pawnRef,
+	const UAttackConfig* attackConfig,
+	const UAttackAttributes* attackAttributes,
+	const UAOEConfig* AOEConfig,
+	const UAOEAttributes* AOEAttributes)
+{
+	initialise_UAttackFactory(pawnRef, attackConfig, attackAttributes);
+	_AOEConfig = DuplicateObject<UAOEConfig>(AOEConfig, this);
+	_AOEComponent = NewObject<UAOEComponent>(this);
+	_AOEComponent->initialise_UAOEComponent(AOEAttributes);
+}
+///////////////////////////////////////////////////////////////////////////////
+
+bool UAOEFactoryTemplate::isValid() const {
+	if (!IsValid(_AOEConfig)) {
+		LOGERROR("UAOEFactoryTemplate::isValid - AOEConfig is not valid");
+		return false;
+	}
+	if (!IsValid(_AOEAttributes)) {
+		LOGERROR("UAOEFactoryTemplate::isValid - AOEAttributes is not valid");
+		return false;
+	}
+	return UAttackFactoryTemplate::isValid();
+}
+
+void UAOEFactoryTemplate::createFactory(APawn* pawnRef, const UObject* caller) const {
+	if (!isValid())
+		return nullptr;
+	UAOEFactory* factory = NewObject<UAOEFactory>(caller);
+	factory->initialise_UAOEFactory(
+		pawnRef,
+		_delayedConstruction_AttackConfig != nullptr ? _delayedConstruction_AttackConfig : _attackConfig,
+		_delayedConstruction_AttackAttributes != nullptr ? _delayedConstruction_AttackAttributes : _attackAttributes,
+		_delayedConstruction_AOEconfig != nullptr ? _delayedConstruction_AOEconfig : _AOEConfig,
+		_delayedConstruction_AOEAttributes != nullptr ? _delayedConstruction_AOEAttributes : _AOEAttributes
+	);
+	return factory;
 }

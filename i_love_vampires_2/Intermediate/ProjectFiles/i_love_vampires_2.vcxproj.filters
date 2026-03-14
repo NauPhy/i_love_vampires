@@ -147,27 +147,6 @@
     <Filter Include="Source\i_love_vampires_2\GameInstanceSubsystems">
       <UniqueIdentifier>{9584c03f-528e-49b7-a764-fc5bee95599b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\i_love_vampires_2\Combatants">
-      <UniqueIdentifier>{3dbb07b2-c06c-4daa-a8b1-d78f58aec30e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\i_love_vampires_2\Items">
-      <UniqueIdentifier>{2ec0ceaa-fbbe-4d6e-88bf-8b67b8c2a9f6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\i_love_vampires_2\Items\Attacks">
-      <UniqueIdentifier>{97296041-17c1-4c90-9262-797a1c24fef4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\i_love_vampires_2\Items\Attacks\Inherited">
-      <UniqueIdentifier>{ac7eaa9c-3152-4cb7-8937-1f1b82efbdbf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\i_love_vampires_2\Combatants\Inherited">
-      <UniqueIdentifier>{94bb6276-6916-4b96-94b7-3d43cef7b20d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\i_love_vampires_2\Combatants\Inherited\Enemies">
-      <UniqueIdentifier>{ac62bc7a-bb31-4d73-a767-9803f732e124}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\i_love_vampires_2\Combatants\Inherited\Players">
-      <UniqueIdentifier>{ab0e49fd-887f-4361-aed6-4b3bf3ddb268}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\i_love_vampires_2\Arena">
       <UniqueIdentifier>{02fdd74a-0572-4f19-939f-098b2bc3d086}</UniqueIdentifier>
     </Filter>
@@ -183,25 +162,43 @@
     <Filter Include="Source\i_love_vampires_2\MyGAS\StatusEffects\Inherited">
       <UniqueIdentifier>{53164294-1a69-4c35-8cc6-489f742bb4f2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\i_love_vampires_2\MyGAS\AttributeSets">
-      <UniqueIdentifier>{5f67aa40-8d01-432b-b41c-dbe997e9c1e0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\i_love_vampires_2\MyGAS\AttributeSets\Inherited">
-      <UniqueIdentifier>{a38f471a-5fae-419e-96dd-c54dff4c0027}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\i_love_vampires_2\Items\Attacks\Enums">
-      <UniqueIdentifier>{a5072812-f1ca-42cc-b6e2-c8ea83125d5c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\i_love_vampires_2\MyGAS\StatusEffects\Factory">
       <UniqueIdentifier>{891e2689-a1e8-4699-84cb-da43acb73904}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\i_love_vampires_2\MyGAS\BaseClasses">
+      <UniqueIdentifier>{4f312eaf-a5e3-48eb-b5e4-7e0da2ac04ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\i_love_vampires_2\MyGAS\BaseClasses\source">
+      <UniqueIdentifier>{ab9a8d86-5090-4dd0-b5ec-00783c5379e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\i_love_vampires_2\MyGAS\Items">
+      <UniqueIdentifier>{2ec0ceaa-fbbe-4d6e-88bf-8b67b8c2a9f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\i_love_vampires_2\MyGAS\Items\Active">
+      <UniqueIdentifier>{023479d9-cb76-435b-8389-95ce0c6dc4ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\i_love_vampires_2\MyGAS\Items\Attacks">
+      <UniqueIdentifier>{b3f5e40d-c2fb-42fa-a62b-289dfbcc880d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\i_love_vampires_2\MyGAS\Items\Attacks\Enum">
+      <UniqueIdentifier>{f4696c8f-c75d-4b05-b8ab-711ff128f76e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\i_love_vampires_2\MyGAS\Combatants">
+      <UniqueIdentifier>{3dbb07b2-c06c-4daa-a8b1-d78f58aec30e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\i_love_vampires_2\MyGAS\Combatants\Inherited">
+      <UniqueIdentifier>{94bb6276-6916-4b96-94b7-3d43cef7b20d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\i_love_vampires_2\MyGAS\Combatants\Inherited\Enemies">
+      <UniqueIdentifier>{ac62bc7a-bb31-4d73-a767-9803f732e124}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\i_love_vampires_2\MyGAS\Combatants\Inherited\Players">
+      <UniqueIdentifier>{ab0e49fd-887f-4361-aed6-4b3bf3ddb268}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\AttackActor.cpp">
-      <Filter>Source\i_love_vampires_2\Items\Attacks</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\Combatant.cpp">
-      <Filter>Source\i_love_vampires_2\Combatants</Filter>
+      <Filter>Source\i_love_vampires_2\MyGAS\Combatants</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\EnemySpawner.cpp">
       <Filter>Source\i_love_vampires_2\WorldSubsystems</Filter>
@@ -218,32 +215,20 @@
     <ClCompile Include="..\..\Source\i_love_vampires_2\StatusEffect_Burn.cpp">
       <Filter>Source\i_love_vampires_2\MyGAS\StatusEffects\Inherited</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\AOE.cpp">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\Inherited</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\Projectile.cpp">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\Inherited</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\EnemyBase.cpp">
-      <Filter>Source\i_love_vampires_2\Combatants\Inherited\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\Active.cpp">
-      <Filter>Source\i_love_vampires_2\Items</Filter>
+      <Filter>Source\i_love_vampires_2\MyGAS\Combatants\Inherited\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\AssetRefs.cpp">
       <Filter>Source\i_love_vampires_2\GameInstanceSubsystems</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\MyPlayer.cpp">
-      <Filter>Source\i_love_vampires_2\Combatants\Inherited</Filter>
+      <Filter>Source\i_love_vampires_2\MyGAS\Combatants\Inherited</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\ExperienceShard.cpp">
       <Filter>Source\i_love_vampires_2\Arena</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\SpriteManager.cpp">
       <Filter>Source\i_love_vampires_2\GameInstanceSubsystems</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\MyCombatantAttributeSet.cpp">
-      <Filter>Source\i_love_vampires_2\MyGAS\AttributeSets\Inherited</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\MyGameplayStatics.cpp">
       <Filter>Source\i_love_vampires_2\Admin</Filter>
@@ -257,28 +242,61 @@
     <ClCompile Include="..\..\Source\i_love_vampires_2\StatusFactory.cpp">
       <Filter>Source\i_love_vampires_2\MyGAS\StatusEffects\Factory</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\ExplosiveProjectile.cpp">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\Inherited</Filter>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\StatusEffectInterface_old.cpp">
+      <Filter>Source\i_love_vampires_2\MyGAS\StatusEffects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseAttributeSetTemplate.h">
+      <Filter>Source\i_love_vampires_2\MyGAS\BaseClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseAttributeComponent.h">
+      <Filter>Source\i_love_vampires_2\MyGAS\BaseClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseConfig.h">
+      <Filter>Source\i_love_vampires_2\MyGAS\BaseClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\Active.cpp">
+      <Filter>Source\i_love_vampires_2\MyGAS\Items\Active</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseAttributeComponent.cpp">
+      <Filter>Source\i_love_vampires_2\MyGAS\BaseClasses\source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\BaseAttributes.cpp">
-      <Filter>Source\i_love_vampires_2\MyGAS\AttributeSets</Filter>
+      <Filter>Source\i_love_vampires_2\MyGAS\BaseClasses\source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\MyAttributeSet.cpp">
-      <Filter>Source\i_love_vampires_2\MyGAS\AttributeSets</Filter>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseAttributeSet.cpp">
+      <Filter>Source\i_love_vampires_2\MyGAS\BaseClasses\source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\MyAttackAttributeSet.cpp">
-      <Filter>Source\i_love_vampires_2\MyGAS\AttributeSets\Inherited</Filter>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseAttributeSetTemplate.cpp">
+      <Filter>Source\i_love_vampires_2\MyGAS\BaseClasses\source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\StatusEffectInterface.cpp">
-      <Filter>Source\i_love_vampires_2\MyGAS\StatusEffects</Filter>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseConfig.cpp">
+      <Filter>Source\i_love_vampires_2\MyGAS\BaseClasses\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseTemplate.cpp">
+      <Filter>Source\i_love_vampires_2\MyGAS\BaseClasses\source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\AOE.cpp">
+      <Filter>Source\i_love_vampires_2\MyGAS\Items\Attacks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\AttackActor.cpp">
+      <Filter>Source\i_love_vampires_2\MyGAS\Items\Attacks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\ExplosiveProjectile.cpp">
+      <Filter>Source\i_love_vampires_2\MyGAS\Items\Attacks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\Projectile.cpp">
+      <Filter>Source\i_love_vampires_2\MyGAS\Items\Attacks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\WeaponTemplate_old.cpp">
+      <Filter>Source\i_love_vampires_2\MyGAS\Items\Active</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\WeaponConfig_old.cpp">
+      <Filter>Source\i_love_vampires_2\MyGAS\Items\Active</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\AttackActor.h">
-      <Filter>Source\i_love_vampires_2\Items\Attacks</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\Combatant.h">
-      <Filter>Source\i_love_vampires_2\Combatants</Filter>
+      <Filter>Source\i_love_vampires_2\MyGAS\Combatants</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\EnemySpawner.h">
       <Filter>Source\i_love_vampires_2\WorldSubsystems</Filter>
@@ -298,17 +316,8 @@
     <ClInclude Include="..\..\Source\i_love_vampires_2\StatusEffect_Burn.h">
       <Filter>Source\i_love_vampires_2\MyGAS\StatusEffects\Inherited</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\AOE.h">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\Inherited</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\Projectile.h">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\Inherited</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\EnemyBase.h">
-      <Filter>Source\i_love_vampires_2\Combatants\Inherited\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\Active.h">
-      <Filter>Source\i_love_vampires_2\Items</Filter>
+      <Filter>Source\i_love_vampires_2\MyGAS\Combatants\Inherited\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\AssetRefs.h">
       <Filter>Source\i_love_vampires_2\GameInstanceSubsystems</Filter>
@@ -317,31 +326,19 @@
       <Filter>Source\i_love_vampires_2\Arena</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\MyPlayer.h">
-      <Filter>Source\i_love_vampires_2\Combatants\Inherited</Filter>
+      <Filter>Source\i_love_vampires_2\MyGAS\Combatants\Inherited</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\SpriteManager.h">
       <Filter>Source\i_love_vampires_2\GameInstanceSubsystems</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\MyCombatantAttributeSet.h">
-      <Filter>Source\i_love_vampires_2\MyGAS\AttributeSets\Inherited</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\MyGameplayStatics.h">
       <Filter>Source\i_love_vampires_2\Admin</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\MyAttributeSet.h">
-      <Filter>Source\i_love_vampires_2\MyGAS\AttributeSets</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\StatusEffect_Damage.h">
       <Filter>Source\i_love_vampires_2\MyGAS\StatusEffects\Inherited</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\SpriteEnum.h">
       <Filter>Source\i_love_vampires_2\GameInstanceSubsystems</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\AOEEnum.h">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\ProjectileEnum.h">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\Enums</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\EffectStruct.h">
       <Filter>Source\i_love_vampires_2\MyGAS\StatusEffects\Factory</Filter>
@@ -352,17 +349,44 @@
     <ClInclude Include="..\..\Source\i_love_vampires_2\StatusFactory.h">
       <Filter>Source\i_love_vampires_2\MyGAS\StatusEffects\Factory</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\ExplosiveProjectile.h">
-      <Filter>Source\i_love_vampires_2\Items\Attacks\Inherited</Filter>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\StatusEffectInterface_old.h">
+      <Filter>Source\i_love_vampires_2\MyGAS\StatusEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\BaseTemplate.h">
+      <Filter>Source\i_love_vampires_2\MyGAS\BaseClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\BaseAttributeSet.h">
+      <Filter>Source\i_love_vampires_2\MyGAS\BaseClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\Active.h">
+      <Filter>Source\i_love_vampires_2\MyGAS\Items\Active</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\BaseAttributes.h">
-      <Filter>Source\i_love_vampires_2\MyGAS\AttributeSets</Filter>
+      <Filter>Source\i_love_vampires_2\MyGAS\BaseClasses</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\MyAttackAttributeSet.h">
-      <Filter>Source\i_love_vampires_2\MyGAS\AttributeSets\Inherited</Filter>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\AOEEnum.h">
+      <Filter>Source\i_love_vampires_2\MyGAS\Items\Attacks\Enum</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\StatusEffectInterface.h">
-      <Filter>Source\i_love_vampires_2\MyGAS\StatusEffects</Filter>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\ProjectileEnum.h">
+      <Filter>Source\i_love_vampires_2\MyGAS\Items\Attacks\Enum</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\AOE.h">
+      <Filter>Source\i_love_vampires_2\MyGAS\Items\Attacks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\AttackActor.h">
+      <Filter>Source\i_love_vampires_2\MyGAS\Items\Attacks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\ExplosiveProjectile.h">
+      <Filter>Source\i_love_vampires_2\MyGAS\Items\Attacks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\Projectile.h">
+      <Filter>Source\i_love_vampires_2\MyGAS\Items\Attacks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\WeaponTemplate_old.h">
+      <Filter>Source\i_love_vampires_2\MyGAS\Items\Active</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\WeaponConfig_old.h">
+      <Filter>Source\i_love_vampires_2\MyGAS\Items\Active</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

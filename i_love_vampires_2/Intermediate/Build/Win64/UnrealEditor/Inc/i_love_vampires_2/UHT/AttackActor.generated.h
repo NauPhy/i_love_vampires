@@ -96,45 +96,6 @@ class UAttackData;
 
 // ********** End Class UAttackData ****************************************************************
 
-// ********** Begin Class UAttackConfig ************************************************************
-struct Z_Construct_UClass_UAttackConfig_Statics;
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackConfig_NoRegister();
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_64_INCLASS_NO_PURE_DECLS \
-private: \
-	static void StaticRegisterNativesUAttackConfig(); \
-	friend struct ::Z_Construct_UClass_UAttackConfig_Statics; \
-	static UClass* GetPrivateStaticClass(); \
-	friend I_LOVE_VAMPIRES_2_API UClass* ::Z_Construct_UClass_UAttackConfig_NoRegister(); \
-public: \
-	DECLARE_CLASS2(UAttackConfig, UObject, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_UAttackConfig_NoRegister) \
-	DECLARE_SERIALIZER(UAttackConfig)
-
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_64_ENHANCED_CONSTRUCTORS \
-	/** Deleted move- and copy-constructors, should never be used */ \
-	UAttackConfig(UAttackConfig&&) = delete; \
-	UAttackConfig(const UAttackConfig&) = delete; \
-	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UAttackConfig); \
-	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UAttackConfig); \
-	DEFINE_DEFAULT_CONSTRUCTOR_CALL(UAttackConfig) \
-	NO_API virtual ~UAttackConfig();
-
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_61_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_64_GENERATED_BODY \
-PRAGMA_DISABLE_DEPRECATION_WARNINGS \
-public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_64_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_64_ENHANCED_CONSTRUCTORS \
-private: \
-PRAGMA_ENABLE_DEPRECATION_WARNINGS
-
-
-class UAttackConfig;
-
-// ********** End Class UAttackConfig **************************************************************
-
 // ********** Begin Class UAttackAttributes ********************************************************
 struct Z_Construct_UClass_UAttackAttributes_Statics;
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackAttributes_NoRegister();

@@ -1,9 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
+
 #include "AttackActor.h"
-#include "ProjectileEnum.h"
-#include "Projectile.generated.h"
-class UProjectileData;
 class UProjectileConfig;
 class UProjectileAttributes;
 
@@ -14,6 +12,10 @@ class AProjectile : public AAttackActor {
 	const EProjectileShape _CIRCLE = EProjectileShape::circle;
 
 protected:
+	UPROPERTY()
+	UProjectileConfig* _projectileConfig = nullptr;
+	UPROPERTY()
+	UProjectileAttributes* _projectileAttributes = nullptr;
 	float _directionX = 0;
 	float _directionZ = 1;
 	float _pierce = 0;
@@ -28,29 +30,27 @@ protected:
 	virtual void bulletDeath() { Destroy(); }
 	virtual void handleSweepResults(const TArray<struct FHitResult>& hits);
 	void handleBouncePierce();
-	void initialise_AProjectile(APawn* pawnRef, float directionX, float directionZ);
+
+	virtual void factoryInitQuery(const UAttackFactory* factory) override;
 
 public:
 	AProjectile() : AAttackActor() {}
 	
-	void initialise_AProjectile(APawn* pawnRef, float directionX, float directionZ, const UProjectileData* data);
-	void initialise_AProjectile(APawn* pawnRef, float directionX, float directionZ, const UProjectileConfig*, const UProjectileAttributes*);
+	void initialise_AProjectile(
+		APawn* pawnRef, 
+		float directionX, 
+		float directionZ, 
+		const UAttackConfig* config,
+		const UAttackAttributes* attributes,
+		const UProjectileConfig*,
+		const UProjectileAttributes*);
 	virtual void Tick(float delta) override;
 };
+///////////////////////////////////////////////////////////////////////////////
+#include "ProjectileEnum.h"
 
 UCLASS(BlueprintType)
-class I_LOVE_VAMPIRES_2_API UProjectileData : public UPrimaryDataAsset
-{
-	GENERATED_BODY()
-public:
-	UPROPERTY(EditAnywhere, Instanced, Category = "ProjectileData")
-	UProjectileConfig* _config;
-	UPROPERTY(EditAnywhere, Instanced, Category = "ProjectileData")
-	UProjectileAttributes* _attributes;
-};
-
-UCLASS(BlueprintType)
-class I_LOVE_VAMPIRES_2_API UProjectileConfig : public UAttackConfig
+class I_LOVE_VAMPIRES_2_API UProjectileConfig : public UBaseConfig
 {
 	GENERATED_BODY()
 
@@ -65,9 +65,10 @@ public:
 	bool _isHoming = false;
 	UProjectileConfig() { _attackClass = AProjectile::StaticClass(); }
 };
+///////////////////////////////////////////////////////////////////////////////
 
 UCLASS(BlueprintType)
-class I_LOVE_VAMPIRES_2_API UProjectileAttributes : public UAttackAttributes
+class I_LOVE_VAMPIRES_2_API UProjectileAttributes : public UBaseAttributes
 {
 	GENERATED_BODY()
 public:
@@ -88,3 +89,70 @@ public:
 
 	void modifyAttributes(const UCombatantAttributes*, const UProjectileAttributes*, UProjectileAttributes*);
 };
+///////////////////////////////////////////////////////////////////////////////
+
+UCLASS()
+class I_LOVE_VAMPIRES_2_API UProjectileComponent : public UBaseAttributeComponent
+{
+	GENERATED_BODY()
+public:
+	UPROPERTY()
+	UProjectileAttributes* _base;
+	UPROPERTY()
+	UProjectileAttributes* _final;
+	UPROPERTY()
+	UProjectileAttributes* _offsets;
+	void initialise_UProjectileComponent(const UProjectileAttributes* baseAttributes) {
+		_base = DuplicateObject(baseAttributes, this);
+		_final = DuplicateObject(baseAttributes, this);
+		_offsets = DuplicateObject(baseAttributes, this);
+	}
+	virtual UBaseAttributes* getFinal() const override { return _final; }
+};
+///////////////////////////////////////////////////////////////////////////////
+
+UCLASS()
+class I_LOVE_VAMPIRES_2_API UProjectileFactory : public UAttackFactory
+{
+	GENERATED_BODY()
+
+	UPROPERTY()
+	UProjectileConfig* _projectileConfig;
+	UPROPERTY()
+	UProjectileComponent* _projectileComponent = nullptr;
+
+	float _directionX = 0;
+	float _directionZ = 1;
+
+protected:
+	virtual void initProjectile(AProjectile*) const override;
+	float getDirectionX() const { return _directionX; }
+	float getDirectionZ() const { return _directionZ; }
+
+public:
+	void initialise_UProjectileFactory(
+		APawn*,
+		const UAttackConfig*,
+		const UAttackAttributes*,
+		const UProjectileConfig*,
+		const UProjectileAttributes*);
+};
+///////////////////////////////////////////////////////////////////////////////
+
+UCLASS(BlueprintType)
+class I_LOVE_VAMPIRES_2_API UProjectileFactoryTemplate : public UAttackFactoryTemplate {
+	GENERATED_BODY()
+
+protected:
+	virtual bool isValid() const override;
+
+public:
+	UPROPERTY(EditAnywhere, Instanced, Category = "UProjectileFactoryTemplate")
+	UProjectleConfig* _projectileConfig;
+	UPROPERTY(EditAnywhere, Instanced, Category = "UProjectileFactoryTemplate")
+	UProjectileAttributes* _projectileAttributes;
+
+	virtual UAttackFactory* createFactory(APawn*, const UObject*) const override;
+};
+
+#include "Projectile.generated.h"

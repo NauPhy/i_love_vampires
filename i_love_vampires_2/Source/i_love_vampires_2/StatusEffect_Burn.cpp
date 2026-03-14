@@ -1,15 +1,11 @@
 #include "StatusEffect_Burn.h"
 #include "Combatant.h"
 
-void UStatusEffect_Burn::postbonusStep(float delta) {
-	UCombatantAttributes* finalAttr = nullptr;
-	if (!castFinal<UCombatantAttributes>(finalAttr))
-		return;
-	UCombatantAttributes* attrOffsets = nullptr;
-	if (!castOffsets<UCombatantAttributes>(attrOffsets))
-		return;
-	if (_burnThisFrame) {
-		attrOffsets->_currentHP -= (_magnitude / 100.0f) * finalAttr->_maxHP;
+void UStatusEffect_Burn::postbonusStep(float delta, UBaseAttributeSet* caller) {
+	UCombatantComponent* component = FindComponentByClass<UCombatantComponent>();
+	if (component != nullptr && _burnThisFrame) {
+		component->_offsets->_currentHP -= (_magnitude / 100.0f) * component->_final->_maxHP;
 		_burnThisFrame = false;
 	}
+	UStatusEffect::postbonusStep(delta, caller);
 }

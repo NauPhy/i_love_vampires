@@ -96,45 +96,6 @@ class UProjectileData;
 
 // ********** End Class UProjectileData ************************************************************
 
-// ********** Begin Class UProjectileConfig ********************************************************
-struct Z_Construct_UClass_UProjectileConfig_Statics;
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UProjectileConfig_NoRegister();
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_55_INCLASS_NO_PURE_DECLS \
-private: \
-	static void StaticRegisterNativesUProjectileConfig(); \
-	friend struct ::Z_Construct_UClass_UProjectileConfig_Statics; \
-	static UClass* GetPrivateStaticClass(); \
-	friend I_LOVE_VAMPIRES_2_API UClass* ::Z_Construct_UClass_UProjectileConfig_NoRegister(); \
-public: \
-	DECLARE_CLASS2(UProjectileConfig, UAttackConfig, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_UProjectileConfig_NoRegister) \
-	DECLARE_SERIALIZER(UProjectileConfig)
-
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_55_ENHANCED_CONSTRUCTORS \
-	/** Deleted move- and copy-constructors, should never be used */ \
-	UProjectileConfig(UProjectileConfig&&) = delete; \
-	UProjectileConfig(const UProjectileConfig&) = delete; \
-	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UProjectileConfig); \
-	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UProjectileConfig); \
-	DEFINE_DEFAULT_CONSTRUCTOR_CALL(UProjectileConfig) \
-	NO_API virtual ~UProjectileConfig();
-
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_52_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_55_GENERATED_BODY \
-PRAGMA_DISABLE_DEPRECATION_WARNINGS \
-public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_55_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_55_ENHANCED_CONSTRUCTORS \
-private: \
-PRAGMA_ENABLE_DEPRECATION_WARNINGS
-
-
-class UProjectileConfig;
-
-// ********** End Class UProjectileConfig **********************************************************
-
 // ********** Begin Class UProjectileAttributes ****************************************************
 struct Z_Construct_UClass_UProjectileAttributes_Statics;
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UProjectileAttributes_NoRegister();

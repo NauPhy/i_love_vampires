@@ -1,26 +1,19 @@
 #include "AttackActor.h"
+#include "Definitions.h"
+
 #include "Combatant.h"
 #include "StatusFactory.h"
-#include "Definitions.h"
 
 void AAttackActor::Tick(float delta) {}
 
-void AAttackActor::initialise_AAttackActor(APawn* pawnRef) {
+void AAttackActor::initialise_AAttackActor(APawn* pawnRef, UAttackConfig* config, UAttackAttributes* attributes) {
+	_attackConfig = DuplicateObject<UAttackConfig>(config, this);
+	_attackAttributes = DuplicateObject<UAttackAttributes>(attributes, this);
 	_pawnRef = TWeakObjectPtr<APawn>(pawnRef);
 }
 
-void AAttackActor::initialise_AAttackActor(APawn* pawnRef, const UAttackData* data) {
-	initialise_AAttackActor(pawnRef, data->_config, data->_attributes);
-}
-
-void AAttackActor::initialise_AAttackActor(APawn* pawnRef, UAttackConfig* config, UAttackAttributes* attributes) {
-	_config = DuplicateObject<UAttackConfig>(config, this);
-	_attributes = DuplicateObject<UAttackAttributes>(attributes, this);
-	initialise_AAttackActor(pawnRef);
-}
-
 void AAttackActor::applyEffect(ACombatant* target) {
-	if (_pawnRef.Get() != nullptr)
+	if (_pawnRef.IsValid())
 		if (target == _pawnRef.Get())
 			return;
 	for (auto i = _effectedPawns.Num() - 1; i > -1; i--)
@@ -45,34 +38,41 @@ void AAttackActor::applyEffect(ACombatant* target) {
 	_effectedPawns.Add(TWeakObjectPtr<APawn>(Cast<APawn>(target)));
 }
 
-template<typename castType>
-bool AAttackActor::castConfig(castType*& ret) {
-	if (_config == nullptr || !IsValid(_config)) {
-		LOGERROR("AAttackActor::castConfig - not valid");
-		return false;
+void AAttackActor::factoryInitQuery(const UAttackFactory* factory) {
+	if (!IsValid(factory)) {
+		LOGERROR("AAttackActor::factoryInitQuery - not valid");
+		return;
 	}
-	ret = Cast<castType>(_config);
-	if (ret == nullptr) {
-		LOGERROR("AAttackActor::castConfig - cast failed");
-		return false;
-	}
-	return true;
+	factory->initAttack(this);
 }
-template<typename castType>
-bool AAttackActor::castAttributes(castType*& ret) {
-	if (_attributes == nullptr || !IsValid(_attributes)) {
-		LOGERROR("AAttackActor::castConfig - not valid");
-		return false;
-	}
-	ret = Cast<castType>(_attributes);
-	if (ret == nullptr) {
-		LOGERROR("AAttackActor::castConfig - cast failed");
-		return false;
-	}
-	return true;
-}
+///////////////////////////////////////////////////////////////////////////////
 
 void UAttackAttributes::modifyAttributes(const UCombatantAttributes* modifiers, const UAttackAttributes* baseAttributes, UAttackAttributes* finalAttributes) {
 	finalAttributes->_critChance = baseAttributes->_critChance + modifiers->_critChance;
 	finalAttributes->_critMultiplier = baseAttributes->_critMultiplier + modifiers->_critMultiplier;
+}
+///////////////////////////////////////////////////////////////////////////////
+
+void UAttackFactory::initialise_UAttackFactory(APawn* pawnRef, const UAttackConfig* config, const UAttackAttributes* attributes) {
+	_attackConfig = DuplicateObject<UAttackConfig>(config, this);
+	_attackComponent = NewObject<UAttackComponent>(this);
+	_attackComponent->initialise_UAttackComponent(attributes);
+	_pawnRef = TWeakObjectPtr<APawn>(pawnRef);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+bool UAttackFactoryTemplate::isValid() const {
+	if (!IsValid(_attackConfig) || !IsValid(_attackAttributes)) {
+		LOGERROR("UAttackFactoryTemplate::createAttackFactory - invalid");
+		return false;
+	}
+	return true;
+}
+UAttackFactory* UAttackFactoryTemplate::createFactory(APawn* pawnRef, const UObject* caller) const {
+	if (!isValid())
+		return nullptr;
+	UAttackFactory* factory = NewObject<UAttackFactory>(caller);
+	factory->initialise_UAttackFactory(pawnRef, _attackConfig, _attackAttributes);
+	return factory;
 }
