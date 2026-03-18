@@ -88,6 +88,9 @@ public:
 	float _duration = 0.f;
 
 	static void modifyAttributes(const UCombatantAttributes*, const UAOEAttributes*, UAOEAttributes*);
+	virtual UAOEAttributes* getDiscretizedCopy(UObject* outer) const override {
+		return DuplicateObject(this, outer, FName());
+	}
 	UAOEAttributes(const FObjectInitializer& init) : Super(init) {}
 };
 ///////////////////////////////////////////////////////////////////////////////
@@ -117,7 +120,7 @@ public:
 	UAOEComponent* _AOEComponent = nullptr;
 
 	virtual void initAOE(AAOE*) override;
-	virtual void launchAttack() override;
+	virtual void launchAttack(const FVector& forward) override;
 	void initialise_AAOEFactory(
 		APawn*,
 		const UAttackConfig*,

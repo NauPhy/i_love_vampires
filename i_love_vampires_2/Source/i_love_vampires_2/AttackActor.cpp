@@ -67,7 +67,7 @@ void AAttackFactory::initialise_AAttackFactory(APawn* pawnRef, const UAttackConf
 
 // This could just as easily (maybe even slightly more easily) be done with TSubclassOf<AAttackActor> in either AAttackFactory or UAttackConfig,
 // but I'm more used to inheritance and this shit is really complicated.
-void AAttackFactory::launchAttack() {
+void AAttackFactory::launchAttack(const FVector& forward) {
 	AAttackActor* newAttack = spawnActor<AAttackActor>();
 	if (newAttack == nullptr)
 		return;
@@ -79,7 +79,8 @@ void AAttackFactory::initAttack(AAttackActor* attack) {
 		LOGERROR("AAttackFactory::initAttack - attack is not valid");
 		return;
 	}
-	attack->initialise_AAttackActor(_pawnRef.Get(), _attackConfig, _attackComponent->getFinal<UAttackAttributes>());
+	// This creates an unnecessary copy but imma roll with it
+	attack->initialise_AAttackActor(_pawnRef.Get(), _attackConfig, _attackComponent->getDiscretizedFinal<UAttackAttributes>(this));
 }
 	
 

@@ -11,17 +11,25 @@
 
 
 AMyPlayer::AMyPlayer() : ACombatant() {
+	AutoPossessPlayer = EAutoReceiveInput::Player0;
+	//_springArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
+	//_springArm->SetupAttachment(RootComponent);
+	//_springArm->TargetArmLength = 58.6;
+	//_springArm->bUsePawnControlRotation = false;
+	//_springArm->bInheritPitch = false;
+	//_springArm->bInheritRoll = false;
+	//_springArm->bInheritYaw = false;
+	//{
+	//	FHitResult* unused = nullptr;
+	//	_springArm->SetWorldRotation(FRotator(0, -90, 0), false, unused, ETeleportType::TeleportPhysics);
+	//}
 	_camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+	_camera->SetupAttachment(RootComponent);
 	_camera->ProjectionMode = ECameraProjectionMode::Orthographic;
+	_camera->OrthoWidth = 100;
 	{
 		FHitResult* unused = nullptr;
 		_camera->SetWorldRotation(FRotator(0, -90, 0), false, unused, ETeleportType::TeleportPhysics);
-	}
-	_springArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
-	_springArm->TargetArmLength = 1200;
-	{
-		FHitResult* unused = nullptr;
-		_springArm->SetWorldRotation(FRotator(0, -90, 0), false, unused, ETeleportType::TeleportPhysics);
 	}
 	OnActorBeginOverlap.AddDynamic(this, &AMyPlayer::onOverlapBegin);
 }
@@ -93,16 +101,16 @@ bool AMyPlayer::addKeyboardContext() {
 	return true;
 }
 
-void AMyPlayer::initialise_AMyPlayer(const FPrimaryAssetId& data) {
-	initialise_ACombatant(data);
-	if (!addKeyboardContext())
-		return;
-	UCombatantManager* combatantManager = nullptr;
-	if (!MyGameplayStatics::getCombatantManager(this, combatantManager)) {
-		return;
-	}
-	combatantManager->setPlayerRef(this);
-}
+//void AMyPlayer::initialise_AMyPlayer(const FPrimaryAssetId& data) {
+//	initialise_ACombatant(data);
+//	if (!addKeyboardContext())
+//		return;
+//	UCombatantManager* combatantManager = nullptr;
+//	if (!MyGameplayStatics::getCombatantManager(this, combatantManager)) {
+//		return;
+//	}
+//	combatantManager->setPlayerRef(this);
+//}
 
 void AMyPlayer::initialise_AMyPlayer(const UCombatantTemplate* data) {
 	initialise_ACombatant(data);
@@ -148,12 +156,4 @@ void AMyPlayer::Tick(float delta) {
 	const float directionX = X / static_cast<double>(viewX) - 0.5;
 	const float directionZ = (Y / static_cast<double>(viewY) - 0.5) * -1.0;
 	lookAtDirection(directionX, directionZ);
-}
-
-void AMyPlayer::lookAtDirection(float X, float Z) {
-	const FRotator rotation = UKismetMathLibrary::FindLookAtRotation(FVector(0, 0, 0), FVector(X, 0, Z));
-	{
-		FHitResult* unused = nullptr;
-		AddActorWorldRotation(rotation, false, unused, ETeleportType::TeleportPhysics);
-	}
 }

@@ -4,11 +4,11 @@
 //
 #include "GameFramework/Pawn.h"
 #include "SpriteEnum.h"
-#include "UObject/PrimaryAssetId.h"
 #include "Engine/DataAsset.h"
 #include "EffectStruct.h"
 //
 #include "BaseConfig.h"
+#include "Active.h"
 //
 #include "BaseAttributes.h"
 //
@@ -31,6 +31,10 @@ class I_LOVE_VAMPIRES_2_API ACombatant : public APawn
 	GENERATED_BODY()
 
 	bool _isInitialised = false;
+	FVector _myForwardVector;
+
+	//WARNING May cause errors. Use initialise(template) instead if possible.
+	//void initialise_ACombatant(const FPrimaryAssetId&);
 
 protected:
 	UPROPERTY()
@@ -40,17 +44,21 @@ protected:
 	UPROPERTY()
 	TArray<UActive*> _activeAbilities;
 
+
+
+	void lookAtDirection(float, float);
 	virtual void onCurrentHPChanged(float oldHP, float newHP);
 	static void exchangeContactDamage(ACombatant* left, ACombatant* right);
 	bool getAttributes(UCombatantAttributes*&);
 
 public:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "ACombatant")
+	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UPaperFlipbookComponent* _combatantFlipbook;
 
 	ACombatant();
-	void initialise_ACombatant(const FPrimaryAssetId&);
-	void initialise_ACombatant(const UCombatantTemplate*);
+	
+	UFUNCTION(BlueprintCallable)
+	void initialise_ACombatant(const UCombatantTemplate* data);
 	virtual void myInitialise(const UCombatantTemplate* templateVal) { initialise_ACombatant(templateVal); }
 	virtual void EndPlay(EEndPlayReason::Type EndPlayReason) override;
 	void burnTick();
@@ -71,7 +79,7 @@ public:
 	UPROPERTY(EditAnywhere, Category = "UCombatantConfig")
 	ESprite _sprite = static_cast<ESprite>(0);
 	UPROPERTY(EditAnywhere, Category = "UCombatantConfig")
-	TArray<FPrimaryAssetId> _startingWeapons;
+	TArray<UWeaponTemplate*> _startingWeapons;
 	UPROPERTY(EditAnywhere, Category = "UCombatantConfig")
 	TSubclassOf<ACombatant> _combatantClass = ACombatant::StaticClass();
 	UCombatantConfig(const FObjectInitializer& init) : Super(init) {}
@@ -143,6 +151,7 @@ public:
 	float _iFrameDuration = 1;
 
 	UCombatantAttributes(const FObjectInitializer& init) : Super(init) {}
+	virtual UCombatantAttributes* getDiscretizedCopy(UObject* outer) const override;
 };
 ///////////////////////////////////////////////////////////////////////////////
 

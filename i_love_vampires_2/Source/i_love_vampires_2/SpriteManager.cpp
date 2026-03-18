@@ -15,14 +15,14 @@ USpriteManager::USpriteManager() {
 	// pair is TPair
 	const auto& pathMap = SPRITE_PATH;
 	for (const auto& pair : pathMap) {
-		FStringView paramPath = FStringView(FString(pair.Value));
+		FString tempPath = FString(pair.Value);
+		FStringView paramPath = FStringView(tempPath);
 		UPaperFlipbook* flipbook = LoadObject<UPaperFlipbook>(nullptr, paramPath);
 		if (flipbook == nullptr) {
-			_sprites.Add(pair.Key, flipbook);
+			LOGERROR("Failed to load sprite");
 		}
 		else {
-			LOGERROR("Failed to load sprite");
-			continue;
+			_sprites.Add(pair.Key, flipbook);
 		}
 	}
 }

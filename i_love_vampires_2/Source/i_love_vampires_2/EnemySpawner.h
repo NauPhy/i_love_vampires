@@ -5,6 +5,7 @@
 #include "UObject/PrimaryAssetId.h"
 #include "EnemySpawner.generated.h"
 class ACombatant;
+class UCombatantTemplate;
 
 UCLASS()
 class I_LOVE_VAMPIRES_2_API UEnemySpawner : public UTickableWorldSubsystem
@@ -13,11 +14,11 @@ class I_LOVE_VAMPIRES_2_API UEnemySpawner : public UTickableWorldSubsystem
 
 	float _nextTick = 0.f;
 	bool spawnTestEnemy(ACombatant*& ret);
-	bool spawnEnemy(const FVector& location, const FPrimaryAssetId& ID, ACombatant*& ret);
+	bool spawnEnemy(const FVector& location, const UCombatantTemplate* data, ACombatant*& ret);
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UEnemySpawner")
-	FPrimaryAssetId _testEnemy;
+	UCombatantTemplate* _testEnemy;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UEnemySpawner")
 	bool _gameReady = false;
 

@@ -91,6 +91,13 @@ public:
 	float _projectileCount = 1.f;
 
 	static void modifyAttributes(const UCombatantAttributes*, const UProjectileAttributes*, UProjectileAttributes*);
+	virtual UProjectileAttributes* getDiscretizedCopy(UObject* outer) const override {
+		UProjectileAttributes* ret = DuplicateObject<UProjectileAttributes>(this, outer, FName());
+		ret->_pierce = discretize(ret->_pierce);
+		ret->_bounce = discretize(ret->_bounce);
+		ret->_projectileCount = discretize(ret->_projectileCount);
+		return ret;
+	}
 	UProjectileAttributes(const FObjectInitializer& init) : Super(init) {}
 };
 ///////////////////////////////////////////////////////////////////////////////
@@ -122,7 +129,10 @@ protected:
 	UPROPERTY()
 	UProjectileComponent* _projectileComponent = nullptr;
 
-	virtual void launchAttack() override;
+	virtual void launchAttack(const FVector& forward) override;
+	template<typename attackType>
+	virtual void launchAttack_fan(const FVector& forward);
+	FVector launchAttack_fan_getDirection(const UProjectileAttributes* attr, const FVector& forward, int projectileIndex);
 	float getDirectionX() const { return _directionX; }
 	float getDirectionZ() const { return _directionZ; }
 
@@ -156,4 +166,30 @@ public:
 		_projectileAttributes = init.CreateDefaultSubobject<UProjectileAttributes>(this, "_projectileAttributes");
 	}
 };
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+template<typename attackType>
+void AProjectileFactory::launchAttack_fan(const FVector& forward) {
+	static_assert(std::derived_from<attackType, AProjectile>, "attackType must be derived from AProjectile");
+
+	UProjectileComponent* comp = getComponent<UProjectileComponent>();
+	if (!IsValid(comp))
+		return;
+	UProjectileAttributes* attr = comp->getDiscretizedFinal<UProjectileAttributes>(this);
+	if (!IsValid(attr))
+		return;
+	for (int i = 0; i < static_cast<int>(attr->_projectileCount); i++) {
+		FVector direction = launchAttack_fan_getDirection(attr, i);
+		_directionX = direction.X;
+		_directionZ = direction.Z;
+		FActorSpawnParameters params;
+		params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+		AProjectile* projectile = GetWorld()->SpawnActor<attackType>(GetActorLocation(), FRotator::ZeroRotator, params);
+		if (!IsValid(projectile)) {
+			LOGERROR("AProjectileFactory::launchAttack_fan - failed to spawn projectile");
+			continue;
+		}
+		projectile->factoryInitQuery(this);
+	}
+}
 

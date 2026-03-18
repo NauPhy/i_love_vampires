@@ -7,6 +7,12 @@ class I_LOVE_VAMPIRES_2_API UBaseAttributes : public UObject
 {
 	GENERATED_BODY()
 
+protected:
+	static float discretize(float value);
+
 public:
 	UBaseAttributes(const FObjectInitializer& init) : Super(init) {}
+	// This may be performance intensive since it creates a new UObject rather than just a struct
+	// The default implementation is because Unreal disallows virtual classes
+	virtual UBaseAttributes* getDiscretizedCopy(UObject* outer) const;
 };

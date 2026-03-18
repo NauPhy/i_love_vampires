@@ -370,5 +370,8 @@
     <ClInclude Include="..\..\Source\i_love_vampires_2\Projectile.h">
       <Filter>Source\i_love_vampires_2\MyGAS\Items\Attacks</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\ActiveEnum.h">
+      <Filter>Source\i_love_vampires_2\MyGAS\Items\Active</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

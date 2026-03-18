@@ -4,6 +4,7 @@
 #include "UObject/PrimaryAssetID.h"
 //
 #include "BaseConfig.h"
+#include "ActiveEnum.h"
 //
 #include "BaseTemplate.h"
 #include "AttackActor.h"
@@ -18,10 +19,14 @@ UCLASS()
 class I_LOVE_VAMPIRES_2_API UActive : public UObject {
 	GENERATED_BODY()
 
+	//WARNING May cause errors. Use initialise_UActive(caller, template) instead if possible.
+	//void initialise_UActive(APawn* caller, const FPrimaryAssetId& ID, UCombatantAttributes* callerAttributes);
+
 	float _timeSinceLastActivation = 0;
 	float _chargeRatio = 0;
 	TWeakObjectPtr<UCombatantAttributes> _combatantAttributes = nullptr;
 	TWeakObjectPtr<APawn> _pawnRef = nullptr;
+	FVector _myForwardVector;
 
 	UPROPERTY()
 	UWeaponConfig* _config;
@@ -30,11 +35,13 @@ class I_LOVE_VAMPIRES_2_API UActive : public UObject {
 
 	void updateWarmup(float delta);
 	void activate();
+	void activate_first();
 	//bool initAttackData(const TArray<UAttackData*>&);
 
 public:
-	void initialise_UActive(APawn* caller, const FPrimaryAssetId& ID, UCombatantAttributes* callerAttributes);
+	void initialise_UActive(APawn* caller, const UWeaponTemplate* data, UCombatantAttributes* callerAttributes);
 	virtual void tick(float delta);
+	void setForwardVector(const FVector& val) { _myForwardVector = val; }
 };
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -44,12 +51,14 @@ class I_LOVE_VAMPIRES_2_API UWeaponConfig : public UBaseConfig
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponConfig")
+	UPROPERTY(EditAnywhere, Category = "WeaponConfig")
 	FString _name = "Active";
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponConfig")
+	UPROPERTY(EditAnywhere, Category = "WeaponConfig")
 	bool _startOnCooldown = true;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponConfig")
+	UPROPERTY(EditAnywhere, Category = "WeaponConfig")
 	float _warmup = 1.f;
+	UPROPERTY(EditAnywhere, Category = "WeaponConfig")
+	EAttackType _attackType = static_cast<EAttackType>(0);
 	UWeaponConfig(const FObjectInitializer& init) : Super(init) {}
 };
 ///////////////////////////////////////////////////////////////////////////////

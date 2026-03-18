@@ -30,7 +30,8 @@ public:
 	attributeType* getBase() const;
 	template <typename attributeType>
 	attributeType* getOffsets() const;
-	//const UBaseAttributes* getFinal() const { return _final; }
+	template <typename attributeType>
+	attributeType* getDiscretizedFinal(UObject* outer) const;
 };
 /////////////////////////////////////////////////////////////
 
@@ -63,4 +64,14 @@ attributeType* UBaseAttributeComponent::getOffsets() const {
 		return nullptr;
 	}
 	return ret;
+}
+template<typename attributeType>
+attributeType* UBaseAttributeComponent::getDiscretizedFinal(UObject* outer) const {
+	static_assert(TIsDerivedFrom<attributeType, UBaseAttributes>::IsDerived, "T must derive from UBaseAttributes");
+	attributeType* ret = Cast<attributeType>(_offsets);
+	if (ret == nullptr) {
+		LOGERROR("Abondon hope all ye who enter here");
+		return nullptr;
+	}
+	return ret->getDiscretizedCopy(outer);
 }

@@ -1,6 +1,0 @@
-[22692:24320:0317/115650.433:WARNING:chrome_main_delegate.cc(745)] This is Chrome version 128.0.6613.138 (not a warning)
-[22692:21416:0317/115650.490:ERROR:google_update_settings.cc(265)] Failed opening key Software\Chromium to set usagestats; result: 5
-[22692:24320:0317/115650.502:WARNING:account_consistency_mode_manager.cc(77)] Desktop Identity Consistency cannot be enabled as no OAuth client ID and client secret have been configured.
-[22692:24320:0317/115653.056:WARNING:external_registry_loader_win.cc(232)] Error observing HKLM: 5
-[15756:11972:0317/115657.124:WARNING:frame_impl.cc(430)] virtual CefFrameImpl::SendProcessMessage sent to detached frame 5-BE2C07FDDB58C7FD08998BCB04A8770E will be ignored
-[9204:472:0317/115832.450:ERROR:command_buffer_proxy_impl.cc(132)] ContextResult::kTransientFailure: Failed to send GpuControl.CreateCommandBuffer.

@@ -1,0 +1,6 @@
+[16984:26596:0318/153132.491:WARNING:chrome_main_delegate.cc(745)] This is Chrome version 128.0.6613.138 (not a warning)
+[16984:24804:0318/153132.739:ERROR:google_update_settings.cc(265)] Failed opening key Software\Chromium to set usagestats; result: 5
+[16984:26596:0318/153132.830:WARNING:account_consistency_mode_manager.cc(77)] Desktop Identity Consistency cannot be enabled as no OAuth client ID and client secret have been configured.
+[16984:26596:0318/153136.087:WARNING:external_registry_loader_win.cc(232)] Error observing HKLM: 5
+[26892:1184:0318/153141.624:WARNING:frame_impl.cc(430)] virtual CefFrameImpl::SendProcessMessage sent to detached frame 5-4A8DD68A3CBDA19B0E5383E31DCA55DB will be ignored
+[16984:26596:0318/154430.790:WARNING:pref_notifier_impl.cc(41)] Pref observer for media_router.cast_allow_all_ips found at shutdown.

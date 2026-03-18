@@ -14,12 +14,72 @@ void EmptyLinkFunctionForGeneratedCodeMyPlayer() {}
 // ********** Begin Cross Module References ********************************************************
 ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UCameraComponent_NoRegister();
-ENGINE_API UClass* Z_Construct_UClass_USpringArmComponent_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_ACombatant();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AMyPlayer();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AMyPlayer_NoRegister();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UCombatantTemplate_NoRegister();
 UPackage* Z_Construct_UPackage__Script_i_love_vampires_2();
 // ********** End Cross Module References **********************************************************
+
+// ********** Begin Class AMyPlayer Function initialise_AMyPlayer **********************************
+struct Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer_Statics
+{
+	struct MyPlayer_eventinitialise_AMyPlayer_Parms
+	{
+		const UCombatantTemplate* data;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "//UFUNCTION(BlueprintCallable)\n//void initialise_AMyPlayer(const FPrimaryAssetId& id);\n" },
+#endif
+		{ "ModuleRelativePath", "MyPlayer.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "UFUNCTION(BlueprintCallable)\nvoid initialise_AMyPlayer(const FPrimaryAssetId& id);" },
+#endif
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_data_MetaData[] = {
+		{ "NativeConst", "" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Function initialise_AMyPlayer constinit property declarations ******************
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_data;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function initialise_AMyPlayer constinit property declarations ********************
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+
+// ********** Begin Function initialise_AMyPlayer Property Definitions *****************************
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer_Statics::NewProp_data = { "data", nullptr, (EPropertyFlags)0x0010000000000082, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(MyPlayer_eventinitialise_AMyPlayer_Parms, data), Z_Construct_UClass_UCombatantTemplate_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_data_MetaData), NewProp_data_MetaData) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer_Statics::NewProp_data,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer_Statics::PropPointers) < 2048);
+// ********** End Function initialise_AMyPlayer Property Definitions *******************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_AMyPlayer, nullptr, "initialise_AMyPlayer", 	Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer_Statics::MyPlayer_eventinitialise_AMyPlayer_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer_Statics::Function_MetaDataParams), Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer_Statics::Function_MetaDataParams)},  };
+static_assert(sizeof(Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer_Statics::MyPlayer_eventinitialise_AMyPlayer_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AMyPlayer::execinitialise_AMyPlayer)
+{
+	P_GET_OBJECT(UCombatantTemplate,Z_Param_data);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->initialise_AMyPlayer(Z_Param_data);
+	P_NATIVE_END;
+}
+// ********** End Class AMyPlayer Function initialise_AMyPlayer ************************************
 
 // ********** Begin Class AMyPlayer Function onOverlapBegin ****************************************
 struct Z_Construct_UFunction_AMyPlayer_onOverlapBegin_Statics
@@ -115,26 +175,30 @@ struct Z_Construct_UClass_AMyPlayer_Statics
 		{ "IncludePath", "MyPlayer.h" },
 		{ "ModuleRelativePath", "MyPlayer.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__springArm_MetaData[] = {
-		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "MyPlayer.h" },
-	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__camera_MetaData[] = {
+		{ "Category", "Components" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "//UPROPERTY(VisibleAnywhere, Category=\"Components\")\n//USpringArmComponent* _springArm = nullptr;\n" },
+#endif
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "MyPlayer.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "UPROPERTY(VisibleAnywhere, Category=\"Components\")\nUSpringArmComponent* _springArm = nullptr;" },
+#endif
 	};
 #endif // WITH_METADATA
 
 // ********** Begin Class AMyPlayer constinit property declarations ********************************
-	static const UECodeGen_Private::FObjectPropertyParams NewProp__springArm;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__camera;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class AMyPlayer constinit property declarations **********************************
 	static constexpr UE::CodeGen::FClassNativeFunction Funcs[] = {
+		{ .NameUTF8 = UTF8TEXT("initialise_AMyPlayer"), .Pointer = &AMyPlayer::execinitialise_AMyPlayer },
 		{ .NameUTF8 = UTF8TEXT("onOverlapBegin"), .Pointer = &AMyPlayer::execonOverlapBegin },
 	};
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
+		{ &Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer, "initialise_AMyPlayer" }, // 3055842102
 		{ &Z_Construct_UFunction_AMyPlayer_onOverlapBegin, "onOverlapBegin" }, // 3264895144
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
@@ -145,10 +209,8 @@ struct Z_Construct_UClass_AMyPlayer_Statics
 }; // struct Z_Construct_UClass_AMyPlayer_Statics
 
 // ********** Begin Class AMyPlayer Property Definitions *******************************************
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyPlayer_Statics::NewProp__springArm = { "_springArm", nullptr, (EPropertyFlags)0x0040000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyPlayer, _springArm), Z_Construct_UClass_USpringArmComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__springArm_MetaData), NewProp__springArm_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyPlayer_Statics::NewProp__camera = { "_camera", nullptr, (EPropertyFlags)0x0040000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyPlayer, _camera), Z_Construct_UClass_UCameraComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__camera_MetaData), NewProp__camera_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyPlayer_Statics::NewProp__camera = { "_camera", nullptr, (EPropertyFlags)0x00400000000a0009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyPlayer, _camera), Z_Construct_UClass_UCameraComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__camera_MetaData), NewProp__camera_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AMyPlayer_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyPlayer_Statics::NewProp__springArm,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyPlayer_Statics::NewProp__camera,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AMyPlayer_Statics::PropPointers) < 2048);
@@ -194,10 +256,10 @@ AMyPlayer::~AMyPlayer() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AMyPlayer, AMyPlayer::StaticClass, TEXT("AMyPlayer"), &Z_Registration_Info_UClass_AMyPlayer, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyPlayer), 595295251U) },
+		{ Z_Construct_UClass_AMyPlayer, AMyPlayer::StaticClass, TEXT("AMyPlayer"), &Z_Registration_Info_UClass_AMyPlayer, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyPlayer), 3570413152U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_184141078{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_3308100757{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

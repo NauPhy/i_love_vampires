@@ -16,9 +16,11 @@
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 class AActor;
+class UCombatantTemplate;
 
 // ********** Begin Class AMyPlayer ****************************************************************
 #define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h_14_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execinitialise_AMyPlayer); \
 	DECLARE_FUNCTION(execonOverlapBegin);
 
 

@@ -177,13 +177,20 @@ void AProjectileFactory::initialise_AProjectileFactory(
 	_projectileComponent->initialise_UProjectileComponent(projectileAttributes);
 }
 
-void AProjectileFactory::launchAttack() {
-	AProjectile* newAttack = spawnActor<AProjectile>();
-	if (newAttack == nullptr) {
-		LOGERROR("AProjectileFactory::launchAttack - failed to spawn projectile");
+void AProjectileFactory::launchAttack(const FVector& forward) {
+	if (!IsValid(_config)) {
+		LOGERROR("AProjectileFactory::launchAttack - _config is invalid");
 		return;
 	}
-	newAttack->factoryInitQuery(this);
+	TArray<AProjectile*> projectiles;
+	EAttackShape type = _config->_attackShape;
+	if (type == EAttackShape::fan) {
+		projectiles = launchAttack_fan<AProjectile>(forward);
+	}
+	else {
+		LOGERROR("AProjectileFactory::launchAttack - attack shape not implemented");
+		return;
+	}
 }
 
 void AProjectileFactory::initProjectile(AProjectile* projectile) {
@@ -196,9 +203,25 @@ void AProjectileFactory::initProjectile(AProjectile* projectile) {
 		getDirectionX(),
 		getDirectionZ(),
 		_attackConfig,
-		_attackComponent->getFinal<UAttackAttributes>(),
+		_attackComponent->getDiscretizedFinal<UAttackAttributes>(this),
 		_projectileConfig,
-		_projectileComponent->getFinal<UProjectileAttributes>());
+		_projectileComponent->getDiscretizedFinal<UProjectileAttributes>(this));
+}
+
+FVector AProjectileFactory::launchAttack_fan_getDirection(const UProjectileAttributes* attributes, const FVector& forward, int projectileIndex) {
+	// attributes should already be discretized, but I'm gonna do it again just in case
+	UProjectileAttributes* attr = attributes->getDiscretizedCopy(this);
+	
+	float angle = 0;
+	if (myNearEq(1, attr->_projectileCount)) {
+		angle = FMath::FRandRange(-attr->_spread / 2.0, attr->_spread / 2.0);
+	}
+	else {
+		float proportion = projectileIndex / (attr->_projectileCount - 1);
+		angle = proportion * attr->_spread - attr->_spread / 2.0;
+	}
+	FRotator rot = FRotator(angle, 0, 0);
+	return rot.RotateVector(forward);
 }
 
 ///////////////////////////////////////////////////////////////////////////////

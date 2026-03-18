@@ -550,6 +550,7 @@
     <ClCompile Include="..\..\Source\i_love_vampires_2\StatusFactory.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\BaseTemplate.cpp" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\Active.h" />
+    <ClInclude Include="..\..\Source\i_love_vampires_2\ActiveEnum.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\BaseAttributes.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\BaseAttributeSet.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\BaseTemplate.h" />

@@ -29,26 +29,26 @@ bool UEnemySpawner::spawnTestEnemy(ACombatant*& ret) {
 
 // This function only works for enemies that do not require initialisation data outisde of their template
 // Idk why I would need that because the template is meant to store arbitrary data
-bool UEnemySpawner::spawnEnemy(const FVector& spawnLocation, const FPrimaryAssetId& ID, ACombatant*& ret) {
-	UCombatantTemplate* rawData = nullptr;
-	{
-		UAssetManager& manager = UAssetManager::Get();
-		UObject* asset = manager.GetPrimaryAssetObject(ID);
-		if (asset == nullptr) {
-			auto handle = manager.LoadPrimaryAsset(ID);
-			handle->WaitUntilComplete();
-			asset = manager.GetPrimaryAssetObject(ID);
-		}
-		if (asset == nullptr) {
-			LOGERROR("UEnemySpawner::spawnEnemy - asset is null");
-			return false;
-		}
-		rawData = Cast<UCombatantTemplate>(asset);
-		if (rawData == nullptr) {
-			LOGERROR("UActive::initialise_UActive - asset is not a UWeaponTemplate");
-			return false;
-		}
-	}
+bool UEnemySpawner::spawnEnemy(const FVector& spawnLocation, const UCombatantTemplate* rawData, ACombatant*& ret) {
+	//UCombatantTemplate* rawData = nullptr;
+	//{
+	//	UAssetManager& manager = UAssetManager::Get();
+	//	UObject* asset = manager.GetPrimaryAssetObject(ID);
+	//	if (asset == nullptr) {
+	//		auto handle = manager.LoadPrimaryAsset(ID);
+	//		handle->WaitUntilComplete();
+	//		asset = manager.GetPrimaryAssetObject(ID);
+	//	}
+	//	if (asset == nullptr) {
+	//		LOGERROR("UEnemySpawner::spawnEnemy - asset is null");
+	//		return false;
+	//	}
+	//	rawData = Cast<UCombatantTemplate>(asset);
+	//	if (rawData == nullptr) {
+	//		LOGERROR("UActive::initialise_UActive - asset is not a UWeaponTemplate");
+	//		return false;
+	//	}
+	//}
 	TSubclassOf<ACombatant> enemyClass = rawData->_config->_combatantClass;
 	FRotator spawnRotation(0, 0, 0);
 	FActorSpawnParameters spawnParams;

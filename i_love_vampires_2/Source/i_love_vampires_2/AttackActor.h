@@ -73,6 +73,10 @@ public:
 	float _critMultiplier = 2.f;
 
 	static void modifyAttributes(const UCombatantAttributes* modifiers, const UAttackAttributes* baseAttributes, UAttackAttributes* finalAttributes);
+	virtual UAttackAttributes* getDiscretizedCopy(UObject* outer) const override {
+		UAttackAttributes* ret = DuplicateObject<UAttackAttributes>(this, outer, FName());
+		return ret;
+	}
 	UAttackAttributes(const FObjectInitializer& init) : Super(init) {}
 };
 ///////////////////////////////////////////////////////////////////////////////
@@ -122,7 +126,7 @@ public:
 	virtual void initAOE(AAOE*) { shouldNotRunError(); }
 	virtual void initExplosiveProjectile(AExplosiveProjectile*) { shouldNotRunError(); }
 
-	virtual void launchAttack();
+	virtual void launchAttack(const FVector& forward);
 	void initialise_AAttackFactory(APawn*, const UAttackConfig*, const UAttackAttributes*);
 };
 ///////////////////////////////////////////////////////////////////////////////

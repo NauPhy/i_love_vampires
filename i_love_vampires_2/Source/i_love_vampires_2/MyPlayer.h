@@ -18,9 +18,9 @@ class I_LOVE_VAMPIRES_2_API AMyPlayer : public ACombatant
 	float _experience = 0;
 	float _maxExperience = 1;
 	float _level = 1;
-	UPROPERTY()
-	USpringArmComponent* _springArm = nullptr;
-	UPROPERTY()
+	//UPROPERTY(VisibleAnywhere, Category="Components")
+	//USpringArmComponent* _springArm = nullptr;
+	UPROPERTY(VisibleAnywhere, Category="Components")
 	UCameraComponent* _camera = nullptr;
 
 	bool addKeyboardContext();
@@ -32,12 +32,13 @@ class I_LOVE_VAMPIRES_2_API AMyPlayer : public ACombatant
 	void handleEnemyCollision(AEnemyBase* other);
 	bool isOutOfDeadzone(float, float) const;
 	void handleMovement(const FVector2D&);
-	void lookAtDirection(float, float);
 
 public:
 	AMyPlayer();
-	void initialise_AMyPlayer(const FPrimaryAssetId&);
-	void initialise_AMyPlayer(const UCombatantTemplate*);
+	//UFUNCTION(BlueprintCallable)
+	//void initialise_AMyPlayer(const FPrimaryAssetId& id);
+	UFUNCTION(BlueprintCallable)
+	void initialise_AMyPlayer(const UCombatantTemplate* data);
 	virtual void myInitialise(const UCombatantTemplate* temp) override { initialise_AMyPlayer(temp); }
 	virtual void Tick(float delta) override;
 };	

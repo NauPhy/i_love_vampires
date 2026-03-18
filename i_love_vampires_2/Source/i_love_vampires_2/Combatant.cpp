@@ -15,10 +15,11 @@
 
 ACombatant::ACombatant()
 {
+	if (!RootComponent)
 	{
-		PrimaryActorTick.bCanEverTick = true;
+		RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
 	}
-
+	PrimaryActorTick.bCanEverTick = true;
 	//Flipbook init
 	{
 		_combatantFlipbook = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("CombatantFlipbook"));
@@ -38,7 +39,11 @@ void ACombatantAttributeSet::burnTick() {
 }
 
 void ACombatant::initialise_ACombatant(const UCombatantTemplate* rawData) {
-	const UCombatantConfig* config = rawData->_config;
+	if (rawData == nullptr || rawData->_config == nullptr || rawData->_attributes == nullptr) {
+		LOGERROR("ACombatant::initialise_ACombatant - invalid parameter");
+		return;
+	}
+	_config = rawData->_config;
 	const UCombatantAttributes* attributes = rawData->_attributes;
 	// attribute set
 	{
@@ -50,6 +55,9 @@ void ACombatant::initialise_ACombatant(const UCombatantTemplate* rawData) {
 		_attributeSet->addCallback<UCombatantComponent, UCombatantAttributes>(member, callback);
 	}
 	// weapons
+	// data used to be of type FPrimaryAssetId
+	// It is now of type TSoftObjectPtr<UWeaponTemplate>
+	// The code here doesn't need to change tho
 	for (const auto& data : _config->_startingWeapons) {
 		UActive* active = NewObject<UActive>(this);
 		UCombatantComponent* comp = _attributeSet->FindComponentByClass<UCombatantComponent>();
@@ -75,29 +83,30 @@ void ACombatant::initialise_ACombatant(const UCombatantTemplate* rawData) {
 	}
 	_combatantFlipbook->SetFlipbook(tempSprite);
 	_isInitialised = true;
+	_MyForwardVector = GetActorForwardVector();
 }
 
-void ACombatant::initialise_ACombatant(const FPrimaryAssetId& id)
-{
-	UAssetManager& assetManager = UAssetManager::Get();
-	UObject* temp = assetManager.GetPrimaryAssetObject(id);
-	if (temp == nullptr) {
-
-		auto handle = assetManager.LoadPrimaryAsset(id);
-		handle->WaitUntilComplete();
-		temp = assetManager.GetPrimaryAssetObject(id);
-	}
-	if (temp == nullptr) {
-		LOGERROR("ACombatant::initialise_ACombatant - asset not found ");
-		return;
-	}
-	UCombatantTemplate* templateData = Cast<UCombatantTemplate>(temp);
-	if (templateData == nullptr) {
-		LOGERROR("ACombatant::initialise_ACombatant - asset is not a UCombatantTemplate");
-		return;
-	}
-	initialise_ACombatant(templateData);
-}
+//void ACombatant::initialise_ACombatant(const FPrimaryAssetId& id)
+//{
+//	UAssetManager& assetManager = UAssetManager::Get();
+//	UObject* temp = assetManager.GetPrimaryAssetObject(id);
+//	if (temp == nullptr) {
+//
+//		auto handle = assetManager.LoadPrimaryAsset(id);
+//		handle->WaitUntilComplete();
+//		temp = assetManager.GetPrimaryAssetObject(id);
+//	}
+//	if (temp == nullptr) {
+//		LOGERROR("ACombatant::initialise_ACombatant - asset not found ");
+//		return;
+//	}
+//	UCombatantTemplate* templateData = Cast<UCombatantTemplate>(temp);
+//	if (templateData == nullptr) {
+//		LOGERROR("ACombatant::initialise_ACombatant - asset is not a UCombatantTemplate");
+//		return;
+//	}
+//	initialise_ACombatant(templateData);
+//}
 void ACombatant::EndPlay(EEndPlayReason::Type EndPlayReason)
 {
 	Super::EndPlay(EndPlayReason);
@@ -122,6 +131,14 @@ void ACombatant::inflictStatus(UStatusEffect* newStatus) {
 }
 void ACombatant::inflictStatus(const FEffectStruct& effectStruct) {
 	inflictStatus(StatusFactory::createStatusEffect(effectStruct));
+}
+
+void ACombatant::lookAtDirection(float X, float Z) {
+	const FRotator rotation = UKismetMathLibrary::FindLookAtRotation(FVector(0, 0, 0), FVector(X, 0, Z));
+	_myForwardVector = rotation.RotateVector(FVector(1, 0, 0));
+	for (auto& tempActive : _activeAbilities) {
+		tempActive->setForwardVector(_myForwardVector);
+	}
 }
 
 void ACombatant::exchangeContactDamage(ACombatant* left, ACombatant* right) {
@@ -153,4 +170,9 @@ bool ACombatant::getAttributes(UCombatantAttributes*& ret) {
 	if (ret == nullptr)
 		return false;
 	return true;
+}
+
+UCombatantAttributes* UCombatantAttributes::getDiscretizedCopy(UObject* outer) const {
+	LOGERROR("I'm not sure if there's ever a reason to call this");
+	return DuplicateObject<UCombatantAttributes>(this, outer, FName());
 }

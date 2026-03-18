@@ -60,6 +60,9 @@ class I_LOVE_VAMPIRES_2_API UExplosiveProjectileAttributes : public UBaseAttribu
 
 public:
 	static void modifyAttributes(const UCombatantAttributes*, const UExplosiveProjectileAttributes*, UExplosiveProjectileAttributes*);
+	virtual UExplosiveProjectileAttributes* getDiscretizedCopy(UObject* outer) const override {
+		return DuplicateObject<UExplosiveProjectileAttributes>(this, outer, FName());
+	}
 	UExplosiveProjectileAttributes(const FObjectInitializer& init) : Super(init) {}
 };
 ///////////////////////////////////////////////////////////////////////////////
@@ -100,7 +103,8 @@ protected:
 public:
 	virtual void initExplosiveProjectile(AExplosiveProjectile*) override;
 	virtual void initAOE(AAOE*) override;
-	virtual void launchAttack() override;
+	virtual void launchAttack(const FVector& forward) override;
+	virtual void launchAttack_fan(const FVector& forward) override;
 	void initialise_AExplosiveProjectileFactory(
 		APawn*,
 		const UAttackConfig*,

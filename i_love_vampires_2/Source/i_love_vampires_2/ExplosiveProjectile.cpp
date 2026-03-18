@@ -74,24 +74,56 @@ void AExplosiveProjectileFactory::initialise_AExplosiveProjectileFactory(
 	_AOEComponent->initialise_UAOEComponent(aoeAttributes);
 }
 
-void AExplosiveProjectileFactory::launchAttack() {
-	if (_tempAOE.IsValid()) {
-		LOGERROR("AExplosiveProjectileFactory::launchAttack - tempAOE is already valid when launching attack");
+void AExplosiveProjectileFactory::launchAttack(const FVector& forward) {
+	EAttackShape type = _projectileConfig->_attackShape;
+	if (type == EAttackShape::fan) {
+		launchAttack_fan(forward);
+	}
+	else {
+		LOGERROR("AExplosiveProjectileFactory::launchAttack - unsupported attack shape");
 		return;
 	}
-	AExplosiveProjectile* newAttack = nullptr;
-	{
-		AAOE* aoe = spawnActor<AAOE>();
-		if (aoe == nullptr)
-			return;
-		_tempAOE = TWeakObjectPtr<AAOE>(aoe);
-		newAttack = spawnActor<AExplosiveProjectile>();
-		if (newAttack == nullptr)
-			return;
+}
+
+void AExplosiveProjectileFactory::launchAttack_fan(const FVector& forward) {
+	if (!_pawnRef.IsValid())
+		return;
+	UProjectileComponent* comp = getComponent<UProjectileComponent>();
+	if (!IsValid(_projectileConfig)) {
+		LOGERROR("AExplosiveProjectileFactory::launchAttack_fan - projectile config is not valid");
+		return;
 	}
-	_tempAOE->factoryInitQuery(this);
-	newAttack->factoryInitQuery(this);
-	_tempAOE = nullptr;
+	UProjectileAttributes* disc = comp->getDiscretizedFinal<UProjectileAttributes>(this)->_projectileCount;
+	if (!IsValid(disc)) {
+		LOGERROR("AExplosiveProjectileFactory::launchAttack_fan - discretized projectile attributes is not valid");
+		return;
+	}
+	FActorSpawnParameters spawnParams;
+	spawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	for (int i = 0; i < static_cast<int>(disc->_projectileCount); i++) {
+		if (_tempAOE.IsValid()) {
+			LOGERROR("AExplosiveProjectileFactory::launchAttack - tempAOE is already valid when launching attack");
+			return;
+		}
+		FVector direction = AProjectileFactory::launchAttack_fan_getDirection(disc, forward, i);
+		_directionX = direction.X;
+		_directionY = direction.Y;
+		{
+			AAOE* aoe = spawnActor<AAOE>();
+			if (aoe == nullptr)
+				return;
+			_tempAOE = TWeakObjectPtr<AAOE>(aoe);
+		}
+		AExplosiveProjectile* newAttack = spawnActor<AExplosiveProjectile>();
+		if (newAttack == nullptr) {
+			_tempAOE->Destroy();
+			_tempAOE = nullptr;
+			return;
+		}
+		_tempAOE->factoryInitQuery(this);
+		newAttack->factoryInitQuery(this);
+		_tempAOE = nullptr;
+	}
 }
 
 void AExplosiveProjectileFactory::initAOE(AAOE* attack) {
@@ -128,11 +160,11 @@ void AExplosiveProjectileFactory::initExplosiveProjectile(AExplosiveProjectile* 
 		getDirectionZ(),
 		_tempAOE.Get(),
 		_attackConfig,
-		_attackComponent->getFinal<UAttackAttributes>(),
+		_attackComponent->getDiscretizedFinal<UAttackAttributes>(this),
 		_projectileConfig,
-		_projectileComponent->getFinal<UProjectileAttributes>(),
+		_projectileComponent->getDiscretizedFinal<UProjectileAttributes>(this),
 		_explosiveProjectileConfig,
-		_explosiveProjectileComponent->getFinal<UExplosiveProjectileAttributes>()
+		_explosiveProjectileComponent->getDiscretizedFinal<UExplosiveProjectileAttributes>(this)
 	);
 }
 

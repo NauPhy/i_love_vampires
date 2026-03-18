@@ -158,7 +158,7 @@ void AAOEFactory::initialise_AAOEFactory(
 	_AOEComponent = NewObject<UAOEComponent>(this);
 	_AOEComponent->initialise_UAOEComponent(AOEAttributes);
 }
-void AAOEFactory::launchAttack() {
+void AAOEFactory::launchAttack(const FVector& forward) {
 	AAOE* newAttack = spawnActor<AAOE>();
 	if (!IsValid(newAttack)) {
 		LOGERROR("AAOEFactory::launchAttack - failed to spawn AAOE");
@@ -174,9 +174,9 @@ void AAOEFactory::initAOE(AAOE* aoe) {
 	aoe->initialise_AAOE(
 		_pawnRef.Get(),
 		_attackConfig,
-		_attackComponent->getFinal<UAttackAttributes>(),
+		_attackComponent->getDiscretizedFinal<UAttackAttributes>(this),
 		_AOEConfig,
-		_AOEComponent->getFinal<UAOEAttributes>()
+		_AOEComponent->getDiscretizedFinal<UAOEAttributes>(this)
 	);
 }
 ///////////////////////////////////////////////////////////////////////////////
