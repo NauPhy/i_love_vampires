@@ -1,3 +1,15 @@
-2026/03/07-13:32:15.251 64c4 Reusing MANIFEST C:\Users\Byron\Documents\GitHub\i_love_vampires\i_love_vampires_2\Saved\webcache_6613\Default\Local Storage\leveldb/MANIFEST-000001
-2026/03/07-13:32:15.262 64c4 Recovering log #176
-2026/03/07-13:32:15.264 64c4 Reusing old log C:\Users\Byron\Documents\GitHub\i_love_vampires\i_love_vampires_2\Saved\webcache_6613\Default\Local Storage\leveldb/000176.log 
+2026/03/17-12:20:35.872 1628 Reusing MANIFEST C:\Users\Byron\Documents\GitHub\i_love_vampires\i_love_vampires_2\Saved\webcache_6613\Default\Local Storage\leveldb/MANIFEST-000001
+2026/03/17-12:20:35.876 1628 Recovering log #191
+2026/03/17-12:20:35.878 1628 Reusing old log C:\Users\Byron\Documents\GitHub\i_love_vampires\i_love_vampires_2\Saved\webcache_6613\Default\Local Storage\leveldb/000191.log 
+2026/03/17-12:36:43.125 46d8 Level-0 table #195: started
+2026/03/17-12:36:43.130 46d8 Level-0 table #195: 64808 bytes OK
+2026/03/17-12:36:43.132 46d8 Delete type=0 #191
+2026/03/17-12:36:43.133 46d8 Compacting 4@0 + 1@1 files
+2026/03/17-12:36:43.136 46d8 Generated table #196@0: 5 keys, 32546 bytes
+2026/03/17-12:36:43.136 46d8 Compacted 4@0 + 1@1 files => 32546 bytes
+2026/03/17-12:36:43.137 46d8 compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/03/17-12:36:43.137 46d8 Delete type=2 #183
+2026/03/17-12:36:43.137 46d8 Delete type=2 #186
+2026/03/17-12:36:43.137 46d8 Delete type=2 #189
+2026/03/17-12:36:43.137 46d8 Delete type=2 #192
+2026/03/17-12:36:43.137 46d8 Delete type=2 #195

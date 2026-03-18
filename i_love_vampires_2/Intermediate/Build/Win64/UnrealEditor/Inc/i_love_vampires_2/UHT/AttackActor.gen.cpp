@@ -6,23 +6,33 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "i_love_vampires_2/AttackActor.h"
+#include "i_love_vampires_2/EffectStruct.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 static_assert(!UE_WITH_CONSTINIT_UOBJECT, "This generated code can only be compiled with !UE_WITH_CONSTINIT_OBJECT");
 void EmptyLinkFunctionForGeneratedCodeAttackActor() {}
 
 // ********** Begin Cross Module References ********************************************************
-COREUOBJECT_API UClass* Z_Construct_UClass_UObject();
 ENGINE_API UClass* Z_Construct_UClass_AActor();
 ENGINE_API UClass* Z_Construct_UClass_APawn_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AAttackActor();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AAttackActor_NoRegister();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AAttackFactory();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AAttackFactory_NoRegister();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_ABaseAttributeSet();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackAttributes();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackAttributes_NoRegister();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackComponent();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackComponent_NoRegister();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackConfig();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackConfig_NoRegister();
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackData();
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackData_NoRegister();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackFactoryTemplate();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackFactoryTemplate_NoRegister();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseAttributeComponent();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseAttributes();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseAttributeSetTemplate();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseConfig();
+I_LOVE_VAMPIRES_2_API UScriptStruct* Z_Construct_UScriptStruct_FEffectStruct();
 UPackage* Z_Construct_UPackage__Script_i_love_vampires_2();
 // ********** End Cross Module References **********************************************************
 
@@ -60,9 +70,7 @@ struct Z_Construct_UClass_AAttackActor_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
-		{ "BlueprintType", "true" },
 		{ "IncludePath", "AttackActor.h" },
-		{ "IsBlueprintBase", "true" },
 		{ "ModuleRelativePath", "AttackActor.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__pawnRef_MetaData[] = {
@@ -71,10 +79,10 @@ struct Z_Construct_UClass_AAttackActor_Statics
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__effectedPawns_MetaData[] = {
 		{ "ModuleRelativePath", "AttackActor.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__config_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__attackConfig_MetaData[] = {
 		{ "ModuleRelativePath", "AttackActor.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__attributes_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__attackAttributes_MetaData[] = {
 		{ "ModuleRelativePath", "AttackActor.h" },
 	};
 #endif // WITH_METADATA
@@ -83,8 +91,8 @@ struct Z_Construct_UClass_AAttackActor_Statics
 	static const UECodeGen_Private::FWeakObjectPropertyParams NewProp__pawnRef;
 	static const UECodeGen_Private::FWeakObjectPropertyParams NewProp__effectedPawns_Inner;
 	static const UECodeGen_Private::FArrayPropertyParams NewProp__effectedPawns;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp__config;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp__attributes;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp__attackConfig;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp__attackAttributes;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class AAttackActor constinit property declarations *******************************
 	static UObject* (*const DependentSingletons[])();
@@ -98,14 +106,14 @@ struct Z_Construct_UClass_AAttackActor_Statics
 const UECodeGen_Private::FWeakObjectPropertyParams Z_Construct_UClass_AAttackActor_Statics::NewProp__pawnRef = { "_pawnRef", nullptr, (EPropertyFlags)0x0024080000000000, UECodeGen_Private::EPropertyGenFlags::WeakObject, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAttackActor, _pawnRef), Z_Construct_UClass_APawn_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__pawnRef_MetaData), NewProp__pawnRef_MetaData) };
 const UECodeGen_Private::FWeakObjectPropertyParams Z_Construct_UClass_AAttackActor_Statics::NewProp__effectedPawns_Inner = { "_effectedPawns", nullptr, (EPropertyFlags)0x0004000000000000, UECodeGen_Private::EPropertyGenFlags::WeakObject, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_APawn_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_AAttackActor_Statics::NewProp__effectedPawns = { "_effectedPawns", nullptr, (EPropertyFlags)0x0024080000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAttackActor, _effectedPawns), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__effectedPawns_MetaData), NewProp__effectedPawns_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AAttackActor_Statics::NewProp__config = { "_config", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAttackActor, _config), Z_Construct_UClass_UAttackConfig_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__config_MetaData), NewProp__config_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AAttackActor_Statics::NewProp__attributes = { "_attributes", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAttackActor, _attributes), Z_Construct_UClass_UAttackAttributes_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__attributes_MetaData), NewProp__attributes_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AAttackActor_Statics::NewProp__attackConfig = { "_attackConfig", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAttackActor, _attackConfig), Z_Construct_UClass_UAttackConfig_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__attackConfig_MetaData), NewProp__attackConfig_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AAttackActor_Statics::NewProp__attackAttributes = { "_attackAttributes", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAttackActor, _attackAttributes), Z_Construct_UClass_UAttackAttributes_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__attackAttributes_MetaData), NewProp__attackAttributes_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AAttackActor_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AAttackActor_Statics::NewProp__pawnRef,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AAttackActor_Statics::NewProp__effectedPawns_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AAttackActor_Statics::NewProp__effectedPawns,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AAttackActor_Statics::NewProp__config,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AAttackActor_Statics::NewProp__attributes,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AAttackActor_Statics::NewProp__attackConfig,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AAttackActor_Statics::NewProp__attackAttributes,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AAttackActor_Statics::PropPointers) < 2048);
 // ********** End Class AAttackActor Property Definitions ******************************************
@@ -126,7 +134,7 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_AAttackActor_Statics::C
 	0,
 	UE_ARRAY_COUNT(Z_Construct_UClass_AAttackActor_Statics::PropPointers),
 	0,
-	0x008000A4u,
+	0x009000A4u,
 	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AAttackActor_Statics::Class_MetaDataParams), Z_Construct_UClass_AAttackActor_Statics::Class_MetaDataParams)
 };
 void AAttackActor::StaticRegisterNativesAAttackActor()
@@ -144,18 +152,18 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, AAttackActor);
 AAttackActor::~AAttackActor() {}
 // ********** End Class AAttackActor ***************************************************************
 
-// ********** Begin Class UAttackData **************************************************************
-FClassRegistrationInfo Z_Registration_Info_UClass_UAttackData;
-UClass* UAttackData::GetPrivateStaticClass()
+// ********** Begin Class UAttackConfig ************************************************************
+FClassRegistrationInfo Z_Registration_Info_UClass_UAttackConfig;
+UClass* UAttackConfig::GetPrivateStaticClass()
 {
-	using TClass = UAttackData;
-	if (!Z_Registration_Info_UClass_UAttackData.InnerSingleton)
+	using TClass = UAttackConfig;
+	if (!Z_Registration_Info_UClass_UAttackConfig.InnerSingleton)
 	{
 		GetPrivateStaticClassBody(
 			TClass::StaticPackage(),
-			TEXT("AttackData"),
-			Z_Registration_Info_UClass_UAttackData.InnerSingleton,
-			StaticRegisterNativesUAttackData,
+			TEXT("AttackConfig"),
+			Z_Registration_Info_UClass_UAttackConfig.InnerSingleton,
+			StaticRegisterNativesUAttackConfig,
 			sizeof(TClass),
 			alignof(TClass),
 			TClass::StaticClassFlags,
@@ -168,94 +176,85 @@ UClass* UAttackData::GetPrivateStaticClass()
 			&TClass::WithinClass::StaticClass
 		);
 	}
-	return Z_Registration_Info_UClass_UAttackData.InnerSingleton;
+	return Z_Registration_Info_UClass_UAttackConfig.InnerSingleton;
 }
-UClass* Z_Construct_UClass_UAttackData_NoRegister()
+UClass* Z_Construct_UClass_UAttackConfig_NoRegister()
 {
-	return UAttackData::GetPrivateStaticClass();
+	return UAttackConfig::GetPrivateStaticClass();
 }
-struct Z_Construct_UClass_UAttackData_Statics
+struct Z_Construct_UClass_UAttackConfig_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
 		{ "BlueprintType", "true" },
 #if !UE_BUILD_SHIPPING
-		{ "Comment", "// FAttackData and FAttackConfig mirror the inheritance of AAttackActor. FAttackData does not mirror the inheritance, because then it would essentially inherit twice, duplicating the properties.\n" },
+		{ "Comment", "///////////////////////////////////////////////////////////////////////////////\n" },
 #endif
 		{ "IncludePath", "AttackActor.h" },
 		{ "ModuleRelativePath", "AttackActor.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "FAttackData and FAttackConfig mirror the inheritance of AAttackActor. FAttackData does not mirror the inheritance, because then it would essentially inherit twice, duplicating the properties." },
-#endif
+		{ "ObjectInitializerConstructorDeclared", "" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__config_MetaData[] = {
-		{ "Category", "AttackData" },
-		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "AttackActor.h" },
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__attributes_MetaData[] = {
-		{ "Category", "AttackData" },
-		{ "EditInline", "true" },
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__statusEffects_MetaData[] = {
+		{ "Category", "UAttackConfig" },
 		{ "ModuleRelativePath", "AttackActor.h" },
 	};
 #endif // WITH_METADATA
 
-// ********** Begin Class UAttackData constinit property declarations ******************************
-	static const UECodeGen_Private::FObjectPropertyParams NewProp__config;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp__attributes;
+// ********** Begin Class UAttackConfig constinit property declarations ****************************
+	static const UECodeGen_Private::FStructPropertyParams NewProp__statusEffects_Inner;
+	static const UECodeGen_Private::FArrayPropertyParams NewProp__statusEffects;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
-// ********** End Class UAttackData constinit property declarations ********************************
+// ********** End Class UAttackConfig constinit property declarations ******************************
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
-		TCppClassTypeTraits<UAttackData>::IsAbstract,
+		TCppClassTypeTraits<UAttackConfig>::IsAbstract,
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
-}; // struct Z_Construct_UClass_UAttackData_Statics
+}; // struct Z_Construct_UClass_UAttackConfig_Statics
 
-// ********** Begin Class UAttackData Property Definitions *****************************************
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAttackData_Statics::NewProp__config = { "_config", nullptr, (EPropertyFlags)0x0012000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAttackData, _config), Z_Construct_UClass_UAttackConfig_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__config_MetaData), NewProp__config_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAttackData_Statics::NewProp__attributes = { "_attributes", nullptr, (EPropertyFlags)0x0012000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAttackData, _attributes), Z_Construct_UClass_UAttackAttributes_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__attributes_MetaData), NewProp__attributes_MetaData) };
-const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAttackData_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAttackData_Statics::NewProp__config,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAttackData_Statics::NewProp__attributes,
+// ********** Begin Class UAttackConfig Property Definitions ***************************************
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAttackConfig_Statics::NewProp__statusEffects_Inner = { "_statusEffects", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FEffectStruct, METADATA_PARAMS(0, nullptr) }; // 3838480815
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UAttackConfig_Statics::NewProp__statusEffects = { "_statusEffects", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAttackConfig, _statusEffects), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__statusEffects_MetaData), NewProp__statusEffects_MetaData) }; // 3838480815
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAttackConfig_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAttackConfig_Statics::NewProp__statusEffects_Inner,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAttackConfig_Statics::NewProp__statusEffects,
 };
-static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAttackData_Statics::PropPointers) < 2048);
-// ********** End Class UAttackData Property Definitions *******************************************
-UObject* (*const Z_Construct_UClass_UAttackData_Statics::DependentSingletons[])() = {
-	(UObject* (*)())Z_Construct_UClass_UObject,
+static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAttackConfig_Statics::PropPointers) < 2048);
+// ********** End Class UAttackConfig Property Definitions *****************************************
+UObject* (*const Z_Construct_UClass_UAttackConfig_Statics::DependentSingletons[])() = {
+	(UObject* (*)())Z_Construct_UClass_UBaseConfig,
 	(UObject* (*)())Z_Construct_UPackage__Script_i_love_vampires_2,
 };
-static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAttackData_Statics::DependentSingletons) < 16);
-const UECodeGen_Private::FClassParams Z_Construct_UClass_UAttackData_Statics::ClassParams = {
-	&UAttackData::StaticClass,
+static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAttackConfig_Statics::DependentSingletons) < 16);
+const UECodeGen_Private::FClassParams Z_Construct_UClass_UAttackConfig_Statics::ClassParams = {
+	&UAttackConfig::StaticClass,
 	nullptr,
 	&StaticCppClassTypeInfo,
 	DependentSingletons,
 	nullptr,
-	Z_Construct_UClass_UAttackData_Statics::PropPointers,
+	Z_Construct_UClass_UAttackConfig_Statics::PropPointers,
 	nullptr,
 	UE_ARRAY_COUNT(DependentSingletons),
 	0,
-	UE_ARRAY_COUNT(Z_Construct_UClass_UAttackData_Statics::PropPointers),
+	UE_ARRAY_COUNT(Z_Construct_UClass_UAttackConfig_Statics::PropPointers),
 	0,
-	0x009000A0u,
-	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAttackData_Statics::Class_MetaDataParams), Z_Construct_UClass_UAttackData_Statics::Class_MetaDataParams)
+	0x001010A0u,
+	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAttackConfig_Statics::Class_MetaDataParams), Z_Construct_UClass_UAttackConfig_Statics::Class_MetaDataParams)
 };
-void UAttackData::StaticRegisterNativesUAttackData()
+void UAttackConfig::StaticRegisterNativesUAttackConfig()
 {
 }
-UClass* Z_Construct_UClass_UAttackData()
+UClass* Z_Construct_UClass_UAttackConfig()
 {
-	if (!Z_Registration_Info_UClass_UAttackData.OuterSingleton)
+	if (!Z_Registration_Info_UClass_UAttackConfig.OuterSingleton)
 	{
-		UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_UAttackData.OuterSingleton, Z_Construct_UClass_UAttackData_Statics::ClassParams);
+		UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_UAttackConfig.OuterSingleton, Z_Construct_UClass_UAttackConfig_Statics::ClassParams);
 	}
-	return Z_Registration_Info_UClass_UAttackData.OuterSingleton;
+	return Z_Registration_Info_UClass_UAttackConfig.OuterSingleton;
 }
-UAttackData::UAttackData(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
-DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, UAttackData);
-UAttackData::~UAttackData() {}
-// ********** End Class UAttackData ****************************************************************
+DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, UAttackConfig);
+UAttackConfig::~UAttackConfig() {}
+// ********** End Class UAttackConfig **************************************************************
 
 // ********** Begin Class UAttackAttributes ********************************************************
 FClassRegistrationInfo Z_Registration_Info_UClass_UAttackAttributes;
@@ -292,14 +291,9 @@ struct Z_Construct_UClass_UAttackAttributes_Statics
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
 		{ "BlueprintType", "true" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "//UCLASS(BlueprintType)\n//class I_LOVE_VAMPIRES_2_API UAttackConfig : public UObject\n//{\n//\x09GENERATED_BODY()\n//\n//public:\n//\x09UPROPERTY(EditAnywhere, Category = \"AttackData\")\n//\x09TSubclassOf<AAttackActor> _attackClass;\n//\x09UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"WeaponConfig\")\n//\x09TArray<FEffectStruct> _statusEffects;\n//\x09UAttackConfig() { _attackClass = AAttackActor::StaticClass(); }\n//};\n" },
-#endif
 		{ "IncludePath", "AttackActor.h" },
 		{ "ModuleRelativePath", "AttackActor.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "UCLASS(BlueprintType)\nclass I_LOVE_VAMPIRES_2_API UAttackConfig : public UObject\n{\n       GENERATED_BODY()\n\npublic:\n       UPROPERTY(EditAnywhere, Category = \"AttackData\")\n       TSubclassOf<AAttackActor> _attackClass;\n       UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = \"WeaponConfig\")\n       TArray<FEffectStruct> _statusEffects;\n       UAttackConfig() { _attackClass = AAttackActor::StaticClass(); }\n};" },
-#endif
+		{ "ObjectInitializerConstructorDeclared", "" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__damage_MetaData[] = {
 		{ "Category", "WeaponAttributes" },
@@ -356,7 +350,7 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_UAttackAttributes_Stati
 	0,
 	UE_ARRAY_COUNT(Z_Construct_UClass_UAttackAttributes_Statics::PropPointers),
 	0,
-	0x001000A0u,
+	0x001010A0u,
 	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAttackAttributes_Statics::Class_MetaDataParams), Z_Construct_UClass_UAttackAttributes_Statics::Class_MetaDataParams)
 };
 void UAttackAttributes::StaticRegisterNativesUAttackAttributes()
@@ -370,21 +364,322 @@ UClass* Z_Construct_UClass_UAttackAttributes()
 	}
 	return Z_Registration_Info_UClass_UAttackAttributes.OuterSingleton;
 }
-UAttackAttributes::UAttackAttributes(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, UAttackAttributes);
 UAttackAttributes::~UAttackAttributes() {}
 // ********** End Class UAttackAttributes **********************************************************
+
+// ********** Begin Class UAttackComponent *********************************************************
+FClassRegistrationInfo Z_Registration_Info_UClass_UAttackComponent;
+UClass* UAttackComponent::GetPrivateStaticClass()
+{
+	using TClass = UAttackComponent;
+	if (!Z_Registration_Info_UClass_UAttackComponent.InnerSingleton)
+	{
+		GetPrivateStaticClassBody(
+			TClass::StaticPackage(),
+			TEXT("AttackComponent"),
+			Z_Registration_Info_UClass_UAttackComponent.InnerSingleton,
+			StaticRegisterNativesUAttackComponent,
+			sizeof(TClass),
+			alignof(TClass),
+			TClass::StaticClassFlags,
+			TClass::StaticClassCastFlags(),
+			TClass::StaticConfigName(),
+			(UClass::ClassConstructorType)InternalConstructor<TClass>,
+			(UClass::ClassVTableHelperCtorCallerType)InternalVTableHelperCtorCaller<TClass>,
+			UOBJECT_CPPCLASS_STATICFUNCTIONS_FORCLASS(TClass),
+			&TClass::Super::StaticClass,
+			&TClass::WithinClass::StaticClass
+		);
+	}
+	return Z_Registration_Info_UClass_UAttackComponent.InnerSingleton;
+}
+UClass* Z_Construct_UClass_UAttackComponent_NoRegister()
+{
+	return UAttackComponent::GetPrivateStaticClass();
+}
+struct Z_Construct_UClass_UAttackComponent_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "///////////////////////////////////////////////////////////////////////////////\n" },
+#endif
+		{ "IncludePath", "AttackActor.h" },
+		{ "ModuleRelativePath", "AttackActor.h" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Class UAttackComponent constinit property declarations *************************
+// ********** End Class UAttackComponent constinit property declarations ***************************
+	static UObject* (*const DependentSingletons[])();
+	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
+		TCppClassTypeTraits<UAttackComponent>::IsAbstract,
+	};
+	static const UECodeGen_Private::FClassParams ClassParams;
+}; // struct Z_Construct_UClass_UAttackComponent_Statics
+UObject* (*const Z_Construct_UClass_UAttackComponent_Statics::DependentSingletons[])() = {
+	(UObject* (*)())Z_Construct_UClass_UBaseAttributeComponent,
+	(UObject* (*)())Z_Construct_UPackage__Script_i_love_vampires_2,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAttackComponent_Statics::DependentSingletons) < 16);
+const UECodeGen_Private::FClassParams Z_Construct_UClass_UAttackComponent_Statics::ClassParams = {
+	&UAttackComponent::StaticClass,
+	"Engine",
+	&StaticCppClassTypeInfo,
+	DependentSingletons,
+	nullptr,
+	nullptr,
+	nullptr,
+	UE_ARRAY_COUNT(DependentSingletons),
+	0,
+	0,
+	0,
+	0x00B000A4u,
+	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAttackComponent_Statics::Class_MetaDataParams), Z_Construct_UClass_UAttackComponent_Statics::Class_MetaDataParams)
+};
+void UAttackComponent::StaticRegisterNativesUAttackComponent()
+{
+}
+UClass* Z_Construct_UClass_UAttackComponent()
+{
+	if (!Z_Registration_Info_UClass_UAttackComponent.OuterSingleton)
+	{
+		UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_UAttackComponent.OuterSingleton, Z_Construct_UClass_UAttackComponent_Statics::ClassParams);
+	}
+	return Z_Registration_Info_UClass_UAttackComponent.OuterSingleton;
+}
+UAttackComponent::UAttackComponent(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
+DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, UAttackComponent);
+UAttackComponent::~UAttackComponent() {}
+// ********** End Class UAttackComponent ***********************************************************
+
+// ********** Begin Class AAttackFactory ***********************************************************
+FClassRegistrationInfo Z_Registration_Info_UClass_AAttackFactory;
+UClass* AAttackFactory::GetPrivateStaticClass()
+{
+	using TClass = AAttackFactory;
+	if (!Z_Registration_Info_UClass_AAttackFactory.InnerSingleton)
+	{
+		GetPrivateStaticClassBody(
+			TClass::StaticPackage(),
+			TEXT("AttackFactory"),
+			Z_Registration_Info_UClass_AAttackFactory.InnerSingleton,
+			StaticRegisterNativesAAttackFactory,
+			sizeof(TClass),
+			alignof(TClass),
+			TClass::StaticClassFlags,
+			TClass::StaticClassCastFlags(),
+			TClass::StaticConfigName(),
+			(UClass::ClassConstructorType)InternalConstructor<TClass>,
+			(UClass::ClassVTableHelperCtorCallerType)InternalVTableHelperCtorCaller<TClass>,
+			UOBJECT_CPPCLASS_STATICFUNCTIONS_FORCLASS(TClass),
+			&TClass::Super::StaticClass,
+			&TClass::WithinClass::StaticClass
+		);
+	}
+	return Z_Registration_Info_UClass_AAttackFactory.InnerSingleton;
+}
+UClass* Z_Construct_UClass_AAttackFactory_NoRegister()
+{
+	return AAttackFactory::GetPrivateStaticClass();
+}
+struct Z_Construct_UClass_AAttackFactory_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
+		{ "IncludePath", "AttackActor.h" },
+		{ "ModuleRelativePath", "AttackActor.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__attackConfig_MetaData[] = {
+		{ "ModuleRelativePath", "AttackActor.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__attackComponent_MetaData[] = {
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "AttackActor.h" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Class AAttackFactory constinit property declarations ***************************
+	static const UECodeGen_Private::FObjectPropertyParams NewProp__attackConfig;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp__attackComponent;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Class AAttackFactory constinit property declarations *****************************
+	static UObject* (*const DependentSingletons[])();
+	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
+		TCppClassTypeTraits<AAttackFactory>::IsAbstract,
+	};
+	static const UECodeGen_Private::FClassParams ClassParams;
+}; // struct Z_Construct_UClass_AAttackFactory_Statics
+
+// ********** Begin Class AAttackFactory Property Definitions **************************************
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AAttackFactory_Statics::NewProp__attackConfig = { "_attackConfig", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAttackFactory, _attackConfig), Z_Construct_UClass_UAttackConfig_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__attackConfig_MetaData), NewProp__attackConfig_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AAttackFactory_Statics::NewProp__attackComponent = { "_attackComponent", nullptr, (EPropertyFlags)0x0020080000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AAttackFactory, _attackComponent), Z_Construct_UClass_UAttackComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__attackComponent_MetaData), NewProp__attackComponent_MetaData) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AAttackFactory_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AAttackFactory_Statics::NewProp__attackConfig,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AAttackFactory_Statics::NewProp__attackComponent,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AAttackFactory_Statics::PropPointers) < 2048);
+// ********** End Class AAttackFactory Property Definitions ****************************************
+UObject* (*const Z_Construct_UClass_AAttackFactory_Statics::DependentSingletons[])() = {
+	(UObject* (*)())Z_Construct_UClass_ABaseAttributeSet,
+	(UObject* (*)())Z_Construct_UPackage__Script_i_love_vampires_2,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AAttackFactory_Statics::DependentSingletons) < 16);
+const UECodeGen_Private::FClassParams Z_Construct_UClass_AAttackFactory_Statics::ClassParams = {
+	&AAttackFactory::StaticClass,
+	"Engine",
+	&StaticCppClassTypeInfo,
+	DependentSingletons,
+	nullptr,
+	Z_Construct_UClass_AAttackFactory_Statics::PropPointers,
+	nullptr,
+	UE_ARRAY_COUNT(DependentSingletons),
+	0,
+	UE_ARRAY_COUNT(Z_Construct_UClass_AAttackFactory_Statics::PropPointers),
+	0,
+	0x009000A4u,
+	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AAttackFactory_Statics::Class_MetaDataParams), Z_Construct_UClass_AAttackFactory_Statics::Class_MetaDataParams)
+};
+void AAttackFactory::StaticRegisterNativesAAttackFactory()
+{
+}
+UClass* Z_Construct_UClass_AAttackFactory()
+{
+	if (!Z_Registration_Info_UClass_AAttackFactory.OuterSingleton)
+	{
+		UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_AAttackFactory.OuterSingleton, Z_Construct_UClass_AAttackFactory_Statics::ClassParams);
+	}
+	return Z_Registration_Info_UClass_AAttackFactory.OuterSingleton;
+}
+AAttackFactory::AAttackFactory(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
+DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, AAttackFactory);
+AAttackFactory::~AAttackFactory() {}
+// ********** End Class AAttackFactory *************************************************************
+
+// ********** Begin Class UAttackFactoryTemplate ***************************************************
+FClassRegistrationInfo Z_Registration_Info_UClass_UAttackFactoryTemplate;
+UClass* UAttackFactoryTemplate::GetPrivateStaticClass()
+{
+	using TClass = UAttackFactoryTemplate;
+	if (!Z_Registration_Info_UClass_UAttackFactoryTemplate.InnerSingleton)
+	{
+		GetPrivateStaticClassBody(
+			TClass::StaticPackage(),
+			TEXT("AttackFactoryTemplate"),
+			Z_Registration_Info_UClass_UAttackFactoryTemplate.InnerSingleton,
+			StaticRegisterNativesUAttackFactoryTemplate,
+			sizeof(TClass),
+			alignof(TClass),
+			TClass::StaticClassFlags,
+			TClass::StaticClassCastFlags(),
+			TClass::StaticConfigName(),
+			(UClass::ClassConstructorType)InternalConstructor<TClass>,
+			(UClass::ClassVTableHelperCtorCallerType)InternalVTableHelperCtorCaller<TClass>,
+			UOBJECT_CPPCLASS_STATICFUNCTIONS_FORCLASS(TClass),
+			&TClass::Super::StaticClass,
+			&TClass::WithinClass::StaticClass
+		);
+	}
+	return Z_Registration_Info_UClass_UAttackFactoryTemplate.InnerSingleton;
+}
+UClass* Z_Construct_UClass_UAttackFactoryTemplate_NoRegister()
+{
+	return UAttackFactoryTemplate::GetPrivateStaticClass();
+}
+struct Z_Construct_UClass_UAttackFactoryTemplate_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "///////////////////////////////////////////////////////////////////////////////\n" },
+#endif
+		{ "IncludePath", "AttackActor.h" },
+		{ "ModuleRelativePath", "AttackActor.h" },
+		{ "ObjectInitializerConstructorDeclared", "" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__attackConfig_MetaData[] = {
+		{ "Category", "UAttackFactoryTemplate" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "AttackActor.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__attackAttributes_MetaData[] = {
+		{ "Category", "UAttackFactoryTemplate" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "AttackActor.h" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Class UAttackFactoryTemplate constinit property declarations *******************
+	static const UECodeGen_Private::FObjectPropertyParams NewProp__attackConfig;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp__attackAttributes;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Class UAttackFactoryTemplate constinit property declarations *********************
+	static UObject* (*const DependentSingletons[])();
+	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
+		TCppClassTypeTraits<UAttackFactoryTemplate>::IsAbstract,
+	};
+	static const UECodeGen_Private::FClassParams ClassParams;
+}; // struct Z_Construct_UClass_UAttackFactoryTemplate_Statics
+
+// ********** Begin Class UAttackFactoryTemplate Property Definitions ******************************
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAttackFactoryTemplate_Statics::NewProp__attackConfig = { "_attackConfig", nullptr, (EPropertyFlags)0x0012000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAttackFactoryTemplate, _attackConfig), Z_Construct_UClass_UAttackConfig_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__attackConfig_MetaData), NewProp__attackConfig_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAttackFactoryTemplate_Statics::NewProp__attackAttributes = { "_attackAttributes", nullptr, (EPropertyFlags)0x0012000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAttackFactoryTemplate, _attackAttributes), Z_Construct_UClass_UAttackAttributes_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__attackAttributes_MetaData), NewProp__attackAttributes_MetaData) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAttackFactoryTemplate_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAttackFactoryTemplate_Statics::NewProp__attackConfig,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAttackFactoryTemplate_Statics::NewProp__attackAttributes,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAttackFactoryTemplate_Statics::PropPointers) < 2048);
+// ********** End Class UAttackFactoryTemplate Property Definitions ********************************
+UObject* (*const Z_Construct_UClass_UAttackFactoryTemplate_Statics::DependentSingletons[])() = {
+	(UObject* (*)())Z_Construct_UClass_UBaseAttributeSetTemplate,
+	(UObject* (*)())Z_Construct_UPackage__Script_i_love_vampires_2,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAttackFactoryTemplate_Statics::DependentSingletons) < 16);
+const UECodeGen_Private::FClassParams Z_Construct_UClass_UAttackFactoryTemplate_Statics::ClassParams = {
+	&UAttackFactoryTemplate::StaticClass,
+	nullptr,
+	&StaticCppClassTypeInfo,
+	DependentSingletons,
+	nullptr,
+	Z_Construct_UClass_UAttackFactoryTemplate_Statics::PropPointers,
+	nullptr,
+	UE_ARRAY_COUNT(DependentSingletons),
+	0,
+	UE_ARRAY_COUNT(Z_Construct_UClass_UAttackFactoryTemplate_Statics::PropPointers),
+	0,
+	0x009010A0u,
+	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAttackFactoryTemplate_Statics::Class_MetaDataParams), Z_Construct_UClass_UAttackFactoryTemplate_Statics::Class_MetaDataParams)
+};
+void UAttackFactoryTemplate::StaticRegisterNativesUAttackFactoryTemplate()
+{
+}
+UClass* Z_Construct_UClass_UAttackFactoryTemplate()
+{
+	if (!Z_Registration_Info_UClass_UAttackFactoryTemplate.OuterSingleton)
+	{
+		UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_UAttackFactoryTemplate.OuterSingleton, Z_Construct_UClass_UAttackFactoryTemplate_Statics::ClassParams);
+	}
+	return Z_Registration_Info_UClass_UAttackFactoryTemplate.OuterSingleton;
+}
+DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, UAttackFactoryTemplate);
+UAttackFactoryTemplate::~UAttackFactoryTemplate() {}
+// ********** End Class UAttackFactoryTemplate *****************************************************
 
 // ********** Begin Registration *******************************************************************
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AAttackActor, AAttackActor::StaticClass, TEXT("AAttackActor"), &Z_Registration_Info_UClass_AAttackActor, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AAttackActor), 3227109680U) },
-		{ Z_Construct_UClass_UAttackData, UAttackData::StaticClass, TEXT("UAttackData"), &Z_Registration_Info_UClass_UAttackData, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAttackData), 3080213989U) },
-		{ Z_Construct_UClass_UAttackAttributes, UAttackAttributes::StaticClass, TEXT("UAttackAttributes"), &Z_Registration_Info_UClass_UAttackAttributes, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAttackAttributes), 2869574812U) },
+		{ Z_Construct_UClass_AAttackActor, AAttackActor::StaticClass, TEXT("AAttackActor"), &Z_Registration_Info_UClass_AAttackActor, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AAttackActor), 2318673049U) },
+		{ Z_Construct_UClass_UAttackConfig, UAttackConfig::StaticClass, TEXT("UAttackConfig"), &Z_Registration_Info_UClass_UAttackConfig, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAttackConfig), 1771607321U) },
+		{ Z_Construct_UClass_UAttackAttributes, UAttackAttributes::StaticClass, TEXT("UAttackAttributes"), &Z_Registration_Info_UClass_UAttackAttributes, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAttackAttributes), 3812250138U) },
+		{ Z_Construct_UClass_UAttackComponent, UAttackComponent::StaticClass, TEXT("UAttackComponent"), &Z_Registration_Info_UClass_UAttackComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAttackComponent), 518300915U) },
+		{ Z_Construct_UClass_AAttackFactory, AAttackFactory::StaticClass, TEXT("AAttackFactory"), &Z_Registration_Info_UClass_AAttackFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AAttackFactory), 2913879387U) },
+		{ Z_Construct_UClass_UAttackFactoryTemplate, UAttackFactoryTemplate::StaticClass, TEXT("UAttackFactoryTemplate"), &Z_Registration_Info_UClass_UAttackFactoryTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAttackFactoryTemplate), 2648388338U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_3726422766{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_1024799092{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

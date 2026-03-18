@@ -20,7 +20,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 struct Z_Construct_UClass_AAttackActor_Statics;
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AAttackActor_NoRegister();
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_16_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_27_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAAttackActor(); \
 	friend struct ::Z_Construct_UClass_AAttackActor_Statics; \
@@ -31,7 +31,7 @@ public: \
 	DECLARE_SERIALIZER(AAttackActor)
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_16_ENHANCED_CONSTRUCTORS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_27_ENHANCED_CONSTRUCTORS \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	AAttackActor(AAttackActor&&) = delete; \
 	AAttackActor(const AAttackActor&) = delete; \
@@ -41,12 +41,12 @@ public: \
 	NO_API virtual ~AAttackActor();
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_14_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_16_GENERATED_BODY \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_25_PROLOG
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_27_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_16_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_16_ENHANCED_CONSTRUCTORS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_27_INCLASS_NO_PURE_DECLS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_27_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -55,52 +55,50 @@ class AAttackActor;
 
 // ********** End Class AAttackActor ***************************************************************
 
-// ********** Begin Class UAttackData **************************************************************
-struct Z_Construct_UClass_UAttackData_Statics;
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackData_NoRegister();
+// ********** Begin Class UAttackConfig ************************************************************
+struct Z_Construct_UClass_UAttackConfig_Statics;
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackConfig_NoRegister();
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_52_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_51_INCLASS_NO_PURE_DECLS \
 private: \
-	static void StaticRegisterNativesUAttackData(); \
-	friend struct ::Z_Construct_UClass_UAttackData_Statics; \
+	static void StaticRegisterNativesUAttackConfig(); \
+	friend struct ::Z_Construct_UClass_UAttackConfig_Statics; \
 	static UClass* GetPrivateStaticClass(); \
-	friend I_LOVE_VAMPIRES_2_API UClass* ::Z_Construct_UClass_UAttackData_NoRegister(); \
+	friend I_LOVE_VAMPIRES_2_API UClass* ::Z_Construct_UClass_UAttackConfig_NoRegister(); \
 public: \
-	DECLARE_CLASS2(UAttackData, UObject, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_UAttackData_NoRegister) \
-	DECLARE_SERIALIZER(UAttackData)
+	DECLARE_CLASS2(UAttackConfig, UBaseConfig, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_UAttackConfig_NoRegister) \
+	DECLARE_SERIALIZER(UAttackConfig)
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_52_ENHANCED_CONSTRUCTORS \
-	/** Standard constructor, called after all reflected properties have been initialized */ \
-	NO_API UAttackData(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_51_ENHANCED_CONSTRUCTORS \
 	/** Deleted move- and copy-constructors, should never be used */ \
-	UAttackData(UAttackData&&) = delete; \
-	UAttackData(const UAttackData&) = delete; \
-	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UAttackData); \
-	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UAttackData); \
-	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UAttackData) \
-	NO_API virtual ~UAttackData();
+	UAttackConfig(UAttackConfig&&) = delete; \
+	UAttackConfig(const UAttackConfig&) = delete; \
+	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UAttackConfig); \
+	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UAttackConfig); \
+	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UAttackConfig) \
+	NO_API virtual ~UAttackConfig();
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_49_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_52_GENERATED_BODY \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_48_PROLOG
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_51_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_52_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_52_ENHANCED_CONSTRUCTORS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_51_INCLASS_NO_PURE_DECLS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_51_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-class UAttackData;
+class UAttackConfig;
 
-// ********** End Class UAttackData ****************************************************************
+// ********** End Class UAttackConfig **************************************************************
 
 // ********** Begin Class UAttackAttributes ********************************************************
 struct Z_Construct_UClass_UAttackAttributes_Statics;
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackAttributes_NoRegister();
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_77_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_65_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUAttackAttributes(); \
 	friend struct ::Z_Construct_UClass_UAttackAttributes_Statics; \
@@ -111,9 +109,7 @@ public: \
 	DECLARE_SERIALIZER(UAttackAttributes)
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_77_ENHANCED_CONSTRUCTORS \
-	/** Standard constructor, called after all reflected properties have been initialized */ \
-	NO_API UAttackAttributes(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_65_ENHANCED_CONSTRUCTORS \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	UAttackAttributes(UAttackAttributes&&) = delete; \
 	UAttackAttributes(const UAttackAttributes&) = delete; \
@@ -123,12 +119,12 @@ public: \
 	NO_API virtual ~UAttackAttributes();
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_74_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_77_GENERATED_BODY \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_62_PROLOG
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_65_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_77_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_77_ENHANCED_CONSTRUCTORS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_65_INCLASS_NO_PURE_DECLS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_65_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -136,6 +132,127 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 class UAttackAttributes;
 
 // ********** End Class UAttackAttributes **********************************************************
+
+// ********** Begin Class UAttackComponent *********************************************************
+struct Z_Construct_UClass_UAttackComponent_Statics;
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackComponent_NoRegister();
+
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_83_INCLASS_NO_PURE_DECLS \
+private: \
+	static void StaticRegisterNativesUAttackComponent(); \
+	friend struct ::Z_Construct_UClass_UAttackComponent_Statics; \
+	static UClass* GetPrivateStaticClass(); \
+	friend I_LOVE_VAMPIRES_2_API UClass* ::Z_Construct_UClass_UAttackComponent_NoRegister(); \
+public: \
+	DECLARE_CLASS2(UAttackComponent, UBaseAttributeComponent, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_UAttackComponent_NoRegister) \
+	DECLARE_SERIALIZER(UAttackComponent)
+
+
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_83_ENHANCED_CONSTRUCTORS \
+	/** Standard constructor, called after all reflected properties have been initialized */ \
+	NO_API UAttackComponent(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
+	/** Deleted move- and copy-constructors, should never be used */ \
+	UAttackComponent(UAttackComponent&&) = delete; \
+	UAttackComponent(const UAttackComponent&) = delete; \
+	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UAttackComponent); \
+	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UAttackComponent); \
+	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UAttackComponent) \
+	NO_API virtual ~UAttackComponent();
+
+
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_80_PROLOG
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_83_GENERATED_BODY \
+PRAGMA_DISABLE_DEPRECATION_WARNINGS \
+public: \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_83_INCLASS_NO_PURE_DECLS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_83_ENHANCED_CONSTRUCTORS \
+private: \
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+
+
+class UAttackComponent;
+
+// ********** End Class UAttackComponent ***********************************************************
+
+// ********** Begin Class AAttackFactory ***********************************************************
+struct Z_Construct_UClass_AAttackFactory_Statics;
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AAttackFactory_NoRegister();
+
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_100_INCLASS_NO_PURE_DECLS \
+private: \
+	static void StaticRegisterNativesAAttackFactory(); \
+	friend struct ::Z_Construct_UClass_AAttackFactory_Statics; \
+	static UClass* GetPrivateStaticClass(); \
+	friend I_LOVE_VAMPIRES_2_API UClass* ::Z_Construct_UClass_AAttackFactory_NoRegister(); \
+public: \
+	DECLARE_CLASS2(AAttackFactory, ABaseAttributeSet, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_AAttackFactory_NoRegister) \
+	DECLARE_SERIALIZER(AAttackFactory)
+
+
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_100_ENHANCED_CONSTRUCTORS \
+	/** Standard constructor, called after all reflected properties have been initialized */ \
+	NO_API AAttackFactory(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
+	/** Deleted move- and copy-constructors, should never be used */ \
+	AAttackFactory(AAttackFactory&&) = delete; \
+	AAttackFactory(const AAttackFactory&) = delete; \
+	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, AAttackFactory); \
+	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(AAttackFactory); \
+	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(AAttackFactory) \
+	NO_API virtual ~AAttackFactory();
+
+
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_97_PROLOG
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_100_GENERATED_BODY \
+PRAGMA_DISABLE_DEPRECATION_WARNINGS \
+public: \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_100_INCLASS_NO_PURE_DECLS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_100_ENHANCED_CONSTRUCTORS \
+private: \
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+
+
+class AAttackFactory;
+
+// ********** End Class AAttackFactory *************************************************************
+
+// ********** Begin Class UAttackFactoryTemplate ***************************************************
+struct Z_Construct_UClass_UAttackFactoryTemplate_Statics;
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackFactoryTemplate_NoRegister();
+
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_132_INCLASS_NO_PURE_DECLS \
+private: \
+	static void StaticRegisterNativesUAttackFactoryTemplate(); \
+	friend struct ::Z_Construct_UClass_UAttackFactoryTemplate_Statics; \
+	static UClass* GetPrivateStaticClass(); \
+	friend I_LOVE_VAMPIRES_2_API UClass* ::Z_Construct_UClass_UAttackFactoryTemplate_NoRegister(); \
+public: \
+	DECLARE_CLASS2(UAttackFactoryTemplate, UBaseAttributeSetTemplate, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_UAttackFactoryTemplate_NoRegister) \
+	DECLARE_SERIALIZER(UAttackFactoryTemplate)
+
+
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_132_ENHANCED_CONSTRUCTORS \
+	/** Deleted move- and copy-constructors, should never be used */ \
+	UAttackFactoryTemplate(UAttackFactoryTemplate&&) = delete; \
+	UAttackFactoryTemplate(const UAttackFactoryTemplate&) = delete; \
+	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UAttackFactoryTemplate); \
+	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UAttackFactoryTemplate); \
+	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UAttackFactoryTemplate) \
+	NO_API virtual ~UAttackFactoryTemplate();
+
+
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_130_PROLOG
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_132_GENERATED_BODY \
+PRAGMA_DISABLE_DEPRECATION_WARNINGS \
+public: \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_132_INCLASS_NO_PURE_DECLS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h_132_ENHANCED_CONSTRUCTORS \
+private: \
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+
+
+class UAttackFactoryTemplate;
+
+// ********** End Class UAttackFactoryTemplate *****************************************************
 
 #undef CURRENT_FILE_ID
 #define CURRENT_FILE_ID FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h

@@ -1,12 +1,19 @@
 #include "MyGameplayStatics.h"
-#include "Kismet/GameplayStatics.h"
-#include "Definitions.h"
+#include "UObject/Object.h"
 #include "EnhancedInputSubsystems.h"
-#include "Kismet/KismetMathLibrary.h"
-#include "CombatantManager.h"
+#include "Kismet/GameplayStatics.h"
+#include "Engine/GameInstance.h"
 #include "AssetRefs.h"
+#include "CombatantManager.h"
+#include "SpriteManager.h"
+#include "Definitions.h"
+#include "Engine/World.h"
+#include "Engine/LocalPlayer.h"
+#include "Kismet/KismetMathLibrary.h"
 
-bool MyGameplayStatics::myGetEnhancedInputLocalPlayerSubsystem(const UObject* caller, UEnhancedInputLocalPlayerSubsystem*& ret) const {
+
+
+bool MyGameplayStatics::myGetEnhancedInputLocalPlayerSubsystem(const UObject* caller, UEnhancedInputLocalPlayerSubsystem*& ret) {
 	ret = nullptr;
 	APlayerController* controller = nullptr;
 	if (!myGetPlayerController(caller, controller))
@@ -24,7 +31,7 @@ bool MyGameplayStatics::myGetEnhancedInputLocalPlayerSubsystem(const UObject* ca
 	return true;
 }
 
-bool MyGameplayStatics::myGetPlayerController(const UObject* caller, APlayerController*& ret) const {
+bool MyGameplayStatics::myGetPlayerController(const UObject* caller, APlayerController*& ret) {
 	ret = UGameplayStatics::GetPlayerController(caller, 0);
 	if (ret == nullptr) {
 		LOGERROR("MyGameplayStatics::myGetPlayerController - ret is nullptr");
@@ -33,7 +40,7 @@ bool MyGameplayStatics::myGetPlayerController(const UObject* caller, APlayerCont
 	return true;
 }
 
-bool MyGameplayStatics::myGetGameInstance(const UObject* caller, UGameInstance*& ret) const {
+bool MyGameplayStatics::myGetGameInstance(const UObject* caller, UGameInstance*& ret) {
 	ret = nullptr;
 	UWorld* world = caller->GetWorld();
 	if (world == nullptr) {
@@ -48,7 +55,7 @@ bool MyGameplayStatics::myGetGameInstance(const UObject* caller, UGameInstance*&
 	return true;
 }
 
-bool MyGameplayStatics::getAssetRefs(const UObject* caller, UAssetRefs*& ret) const {
+bool MyGameplayStatics::getAssetRefs(const UObject* caller, UAssetRefs*& ret) {
 	UGameInstance* gameInstance = nullptr;
 	if (!myGetGameInstance(caller, gameInstance)) {
 		return false;

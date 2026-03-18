@@ -1,19 +1,30 @@
 #pragma once
 #include "CoreMinimal.h"
-
-
+//
 #include "GameFramework/Actor.h"
+//
+#include "BaseConfig.h"
+//
+#include "BaseAttributes.h"
+#include "EffectStruct.h"
+//
+#include "BaseAttributeComponent.h"
+//
+#include "BaseAttributeSet.h"
+//
+#include "BaseAttributeSetTemplate.h"
+//
+#include "Engine/World.h"
+#include "GameFramework/Pawn.h"
+#include "AttackActor.generated.h"
+
 
 class ACombatant;
 class UAttackConfig;
 
-UCLASS(Blueprintable)
-class AAttackActor : public AActor {
+UCLASS()
+class I_LOVE_VAMPIRES_2_API AAttackActor : public AActor {
 	GENERATED_BODY()
-
-	FName _ID = "attackActor";
-	UPROPERTY()
-	TArray<UAttackFactory*> _attackFactories;
 	
 protected:
 	UPROPERTY()
@@ -22,37 +33,33 @@ protected:
 	TArray<TWeakObjectPtr<APawn>> _effectedPawns;
 	UPROPERTY() 
 	UAttackConfig* _attackConfig = nullptr;
-	
-	FName getID() const { return _ID; }
-	virtual void factoryInitQuery(const UAttackFactory* factory);
+	UPROPERTY()
+	UAttackAttributes* _attackAttributes = nullptr;
 
 public:
 	AAttackActor() { PrimaryActorTick.bCanEverTick = true; }
-
-	void initialise_AAttackActor(APawn* pawnRef, UAttackConfig*, UAttackAttributes*);
-
+	void initialise_AAttackActor(APawn* pawnRef, const UAttackConfig*, const UAttackAttributes*);
+	virtual void factoryInitQuery(AAttackFactory* factory);
 	virtual void Tick(float delta) override;
 	void applyEffect(ACombatant* target); 
 };
 ///////////////////////////////////////////////////////////////////////////////
-#include "BaseConfig.h"
 
-UCLASS(BlueprintType)
+UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UAttackConfig : public UBaseConfig
 {
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UAttackConfig")
+	UPROPERTY(EditAnywhere, Category = "UAttackConfig")
 	TArray<FEffectStruct> _statusEffects;
-	UAttackConfig() { _attackClass = AAttackActor::StaticClass(); }
+	UAttackConfig(const FObjectInitializer& init) : Super(init) {}
 };
 ///////////////////////////////////////////////////////////////////////////////
-#include "BaseAttributes.h"
-#include "EffectStruct.h"
+
 class UCombatantAttributes;
 
-UCLASS(BlueprintType)
+UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UAttackAttributes : public UBaseAttributes
 {
 	GENERATED_BODY()
@@ -65,65 +72,62 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponAttributes")
 	float _critMultiplier = 2.f;
 
-	virtual void modifyAttributes(const UCombatantAttributes* modifiers, const UAttackAttributes* baseAttributes, UAttackAttributes* finalAttributes);
+	static void modifyAttributes(const UCombatantAttributes* modifiers, const UAttackAttributes* baseAttributes, UAttackAttributes* finalAttributes);
+	UAttackAttributes(const FObjectInitializer& init) : Super(init) {}
 };
 ///////////////////////////////////////////////////////////////////////////////
-#include "BaseAttributeComponent.h"
 
 UCLASS()
 class I_LOVE_VAMPIRES_2_API UAttackComponent : public UBaseAttributeComponent
 {
 	GENERATED_BODY()
 public:
-	UPROPERTY()
-	UAttackAttributes* _base;
-	UPROPERTY()
-	UAttackAttributes* _final;
-	UPROPERTY()
-	UAttackAttributes* _offsets;
 	void initialise_UAttackComponent(const UAttackAttributes* baseAttributes) {
 		_base = DuplicateObject(baseAttributes, this);
 		_final = DuplicateObject(baseAttributes, this);
 		_offsets = DuplicateObject(baseAttributes, this);
 	}
-	virtual UBaseAttributes* getFinal() const override { return _final; }
 };
 ///////////////////////////////////////////////////////////////////////////////
-#include "BaseAttributeSet.h"
 
 class AProjectile;
 class AExplosiveProjectile;
 class AAOE;
 
 UCLASS()
-class I_LOVE_VAMPIRES_2_API UAttackFactory : public UBaseAttributeSet
+class I_LOVE_VAMPIRES_2_API AAttackFactory : public ABaseAttributeSet
 {
 	GENERATED_BODY()
-
-	UPROPERTY()
-	UAttackConfig* _attackConfig;
-	UPROPERTY()
-	UAttackComponent* _attackComponent = nullptr;
 
 	void shouldNotRunError() const;
 
 protected:
-	TWeakObjectPtr<APawn> _pawnRef;
+	UPROPERTY()
+	UAttackConfig* _attackConfig = nullptr;
+	UPROPERTY()
+	UAttackComponent* _attackComponent = nullptr;
 
-	virtual void initAttack(AAttackActor*) const;
-	virtual void initProjectile(AProjectile*) const { shouldNotRunError(); }
-	virtual void initAOE(AAOE*) const { shouldNotRunError(); }
-	virtual void initExplosiveProjectile(AExplosiveProjectile*) const { shouldNotRunError(); }
+	template <typename T>
+	T* spawnActor() const;
 
 public:
+	TWeakObjectPtr<APawn> _pawnRef = nullptr;
+
+	// This double dispatch is currently only used so the init function can have specialised AAttackActor subclass parameters. 
+	// This parameter is not used for nested function calls, or even for member variable access. It's used because, for example, AAttackActor does not have 
+	// initialise_AProjectile. initialise_AProjectile calls AAttackActor::initialise_AAttackActor, but the factory still needs access to the declaration
+	// of initialise_AProjectile to call it.
+	virtual void initAttack(AAttackActor*);
+	virtual void initProjectile(AProjectile*) { shouldNotRunError(); }
+	virtual void initAOE(AAOE*) { shouldNotRunError(); }
+	virtual void initExplosiveProjectile(AExplosiveProjectile*) { shouldNotRunError(); }
+
 	virtual void launchAttack();
-	void initialise_UAttackFactory(APawn*, const UAttackConfig*, const UAttackAttributes*);
+	void initialise_AAttackFactory(APawn*, const UAttackConfig*, const UAttackAttributes*);
 };
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "BaseAttributeSetTemplate.h"
-
-UCLASS(BlueprintType)
+UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UAttackFactoryTemplate : public UBaseAttributeSetTemplate {
 	GENERATED_BODY()
 
@@ -136,7 +140,34 @@ public:
 	UPROPERTY(EditAnywhere, Instanced, Category = "UAttackFactoryTemplate")
 	UAttackAttributes* _attackAttributes;
 
-	virtual UAttackFactory* createFactory(APawn*, const UObject*) const;
+	virtual AAttackFactory* createFactory(APawn*, UObject*) const;
+	UAttackFactoryTemplate(const FObjectInitializer& init) : Super(init) {
+		_attackConfig = init.CreateDefaultSubobject<UAttackConfig>(this, "_attackConfig");
+		_attackAttributes = init.CreateDefaultSubobject<UAttackAttributes>(this, "_attackAttributes");
+	}
 };
+///////////////////////////////////////////////////////////////////////////////
+template <typename T>
+T* AAttackFactory::spawnActor() const {
+	static_assert(std::is_base_of<AAttackActor, T>::value, "T must be derived from AAttackActor");
 
-#include "AttackActor.generated.h"
+	if (!_pawnRef.IsValid())
+		return nullptr;
+	UWorld* world = _pawnRef->GetWorld();
+	if (world == nullptr) {
+		LOGERROR("AAttackFactory::spawnActor - world is null");
+		return nullptr;
+	}
+	FActorSpawnParameters spawnParams;
+	spawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	FVector spawnLocation = _pawnRef->GetActorLocation();
+	FRotator spawnRotation = _pawnRef->GetActorRotation();
+
+	// This should create a compile error if T is not a subclass of UObject
+	T* actor = world->SpawnActor<T>(spawnLocation, spawnRotation, spawnParams);
+	if (actor == nullptr) {
+		LOGERROR("AAttackFactory::spawnActor - failed to spawn actor");
+		return nullptr;
+	}
+	return actor;
+}

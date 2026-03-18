@@ -6,6 +6,7 @@
 #include "Engine/HitResult.h"
 #include "CombatantManager.h"
 #include "Combatant.h"
+#include "Engine/World.h"
 #include "MyGameplayStatics.h"
 
 namespace {
@@ -137,7 +138,7 @@ void AProjectile::Tick(float delta) {
 		return;
 	}
 	FVector start = GetActorLocation();
-	FVector end = start + FVector(_directionX, 0, _directionZ) * attr->_speed * delta;
+	FVector end = start + FVector(_directionX, 0, _directionZ) * _projectileAttributes->_speed * delta;
 	TArray<struct FHitResult> OutHits;
 	performSweep(start, end, OutHits);
 	handleSweepResults(OutHits);
@@ -147,8 +148,8 @@ void AProjectile::Tick(float delta) {
 	_distanceTravelled += _projectileAttributes->_speed * delta;
 }
 
-void AProjectile::factoryInitQuery(const UAttackFactory* factory) {
-	if (!IsVaid(factory)) {
+void AProjectile::factoryInitQuery(AAttackFactory* factory) {
+	if (!IsValid(factory)) {
 		LOGERROR("AProjectile::factoryInitQuery - factory is not valid");
 	}
 	factory->initProjectile(this);
@@ -156,18 +157,6 @@ void AProjectile::factoryInitQuery(const UAttackFactory* factory) {
 ///////////////////////////////////////////////////////////////////////////////
 
 void UProjectileAttributes::modifyAttributes(const UCombatantAttributes* combatantAttributes, const UProjectileAttributes* baseAttributes, UProjectileAttributes* finalAttributes) {
-	const UAttackAttributes* superBase = Cast<UAttackAttributes>(baseAttributes);
-	if (superBase == nullptr) {
-		LOGERROR("AProjectile::modifyAttributes - baseAttributes is not a UAttackAttributes");
-		return;
-	}
-	UAttackAttributes* superFinal = Cast<UAttackAttributes>(finalAttributes);
-	if (superFinal == nullptr) {
-		LOGERROR("AProjectile::modifyAttributes - attributes is not a UAttackAttributes");
-		return;
-	}
-	UAttackAttributes::modifyAttributes(combatantAttributes, superBase, superFinal);
-
 	finalAttributes->_radius = baseAttributes->_radius * combatantAttributes->_projectileSize;
 	finalAttributes->_speed = baseAttributes->_speed * combatantAttributes->_projectileSpeed;
 	finalAttributes->_pierce = baseAttributes->_pierce + combatantAttributes->_bonusPierce;
@@ -175,17 +164,41 @@ void UProjectileAttributes::modifyAttributes(const UCombatantAttributes* combata
 	finalAttributes->_projectileCount = baseAttributes->_projectileCount + combatantAttributes->_bonusProjectiles;
 }
 ///////////////////////////////////////////////////////////////////////////////
-void UProjectileFactory::initialise_UProjectileFactory(
+void AProjectileFactory::initialise_AProjectileFactory(
 	APawn* pawn,
 	const UAttackConfig* attackConfig,
 	const UAttackAttributes* attackAttributes,
 	const UProjectileConfig* projectileConfig,
 	const UProjectileAttributes* projectileAttributes)
 {
-	initialise_UAttackFactory(pawn, attackConfig, attackAttributes);
+	initialise_AAttackFactory(pawn, attackConfig, attackAttributes);
 	_projectileConfig = DuplicateObject<UProjectileConfig>(projectileConfig, this);
 	_projectileComponent = NewObject<UProjectileComponent>(this);
 	_projectileComponent->initialise_UProjectileComponent(projectileAttributes);
+}
+
+void AProjectileFactory::launchAttack() {
+	AProjectile* newAttack = spawnActor<AProjectile>();
+	if (newAttack == nullptr) {
+		LOGERROR("AProjectileFactory::launchAttack - failed to spawn projectile");
+		return;
+	}
+	newAttack->factoryInitQuery(this);
+}
+
+void AProjectileFactory::initProjectile(AProjectile* projectile) {
+	if (!IsValid(projectile)) {
+		LOGERROR("AProjectileFactory::initProjectile - projectile is not valid");
+		return;
+	}
+	projectile->initialise_AProjectile(
+		_pawnRef.Get(),
+		getDirectionX(),
+		getDirectionZ(),
+		_attackConfig,
+		_attackComponent->getFinal<UAttackAttributes>(),
+		_projectileConfig,
+		_projectileComponent->getFinal<UProjectileAttributes>());
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -202,11 +215,11 @@ bool UProjectileFactoryTemplate::isValid() const {
 	return UAttackFactoryTemplate::isValid();
 }
 
-UAttackFactory* UProjectileFactoryTemplate::createFactory(APawn* pawn, const UObject* caller) const {
+AAttackFactory* UProjectileFactoryTemplate::createFactory(APawn* pawn, UObject* caller) const {
 	if (!isValid())
 		return nullptr;
-	UProjectileFactory* factory = NewObject<UProjectileFactory>(caller);
-	factory->initialise_UProjectileFactory(
+	AProjectileFactory* factory = NewObject<AProjectileFactory>(caller);
+	factory->initialise_AProjectileFactory(
 		pawn, 
 		_attackConfig,
 		_attackAttributes,

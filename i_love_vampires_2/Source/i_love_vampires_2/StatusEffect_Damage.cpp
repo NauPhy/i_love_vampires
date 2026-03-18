@@ -1,10 +1,13 @@
 #include "StatusEffect_Damage.h"
 #include "Combatant.h"
 
-void UStatusEffect_Damage::postbonusStep(float delta, UBaseAttributeSet* caller) {
-	UCombatantComponent* component = FindComponentByClass<UCombatantComponent>();
-	if (component != nullptr) {
-		component->_offsets->_currentHP -= _magnitude;
-	}
+void UStatusEffect_Damage::postbonusStep(float delta, ABaseAttributeSet* caller) {
+	UCombatantComponent* component = caller->getComponent<UCombatantComponent>();
+	if (component == nullptr)
+		return;
+	UCombatantAttributes* offsets = component->getOffsets<UCombatantAttributes>();
+	if (offsets == nullptr)
+		return;
+	offsets->_currentHP -= _magnitude;
 	UStatusEffect::postbonusStep(delta, caller);
 }

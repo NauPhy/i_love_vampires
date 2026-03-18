@@ -55,6 +55,7 @@ struct Z_Construct_UClass_UBaseAttributes_Statics
 		{ "BlueprintType", "true" },
 		{ "IncludePath", "BaseAttributes.h" },
 		{ "ModuleRelativePath", "BaseAttributes.h" },
+		{ "ObjectInitializerConstructorDeclared", "" },
 	};
 #endif // WITH_METADATA
 
@@ -97,7 +98,6 @@ UClass* Z_Construct_UClass_UBaseAttributes()
 	}
 	return Z_Registration_Info_UClass_UBaseAttributes.OuterSingleton;
 }
-UBaseAttributes::UBaseAttributes(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, UBaseAttributes);
 UBaseAttributes::~UBaseAttributes() {}
 // ********** End Class UBaseAttributes ************************************************************
@@ -106,10 +106,10 @@ UBaseAttributes::~UBaseAttributes() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributes_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UBaseAttributes, UBaseAttributes::StaticClass, TEXT("UBaseAttributes"), &Z_Registration_Info_UClass_UBaseAttributes, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBaseAttributes), 68741176U) },
+		{ Z_Construct_UClass_UBaseAttributes, UBaseAttributes::StaticClass, TEXT("UBaseAttributes"), &Z_Registration_Info_UClass_UBaseAttributes, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBaseAttributes), 866931287U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributes_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributes_h__Script_i_love_vampires_2_871349480{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributes_h__Script_i_love_vampires_2_2595305735{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributes_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributes_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

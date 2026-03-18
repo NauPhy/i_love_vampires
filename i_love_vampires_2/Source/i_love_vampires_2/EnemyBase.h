@@ -4,6 +4,7 @@
 #include "Combatant.h"
 #include "EnemyBase.generated.h"
 
+
 UCLASS()
 class I_LOVE_VAMPIRES_2_API AEnemyBase : public ACombatant
 {
@@ -22,5 +23,6 @@ public:
 	virtual void EndPlay(EEndPlayReason::Type EndPlayReason) override;
 	virtual void Tick(float delta) override;
 	void initialise_AEnemyBase(const FPrimaryAssetId& temp) { initialise_ACombatant(temp); }
-	//virtual void myInitialise(const UCombatantTemplate* temp) override { initialise_AEnemyBase(temp); }
+	void initialise_AEnemyBase(const UCombatantTemplate* temp) { initialise_ACombatant(temp); }
+	virtual void myInitialise(const UCombatantTemplate* temp) override { initialise_AEnemyBase(temp); }
 };

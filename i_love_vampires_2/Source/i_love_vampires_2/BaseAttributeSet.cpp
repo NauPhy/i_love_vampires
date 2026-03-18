@@ -18,31 +18,17 @@ void ABaseAttributeSet::tick(float delta) {
 	}
 	for (auto i = _statusEffects.Num() - 1; i > -1; i--)
 	{
-		if (!IsValid(_statusEffects[i])) {
+		if (!IsValid(_statusEffects[i]) || _statusEffects[i]->getDuration() <= 0) {
 			_statusEffects.RemoveAt(i);
 		}
 	}
 	for (auto it = _callbacks.begin(); it != _callbacks.end();) {
-		if (!it->tick()) {
+		CallbackBase* callback = (*it).get();
+		if (!callback->tick()) {
 			it = _callbacks.erase(it);
 		}
 		else {
 			it++;
 		}
 	}
-}
-
-template<typename T>
-bool ABaseAttributeSet::addCallback(TSubclassOf<UBaseAttributeComponent> componentClass, float T::* member, std::function<void(float, float)> callback) {
-	UBaseAttributeComponent* component = FindComponentByClass(componentClass);
-	if (component == nullptr) {
-			return false;
-	}
-	T* attrPointer = Cast<T>(component->getFinal());
-	if (attrPointer == nullptr) {
-		return false;
-	}
-	callbackClass newCallback = callbackClass(component, &(attrPointer->*member), callback);
-	_callbacks.push_back(newCallback);
-	return true;
 }

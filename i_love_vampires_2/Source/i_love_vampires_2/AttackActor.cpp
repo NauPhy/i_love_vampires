@@ -1,12 +1,17 @@
 #include "AttackActor.h"
 #include "Definitions.h"
-
+#include <type_traits>
 #include "Combatant.h"
 #include "StatusFactory.h"
+#include "Kismet/KismetMathLibrary.h"
+
+void AAttackFactory::shouldNotRunError() const {
+	LOGERROR("UAttackFactory::shouldNotRunError - this should not run");
+}
 
 void AAttackActor::Tick(float delta) {}
 
-void AAttackActor::initialise_AAttackActor(APawn* pawnRef, UAttackConfig* config, UAttackAttributes* attributes) {
+void AAttackActor::initialise_AAttackActor(APawn* pawnRef, const UAttackConfig* config, const UAttackAttributes* attributes) {
 	_attackConfig = DuplicateObject<UAttackConfig>(config, this);
 	_attackAttributes = DuplicateObject<UAttackAttributes>(attributes, this);
 	_pawnRef = TWeakObjectPtr<APawn>(pawnRef);
@@ -29,7 +34,7 @@ void AAttackActor::applyEffect(ACombatant* target) {
 		}
 	}
 	// Chance is included in the newly created effect, just in case
-	for (const FEffectStruct& tempStruct : _config->_statusEffects) {
+	for (const FEffectStruct& tempStruct : _attackConfig->_statusEffects) {
 		if (FMath::FRand() <= tempStruct._chance) {
 
 			target->inflictStatus(StatusFactory::createStatusEffect(tempStruct));
@@ -38,7 +43,7 @@ void AAttackActor::applyEffect(ACombatant* target) {
 	_effectedPawns.Add(TWeakObjectPtr<APawn>(Cast<APawn>(target)));
 }
 
-void AAttackActor::factoryInitQuery(const UAttackFactory* factory) {
+void AAttackActor::factoryInitQuery(AAttackFactory* factory) {
 	if (!IsValid(factory)) {
 		LOGERROR("AAttackActor::factoryInitQuery - not valid");
 		return;
@@ -53,12 +58,31 @@ void UAttackAttributes::modifyAttributes(const UCombatantAttributes* modifiers, 
 }
 ///////////////////////////////////////////////////////////////////////////////
 
-void UAttackFactory::initialise_UAttackFactory(APawn* pawnRef, const UAttackConfig* config, const UAttackAttributes* attributes) {
+void AAttackFactory::initialise_AAttackFactory(APawn* pawnRef, const UAttackConfig* config, const UAttackAttributes* attributes) {
 	_attackConfig = DuplicateObject<UAttackConfig>(config, this);
 	_attackComponent = NewObject<UAttackComponent>(this);
 	_attackComponent->initialise_UAttackComponent(attributes);
 	_pawnRef = TWeakObjectPtr<APawn>(pawnRef);
 }
+
+// This could just as easily (maybe even slightly more easily) be done with TSubclassOf<AAttackActor> in either AAttackFactory or UAttackConfig,
+// but I'm more used to inheritance and this shit is really complicated.
+void AAttackFactory::launchAttack() {
+	AAttackActor* newAttack = spawnActor<AAttackActor>();
+	if (newAttack == nullptr)
+		return;
+	newAttack->factoryInitQuery(this);
+}
+
+void AAttackFactory::initAttack(AAttackActor* attack) {
+	if (!IsValid(attack)) {
+		LOGERROR("AAttackFactory::initAttack - attack is not valid");
+		return;
+	}
+	attack->initialise_AAttackActor(_pawnRef.Get(), _attackConfig, _attackComponent->getFinal<UAttackAttributes>());
+}
+	
+
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -69,10 +93,10 @@ bool UAttackFactoryTemplate::isValid() const {
 	}
 	return true;
 }
-UAttackFactory* UAttackFactoryTemplate::createFactory(APawn* pawnRef, const UObject* caller) const {
+AAttackFactory* UAttackFactoryTemplate::createFactory(APawn* pawnRef, UObject* caller) const {
 	if (!isValid())
 		return nullptr;
-	UAttackFactory* factory = NewObject<UAttackFactory>(caller);
-	factory->initialise_UAttackFactory(pawnRef, _attackConfig, _attackAttributes);
+	AAttackFactory* factory = NewObject<AAttackFactory>(caller);
+	factory->initialise_AAttackFactory(pawnRef, _attackConfig, _attackAttributes);
 	return factory;
 }

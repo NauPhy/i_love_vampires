@@ -12,24 +12,25 @@ static_assert(!UE_WITH_CONSTINIT_UOBJECT, "This generated code can only be compi
 void EmptyLinkFunctionForGeneratedCodeBaseAttributeSet() {}
 
 // ********** Begin Cross Module References ********************************************************
-COREUOBJECT_API UClass* Z_Construct_UClass_UObject();
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseAttributeSet();
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseAttributeSet_NoRegister();
+ENGINE_API UClass* Z_Construct_UClass_AActor();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_ABaseAttributeSet();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_ABaseAttributeSet_NoRegister();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UStatusEffect_NoRegister();
 UPackage* Z_Construct_UPackage__Script_i_love_vampires_2();
 // ********** End Cross Module References **********************************************************
 
-// ********** Begin Class UBaseAttributeSet ********************************************************
-FClassRegistrationInfo Z_Registration_Info_UClass_UBaseAttributeSet;
-UClass* UBaseAttributeSet::GetPrivateStaticClass()
+// ********** Begin Class ABaseAttributeSet ********************************************************
+FClassRegistrationInfo Z_Registration_Info_UClass_ABaseAttributeSet;
+UClass* ABaseAttributeSet::GetPrivateStaticClass()
 {
-	using TClass = UBaseAttributeSet;
-	if (!Z_Registration_Info_UClass_UBaseAttributeSet.InnerSingleton)
+	using TClass = ABaseAttributeSet;
+	if (!Z_Registration_Info_UClass_ABaseAttributeSet.InnerSingleton)
 	{
 		GetPrivateStaticClassBody(
 			TClass::StaticPackage(),
 			TEXT("BaseAttributeSet"),
-			Z_Registration_Info_UClass_UBaseAttributeSet.InnerSingleton,
-			StaticRegisterNativesUBaseAttributeSet,
+			Z_Registration_Info_UClass_ABaseAttributeSet.InnerSingleton,
+			StaticRegisterNativesABaseAttributeSet,
 			sizeof(TClass),
 			alignof(TClass),
 			TClass::StaticClassFlags,
@@ -42,73 +43,89 @@ UClass* UBaseAttributeSet::GetPrivateStaticClass()
 			&TClass::WithinClass::StaticClass
 		);
 	}
-	return Z_Registration_Info_UClass_UBaseAttributeSet.InnerSingleton;
+	return Z_Registration_Info_UClass_ABaseAttributeSet.InnerSingleton;
 }
-UClass* Z_Construct_UClass_UBaseAttributeSet_NoRegister()
+UClass* Z_Construct_UClass_ABaseAttributeSet_NoRegister()
 {
-	return UBaseAttributeSet::GetPrivateStaticClass();
+	return ABaseAttributeSet::GetPrivateStaticClass();
 }
-struct Z_Construct_UClass_UBaseAttributeSet_Statics
+struct Z_Construct_UClass_ABaseAttributeSet_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
 		{ "IncludePath", "BaseAttributeSet.h" },
 		{ "ModuleRelativePath", "BaseAttributeSet.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__statusEffects_MetaData[] = {
+		{ "ModuleRelativePath", "BaseAttributeSet.h" },
+	};
 #endif // WITH_METADATA
 
-// ********** Begin Class UBaseAttributeSet constinit property declarations ************************
-// ********** End Class UBaseAttributeSet constinit property declarations **************************
+// ********** Begin Class ABaseAttributeSet constinit property declarations ************************
+	static const UECodeGen_Private::FObjectPropertyParams NewProp__statusEffects_Inner;
+	static const UECodeGen_Private::FArrayPropertyParams NewProp__statusEffects;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Class ABaseAttributeSet constinit property declarations **************************
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
-		TCppClassTypeTraits<UBaseAttributeSet>::IsAbstract,
+		TCppClassTypeTraits<ABaseAttributeSet>::IsAbstract,
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
-}; // struct Z_Construct_UClass_UBaseAttributeSet_Statics
-UObject* (*const Z_Construct_UClass_UBaseAttributeSet_Statics::DependentSingletons[])() = {
-	(UObject* (*)())Z_Construct_UClass_UObject,
+}; // struct Z_Construct_UClass_ABaseAttributeSet_Statics
+
+// ********** Begin Class ABaseAttributeSet Property Definitions ***********************************
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ABaseAttributeSet_Statics::NewProp__statusEffects_Inner = { "_statusEffects", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UStatusEffect_NoRegister, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_ABaseAttributeSet_Statics::NewProp__statusEffects = { "_statusEffects", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABaseAttributeSet, _statusEffects), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__statusEffects_MetaData), NewProp__statusEffects_MetaData) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ABaseAttributeSet_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABaseAttributeSet_Statics::NewProp__statusEffects_Inner,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABaseAttributeSet_Statics::NewProp__statusEffects,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ABaseAttributeSet_Statics::PropPointers) < 2048);
+// ********** End Class ABaseAttributeSet Property Definitions *************************************
+UObject* (*const Z_Construct_UClass_ABaseAttributeSet_Statics::DependentSingletons[])() = {
+	(UObject* (*)())Z_Construct_UClass_AActor,
 	(UObject* (*)())Z_Construct_UPackage__Script_i_love_vampires_2,
 };
-static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UBaseAttributeSet_Statics::DependentSingletons) < 16);
-const UECodeGen_Private::FClassParams Z_Construct_UClass_UBaseAttributeSet_Statics::ClassParams = {
-	&UBaseAttributeSet::StaticClass,
-	nullptr,
+static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ABaseAttributeSet_Statics::DependentSingletons) < 16);
+const UECodeGen_Private::FClassParams Z_Construct_UClass_ABaseAttributeSet_Statics::ClassParams = {
+	&ABaseAttributeSet::StaticClass,
+	"Engine",
 	&StaticCppClassTypeInfo,
 	DependentSingletons,
 	nullptr,
-	nullptr,
+	Z_Construct_UClass_ABaseAttributeSet_Statics::PropPointers,
 	nullptr,
 	UE_ARRAY_COUNT(DependentSingletons),
 	0,
+	UE_ARRAY_COUNT(Z_Construct_UClass_ABaseAttributeSet_Statics::PropPointers),
 	0,
-	0,
-	0x001000A0u,
-	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UBaseAttributeSet_Statics::Class_MetaDataParams), Z_Construct_UClass_UBaseAttributeSet_Statics::Class_MetaDataParams)
+	0x009000A4u,
+	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ABaseAttributeSet_Statics::Class_MetaDataParams), Z_Construct_UClass_ABaseAttributeSet_Statics::Class_MetaDataParams)
 };
-void UBaseAttributeSet::StaticRegisterNativesUBaseAttributeSet()
+void ABaseAttributeSet::StaticRegisterNativesABaseAttributeSet()
 {
 }
-UClass* Z_Construct_UClass_UBaseAttributeSet()
+UClass* Z_Construct_UClass_ABaseAttributeSet()
 {
-	if (!Z_Registration_Info_UClass_UBaseAttributeSet.OuterSingleton)
+	if (!Z_Registration_Info_UClass_ABaseAttributeSet.OuterSingleton)
 	{
-		UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_UBaseAttributeSet.OuterSingleton, Z_Construct_UClass_UBaseAttributeSet_Statics::ClassParams);
+		UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_ABaseAttributeSet.OuterSingleton, Z_Construct_UClass_ABaseAttributeSet_Statics::ClassParams);
 	}
-	return Z_Registration_Info_UClass_UBaseAttributeSet.OuterSingleton;
+	return Z_Registration_Info_UClass_ABaseAttributeSet.OuterSingleton;
 }
-UBaseAttributeSet::UBaseAttributeSet(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
-DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, UBaseAttributeSet);
-UBaseAttributeSet::~UBaseAttributeSet() {}
-// ********** End Class UBaseAttributeSet **********************************************************
+ABaseAttributeSet::ABaseAttributeSet(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
+DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, ABaseAttributeSet);
+ABaseAttributeSet::~ABaseAttributeSet() {}
+// ********** End Class ABaseAttributeSet **********************************************************
 
 // ********** Begin Registration *******************************************************************
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributeSet_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UBaseAttributeSet, UBaseAttributeSet::StaticClass, TEXT("UBaseAttributeSet"), &Z_Registration_Info_UClass_UBaseAttributeSet, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBaseAttributeSet), 2371372899U) },
+		{ Z_Construct_UClass_ABaseAttributeSet, ABaseAttributeSet::StaticClass, TEXT("ABaseAttributeSet"), &Z_Registration_Info_UClass_ABaseAttributeSet, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABaseAttributeSet), 2654192918U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributeSet_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributeSet_h__Script_i_love_vampires_2_1413845150{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributeSet_h__Script_i_love_vampires_2_3676002922{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributeSet_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributeSet_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

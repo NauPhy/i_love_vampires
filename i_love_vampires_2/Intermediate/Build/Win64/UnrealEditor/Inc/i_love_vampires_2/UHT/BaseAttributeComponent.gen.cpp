@@ -15,6 +15,7 @@ void EmptyLinkFunctionForGeneratedCodeBaseAttributeComponent() {}
 ENGINE_API UClass* Z_Construct_UClass_UActorComponent();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseAttributeComponent();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseAttributeComponent_NoRegister();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseAttributes_NoRegister();
 UPackage* Z_Construct_UPackage__Script_i_love_vampires_2();
 // ********** End Cross Module References **********************************************************
 
@@ -55,9 +56,22 @@ struct Z_Construct_UClass_UBaseAttributeComponent_Statics
 		{ "IncludePath", "BaseAttributeComponent.h" },
 		{ "ModuleRelativePath", "BaseAttributeComponent.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__final_MetaData[] = {
+		{ "ModuleRelativePath", "BaseAttributeComponent.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__base_MetaData[] = {
+		{ "ModuleRelativePath", "BaseAttributeComponent.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__offsets_MetaData[] = {
+		{ "ModuleRelativePath", "BaseAttributeComponent.h" },
+	};
 #endif // WITH_METADATA
 
 // ********** Begin Class UBaseAttributeComponent constinit property declarations ******************
+	static const UECodeGen_Private::FObjectPropertyParams NewProp__final;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp__base;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp__offsets;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class UBaseAttributeComponent constinit property declarations ********************
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
@@ -65,6 +79,18 @@ struct Z_Construct_UClass_UBaseAttributeComponent_Statics
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
 }; // struct Z_Construct_UClass_UBaseAttributeComponent_Statics
+
+// ********** Begin Class UBaseAttributeComponent Property Definitions *****************************
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UBaseAttributeComponent_Statics::NewProp__final = { "_final", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBaseAttributeComponent, _final), Z_Construct_UClass_UBaseAttributes_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__final_MetaData), NewProp__final_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UBaseAttributeComponent_Statics::NewProp__base = { "_base", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBaseAttributeComponent, _base), Z_Construct_UClass_UBaseAttributes_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__base_MetaData), NewProp__base_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UBaseAttributeComponent_Statics::NewProp__offsets = { "_offsets", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBaseAttributeComponent, _offsets), Z_Construct_UClass_UBaseAttributes_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__offsets_MetaData), NewProp__offsets_MetaData) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UBaseAttributeComponent_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UBaseAttributeComponent_Statics::NewProp__final,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UBaseAttributeComponent_Statics::NewProp__base,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UBaseAttributeComponent_Statics::NewProp__offsets,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UBaseAttributeComponent_Statics::PropPointers) < 2048);
+// ********** End Class UBaseAttributeComponent Property Definitions *******************************
 UObject* (*const Z_Construct_UClass_UBaseAttributeComponent_Statics::DependentSingletons[])() = {
 	(UObject* (*)())Z_Construct_UClass_UActorComponent,
 	(UObject* (*)())Z_Construct_UPackage__Script_i_love_vampires_2,
@@ -76,11 +102,11 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_UBaseAttributeComponent
 	&StaticCppClassTypeInfo,
 	DependentSingletons,
 	nullptr,
-	nullptr,
+	Z_Construct_UClass_UBaseAttributeComponent_Statics::PropPointers,
 	nullptr,
 	UE_ARRAY_COUNT(DependentSingletons),
 	0,
-	0,
+	UE_ARRAY_COUNT(Z_Construct_UClass_UBaseAttributeComponent_Statics::PropPointers),
 	0,
 	0x00B000A4u,
 	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UBaseAttributeComponent_Statics::Class_MetaDataParams), Z_Construct_UClass_UBaseAttributeComponent_Statics::Class_MetaDataParams)
@@ -105,10 +131,10 @@ UBaseAttributeComponent::~UBaseAttributeComponent() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributeComponent_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UBaseAttributeComponent, UBaseAttributeComponent::StaticClass, TEXT("UBaseAttributeComponent"), &Z_Registration_Info_UClass_UBaseAttributeComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBaseAttributeComponent), 1271662452U) },
+		{ Z_Construct_UClass_UBaseAttributeComponent, UBaseAttributeComponent::StaticClass, TEXT("UBaseAttributeComponent"), &Z_Registration_Info_UClass_UBaseAttributeComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBaseAttributeComponent), 4028953201U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributeComponent_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributeComponent_h__Script_i_love_vampires_2_1608286384{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributeComponent_h__Script_i_love_vampires_2_2415100019{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributeComponent_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributeComponent_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

@@ -6,4 +6,7 @@ UCLASS(BlueprintType)
 class I_LOVE_VAMPIRES_2_API UBaseAttributes : public UObject
 {
 	GENERATED_BODY()
+
+public:
+	UBaseAttributes(const FObjectInitializer& init) : Super(init) {}
 };

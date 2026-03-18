@@ -1,7 +1,9 @@
 #pragma once
 #include "CoreMinimal.h"
-
+//
 #include "Projectile.h"
+//
+#include "ExplosiveProjectile.generated.h"
 class AAOE;
 class UExplosiveProjectileConfig;
 class UExplosiveProjectileAttributes;
@@ -21,7 +23,6 @@ protected:
 
 	virtual void bulletDeath() override;
 	virtual void handleSweepResults(const TArray<struct FHitResult>& hits) override;
-	virtual void factoryInitQuery(const UAttackFactory* factory) override;
 
 public:
 	AExplosiveProjectile() : AProjectile() {}
@@ -39,70 +40,68 @@ public:
 		const UExplosiveProjectileAttributes* explosiveProjectileAttributes);
 
 	const AAOE* getAOE() const { return _AOE; }
+	virtual void factoryInitQuery(AAttackFactory* factory) override;
 };
 ///////////////////////////////////////////////////////////////////////////////
 
-UCLASS(BlueprintType)
+UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UExplosiveProjectileConfig : public UBaseConfig
 {
 	GENERATED_BODY()
 public:
-	UExplosiveProjectileConfig() { _attackClass = AExplosiveProjectile::StaticClass(); }
+	UExplosiveProjectileConfig(const FObjectInitializer& init) : Super(init) {}
 };
 ///////////////////////////////////////////////////////////////////////////////
 
-UCLASS(BlueprintType)
+UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UExplosiveProjectileAttributes : public UBaseAttributes
 {
 	GENERATED_BODY()
 
 public:
-	virtual void modifyAttributes(const UCombatantAttributes*, const UExplosiveProjectileAttributes*, UExplosiveProjectileAttributes*);
+	static void modifyAttributes(const UCombatantAttributes*, const UExplosiveProjectileAttributes*, UExplosiveProjectileAttributes*);
+	UExplosiveProjectileAttributes(const FObjectInitializer& init) : Super(init) {}
 };
 ///////////////////////////////////////////////////////////////////////////////
 
 UCLASS()
-class I_LOVE_VAMPIRES_2_API UExplosiveProjectileAttributeComponent : public UProjectileAttributeComponent
+class I_LOVE_VAMPIRES_2_API UExplosiveProjectileComponent : public UBaseAttributeComponent
 {
 	GENERATED_BODY()
 public:
-	UPROPERTY()
-	UExplosiveProjectileAttributes* _base;
-	UPROPERTY()
-	UExplosiveProjectileAttributes* _final;
-	UPROPERTY()
-	UExplosiveProjectileAttributes* _offsets;
 	void initialise_UExplosiveProjectileComponent(const UExplosiveProjectileAttributes* baseAttributes) {
 		_base = DuplicateObject(baseAttributes, this);
 		_final = DuplicateObject(baseAttributes, this);
 		_offsets = DuplicateObject(baseAttributes, this);
 	}
-	virtual UBaseAttributes* getFinal() const override { return _final; }
 };
 
 ///////////////////////////////////////////////////////////////////////////////
 class UAOEConfig;
+class UAOEAttributes;
 class UAOEComponent;
 
 UCLASS()
-class I_LOVE_VAMPIRES_2_API UExplosiveProjectileFactory : public UProjectileFactory
+class I_LOVE_VAMPIRES_2_API AExplosiveProjectileFactory : public AProjectileFactory
 {
 	GENERATED_BODY()
 
+	TWeakObjectPtr<AAOE> _tempAOE = nullptr;
+
+protected:
 	UPROPERTY()
 	UExplosiveProjectileConfig* _explosiveProjectileConfig = nullptr;
 	UPROPERTY()
 	UExplosiveProjectileComponent* _explosiveProjectileComponent = nullptr;
 	UPROPERTY()
-	UAOEConfig* _aoeConfig = nullptr;
+	UAOEConfig* _AOEConfig = nullptr;
 	UPROPERTY()
-	UAOEComponent* _aoeComponent = nullptr;
-
-protected:
-	virtual void initExplosiveProjectile(AExplosiveProjectile*) const override;
-	virtual void initAOE(AAOE*) const override;
+	UAOEComponent* _AOEComponent = nullptr;
 public:
-	virtual void initialise_UAttackFactory(
+	virtual void initExplosiveProjectile(AExplosiveProjectile*) override;
+	virtual void initAOE(AAOE*) override;
+	virtual void launchAttack() override;
+	void initialise_AExplosiveProjectileFactory(
 		APawn*,
 		const UAttackConfig*,
 		const UAttackAttributes*,
@@ -115,7 +114,7 @@ public:
 };
 ///////////////////////////////////////////////////////////////////////////////
 
-UCLASS(BlueprintType)
+UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UExplosiveProjectileFactoryTemplate : public UProjectileFactoryTemplate {
 	GENERATED_BODY()
 
@@ -127,8 +126,17 @@ public:
 	UExplosiveProjectileConfig* _explosiveProjectileConfig;
 	UPROPERTY(EditAnywhere, Instanced, Category = "UExplosiveProjectileFactoryTemplate")
 	UExplosiveProjectileAttributes* _explosiveProjectileAttributes;
+	UPROPERTY(EditAnywhere, Instanced, Category = "UExplosiveProjectileFactoryTemplate")
+	UAOEConfig* _AOEConfig;
+	UPROPERTY(EditAnywhere, Instanced, Category = "UExplosiveProjectileFactoryTemplate")
+	UAOEAttributes* _AOEAttributes;
 
-	virtual UAttackFactory* createFactory(APawn*, const UObject*) const override;
+	virtual	AAttackFactory* createFactory(APawn*, UObject*) const override;
+	UExplosiveProjectileFactoryTemplate(const FObjectInitializer& init) : Super(init) {
+		_explosiveProjectileConfig = init.CreateDefaultSubobject<UExplosiveProjectileConfig>(this, "_explosiveProjectileConfig");
+		_explosiveProjectileAttributes = init.CreateDefaultSubobject<UExplosiveProjectileAttributes>(this, "_explosiveProjectileAttributes");
+		_AOEConfig = init.CreateDefaultSubobject<UAOEConfig>(this, "_AOEConfig");
+		_AOEAttributes = init.CreateDefaultSubobject<UAOEAttributes>(this, "_AOEAttributes");
+	}
 };
 
-#include "ExplosiveProjectile.generated.h"

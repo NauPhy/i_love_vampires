@@ -2,11 +2,17 @@
 #include "CoreMinimal.h"
 #include "UObject/Object.h"
 #include "UObject/PrimaryAssetID.h"
+//
+#include "BaseConfig.h"
+//
+#include "BaseTemplate.h"
+#include "AttackActor.h"
+//
 #include "Active.generated.h"
 class APawn;
 class UCombatantAttributes;
 class UWeaponConfig;
-class UAttackFactory;
+//class AAttackFactory;
 
 UCLASS()
 class I_LOVE_VAMPIRES_2_API UActive : public UObject {
@@ -14,27 +20,25 @@ class I_LOVE_VAMPIRES_2_API UActive : public UObject {
 
 	float _timeSinceLastActivation = 0;
 	float _chargeRatio = 0;
-	//TWeakObjectPtr<UCombatantAttributes> _combatantAttributes = nullptr;
+	TWeakObjectPtr<UCombatantAttributes> _combatantAttributes = nullptr;
 	TWeakObjectPtr<APawn> _pawnRef = nullptr;
 
 	UPROPERTY()
 	UWeaponConfig* _config;
 	UPROPERTY()
-	TArray<UAttackFactory*> _factories;
+	TArray<AAttackFactory*> _factories;
 
 	void updateWarmup(float delta);
 	void activate();
 	//bool initAttackData(const TArray<UAttackData*>&);
 
 public:
-	void initialise_UActive(const APawn* caller, const FPrimaryAssetId& ID, UCombatantAttributes* callerAttributes);
+	void initialise_UActive(APawn* caller, const FPrimaryAssetId& ID, UCombatantAttributes* callerAttributes);
 	virtual void tick(float delta);
 };
 ///////////////////////////////////////////////////////////////////////////////
 
-#include "BaseConfig.h"
-
-UCLASS(BlueprintType)
+UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UWeaponConfig : public UBaseConfig
 {
 	GENERATED_BODY()
@@ -45,12 +49,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponConfig")
 	bool _startOnCooldown = true;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponConfig")
-	float warmup = 1.f;
+	float _warmup = 1.f;
+	UWeaponConfig(const FObjectInitializer& init) : Super(init) {}
 };
 ///////////////////////////////////////////////////////////////////////////////
-
-#include "BaseTemplate.h"
-#include "AttackActor.h"
 
 UCLASS(BlueprintType)
 class I_LOVE_VAMPIRES_2_API UWeaponTemplate : public UBaseTemplate
@@ -61,6 +63,8 @@ public:
 	UPROPERTY(EditAnywhere, Instanced, Category = "WeaponTemplate")
 	UWeaponConfig* _config;
 	UPROPERTY(EditAnywhere, Instanced, Category = "WeaponTemplate")
-	TArray<TObjectPtr<UAttackFactoryTemplate*>> _attackData;
+	TArray<UAttackFactoryTemplate*> _attackData;
+	UWeaponTemplate(const FObjectInitializer& init) : Super(init) {
+		_config = init.CreateDefaultSubobject<UWeaponConfig>(this, "_config");
+	}
 };
-

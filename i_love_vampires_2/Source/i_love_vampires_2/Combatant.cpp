@@ -9,6 +9,8 @@
 #include "Definitions.h"
 #include "StatusEffect_Damage.h"
 #include "Engine/AssetManager.h"
+#include "StatusEffect_Burn.h"
+#include "StatusFactory.h"
 
 
 ACombatant::ACombatant()
@@ -27,26 +29,35 @@ ACombatant::ACombatant()
 }
 
 void ACombatant::burnTick() { _attributeSet->burnTick(); }
+void ACombatantAttributeSet::burnTick() { 
+	for (auto& status : _statusEffects) {
+		UStatusEffect_Burn* burnStatus = Cast<UStatusEffect_Burn>(status);
+		if (burnStatus != nullptr)
+			burnStatus->burnTick();
+	}
+}
 
-void ACombatant::initialise_ACombatant(const UCombatantConfig* config, const UCombatantAttributes* attributes) {
+void ACombatant::initialise_ACombatant(const UCombatantTemplate* rawData) {
+	const UCombatantConfig* config = rawData->_config;
+	const UCombatantAttributes* attributes = rawData->_attributes;
 	// attribute set
 	{
 		_attributeSet = NewObject<ACombatantAttributeSet>(this);
 		_attributeSet->initialise_ACombatantAttributeSet(attributes);
 		//callbacks
-		std::function <void(CombatantAttribute::MyEnum, float, float)> callback = std::bind(&ACombatant::onCurrentHPChanged, this, std::placeholders::_1, std::placeholders::_2);
-		UCombatantAttributes::* member = &UCombatantAttributes::_currentHP;
-		_attributeSet->addCallback<UCombatantAttributes>(UCombatantComponent::StaticClass, member, callback);
+		std::function <void(float, float)> callback = std::bind(&ACombatant::onCurrentHPChanged, this, std::placeholders::_1, std::placeholders::_2);
+		float UCombatantAttributes::* member = &UCombatantAttributes::_currentHP;
+		_attributeSet->addCallback<UCombatantComponent, UCombatantAttributes>(member, callback);
 	}
 	// weapons
-	for (const auto& data : _config._startingWeapons) {
+	for (const auto& data : _config->_startingWeapons) {
 		UActive* active = NewObject<UActive>(this);
 		UCombatantComponent* comp = _attributeSet->FindComponentByClass<UCombatantComponent>();
 		if (comp == nullptr) {
 			LOGERROR("ACombatant::initialise_ACombatant - combatant component not found");
 			continue;
 		}
-		active->initialise_UActive(this, data, comp->getFinal());
+		active->initialise_UActive(this, data, comp->getFinal<UCombatantAttributes>());
 		_activeAbilities.Add(active);
 	}
 	//sprite
@@ -66,23 +77,26 @@ void ACombatant::initialise_ACombatant(const UCombatantConfig* config, const UCo
 	_isInitialised = true;
 }
 
-void ACombatant::initialise_ACombatant(const FPrimaryAssetId id)
+void ACombatant::initialise_ACombatant(const FPrimaryAssetId& id)
 {
 	UAssetManager& assetManager = UAssetManager::Get();
 	UObject* temp = assetManager.GetPrimaryAssetObject(id);
 	if (temp == nullptr) {
-		temp = assetManager.LoadPrimaryAsset(id);
+
+		auto handle = assetManager.LoadPrimaryAsset(id);
+		handle->WaitUntilComplete();
+		temp = assetManager.GetPrimaryAssetObject(id);
 	}
 	if (temp == nullptr) {
-		LOGERROR("ACombatant::initialise_ACombatant - asset not found: " + id.ToString());
+		LOGERROR("ACombatant::initialise_ACombatant - asset not found ");
 		return;
 	}
 	UCombatantTemplate* templateData = Cast<UCombatantTemplate>(temp);
 	if (templateData == nullptr) {
-		LOGERROR("ACombatant::initialise_ACombatant - asset is not a UCombatantTemplate: " + id.ToString());
+		LOGERROR("ACombatant::initialise_ACombatant - asset is not a UCombatantTemplate");
 		return;
 	}
-	initialise_ACombatant(templateData->_config, templateData->_attributes);
+	initialise_ACombatant(templateData);
 }
 void ACombatant::EndPlay(EEndPlayReason::Type EndPlayReason)
 {
@@ -120,22 +134,22 @@ void ACombatant::exchangeContactDamage(ACombatant* left, ACombatant* right) {
 	const float leftThreat = leftAttr->_contactDamage;
 	const float rightThreat = rightAttr->_contactDamage;
 
-	UStatusEffect_Damage* leftDamage = NewObject<UStatusEffect_Damage>(this);
+	UStatusEffect_Damage* leftDamage = NewObject<UStatusEffect_Damage>(left);
 	leftDamage->initialise_UStatusEffect_Damage(rightThreat);
-	UStatusEffect_Damage* rightDamage = NewObject<UStatusEffect_Damage>(this);
+	UStatusEffect_Damage* rightDamage = NewObject<UStatusEffect_Damage>(right);
 	rightDamage->initialise_UStatusEffect_Damage(leftThreat);
 
-	left->inflictStatus(rightThreat);
-	right->inflictStatus(leftThreat);
+	left->inflictStatus(leftDamage);
+	right->inflictStatus(rightDamage);
 }
 
 bool ACombatant::getAttributes(UCombatantAttributes*& ret) {
-	UCombatantComponent = _attributeSet->FindComponentByClass<UCombatantComponent>();
+	UCombatantComponent* comp = _attributeSet->getComponent<UCombatantComponent>();
 	if (comp == nullptr) {
 		LOGERROR("ACombatant::getAttributes - combatant component not found");
 		return false;
 	}
-	ret = comp->getFinal();
+	ret = comp->getFinal<UCombatantAttributes>();
 	if (ret == nullptr)
 		return false;
 	return true;

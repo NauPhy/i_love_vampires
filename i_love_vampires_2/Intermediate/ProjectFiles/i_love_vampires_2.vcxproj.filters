@@ -242,9 +242,6 @@
     <ClCompile Include="..\..\Source\i_love_vampires_2\StatusFactory.cpp">
       <Filter>Source\i_love_vampires_2\MyGAS\StatusEffects\Factory</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\StatusEffectInterface_old.cpp">
-      <Filter>Source\i_love_vampires_2\MyGAS\StatusEffects</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\BaseAttributeSetTemplate.h">
       <Filter>Source\i_love_vampires_2\MyGAS\BaseClasses</Filter>
     </ClCompile>
@@ -286,12 +283,6 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\Projectile.cpp">
       <Filter>Source\i_love_vampires_2\MyGAS\Items\Attacks</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\WeaponTemplate_old.cpp">
-      <Filter>Source\i_love_vampires_2\MyGAS\Items\Active</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\WeaponConfig_old.cpp">
-      <Filter>Source\i_love_vampires_2\MyGAS\Items\Active</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -349,9 +340,6 @@
     <ClInclude Include="..\..\Source\i_love_vampires_2\StatusFactory.h">
       <Filter>Source\i_love_vampires_2\MyGAS\StatusEffects\Factory</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\StatusEffectInterface_old.h">
-      <Filter>Source\i_love_vampires_2\MyGAS\StatusEffects</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\BaseTemplate.h">
       <Filter>Source\i_love_vampires_2\MyGAS\BaseClasses</Filter>
     </ClInclude>
@@ -381,12 +369,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\Projectile.h">
       <Filter>Source\i_love_vampires_2\MyGAS\Items\Attacks</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\WeaponTemplate_old.h">
-      <Filter>Source\i_love_vampires_2\MyGAS\Items\Active</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\WeaponConfig_old.h">
-      <Filter>Source\i_love_vampires_2\MyGAS\Items\Active</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

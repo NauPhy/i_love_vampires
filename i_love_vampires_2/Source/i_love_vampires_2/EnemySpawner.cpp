@@ -5,6 +5,7 @@
 #include <cmath>
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Pawn.h"
+#include "Engine/World.h"
 #include "Engine/AssetManager.h"
 
 UEnemySpawner::UEnemySpawner() {
@@ -13,7 +14,7 @@ UEnemySpawner::UEnemySpawner() {
 bool UEnemySpawner::spawnTestEnemy(ACombatant*& ret) {
 	const float spawnDistance = 300.f;
 
-	APawn* player = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
+	APawn* player = UGameplayStatics::GetPlayerPawn(this, 0);
 	if (player == nullptr) {
 		LOGERROR("player is nullptr");
 		return false;
@@ -31,10 +32,12 @@ bool UEnemySpawner::spawnTestEnemy(ACombatant*& ret) {
 bool UEnemySpawner::spawnEnemy(const FVector& spawnLocation, const FPrimaryAssetId& ID, ACombatant*& ret) {
 	UCombatantTemplate* rawData = nullptr;
 	{
-		UAssetManager manager = UAssetManager::Get();
+		UAssetManager& manager = UAssetManager::Get();
 		UObject* asset = manager.GetPrimaryAssetObject(ID);
 		if (asset == nullptr) {
-			asset = manager.LoadPrimaryAsset(ID);
+			auto handle = manager.LoadPrimaryAsset(ID);
+			handle->WaitUntilComplete();
+			asset = manager.GetPrimaryAssetObject(ID);
 		}
 		if (asset == nullptr) {
 			LOGERROR("UEnemySpawner::spawnEnemy - asset is null");

@@ -1,5 +1,6 @@
 #include "ExplosiveProjectile.h"
 #include "Definitions.h"
+#include "AOE.h"
 
 void AExplosiveProjectile::initialise_AExplosiveProjectile(
 	APawn* pawnRef,
@@ -21,7 +22,7 @@ void AExplosiveProjectile::initialise_AExplosiveProjectile(
 		projectileConfig,
 		projectileAttributes
 	);
-	_aoe = aoe;
+	_AOE = aoe;
 	_explosiveProjectileConfig = DuplicateObject<UExplosiveProjectileConfig>(explosiveProjectileConfig, this);
 	_explosiveProjectileAttributes = DuplicateObject<UExplosiveProjectileAttributes>(explosiveProjectileAttributes, this);
 }
@@ -40,7 +41,7 @@ void AExplosiveProjectile::handleSweepResults(const TArray<struct FHitResult>& h
 	}
 }
 
-void AExplosiveProjectile::factoryInitQuery(const UAttackFactory* factory) {
+void AExplosiveProjectile::factoryInitQuery(AAttackFactory* factory) {
 	if (!IsValid(factory)) {
 		LOGERROR("AExplosiveProjectile::factoryInitQuery - factory is not valid");
 		return;
@@ -50,21 +51,10 @@ void AExplosiveProjectile::factoryInitQuery(const UAttackFactory* factory) {
 ///////////////////////////////////////////////////////////////////////////////
 
 void UExplosiveProjectileAttributes::modifyAttributes(const UCombatantAttributes* combatantAttributes, const UExplosiveProjectileAttributes* projectileAttributes, UExplosiveProjectileAttributes* finalAttributes) {
-	const UProjectileAttributes* superBase = Cast<UProjectileAttributes>(projectileAttributes);
-	if (superBase == nullptr) {
-		LOGERROR("UExplosiveProjectileAttributes::modifyAttributes - projectileAttributes is not a UProjectileAttributes");
-		return;
-	}
-	UProjectileAttributes* superFinal = Cast<UProjectileAttributes>(finalAttributes);
-	if (superFinal == nullptr) {
-		LOGERROR("UExplosiveProjectileAttributes::modifyAttributes - finalAttributes is not a UProjectileAttributes");
-		return;
-	}
-	UProjectileAttributes::modifyAttributes(combatantAttributes, superBase, superFinal);
 }
 ///////////////////////////////////////////////////////////////////////////////
 
-void UExplosiveProjectileFactory::initialise_UExplosiveProjectileFactory(
+void AExplosiveProjectileFactory::initialise_AExplosiveProjectileFactory(
 	APawn* pawn,
 	const UAttackConfig* attackConfig,
 	const UAttackAttributes* attackAttributes,
@@ -75,42 +65,104 @@ void UExplosiveProjectileFactory::initialise_UExplosiveProjectileFactory(
 	const UAOEConfig* aoeConfig,
 	const UAOEAttributes* aoeAttributes)
 {
-	initialise_UProjectileFactory(pawn, attackConfig, attackAttributes, projectileConfig, projectileAttributes);
+	initialise_AProjectileFactory(pawn, attackConfig, attackAttributes, projectileConfig, projectileAttributes);
 	_explosiveProjectileConfig = DuplicateObject<UExplosiveProjectileConfig>(explosiveProjectileConfig, this);
-	_explosiveProjectileComponent = NewObject<UExplosiveProjectileAttributeComponent>(this);
+	_explosiveProjectileComponent = NewObject<UExplosiveProjectileComponent>(this);
 	_explosiveProjectileComponent->initialise_UExplosiveProjectileComponent(explosiveProjectileAttributes);
-	_aoeConfig = DuplicateObject<UAOEConfig>(aoeConfig, this);
-	_aoeComponent = NewObject<UAOEComponent>(this);
-	_aoeComponent->initialise_UAOEComponent(aoeAttributes);
+	_AOEConfig = DuplicateObject<UAOEConfig>(aoeConfig, this);
+	_AOEComponent = NewObject<UAOEComponent>(this);
+	_AOEComponent->initialise_UAOEComponent(aoeAttributes);
+}
+
+void AExplosiveProjectileFactory::launchAttack() {
+	if (_tempAOE.IsValid()) {
+		LOGERROR("AExplosiveProjectileFactory::launchAttack - tempAOE is already valid when launching attack");
+		return;
+	}
+	AExplosiveProjectile* newAttack = nullptr;
+	{
+		AAOE* aoe = spawnActor<AAOE>();
+		if (aoe == nullptr)
+			return;
+		_tempAOE = TWeakObjectPtr<AAOE>(aoe);
+		newAttack = spawnActor<AExplosiveProjectile>();
+		if (newAttack == nullptr)
+			return;
+	}
+	_tempAOE->factoryInitQuery(this);
+	newAttack->factoryInitQuery(this);
+	_tempAOE = nullptr;
+}
+
+void AExplosiveProjectileFactory::initAOE(AAOE* attack) {
+	if (!_tempAOE.IsValid() || !IsValid(attack)) {
+		LOGERROR("AExplosiveProjectileFactory::initAOE - tempAOE is not valid");
+		return;
+	}
+	if (_tempAOE.Get() != attack) {
+		LOGERROR("AExplosiveProjectileFactory::initAOE - tempAOE does not match attack");
+		return;
+	}
+	_tempAOE->initialise_AAOE(
+		_pawnRef.Get(),
+		_attackConfig,
+		_attackComponent->getFinal<UAttackAttributes>(),
+		_AOEConfig,
+		_AOEComponent->getFinal<UAOEAttributes>(),
+		true
+	);
+}
+
+void AExplosiveProjectileFactory::initExplosiveProjectile(AExplosiveProjectile* attack) {
+	if (!IsValid(attack)) {
+		LOGERROR("AExplosiveProjectileFactory::initExplosiveProjectile - attack is not valid");
+		return;
+	}
+	if (!_tempAOE.IsValid()) {
+		LOGERROR("AExplosiveProjectileFactory::initExplosiveProjectile - tempAOE not valid when initializing explosive projectile");
+		return;
+	}
+	attack->initialise_AExplosiveProjectile(
+		_pawnRef.Get(),
+		getDirectionX(),
+		getDirectionZ(),
+		_tempAOE.Get(),
+		_attackConfig,
+		_attackComponent->getFinal<UAttackAttributes>(),
+		_projectileConfig,
+		_projectileComponent->getFinal<UProjectileAttributes>(),
+		_explosiveProjectileConfig,
+		_explosiveProjectileComponent->getFinal<UExplosiveProjectileAttributes>()
+	);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 
 bool UExplosiveProjectileFactoryTemplate::isValid() const {
 	if (!IsValid(_explosiveProjectileConfig)) {
-		LOGERROR("UExplosiveProjectileFactoryTemplate::isValid - explosiveProjectileConfig is not valid");)
+		LOGERROR("UExplosiveProjectileFactoryTemplate::isValid - explosiveProjectileConfig is not valid");
 		return false;
 	}
 	if (!IsValid(_explosiveProjectileAttributes)) {
-		LOGERROR("UExplosiveProjectileFactoryTemplate::isValid - explosiveProjectileAttributes is not valid");)
+		LOGERROR("UExplosiveProjectileFactoryTemplate::isValid - explosiveProjectileAttributes is not valid");
 		return false;
 	}
-	if (!IsValid(_aoeConfig)) {
-		LOGERROR("UExplosiveProjectileFactoryTemplate::isValid - aoeConfig is not valid");)
+	if (!IsValid(_AOEConfig)) {
+		LOGERROR("UExplosiveProjectileFactoryTemplate::isValid - aoeConfig is not valid");
 		return false;
 	}
-	if (!IsValid(_aoeComponent)) {
-		LOGERROR("UExplosiveProjectileFactoryTemplate::isValid - aoeComponent is not valid");)
+	if (!IsValid(_AOEAttributes)) {
+		LOGERROR("UExplosiveProjectileFactoryTemplate::isValid - aoeComponent is not valid");
 		return false;
 	}
-	return AProjectile::isValid();
+	return UProjectileFactoryTemplate::isValid();
 }
 
-UAttackFactory* UExplosiveProjectileFactoryTemplate::createFactory(APawn* pawn, const UObject* caller) const {
+AAttackFactory* UExplosiveProjectileFactoryTemplate::createFactory(APawn* pawn, UObject* caller) const {
 	if (!isValid())
 		return nullptr;
-	UExplosiveProjectileFactory* factory = NewObject<UExplosiveProjectileFactory>(caller);
-	factory->initialise_UExplosiveProjectileFactory(
+	AExplosiveProjectileFactory* factory = NewObject<AExplosiveProjectileFactory>(caller);
+	factory->initialise_AExplosiveProjectileFactory(
 		pawn,
 		_attackConfig,
 		_attackAttributes,
@@ -118,8 +170,8 @@ UAttackFactory* UExplosiveProjectileFactoryTemplate::createFactory(APawn* pawn, 
 		_projectileAttributes,
 		_explosiveProjectileConfig,
 		_explosiveProjectileAttributes,
-		_aoeConfig,
-		_aoeComponent
+		_AOEConfig,
+		_AOEAttributes
 	);
 	return factory;
 }

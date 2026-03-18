@@ -13,6 +13,6 @@ public:
 	void initialise_UStatusEffect_Burn(float duration, float magnitude, float chance) {
 		initialise_UStatusEffect(duration, magnitude, chance);
 	}
-	void postbonusStep(float delta, UBaseAttributeSet*) override;
+	void postbonusStep(float delta, ABaseAttributeSet*) override;
 	void burnTick() { _burnThisFrame = true; }
 };

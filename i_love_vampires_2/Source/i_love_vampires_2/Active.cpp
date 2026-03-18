@@ -1,21 +1,20 @@
 #include "Active.h"
 #include "Engine/AssetManager.h"
 #include "Definitions.h"
-
+#include "Combatant.h"
 #include "GameFramework/Pawn.h"
-#include "WeaponTemplate.h"
-#include "CombatantAttributes.h"
-#include "AttackFactory.h"
 
-void UActive::initialise_UActive(const APawn* caller, const FPrimaryAssetId& ID, UCombatantAttributes* callerAttributes) {
+void UActive::initialise_UActive(APawn* caller, const FPrimaryAssetId& ID, UCombatantAttributes* callerAttributes) {
 	_pawnRef = TWeakObjectPtr<APawn>(caller);
 	_combatantAttributes = TWeakObjectPtr<UCombatantAttributes>(callerAttributes);
 	UWeaponTemplate* rawData = nullptr;
 	{
-		UAssetManager manager = UAssetManager::Get();
+		UAssetManager& manager = UAssetManager::Get();
 		UObject* asset = manager.GetPrimaryAssetObject(ID);
 		if (asset == nullptr) {
-			asset = manager.LoadPrimaryAsset(ID);
+			auto temp = manager.LoadPrimaryAsset(ID);
+			temp->WaitUntilComplete();
+			asset = manager.GetPrimaryAssetObject(ID);
 		}
 		if (asset == nullptr) {
 			LOGERROR("UActive::initialise_UActive - asset is null");
@@ -29,11 +28,11 @@ void UActive::initialise_UActive(const APawn* caller, const FPrimaryAssetId& ID,
 	}
 	_config = DuplicateObject(rawData->_config, this);
 	for (const auto& data : rawData->_attackData) {
-		UAttackFactory* factory = data->createFactory(caller, this);
+		AAttackFactory* factory = data->createFactory(caller, this);
 		_factories.Add(factory);
 	}
 	//warmup
-	_timeSinceLastActivation = myTemplate->_startOnCooldown ? 0 : _myTemplate->_warmup;
+	_timeSinceLastActivation = _config->_startOnCooldown ? 0 : _config->_warmup;
 }
 
 void UActive::tick(float delta) {
@@ -65,7 +64,7 @@ void UActive::updateWarmup(float delta) {
 	const float newAttackSpeed = _combatantAttributes->_attackSpeed;
 	const float baseWarmup = _config->_warmup;
 
-	const float modifiedWarmup = baseWarmup * (1.0f / _combatantAttributes->._attackSpeed);
+	const float modifiedWarmup = baseWarmup * (1.0f / _combatantAttributes->_attackSpeed);
 	_timeSinceLastActivation = _chargeRatio * modifiedWarmup + delta;
 	_chargeRatio = _timeSinceLastActivation / modifiedWarmup;
 }

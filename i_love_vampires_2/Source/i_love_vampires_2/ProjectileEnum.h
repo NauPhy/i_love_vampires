@@ -10,7 +10,7 @@ enum class EProjectileShape : uint8
 UENUM(BlueprintType)
 enum class EAttackShape : uint8
 {
-	fan UMETA(DisplayName = "circle")
+	fan UMETA(DisplayName = "fan")
 };
 UENUM(BlueprintType)
 enum class EProjectileTargeting : uint8

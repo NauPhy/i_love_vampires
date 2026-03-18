@@ -1,14 +1,13 @@
 #include "MyPlayer.h"
-//#include "Kismet/GameplayStatics.h"
-//#include "Definitions.h"
 #include "InputMappingContext.h"
 #include "EnhancedInputSubsystems.h"
 #include "AssetRefs.h"
 #include "ExperienceShard.h"
 #include "EnemyBase.h"
-//#include "Kismet/KismetMathLibrary.h"
-//#include "CombatantManager.h"
+#include "Kismet/KismetMathLibrary.h"
+#include "CombatantManager.h"
 #include "MyGameplayStatics.h"
+#include "Camera/CameraComponent.h"
 
 
 AMyPlayer::AMyPlayer() : ACombatant() {
@@ -105,6 +104,17 @@ void AMyPlayer::initialise_AMyPlayer(const FPrimaryAssetId& data) {
 	combatantManager->setPlayerRef(this);
 }
 
+void AMyPlayer::initialise_AMyPlayer(const UCombatantTemplate* data) {
+	initialise_ACombatant(data);
+	if (!addKeyboardContext())
+		return;
+	UCombatantManager* combatantManager = nullptr;
+	if (!MyGameplayStatics::getCombatantManager(this, combatantManager)) {
+		return;
+	}
+	combatantManager->setPlayerRef(this);
+}
+
 bool AMyPlayer::isOutOfDeadzone(float x, float z) const {
 	return x >= 0.3 && z >= 0.3;
 }
@@ -112,7 +122,10 @@ bool AMyPlayer::isOutOfDeadzone(float x, float z) const {
 void AMyPlayer::handleMovement(const FVector2D& input) {
 	if (!isOutOfDeadzone(input.X, input.Y))
 		return;
-	FVector movement = FVector(input.X * _MOVEMENT_SPEED, 0, input.Y * _MOVEMENT_SPEED * _attributeSet.getAttributes()._movementSpeed);
+	UCombatantAttributes* attr = _attributeSet->getFinal<UCombatantComponent, UCombatantAttributes>();
+	if (attr == nullptr)
+		return;
+	FVector movement = FVector(input.X * _MOVEMENT_SPEED, 0, input.Y * _MOVEMENT_SPEED * attr->_movementSpeed);
 	{
 		FHitResult* unused = nullptr;
 		AddActorWorldOffset(movement, false, unused, ETeleportType::TeleportPhysics);

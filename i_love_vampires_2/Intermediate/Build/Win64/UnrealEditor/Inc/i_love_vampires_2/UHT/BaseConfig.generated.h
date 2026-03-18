@@ -32,8 +32,6 @@ public: \
 
 
 #define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseConfig_h_8_ENHANCED_CONSTRUCTORS \
-	/** Standard constructor, called after all reflected properties have been initialized */ \
-	NO_API UBaseConfig(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	UBaseConfig(UBaseConfig&&) = delete; \
 	UBaseConfig(const UBaseConfig&) = delete; \

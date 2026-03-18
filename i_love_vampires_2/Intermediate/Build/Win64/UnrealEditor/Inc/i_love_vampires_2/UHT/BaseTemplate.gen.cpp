@@ -55,6 +55,7 @@ struct Z_Construct_UClass_UBaseTemplate_Statics
 		{ "BlueprintType", "true" },
 		{ "IncludePath", "BaseTemplate.h" },
 		{ "ModuleRelativePath", "BaseTemplate.h" },
+		{ "ObjectInitializerConstructorDeclared", "" },
 	};
 #endif // WITH_METADATA
 
@@ -97,7 +98,6 @@ UClass* Z_Construct_UClass_UBaseTemplate()
 	}
 	return Z_Registration_Info_UClass_UBaseTemplate.OuterSingleton;
 }
-UBaseTemplate::UBaseTemplate(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, UBaseTemplate);
 UBaseTemplate::~UBaseTemplate() {}
 // ********** End Class UBaseTemplate **************************************************************
@@ -106,10 +106,10 @@ UBaseTemplate::~UBaseTemplate() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseTemplate_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UBaseTemplate, UBaseTemplate::StaticClass, TEXT("UBaseTemplate"), &Z_Registration_Info_UClass_UBaseTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBaseTemplate), 967136173U) },
+		{ Z_Construct_UClass_UBaseTemplate, UBaseTemplate::StaticClass, TEXT("UBaseTemplate"), &Z_Registration_Info_UClass_UBaseTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBaseTemplate), 1734558872U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseTemplate_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseTemplate_h__Script_i_love_vampires_2_305759449{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseTemplate_h__Script_i_love_vampires_2_7365407{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseTemplate_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseTemplate_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

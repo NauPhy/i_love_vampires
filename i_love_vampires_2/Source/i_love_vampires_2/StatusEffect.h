@@ -2,7 +2,7 @@
 #include "CoreMinimal.h"
 #include "UObject/Object.h"
 #include "StatusEffect.generated.h"
-class UBaseAttributeSet;
+class ABaseAttributeSet;
 
 UCLASS()
 class I_LOVE_VAMPIRES_2_API UStatusEffect : public UObject {
@@ -23,9 +23,6 @@ public:
 	virtual void multiplierStep(float delta, ABaseAttributeSet*) {}
 	virtual void postbonusStep(float delta, ABaseAttributeSet*) {
 		_duration -= delta;
-		if (_duration <= 0) {
-			Destroy();
-		}
 	}
 
 	float getDuration() const { return _duration; }
