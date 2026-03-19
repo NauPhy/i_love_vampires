@@ -201,13 +201,13 @@ public: \
 
 #define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_114_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
-	NO_API AAOEFactory(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
+	NO_API AAOEFactory(); \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	AAOEFactory(AAOEFactory&&) = delete; \
 	AAOEFactory(const AAOEFactory&) = delete; \
 	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, AAOEFactory); \
 	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(AAOEFactory); \
-	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(AAOEFactory) \
+	DEFINE_DEFAULT_CONSTRUCTOR_CALL(AAOEFactory) \
 	NO_API virtual ~AAOEFactory();
 
 

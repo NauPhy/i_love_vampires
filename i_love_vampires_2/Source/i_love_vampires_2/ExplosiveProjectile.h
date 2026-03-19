@@ -76,6 +76,7 @@ public:
 		_base = DuplicateObject(baseAttributes, this);
 		_final = DuplicateObject(baseAttributes, this);
 		_offsets = DuplicateObject(baseAttributes, this);
+		zeroOffsets();
 	}
 };
 
@@ -107,6 +108,7 @@ public:
 	virtual void launchAttack_fan(const FVector& forward) override;
 	void initialise_AExplosiveProjectileFactory(
 		APawn*,
+		UCombatantAttributes*,
 		const UAttackConfig*,
 		const UAttackAttributes*,
 		const UProjectileConfig*,
@@ -121,10 +123,6 @@ public:
 UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UExplosiveProjectileFactoryTemplate : public UProjectileFactoryTemplate {
 	GENERATED_BODY()
-
-protected:
-	virtual bool isValid() const override;
-
 public:
 	UPROPERTY(EditAnywhere, Instanced, Category = "UExplosiveProjectileFactoryTemplate")
 	UExplosiveProjectileConfig* _explosiveProjectileConfig;
@@ -135,7 +133,7 @@ public:
 	UPROPERTY(EditAnywhere, Instanced, Category = "UExplosiveProjectileFactoryTemplate")
 	UAOEAttributes* _AOEAttributes;
 
-	virtual	AAttackFactory* createFactory(APawn*, UObject*) const override;
+	virtual	AAttackFactory* createFactory(APawn*, UCombatantAttributes*) const override;
 	UExplosiveProjectileFactoryTemplate(const FObjectInitializer& init) : Super(init) {
 		_explosiveProjectileConfig = init.CreateDefaultSubobject<UExplosiveProjectileConfig>(this, "_explosiveProjectileConfig");
 		_explosiveProjectileAttributes = init.CreateDefaultSubobject<UExplosiveProjectileAttributes>(this, "_explosiveProjectileAttributes");

@@ -8,6 +8,9 @@
 #include "Combatant.h"
 #include "Engine/World.h"
 #include "MyGameplayStatics.h"
+#include "helpers.h"
+#include "unrealHelpers.h"
+#include "PaperFlipbookComponent.h"
 
 namespace {
 	float dist(float x, float y) {
@@ -33,6 +36,8 @@ void AProjectile::initialise_AProjectile(
 
 	_pierce = _projectileAttributes->_pierce;
 	_bounce = _projectileAttributes->_bounce;
+	FVector currentScale = GetActorScale3D();
+	SetActorScale3D(currentScale * _projectileAttributes->_radius);
 }
 
 void AProjectile::performSweep(const FVector& startPos, const FVector& endPos, TArray<struct FHitResult>& OutHits) {
@@ -166,26 +171,26 @@ void UProjectileAttributes::modifyAttributes(const UCombatantAttributes* combata
 ///////////////////////////////////////////////////////////////////////////////
 void AProjectileFactory::initialise_AProjectileFactory(
 	APawn* pawn,
+	UCombatantAttributes* comb,
 	const UAttackConfig* attackConfig,
 	const UAttackAttributes* attackAttributes,
 	const UProjectileConfig* projectileConfig,
 	const UProjectileAttributes* projectileAttributes)
 {
-	initialise_AAttackFactory(pawn, attackConfig, attackAttributes);
+	initialise_AAttackFactory(pawn, comb, attackConfig, attackAttributes);
 	_projectileConfig = DuplicateObject<UProjectileConfig>(projectileConfig, this);
 	_projectileComponent = NewObject<UProjectileComponent>(this);
 	_projectileComponent->initialise_UProjectileComponent(projectileAttributes);
 }
 
 void AProjectileFactory::launchAttack(const FVector& forward) {
-	if (!IsValid(_config)) {
-		LOGERROR("AProjectileFactory::launchAttack - _config is invalid");
+	if (!IsValid(_projectileConfig)) {
+		LOGERROR("AProjectileFactory::launchAttack - projectileConfig is not valid");
 		return;
 	}
-	TArray<AProjectile*> projectiles;
-	EAttackShape type = _config->_attackShape;
+	EAttackShape type = _projectileConfig->_attackShape;
 	if (type == EAttackShape::fan) {
-		projectiles = launchAttack_fan<AProjectile>(forward);
+		launchAttack_fan(forward);
 	}
 	else {
 		LOGERROR("AProjectileFactory::launchAttack - attack shape not implemented");
@@ -194,8 +199,12 @@ void AProjectileFactory::launchAttack(const FVector& forward) {
 }
 
 void AProjectileFactory::initProjectile(AProjectile* projectile) {
-	if (!IsValid(projectile)) {
-		LOGERROR("AProjectileFactory::initProjectile - projectile is not valid");
+	if (
+		!IsValid(projectile) ||
+		!IsValid(_attackComponent) ||
+		!IsValid(_projectileComponent)
+		) {
+		LOGERROR("AProjectileFactory::initProjectile - variable is not valid");
 		return;
 	}
 	projectile->initialise_AProjectile(
@@ -213,7 +222,7 @@ FVector AProjectileFactory::launchAttack_fan_getDirection(const UProjectileAttri
 	UProjectileAttributes* attr = attributes->getDiscretizedCopy(this);
 	
 	float angle = 0;
-	if (myNearEq(1, attr->_projectileCount)) {
+	if (helpers::nearEq(1, attr->_projectileCount)) {
 		angle = FMath::FRandRange(-attr->_spread / 2.0, attr->_spread / 2.0);
 	}
 	else {
@@ -224,26 +233,44 @@ FVector AProjectileFactory::launchAttack_fan_getDirection(const UProjectileAttri
 	return rot.RotateVector(forward);
 }
 
-///////////////////////////////////////////////////////////////////////////////
-
-bool UProjectileFactoryTemplate::isValid() const {
-	if (!IsValid(_projectileConfig)) {
-		LOGERROR("UProjectileFactoryTemplate::isValid - projectileConfig is not valid");
-		return false;
+void AProjectileFactory::launchAttack_fan(const FVector& forward) {
+	UProjectileComponent* comp = getComponent<UProjectileComponent>();
+	if (!IsValid(comp))
+		return;
+	UProjectileAttributes* attr = comp->getDiscretizedFinal<UProjectileAttributes>(this);
+	if (!IsValid(attr))
+		return;
+	if (!_pawnRef.IsValid()) {
+		return;
 	}
-	if (!IsValid(_projectileAttributes)) {
-		LOGERROR("UProjectileFactoryTemplate::isValid - projectileAttributes is not valid");
-		return false;
+	for (int i = 0; i < static_cast<int>(attr->_projectileCount); i++) {
+		FVector direction = launchAttack_fan_getDirection(attr, forward, i);
+		_directionX = direction.X;
+		_directionZ = direction.Z;
+		AProjectile* projectile = unrealHelpers::spawnActorOnTopOfMe<AProjectile>(_pawnRef.Get());
+		if (!IsValid(projectile)) {
+			LOGERROR("AProjectileFactory::launchAttack_fan - failed to spawn projectile");
+			continue;
+		}
+		projectile->factoryInitQuery(this);
 	}
-	return UAttackFactoryTemplate::isValid();
 }
 
-AAttackFactory* UProjectileFactoryTemplate::createFactory(APawn* pawn, UObject* caller) const {
-	if (!isValid())
+///////////////////////////////////////////////////////////////////////////////
+
+AAttackFactory* UProjectileFactoryTemplate::createFactory(APawn* pawn, UCombatantAttributes* comb) const {
+	if (!IsValid(pawn)) {
+		LOGERROR("UProjectileFactoryTemplate::createFactory - pawn is not valid");
 		return nullptr;
-	AProjectileFactory* factory = NewObject<AProjectileFactory>(caller);
+	}
+	AProjectileFactory* factory = unrealHelpers::spawnActorOnTopOfMe<AProjectileFactory>(pawn);
+	if (!IsValid(factory)) {
+		LOGERROR("UProjectileFactoryTemplate::createFactory - failed to spawn factory")
+		return nullptr;
+	}
 	factory->initialise_AProjectileFactory(
 		pawn, 
+		comb,
 		_attackConfig,
 		_attackAttributes,
 		_projectileConfig,

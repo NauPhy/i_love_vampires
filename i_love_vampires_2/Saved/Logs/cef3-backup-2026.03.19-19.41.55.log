@@ -1,0 +1,44 @@
+[6616:17332:0319/142627.456:WARNING:chrome_main_delegate.cc(745)] This is Chrome version 128.0.6613.138 (not a warning)
+[6616:12988:0319/142627.737:ERROR:google_update_settings.cc(265)] Failed opening key Software\Chromium to set usagestats; result: 5
+[6616:17332:0319/142627.833:WARNING:account_consistency_mode_manager.cc(77)] Desktop Identity Consistency cannot be enabled as no OAuth client ID and client secret have been configured.
+[6616:17332:0319/142631.343:WARNING:external_registry_loader_win.cc(232)] Error observing HKLM: 5
+[25068:18132:0319/142637.281:WARNING:frame_impl.cc(430)] virtual CefFrameImpl::SendProcessMessage sent to detached frame 5-B9F573E3A61228BBBE081D7D5EE97D64 will be ignored
+[22764:13608:0319/143201.017:VERBOSE1:network_delegate.cc(36)] NetworkDelegate::NotifyBeforeURLRequest: https://optimizationguide-pa.googleapis.com/v1:GetModels?key=dummytoken
+[22764:13608:0319/143201.025:VERBOSE1:network_delegate.cc(36)] NetworkDelegate::NotifyBeforeURLRequest: http://wpad/wpad.dat
+[22764:13608:0319/143201.026:VERBOSE1:tls_handshaker.cc(105)] TlsClient: Continuing handshake
+[22764:13608:0319/143201.026:VERBOSE1:tls_handshaker.cc(126)] TlsClient: SSL_do_handshake returned when entering early data. After retry, rv=-1, SSL_in_early_data=1
+[22764:13608:0319/143201.040:VERBOSE1:tls_handshaker.cc(105)] TlsClient: Continuing handshake
+[22764:13608:0319/143201.040:VERBOSE1:tls_handshaker.cc(105)] TlsClient: Continuing handshake
+[22764:13608:0319/143201.040:VERBOSE1:tls_client_handshaker.cc(528)] Client: handshake finished
+[22764:13608:0319/143434.386:VERBOSE1:network_delegate.cc(36)] NetworkDelegate::NotifyBeforeURLRequest: https://optimizationguide-pa.googleapis.com/v1:GetModels?key=dummytoken
+[22764:13608:0319/143434.393:VERBOSE1:tls_handshaker.cc(105)] TlsClient: Continuing handshake
+[22764:13608:0319/143434.395:VERBOSE1:tls_handshaker.cc(126)] TlsClient: SSL_do_handshake returned when entering early data. After retry, rv=-1, SSL_in_early_data=1
+[22764:13608:0319/143434.408:VERBOSE1:tls_handshaker.cc(105)] TlsClient: Continuing handshake
+[22764:13608:0319/143434.408:VERBOSE1:tls_handshaker.cc(105)] TlsClient: Continuing handshake
+[22764:13608:0319/143434.408:VERBOSE1:tls_client_handshaker.cc(528)] Client: handshake finished
+[6616:17332:0319/143649.210:VERBOSE1:device_event_log_impl.cc(198)] [14:36:49.210] Display: EVENT: screen_win.cc:893 Displays updated, count: 1
+[6616:17332:0319/143649.210:VERBOSE1:device_event_log_impl.cc(198)] [14:36:49.210] Display: EVENT: screen_win.cc:895 Display[311308387] bounds=[0,0 1536x864], workarea=[0,0 1536x816], scale=1.25, rotation=0, panel_rotation=0 external detected
+[22764:13608:0319/143715.430:VERBOSE1:network_delegate.cc(36)] NetworkDelegate::NotifyBeforeURLRequest: https://optimizationguide-pa.googleapis.com/v1:GetModels?key=dummytoken
+[22764:13608:0319/143715.437:VERBOSE1:tls_handshaker.cc(105)] TlsClient: Continuing handshake
+[22764:13608:0319/143715.438:VERBOSE1:tls_handshaker.cc(126)] TlsClient: SSL_do_handshake returned when entering early data. After retry, rv=-1, SSL_in_early_data=1
+[22764:13608:0319/143715.451:VERBOSE1:tls_handshaker.cc(105)] TlsClient: Continuing handshake
+[22764:13608:0319/143715.451:VERBOSE1:tls_handshaker.cc(105)] TlsClient: Continuing handshake
+[22764:13608:0319/143715.451:VERBOSE1:tls_client_handshaker.cc(528)] Client: handshake finished
+[6616:17332:0319/143809.326:VERBOSE1:device_event_log_impl.cc(198)] [14:38:09.327] Display: EVENT: screen_win.cc:893 Displays updated, count: 1
+[6616:17332:0319/143809.326:VERBOSE1:device_event_log_impl.cc(198)] [14:38:09.327] Display: EVENT: screen_win.cc:895 Display[311308387] bounds=[0,0 1536x864], workarea=[0,0 1536x816], scale=1.25, rotation=0, panel_rotation=0 external detected
+[6616:17332:0319/143922.274:VERBOSE1:device_event_log_impl.cc(198)] [14:39:22.274] Display: EVENT: screen_win.cc:893 Displays updated, count: 1
+[6616:17332:0319/143922.274:VERBOSE1:device_event_log_impl.cc(198)] [14:39:22.274] Display: EVENT: screen_win.cc:895 Display[311308387] bounds=[0,0 1536x864], workarea=[0,0 1536x816], scale=1.25, rotation=0, panel_rotation=0 external detected
+[6616:17332:0319/143950.959:VERBOSE1:device_event_log_impl.cc(198)] [14:39:50.959] Display: EVENT: screen_win.cc:893 Displays updated, count: 1
+[6616:17332:0319/143950.959:VERBOSE1:device_event_log_impl.cc(198)] [14:39:50.959] Display: EVENT: screen_win.cc:895 Display[311308387] bounds=[0,0 1536x864], workarea=[0,0 1536x816], scale=1.25, rotation=0, panel_rotation=0 external detected
+[22764:13608:0319/144009.467:VERBOSE1:network_delegate.cc(36)] NetworkDelegate::NotifyBeforeURLRequest: https://optimizationguide-pa.googleapis.com/v1:GetModels?key=dummytoken
+[22764:13608:0319/144009.476:VERBOSE1:tls_handshaker.cc(105)] TlsClient: Continuing handshake
+[22764:13608:0319/144009.476:VERBOSE1:tls_handshaker.cc(126)] TlsClient: SSL_do_handshake returned when entering early data. After retry, rv=-1, SSL_in_early_data=1
+[22764:13608:0319/144009.490:VERBOSE1:tls_handshaker.cc(105)] TlsClient: Continuing handshake
+[22764:13608:0319/144009.490:VERBOSE1:tls_handshaker.cc(105)] TlsClient: Continuing handshake
+[22764:13608:0319/144009.490:VERBOSE1:tls_client_handshaker.cc(528)] Client: handshake finished
+[6616:17332:0319/144016.053:VERBOSE1:device_event_log_impl.cc(198)] [14:40:16.053] Display: EVENT: screen_win.cc:893 Displays updated, count: 1
+[6616:17332:0319/144016.053:VERBOSE1:device_event_log_impl.cc(198)] [14:40:16.053] Display: EVENT: screen_win.cc:895 Display[311308387] bounds=[0,0 1536x864], workarea=[0,0 1536x816], scale=1.25, rotation=0, panel_rotation=0 external detected
+[20908:27360:0319/144155.838:VERBOSE1:frame_impl.cc(620)] frame 6-E33EDDAE66626485A2031891AE0B7C72 disconnected (reason=RENDER_FRAME_DISCONNECT, current_state=CONNECTION_ACKED)
+[20908:27360:0319/144155.838:VERBOSE1:frame_impl.cc(633)] frame 6-E33EDDAE66626485A2031891AE0B7C72 connection retry scheduled
+[20908:27360:0319/144155.838:VERBOSE1:frame_impl.cc(620)] frame 6-DDCCAC99A2A16C80D64F69F6EA4515D8 disconnected (reason=RENDER_FRAME_DISCONNECT, current_state=CONNECTION_ACKED)
+[20908:27360:0319/144155.838:VERBOSE1:frame_impl.cc(633)] frame 6-DDCCAC99A2A16C80D64F69F6EA4515D8 connection retry scheduled

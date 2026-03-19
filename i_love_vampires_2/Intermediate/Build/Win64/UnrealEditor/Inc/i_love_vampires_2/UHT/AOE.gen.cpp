@@ -660,7 +660,7 @@ UClass* Z_Construct_UClass_AAOEFactory()
 	}
 	return Z_Registration_Info_UClass_AAOEFactory.OuterSingleton;
 }
-AAOEFactory::AAOEFactory(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
+AAOEFactory::AAOEFactory() {}
 DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, AAOEFactory);
 AAOEFactory::~AAOEFactory() {}
 // ********** End Class AAOEFactory ****************************************************************
@@ -779,15 +779,15 @@ UAOEFactoryTemplate::~UAOEFactoryTemplate() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AAOE, AAOE::StaticClass, TEXT("AAOE"), &Z_Registration_Info_UClass_AAOE, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AAOE), 912785676U) },
+		{ Z_Construct_UClass_AAOE, AAOE::StaticClass, TEXT("AAOE"), &Z_Registration_Info_UClass_AAOE, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AAOE), 893591279U) },
 		{ Z_Construct_UClass_UAOEConfig, UAOEConfig::StaticClass, TEXT("UAOEConfig"), &Z_Registration_Info_UClass_UAOEConfig, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOEConfig), 2466693485U) },
 		{ Z_Construct_UClass_UAOEAttributes, UAOEAttributes::StaticClass, TEXT("UAOEAttributes"), &Z_Registration_Info_UClass_UAOEAttributes, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOEAttributes), 4197174865U) },
-		{ Z_Construct_UClass_UAOEComponent, UAOEComponent::StaticClass, TEXT("UAOEComponent"), &Z_Registration_Info_UClass_UAOEComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOEComponent), 2214747078U) },
-		{ Z_Construct_UClass_AAOEFactory, AAOEFactory::StaticClass, TEXT("AAOEFactory"), &Z_Registration_Info_UClass_AAOEFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AAOEFactory), 3966038358U) },
-		{ Z_Construct_UClass_UAOEFactoryTemplate, UAOEFactoryTemplate::StaticClass, TEXT("UAOEFactoryTemplate"), &Z_Registration_Info_UClass_UAOEFactoryTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOEFactoryTemplate), 3906474190U) },
+		{ Z_Construct_UClass_UAOEComponent, UAOEComponent::StaticClass, TEXT("UAOEComponent"), &Z_Registration_Info_UClass_UAOEComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOEComponent), 1798423418U) },
+		{ Z_Construct_UClass_AAOEFactory, AAOEFactory::StaticClass, TEXT("AAOEFactory"), &Z_Registration_Info_UClass_AAOEFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AAOEFactory), 93103166U) },
+		{ Z_Construct_UClass_UAOEFactoryTemplate, UAOEFactoryTemplate::StaticClass, TEXT("UAOEFactoryTemplate"), &Z_Registration_Info_UClass_UAOEFactoryTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOEFactoryTemplate), 4039113893U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_2498467163{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_2232784790{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

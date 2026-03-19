@@ -191,13 +191,13 @@ public: \
 
 #define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h_90_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
-	NO_API AExplosiveProjectileFactory(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
+	NO_API AExplosiveProjectileFactory(); \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	AExplosiveProjectileFactory(AExplosiveProjectileFactory&&) = delete; \
 	AExplosiveProjectileFactory(const AExplosiveProjectileFactory&) = delete; \
 	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, AExplosiveProjectileFactory); \
 	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(AExplosiveProjectileFactory); \
-	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(AExplosiveProjectileFactory) \
+	DEFINE_DEFAULT_CONSTRUCTOR_CALL(AExplosiveProjectileFactory) \
 	NO_API virtual ~AExplosiveProjectileFactory();
 
 
@@ -219,7 +219,7 @@ class AExplosiveProjectileFactory;
 struct Z_Construct_UClass_UExplosiveProjectileFactoryTemplate_Statics;
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UExplosiveProjectileFactoryTemplate_NoRegister();
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h_122_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h_123_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUExplosiveProjectileFactoryTemplate(); \
 	friend struct ::Z_Construct_UClass_UExplosiveProjectileFactoryTemplate_Statics; \
@@ -230,7 +230,7 @@ public: \
 	DECLARE_SERIALIZER(UExplosiveProjectileFactoryTemplate)
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h_122_ENHANCED_CONSTRUCTORS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h_123_ENHANCED_CONSTRUCTORS \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	UExplosiveProjectileFactoryTemplate(UExplosiveProjectileFactoryTemplate&&) = delete; \
 	UExplosiveProjectileFactoryTemplate(const UExplosiveProjectileFactoryTemplate&) = delete; \
@@ -240,12 +240,12 @@ public: \
 	NO_API virtual ~UExplosiveProjectileFactoryTemplate();
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h_120_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h_122_GENERATED_BODY \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h_121_PROLOG
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h_123_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h_122_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h_122_ENHANCED_CONSTRUCTORS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h_123_INCLASS_NO_PURE_DECLS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h_123_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

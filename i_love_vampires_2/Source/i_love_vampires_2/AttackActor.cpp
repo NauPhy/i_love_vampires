@@ -4,6 +4,21 @@
 #include "Combatant.h"
 #include "StatusFactory.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "unrealHelpers.h"
+#include "PaperFlipbookComponent.h"
+
+AAttackActor::AAttackActor() {
+	if (!RootComponent)
+	{
+		RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
+	}
+	PrimaryActorTick.bCanEverTick = true;
+	if (!unrealHelpers::constructFlipbook(this, RootComponent, _flipbook))
+		return;
+	_flipbook->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
+	_flipbook->SetCollisionResponseToChannel(ECollisionChannel::ECC_Pawn, ECollisionResponse::ECR_Overlap);
+	_flipbook->SetCollisionObjectType(ECollisionChannel::ECC_WorldDynamic);
+}
 
 void AAttackFactory::shouldNotRunError() const {
 	LOGERROR("UAttackFactory::shouldNotRunError - this should not run");
@@ -12,9 +27,15 @@ void AAttackFactory::shouldNotRunError() const {
 void AAttackActor::Tick(float delta) {}
 
 void AAttackActor::initialise_AAttackActor(APawn* pawnRef, const UAttackConfig* config, const UAttackAttributes* attributes) {
+	if (!IsValid(config) || !IsValid(attributes) || !IsValid(pawnRef) || !IsValid(comb)) {
+		LOGERROR("AAttackActor::initialise_AAttackActor - invalid parameter");
+		return;
+	}
 	_attackConfig = DuplicateObject<UAttackConfig>(config, this);
 	_attackAttributes = DuplicateObject<UAttackAttributes>(attributes, this);
 	_pawnRef = TWeakObjectPtr<APawn>(pawnRef);
+	if (!unrealHelpers::initFlipbook(this, _attackConfig->_sprite, _flipbook))
+		return;
 }
 
 void AAttackActor::applyEffect(ACombatant* target) {
@@ -58,27 +79,38 @@ void UAttackAttributes::modifyAttributes(const UCombatantAttributes* modifiers, 
 }
 ///////////////////////////////////////////////////////////////////////////////
 
-void AAttackFactory::initialise_AAttackFactory(APawn* pawnRef, const UAttackConfig* config, const UAttackAttributes* attributes) {
+void AAttackFactory::initialise_AAttackFactory(APawn* pawnRef, UCombatantAttributes* comb, const UAttackConfig* config, const UAttackAttributes* attributes) {
+	initialise_ABaseAttributeSet(pawnRef);
 	_attackConfig = DuplicateObject<UAttackConfig>(config, this);
 	_attackComponent = NewObject<UAttackComponent>(this);
 	_attackComponent->initialise_UAttackComponent(attributes);
 	_pawnRef = TWeakObjectPtr<APawn>(pawnRef);
+	_combatantAttributes = TWeakObjectPtr<UCombatantAttributes>(comb);
 }
 
 // This could just as easily (maybe even slightly more easily) be done with TSubclassOf<AAttackActor> in either AAttackFactory or UAttackConfig,
 // but I'm more used to inheritance and this shit is really complicated.
 void AAttackFactory::launchAttack(const FVector& forward) {
-	AAttackActor* newAttack = spawnActor<AAttackActor>();
-	if (newAttack == nullptr)
+	if (!_pawnRef.IsValid()) {
 		return;
+	}
+	AAttackActor* newAttack = unrealHelpers::spawnActorOnTopOfMe<AAttackActor>(_pawnRef.Get());
+	if (!IsValid(newAttack)) {
+		LOGERROR("AAttackFactory::launchAttack - failed to create attack");
+		return;
+	}
 	newAttack->factoryInitQuery(this);
 }
 
 void AAttackFactory::initAttack(AAttackActor* attack) {
-	if (!IsValid(attack)) {
-		LOGERROR("AAttackFactory::initAttack - attack is not valid");
+	if (!IsValid(attack) ||
+		!IsValid(_attackComponent)
+		) {
+		LOGERROR("AAttackFactory::initAttack - variable is not valid");
 		return;
 	}
+	UAttackAttributes* disc = _attackComponent->getDiscretizedFinal<UAttackAttributes>(this);
+	UAttackAttributes::modifyAttributes(_combatantAttributes, )
 	// This creates an unnecessary copy but imma roll with it
 	attack->initialise_AAttackActor(_pawnRef.Get(), _attackConfig, _attackComponent->getDiscretizedFinal<UAttackAttributes>(this));
 }
@@ -86,18 +118,16 @@ void AAttackFactory::initAttack(AAttackActor* attack) {
 
 
 ///////////////////////////////////////////////////////////////////////////////
-
-bool UAttackFactoryTemplate::isValid() const {
-	if (!IsValid(_attackConfig) || !IsValid(_attackAttributes)) {
-		LOGERROR("UAttackFactoryTemplate::createAttackFactory - invalid");
-		return false;
-	}
-	return true;
-}
-AAttackFactory* UAttackFactoryTemplate::createFactory(APawn* pawnRef, UObject* caller) const {
-	if (!isValid())
+AAttackFactory* UAttackFactoryTemplate::createFactory(APawn* pawnRef, UCombatantAttributes* combatant) const {
+	if (!IsValid(pawnRef)){
+		LOGERROR("UAttackFactoryTemplate::createFactory - invalid pawnRef");
 		return nullptr;
-	AAttackFactory* factory = NewObject<AAttackFactory>(caller);
-	factory->initialise_AAttackFactory(pawnRef, _attackConfig, _attackAttributes);
+	}
+	AAttackFactory* factory = unrealHelpers::spawnActorOnTopOfMe<AAttackFactory>(pawnRef);
+	if (!IsValid(factory)) {
+		LOGERROR("UAttackFactoryTemplate::createFactory - failed to spawn factory");
+		return nullptr;
+	}
+	factory->initialise_AAttackFactory(pawnRef, combatant, _attackConfig, _attackAttributes);
 	return factory;
 }

@@ -26,7 +26,7 @@ AMyPlayer::AMyPlayer() : ACombatant() {
 	_camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	_camera->SetupAttachment(RootComponent);
 	_camera->ProjectionMode = ECameraProjectionMode::Orthographic;
-	_camera->OrthoWidth = 100;
+	_camera->OrthoWidth = 300;
 	{
 		FHitResult* unused = nullptr;
 		_camera->SetWorldRotation(FRotator(0, -90, 0), false, unused, ETeleportType::TeleportPhysics);

@@ -1,3 +1,4 @@
+#pragma once
 #include "CoreMinimal.h"
 class UObject;
 class UEnhancedInputLocalPlayerSubsystem;

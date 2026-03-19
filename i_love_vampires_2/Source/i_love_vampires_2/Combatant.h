@@ -37,11 +37,11 @@ class I_LOVE_VAMPIRES_2_API ACombatant : public APawn
 	//void initialise_ACombatant(const FPrimaryAssetId&);
 
 protected:
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, Category = "ACombatant")
 	UCombatantConfig* _config = nullptr;
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, Category = "ACombatant")
 	ACombatantAttributeSet* _attributeSet = nullptr;
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, Category = "ACombatant")
 	TArray<UActive*> _activeAbilities;
 
 
@@ -52,14 +52,14 @@ protected:
 	bool getAttributes(UCombatantAttributes*&);
 
 public:
-	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPROPERTY(VisibleAnywhere, Category = "ACombatant")
 	UPaperFlipbookComponent* _combatantFlipbook;
 
 	ACombatant();
 	
 	UFUNCTION(BlueprintCallable)
 	void initialise_ACombatant(const UCombatantTemplate* data);
-	virtual void myInitialise(const UCombatantTemplate* templateVal) { initialise_ACombatant(templateVal); }
+ 	virtual void myInitialise(const UCombatantTemplate* templateVal) { initialise_ACombatant(templateVal); }
 	virtual void EndPlay(EEndPlayReason::Type EndPlayReason) override;
 	void burnTick();
 	virtual void Tick(float DeltaTime) override;
@@ -74,13 +74,13 @@ class I_LOVE_VAMPIRES_2_API UCombatantConfig : public UBaseConfig
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, Category = "UCombatantConfig")
+	UPROPERTY(VisibleAnywhere, Category = "UCombatantConfig")
 	FString _name = "Combatant";
-	UPROPERTY(EditAnywhere, Category = "UCombatantConfig")
+	UPROPERTY(VisibleAnywhere, Category = "UCombatantConfig")
 	ESprite _sprite = static_cast<ESprite>(0);
-	UPROPERTY(EditAnywhere, Category = "UCombatantConfig")
+	UPROPERTY(VisibleAnywhere, Category = "UCombatantConfig")
 	TArray<UWeaponTemplate*> _startingWeapons;
-	UPROPERTY(EditAnywhere, Category = "UCombatantConfig")
+	UPROPERTY(VisibleAnywhere, Category = "UCombatantConfig")
 	TSubclassOf<ACombatant> _combatantClass = ACombatant::StaticClass();
 	UCombatantConfig(const FObjectInitializer& init) : Super(init) {}
 };
@@ -93,61 +93,61 @@ class I_LOVE_VAMPIRES_2_API UCombatantAttributes : public UBaseAttributes
 
 public:
 	//additive
-	UPROPERTY(EditAnywhere, Category = "UCombatantAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "UCombatantAttributes")
 	float _maxHP = 1;
 	//additive
-	UPROPERTY(EditAnywhere, Category = "UCombatantAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "UCombatantAttributes")
 	float _currentHP = 1;
 	//additive
-	UPROPERTY(EditAnywhere, Category = "UCombatantAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "UCombatantAttributes")
 	float _damageReduction_flat = 0;
 	//additive
-	UPROPERTY(EditAnywhere, Category = "UCombatantAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "UCombatantAttributes")
 	float _damageReduction_percent = 0;
 	//additive
-	UPROPERTY(EditAnywhere, Category = "UCombatantAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "UCombatantAttributes")
 	float _healthRegen_flat = 0;
 	//additive
-	UPROPERTY(EditAnywhere, Category = "UCombatantAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "UCombatantAttributes")
 	float _healthRegen_percent = 0;
 	//additive
-	UPROPERTY(EditAnywhere, Category = "UCombatantAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "UCombatantAttributes")
 	float _critChance = 0;
 	//additive
-	UPROPERTY(EditAnywhere, Category = "UCombatantAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "UCombatantAttributes")
 	float _critMultiplier = 0;
 	//multiplicative
-	UPROPERTY(EditAnywhere, Category = "UCombatantAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "UCombatantAttributes")
 	float _attackSpeed = 1;
 	//additive
-	UPROPERTY(EditAnywhere, Category = "UCombatantAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "UCombatantAttributes")
 	float _bonusBounces = 0;
 	//additive
-	UPROPERTY(EditAnywhere, Category = "UCombatantAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "UCombatantAttributes")
 	float _bonusPierce = 0;
 	//additive
-	UPROPERTY(EditAnywhere, Category = "UCombatantAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "UCombatantAttributes")
 	float _bonusProjectiles = 0;
 	//multiplicative
-	UPROPERTY(EditAnywhere, Category = "UCombatantAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "UCombatantAttributes")
 	float _projectileSpeed = 1;
 	//multiplicative
-	UPROPERTY(EditAnywhere, Category = "UCombatantAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "UCombatantAttributes")
 	float _projectileSize = 1;
 	//multiplicative
-	UPROPERTY(EditAnywhere, Category = "UCombatantAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "UCombatantAttributes")
 	float _movementSpeed = 1;
 	//multiplicative
-	UPROPERTY(EditAnywhere, Category = "UCombatantAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "UCombatantAttributes")
 	float _range = 1;
 	//additive
-	UPROPERTY(EditAnywhere, Category = "UCombatantAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "UCombatantAttributes")
 	float _contactDamage = 0;
 	//multiplicative
-	UPROPERTY(EditAnywhere, Category = "UCombatantAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "UCombatantAttributes")
 	float _selfSize = 1;
 	//multiplicative
-	UPROPERTY(EditAnywhere, Category = "UCombatantAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "UCombatantAttributes")
 	float _iFrameDuration = 1;
 
 	UCombatantAttributes(const FObjectInitializer& init) : Super(init) {}
@@ -164,6 +164,7 @@ public:
 		_base = DuplicateObject(baseAttributes, this);
 		_final = DuplicateObject(baseAttributes, this);
 		_offsets = DuplicateObject(baseAttributes, this);
+		zeroOffsets();
 	}
 };
 ///////////////////////////////////////////////////////////////////////////////
@@ -172,11 +173,14 @@ UCLASS()
 class I_LOVE_VAMPIRES_2_API ACombatantAttributeSet : public ABaseAttributeSet
 {
 	GENERATED_BODY()
+	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = true), Category="ACombatantAttributeSet")
 	UCombatantComponent* _combatantComponent;
 public:
-	void initialise_ACombatantAttributeSet(const UCombatantAttributes* baseAttributes) {
+	void initialise_ACombatantAttributeSet(AActor* owner, const UCombatantAttributes* baseAttributes) {
+		initialise_ABaseAttributeSet(owner);
 		_combatantComponent = NewObject<UCombatantComponent>(this);
 		_combatantComponent->initialise_UCombatantComponent(baseAttributes);
+
 	}
 	void burnTick();
 };
@@ -187,9 +191,9 @@ class I_LOVE_VAMPIRES_2_API UCombatantTemplate : public UBaseTemplate
 {
 	GENERATED_BODY()
 public:
-	UPROPERTY(EditAnywhere, Instanced, Category = "UCombatantTemplate")
+	UPROPERTY(VisibleAnywhere, Instanced, Category = "UCombatantTemplate")
 	UCombatantConfig* _config;
-	UPROPERTY(EditAnywhere, Instanced, Category = "UCombatantTemplate")
+	UPROPERTY(VisibleAnywhere, Instanced, Category = "UCombatantTemplate")
 	UCombatantAttributes* _attributes;
 	UCombatantTemplate(const FObjectInitializer& init) : Super(init) {
 		_config = init.CreateDefaultSubobject<UCombatantConfig>(this, "_config");

@@ -515,7 +515,7 @@ UClass* Z_Construct_UClass_AExplosiveProjectileFactory()
 	}
 	return Z_Registration_Info_UClass_AExplosiveProjectileFactory.OuterSingleton;
 }
-AExplosiveProjectileFactory::AExplosiveProjectileFactory(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
+AExplosiveProjectileFactory::AExplosiveProjectileFactory() {}
 DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, AExplosiveProjectileFactory);
 AExplosiveProjectileFactory::~AExplosiveProjectileFactory() {}
 // ********** End Class AExplosiveProjectileFactory ************************************************
@@ -650,15 +650,15 @@ UExplosiveProjectileFactoryTemplate::~UExplosiveProjectileFactoryTemplate() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AExplosiveProjectile, AExplosiveProjectile::StaticClass, TEXT("AExplosiveProjectile"), &Z_Registration_Info_UClass_AExplosiveProjectile, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AExplosiveProjectile), 3868832140U) },
+		{ Z_Construct_UClass_AExplosiveProjectile, AExplosiveProjectile::StaticClass, TEXT("AExplosiveProjectile"), &Z_Registration_Info_UClass_AExplosiveProjectile, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AExplosiveProjectile), 1792529332U) },
 		{ Z_Construct_UClass_UExplosiveProjectileConfig, UExplosiveProjectileConfig::StaticClass, TEXT("UExplosiveProjectileConfig"), &Z_Registration_Info_UClass_UExplosiveProjectileConfig, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UExplosiveProjectileConfig), 2639790154U) },
 		{ Z_Construct_UClass_UExplosiveProjectileAttributes, UExplosiveProjectileAttributes::StaticClass, TEXT("UExplosiveProjectileAttributes"), &Z_Registration_Info_UClass_UExplosiveProjectileAttributes, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UExplosiveProjectileAttributes), 1620965878U) },
-		{ Z_Construct_UClass_UExplosiveProjectileComponent, UExplosiveProjectileComponent::StaticClass, TEXT("UExplosiveProjectileComponent"), &Z_Registration_Info_UClass_UExplosiveProjectileComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UExplosiveProjectileComponent), 1232108981U) },
-		{ Z_Construct_UClass_AExplosiveProjectileFactory, AExplosiveProjectileFactory::StaticClass, TEXT("AExplosiveProjectileFactory"), &Z_Registration_Info_UClass_AExplosiveProjectileFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AExplosiveProjectileFactory), 3430620279U) },
-		{ Z_Construct_UClass_UExplosiveProjectileFactoryTemplate, UExplosiveProjectileFactoryTemplate::StaticClass, TEXT("UExplosiveProjectileFactoryTemplate"), &Z_Registration_Info_UClass_UExplosiveProjectileFactoryTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UExplosiveProjectileFactoryTemplate), 3122426560U) },
+		{ Z_Construct_UClass_UExplosiveProjectileComponent, UExplosiveProjectileComponent::StaticClass, TEXT("UExplosiveProjectileComponent"), &Z_Registration_Info_UClass_UExplosiveProjectileComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UExplosiveProjectileComponent), 3750251801U) },
+		{ Z_Construct_UClass_AExplosiveProjectileFactory, AExplosiveProjectileFactory::StaticClass, TEXT("AExplosiveProjectileFactory"), &Z_Registration_Info_UClass_AExplosiveProjectileFactory, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AExplosiveProjectileFactory), 623927571U) },
+		{ Z_Construct_UClass_UExplosiveProjectileFactoryTemplate, UExplosiveProjectileFactoryTemplate::StaticClass, TEXT("UExplosiveProjectileFactoryTemplate"), &Z_Registration_Info_UClass_UExplosiveProjectileFactoryTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UExplosiveProjectileFactoryTemplate), 303862674U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h__Script_i_love_vampires_2_1624326016{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h__Script_i_love_vampires_2_1584120903{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

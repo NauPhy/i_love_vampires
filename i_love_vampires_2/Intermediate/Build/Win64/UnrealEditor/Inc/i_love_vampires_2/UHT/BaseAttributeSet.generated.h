@@ -32,14 +32,12 @@ public: \
 
 
 #define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributeSet_h_51_ENHANCED_CONSTRUCTORS \
-	/** Standard constructor, called after all reflected properties have been initialized */ \
-	NO_API ABaseAttributeSet(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	ABaseAttributeSet(ABaseAttributeSet&&) = delete; \
 	ABaseAttributeSet(const ABaseAttributeSet&) = delete; \
 	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, ABaseAttributeSet); \
 	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(ABaseAttributeSet); \
-	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(ABaseAttributeSet) \
+	DEFINE_DEFAULT_CONSTRUCTOR_CALL(ABaseAttributeSet) \
 	NO_API virtual ~ABaseAttributeSet();
 
 

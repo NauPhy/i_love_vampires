@@ -57,12 +57,18 @@ struct Z_Construct_UClass_UBaseAttributeComponent_Statics
 		{ "ModuleRelativePath", "BaseAttributeComponent.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__final_MetaData[] = {
+		{ "AllowPrivateAccess", "TRUE" },
+		{ "Category", "BaseAttributeComponent" },
 		{ "ModuleRelativePath", "BaseAttributeComponent.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__base_MetaData[] = {
+		{ "AllowPrivateAccess", "TRUE" },
+		{ "Category", "BaseAttributeComponent" },
 		{ "ModuleRelativePath", "BaseAttributeComponent.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__offsets_MetaData[] = {
+		{ "AllowPrivateAccess", "TRUE" },
+		{ "Category", "BaseAttributeComponent" },
 		{ "ModuleRelativePath", "BaseAttributeComponent.h" },
 	};
 #endif // WITH_METADATA
@@ -81,9 +87,9 @@ struct Z_Construct_UClass_UBaseAttributeComponent_Statics
 }; // struct Z_Construct_UClass_UBaseAttributeComponent_Statics
 
 // ********** Begin Class UBaseAttributeComponent Property Definitions *****************************
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UBaseAttributeComponent_Statics::NewProp__final = { "_final", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBaseAttributeComponent, _final), Z_Construct_UClass_UBaseAttributes_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__final_MetaData), NewProp__final_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UBaseAttributeComponent_Statics::NewProp__base = { "_base", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBaseAttributeComponent, _base), Z_Construct_UClass_UBaseAttributes_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__base_MetaData), NewProp__base_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UBaseAttributeComponent_Statics::NewProp__offsets = { "_offsets", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBaseAttributeComponent, _offsets), Z_Construct_UClass_UBaseAttributes_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__offsets_MetaData), NewProp__offsets_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UBaseAttributeComponent_Statics::NewProp__final = { "_final", nullptr, (EPropertyFlags)0x0020080000020001, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBaseAttributeComponent, _final), Z_Construct_UClass_UBaseAttributes_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__final_MetaData), NewProp__final_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UBaseAttributeComponent_Statics::NewProp__base = { "_base", nullptr, (EPropertyFlags)0x0020080000020001, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBaseAttributeComponent, _base), Z_Construct_UClass_UBaseAttributes_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__base_MetaData), NewProp__base_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UBaseAttributeComponent_Statics::NewProp__offsets = { "_offsets", nullptr, (EPropertyFlags)0x0020080000020001, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBaseAttributeComponent, _offsets), Z_Construct_UClass_UBaseAttributes_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__offsets_MetaData), NewProp__offsets_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UBaseAttributeComponent_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UBaseAttributeComponent_Statics::NewProp__final,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UBaseAttributeComponent_Statics::NewProp__base,
@@ -131,10 +137,10 @@ UBaseAttributeComponent::~UBaseAttributeComponent() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributeComponent_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UBaseAttributeComponent, UBaseAttributeComponent::StaticClass, TEXT("UBaseAttributeComponent"), &Z_Registration_Info_UClass_UBaseAttributeComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBaseAttributeComponent), 4028953201U) },
+		{ Z_Construct_UClass_UBaseAttributeComponent, UBaseAttributeComponent::StaticClass, TEXT("UBaseAttributeComponent"), &Z_Registration_Info_UClass_UBaseAttributeComponent, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBaseAttributeComponent), 2555431808U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributeComponent_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributeComponent_h__Script_i_love_vampires_2_2415100019{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributeComponent_h__Script_i_love_vampires_2_1092701929{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributeComponent_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributeComponent_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

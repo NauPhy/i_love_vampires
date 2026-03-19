@@ -148,18 +148,19 @@ void UAOEAttributes::modifyAttributes(const UCombatantAttributes* combatantAttri
 
 void AAOEFactory::initialise_AAOEFactory(
 	APawn* pawnRef,
+	UCombatantAttributes* comb,
 	const UAttackConfig* attackConfig,
 	const UAttackAttributes* attackAttributes,
 	const UAOEConfig* AOEConfig,
 	const UAOEAttributes* AOEAttributes)
 {
-	initialise_AAttackFactory(pawnRef, attackConfig, attackAttributes);
+	initialise_AAttackFactory(pawnRef, comb, attackConfig, attackAttributes);
 	_AOEConfig = DuplicateObject<UAOEConfig>(AOEConfig, this);
 	_AOEComponent = NewObject<UAOEComponent>(this);
 	_AOEComponent->initialise_UAOEComponent(AOEAttributes);
 }
 void AAOEFactory::launchAttack(const FVector& forward) {
-	AAOE* newAttack = spawnActor<AAOE>();
+	AAOE* newAttack = unrealHelpers::spawnActorOnTopOfMe<AAOE>(this);
 	if (!IsValid(newAttack)) {
 		LOGERROR("AAOEFactory::launchAttack - failed to spawn AAOE");
 		return;
@@ -167,8 +168,11 @@ void AAOEFactory::launchAttack(const FVector& forward) {
 	newAttack->factoryInitQuery(this);
 }
 void AAOEFactory::initAOE(AAOE* aoe) {
-	if (!IsValid(aoe)) {
-		LOGERROR("UAOEFactory::initAOE - aoe is not valid");
+	if (!IsValid(aoe) ||
+		!IsValid(_attackComponent) ||
+		!IsValid(_AOEComponent)
+		) {
+		LOGERROR("UAOEFactory::initAOE - variable is not valid");
 		return;
 	}
 	aoe->initialise_AAOE(
@@ -181,24 +185,19 @@ void AAOEFactory::initAOE(AAOE* aoe) {
 }
 ///////////////////////////////////////////////////////////////////////////////
 
-bool UAOEFactoryTemplate::isValid() const {
-	if (!IsValid(_AOEConfig)) {
-		LOGERROR("UAOEFactoryTemplate::isValid - AOEConfig is not valid");
-		return false;
-	}
-	if (!IsValid(_AOEAttributes)) {
-		LOGERROR("UAOEFactoryTemplate::isValid - AOEAttributes is not valid");
-		return false;
-	}
-	return UAttackFactoryTemplate::isValid();
-}
-
-AAttackFactory* UAOEFactoryTemplate::createFactory(APawn* pawnRef, UObject* caller) const {
-	if (!isValid())
+AAttackFactory* UAOEFactoryTemplate::createFactory(APawn* pawnRef, UCombatantAttributes* comb) const {
+	if (!IsValid(pawnRef)) {
+		LOGERROR("UAOEFactoryTemplate::createFactory - pawnRef is not valid");
 		return nullptr;
-	AAOEFactory* factory = NewObject<AAOEFactory>(caller);
+	}
+	AAOEFactory* factory = unrealHelpers::spawnActorOnTopOfMe<AAOEFactory>(pawnRef);
+	if (!IsValid(factory)) {
+		LOGERROR("UAOEFactoryTemplate::createFactory - failed to spawn AAOEFactory");
+		return nullptr;
+	}
 	factory->initialise_AAOEFactory(
 		pawnRef,
+		comb,
 		_attackConfig,
 		_attackAttributes,
 		_AOEConfig,

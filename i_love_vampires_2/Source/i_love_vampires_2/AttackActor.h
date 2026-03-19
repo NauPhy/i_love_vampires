@@ -3,6 +3,7 @@
 //
 #include "GameFramework/Actor.h"
 //
+#include "SpriteEnum.h"
 #include "BaseConfig.h"
 //
 #include "BaseAttributes.h"
@@ -13,31 +14,31 @@
 #include "BaseAttributeSet.h"
 //
 #include "BaseAttributeSetTemplate.h"
+#include "unrealHelpers.h"
 //
 #include "Engine/World.h"
 #include "GameFramework/Pawn.h"
 #include "AttackActor.generated.h"
-
-
 class ACombatant;
 class UAttackConfig;
+class UPaperFlipbookComponent;
 
 UCLASS()
 class I_LOVE_VAMPIRES_2_API AAttackActor : public AActor {
 	GENERATED_BODY()
 	
 protected:
-	UPROPERTY()
 	TWeakObjectPtr<APawn> _pawnRef = nullptr;
-	UPROPERTY()
 	TArray<TWeakObjectPtr<APawn>> _effectedPawns;
-	UPROPERTY() 
-	UAttackConfig* _attackConfig = nullptr;
-	UPROPERTY()
-	UAttackAttributes* _attackAttributes = nullptr;
 
+	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = true))
+	UPaperFlipbookComponent* _flipbook = nullptr;
+	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = true))
+	UAttackConfig* _attackConfig = nullptr;
+	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = true))
+	UAttackAttributes* _attackAttributes = nullptr;
 public:
-	AAttackActor() { PrimaryActorTick.bCanEverTick = true; }
+	AAttackActor();
 	void initialise_AAttackActor(APawn* pawnRef, const UAttackConfig*, const UAttackAttributes*);
 	virtual void factoryInitQuery(AAttackFactory* factory);
 	virtual void Tick(float delta) override;
@@ -51,8 +52,10 @@ class I_LOVE_VAMPIRES_2_API UAttackConfig : public UBaseConfig
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, Category = "UAttackConfig")
+	UPROPERTY(VisibleAnywhere, Category = "UAttackConfig")
 	TArray<FEffectStruct> _statusEffects;
+	UPROPERTY(VisibleAnywhere, Category = "UAttackConfig")
+	ESprite _sprite = static_cast<ESprite>(0);
 	UAttackConfig(const FObjectInitializer& init) : Super(init) {}
 };
 ///////////////////////////////////////////////////////////////////////////////
@@ -65,11 +68,11 @@ class I_LOVE_VAMPIRES_2_API UAttackAttributes : public UBaseAttributes
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponAttributes")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "WeaponAttributes")
 	float _damage = 0.f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponAttributes")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "WeaponAttributes")
 	float _critChance = 0.f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "WeaponAttributes")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "WeaponAttributes")
 	float _critMultiplier = 2.f;
 
 	static void modifyAttributes(const UCombatantAttributes* modifiers, const UAttackAttributes* baseAttributes, UAttackAttributes* finalAttributes);
@@ -90,6 +93,7 @@ public:
 		_base = DuplicateObject(baseAttributes, this);
 		_final = DuplicateObject(baseAttributes, this);
 		_offsets = DuplicateObject(baseAttributes, this);
+		zeroOffsets();
 	}
 };
 ///////////////////////////////////////////////////////////////////////////////
@@ -106,13 +110,12 @@ class I_LOVE_VAMPIRES_2_API AAttackFactory : public ABaseAttributeSet
 	void shouldNotRunError() const;
 
 protected:
+	TWeakObjectPtr<UCombatantAttributes> _combatantAttributes = nullptr;
+
 	UPROPERTY()
 	UAttackConfig* _attackConfig = nullptr;
 	UPROPERTY()
 	UAttackComponent* _attackComponent = nullptr;
-
-	template <typename T>
-	T* spawnActor() const;
 
 public:
 	TWeakObjectPtr<APawn> _pawnRef = nullptr;
@@ -127,7 +130,7 @@ public:
 	virtual void initExplosiveProjectile(AExplosiveProjectile*) { shouldNotRunError(); }
 
 	virtual void launchAttack(const FVector& forward);
-	void initialise_AAttackFactory(APawn*, const UAttackConfig*, const UAttackAttributes*);
+	void initialise_AAttackFactory(APawn*, UCombatantAttributes*, const UAttackConfig*, const UAttackAttributes*);
 };
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -135,43 +138,15 @@ UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UAttackFactoryTemplate : public UBaseAttributeSetTemplate {
 	GENERATED_BODY()
 
-protected:
-	virtual bool isValid() const;
-
 public:
-	UPROPERTY(EditAnywhere, Instanced, Category = "UAttackFactoryTemplate")
+	UPROPERTY(VisibleAnywhere, Instanced, Category = "UAttackFactoryTemplate")
 	UAttackConfig* _attackConfig;
-	UPROPERTY(EditAnywhere, Instanced, Category = "UAttackFactoryTemplate")
+	UPROPERTY(VisibleAnywhere, Instanced, Category = "UAttackFactoryTemplate")
 	UAttackAttributes* _attackAttributes;
 
-	virtual AAttackFactory* createFactory(APawn*, UObject*) const;
+	virtual AAttackFactory* createFactory(APawn*, UCombatantAttributes*) const;
 	UAttackFactoryTemplate(const FObjectInitializer& init) : Super(init) {
 		_attackConfig = init.CreateDefaultSubobject<UAttackConfig>(this, "_attackConfig");
 		_attackAttributes = init.CreateDefaultSubobject<UAttackAttributes>(this, "_attackAttributes");
 	}
 };
-///////////////////////////////////////////////////////////////////////////////
-template <typename T>
-T* AAttackFactory::spawnActor() const {
-	static_assert(std::is_base_of<AAttackActor, T>::value, "T must be derived from AAttackActor");
-
-	if (!_pawnRef.IsValid())
-		return nullptr;
-	UWorld* world = _pawnRef->GetWorld();
-	if (world == nullptr) {
-		LOGERROR("AAttackFactory::spawnActor - world is null");
-		return nullptr;
-	}
-	FActorSpawnParameters spawnParams;
-	spawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-	FVector spawnLocation = _pawnRef->GetActorLocation();
-	FRotator spawnRotation = _pawnRef->GetActorRotation();
-
-	// This should create a compile error if T is not a subclass of UObject
-	T* actor = world->SpawnActor<T>(spawnLocation, spawnRotation, spawnParams);
-	if (actor == nullptr) {
-		LOGERROR("AAttackFactory::spawnActor - failed to spawn actor");
-		return nullptr;
-	}
-	return actor;
-}

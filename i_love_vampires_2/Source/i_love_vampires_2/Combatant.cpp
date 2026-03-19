@@ -11,6 +11,8 @@
 #include "Engine/AssetManager.h"
 #include "StatusEffect_Burn.h"
 #include "StatusFactory.h"
+#include "Kismet/KismetMathLibrary.h"
+#include "unrealHelpers.h"
 
 
 ACombatant::ACombatant()
@@ -20,13 +22,9 @@ ACombatant::ACombatant()
 		RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
 	}
 	PrimaryActorTick.bCanEverTick = true;
-	//Flipbook init
-	{
-		_combatantFlipbook = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("CombatantFlipbook"));
-		_combatantFlipbook->SetupAttachment(RootComponent);
-		_combatantFlipbook->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
-		_combatantFlipbook->SetCollisionObjectType(ECollisionChannel::ECC_Pawn);
-	}
+	unrealHelpers::constructFlipbook(this, RootComponent, _combatantFlipbook);
+	_combatantFlipbook->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
+	_combatantFlipbook->SetCollisionObjectType(ECollisionChannel::ECC_Pawn);
 }
 
 void ACombatant::burnTick() { _attributeSet->burnTick(); }
@@ -47,8 +45,12 @@ void ACombatant::initialise_ACombatant(const UCombatantTemplate* rawData) {
 	const UCombatantAttributes* attributes = rawData->_attributes;
 	// attribute set
 	{
-		_attributeSet = NewObject<ACombatantAttributeSet>(this);
-		_attributeSet->initialise_ACombatantAttributeSet(attributes);
+		_attributeSet = unrealHelpers::spawnActorOnTopOfMe<ACombatantAttributeSet>(this);
+		if (!IsValid(_attributeSet)) {
+			LOGERROR("ACombatant::initialise_ACombatant - _attributeSet creation failed");
+			return;
+		}
+		_attributeSet->initialise_ACombatantAttributeSet(this, attributes);
 		//callbacks
 		std::function <void(float, float)> callback = std::bind(&ACombatant::onCurrentHPChanged, this, std::placeholders::_1, std::placeholders::_2);
 		float UCombatantAttributes::* member = &UCombatantAttributes::_currentHP;
@@ -68,22 +70,9 @@ void ACombatant::initialise_ACombatant(const UCombatantTemplate* rawData) {
 		active->initialise_UActive(this, data, comp->getFinal<UCombatantAttributes>());
 		_activeAbilities.Add(active);
 	}
-	//sprite
-	ESprite spriteName = _config->_sprite;
-	USpriteManager* spriteManager = nullptr;
-	if (!MyGameplayStatics::getSpriteManager(this, spriteManager)) {
-		return;
-	}
-	UPaperFlipbook* tempSprite = nullptr;
-	if (!spriteManager->getSprite(spriteName, tempSprite))
-		return;
-	if (tempSprite == nullptr) {
-		LOGERROR("ACombatant::initialise_ACombatant - sprite is null");
-		return;
-	}
-	_combatantFlipbook->SetFlipbook(tempSprite);
+	unrealHelpers::initFlipbook(this, _config->_sprite, _combatantFlipbook);
+	_myForwardVector = GetActorForwardVector();
 	_isInitialised = true;
-	_MyForwardVector = GetActorForwardVector();
 }
 
 //void ACombatant::initialise_ACombatant(const FPrimaryAssetId& id)
@@ -125,6 +114,19 @@ void ACombatant::Tick(float DeltaTime) {
 	for (auto& active : _activeAbilities) {
 		active->tick(DeltaTime);
 	}
+
+	{
+		if (!IsValid(_combatantFlipbook) || !IsValid(_attributeSet)) {
+			LOGERROR("ACombatant::Tick - variable not valid");
+			return;
+		}
+		UCombatantAttributes* attr = _attributeSet->getFinal<UCombatantComponent, UCombatantAttributes>();
+		if (attr == nullptr)
+			return;
+		FVector currentScale = GetActorScale3D();
+		SetActorScale3D(currentScale * attr->_selfSize);
+	}
+
 }
 void ACombatant::inflictStatus(UStatusEffect* newStatus) {
 	_attributeSet->inflictStatus(newStatus);

@@ -50,12 +50,17 @@ class I_LOVE_VAMPIRES_2_API ABaseAttributeSet : public AActor
 {
 	GENERATED_BODY()
 
-
+	TWeakObjectPtr<AActor> _owner = nullptr;
+	bool _initialised = false;
 	std::vector<std::unique_ptr<CallbackBase>> _callbacks;
 protected:
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = true))
 	TArray<UStatusEffect*> _statusEffects;
 public:
+	ABaseAttributeSet() { PrimaryActorTick.bCanEverTick = true; }
+	void initialise_ABaseAttributeSet(AActor* caller);
+	// this IS automatic. Most stuff shouldn't be done here.
+	virtual void Tick(float delta) override;
 	// not automatic
 	void tick(float delta);
 	template<typename componentType, typename attributeType>

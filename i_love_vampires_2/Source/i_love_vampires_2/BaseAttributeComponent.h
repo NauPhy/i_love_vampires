@@ -13,12 +13,14 @@ class I_LOVE_VAMPIRES_2_API UBaseAttributeComponent : public UActorComponent
 	GENERATED_BODY()
 
 protected:
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = true))
 	UBaseAttributes* _final = nullptr;
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = true))
 	UBaseAttributes* _base = nullptr;
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = true))
 	UBaseAttributes* _offsets = nullptr;
+
+	void zeroOffsets();
 
 public:
 	// I cannot figure out how to force Unreal into compile time safety- even double dispatch requires "error- not implemented" functions.

@@ -16,15 +16,16 @@ class AProjectile : public AAttackActor {
 	const EProjectileShape _CIRCLE = EProjectileShape::circle;
 
 protected:
-	UPROPERTY()
-	UProjectileConfig* _projectileConfig = nullptr;
-	UPROPERTY()
-	UProjectileAttributes* _projectileAttributes = nullptr;
 	float _directionX = 0;
 	float _directionZ = 1;
 	float _pierce = 0;
 	float _bounce = 0;
 	float _distanceTravelled = 0;
+
+	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = true))
+	UProjectileConfig* _projectileConfig = nullptr;
+	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = true))
+	UProjectileAttributes* _projectileAttributes = nullptr;
 
 private:
 	void performSweep(const FVector&, const FVector&, TArray<struct FHitResult>&);
@@ -58,13 +59,13 @@ class I_LOVE_VAMPIRES_2_API UProjectileConfig : public UBaseConfig
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileConfig")
+	UPROPERTY(VisibleAnywhere, Category = "ProjectileConfig")
 	EProjectileShape _shape = static_cast<EProjectileShape>(0);
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileConfig")
+	UPROPERTY(VisibleAnywhere, Category = "ProjectileConfig")
 	EAttackShape _attackShape = static_cast<EAttackShape>(0);
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileConfig")
+	UPROPERTY(VisibleAnywhere, Category = "ProjectileConfig")
 	EProjectileTargeting _targeting = static_cast<EProjectileTargeting>(0);
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileConfig")
+	UPROPERTY(VisibleAnywhere, Category = "ProjectileConfig")
 	bool _isHoming = false;
 	UProjectileConfig(const FObjectInitializer& init) : Super(init) {}
 };
@@ -75,19 +76,19 @@ class I_LOVE_VAMPIRES_2_API UProjectileAttributes : public UBaseAttributes
 {
 	GENERATED_BODY()
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "ProjectileAttributes")
 	float _spread = 1.f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "ProjectileAttributes")
 	float _radius = 1.f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "ProjectileAttributes")
 	float _speed = 1.f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "ProjectileAttributes")
 	float _range = 1.f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "ProjectileAttributes")
 	float _pierce = 0.f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "ProjectileAttributes")
 	float _bounce = 0.f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "ProjectileAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "ProjectileAttributes")
 	float _projectileCount = 1.f;
 
 	static void modifyAttributes(const UCombatantAttributes*, const UProjectileAttributes*, UProjectileAttributes*);
@@ -111,6 +112,7 @@ public:
 		_base = DuplicateObject(baseAttributes, this);
 		_final = DuplicateObject(baseAttributes, this);
 		_offsets = DuplicateObject(baseAttributes, this);
+		zeroOffsets();
 	}
 };
 ///////////////////////////////////////////////////////////////////////////////
@@ -130,16 +132,18 @@ protected:
 	UProjectileComponent* _projectileComponent = nullptr;
 
 	virtual void launchAttack(const FVector& forward) override;
-	template<typename attackType>
 	virtual void launchAttack_fan(const FVector& forward);
 	FVector launchAttack_fan_getDirection(const UProjectileAttributes* attr, const FVector& forward, int projectileIndex);
 	float getDirectionX() const { return _directionX; }
+	void setDirectionX(float x) { _directionX = x; }
 	float getDirectionZ() const { return _directionZ; }
+	void setDirectionZ(float z) { _directionZ = z; }
 
 public:
 	virtual void initProjectile(AProjectile*) override;
 	void initialise_AProjectileFactory(
 		APawn*,
+		UCombatantAttributes*,
 		const UAttackConfig*,
 		const UAttackAttributes*,
 		const UProjectileConfig*,
@@ -151,45 +155,15 @@ UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UProjectileFactoryTemplate : public UAttackFactoryTemplate {
 	GENERATED_BODY()
 
-protected:
-	virtual bool isValid() const override;
-
 public:
-	UPROPERTY(EditAnywhere, Instanced, Category = "UProjectileFactoryTemplate")
+	UPROPERTY(VisibleAnywhere, Instanced, Category = "UProjectileFactoryTemplate")
 	UProjectileConfig* _projectileConfig;
-	UPROPERTY(EditAnywhere, Instanced, Category = "UProjectileFactoryTemplate")
+	UPROPERTY(VisibleAnywhere, Instanced, Category = "UProjectileFactoryTemplate")
 	UProjectileAttributes* _projectileAttributes;
 
-	virtual AAttackFactory* createFactory(APawn*, UObject*) const override;
+	virtual AAttackFactory* createFactory(APawn*, UCombatantAttributes*) const override;
 	UProjectileFactoryTemplate(const FObjectInitializer& init) : Super(init) {
 		_projectileConfig = init.CreateDefaultSubobject<UProjectileConfig>(this, "_projectileConfig");
 		_projectileAttributes = init.CreateDefaultSubobject<UProjectileAttributes>(this, "_projectileAttributes");
 	}
 };
-
-/////////////////////////////////////////////////////////////////////////////////////////////
-template<typename attackType>
-void AProjectileFactory::launchAttack_fan(const FVector& forward) {
-	static_assert(std::derived_from<attackType, AProjectile>, "attackType must be derived from AProjectile");
-
-	UProjectileComponent* comp = getComponent<UProjectileComponent>();
-	if (!IsValid(comp))
-		return;
-	UProjectileAttributes* attr = comp->getDiscretizedFinal<UProjectileAttributes>(this);
-	if (!IsValid(attr))
-		return;
-	for (int i = 0; i < static_cast<int>(attr->_projectileCount); i++) {
-		FVector direction = launchAttack_fan_getDirection(attr, i);
-		_directionX = direction.X;
-		_directionZ = direction.Z;
-		FActorSpawnParameters params;
-		params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-		AProjectile* projectile = GetWorld()->SpawnActor<attackType>(GetActorLocation(), FRotator::ZeroRotator, params);
-		if (!IsValid(projectile)) {
-			LOGERROR("AProjectileFactory::launchAttack_fan - failed to spawn projectile");
-			continue;
-		}
-		projectile->factoryInitQuery(this);
-	}
-}
-

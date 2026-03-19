@@ -104,6 +104,7 @@ public:
 		_base = DuplicateObject(baseAttributes, this);
 		_final = DuplicateObject(baseAttributes, this);
 		_offsets = DuplicateObject(baseAttributes, this);
+		zeroOffsets();
 	}
 };
 ///////////////////////////////////////////////////////////////////////////////
@@ -123,6 +124,7 @@ public:
 	virtual void launchAttack(const FVector& forward) override;
 	void initialise_AAOEFactory(
 		APawn*,
+		UCombatantAttributes* comb,
 		const UAttackConfig*,
 		const UAttackAttributes*,
 		const UAOEConfig*,
@@ -134,16 +136,13 @@ UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UAOEFactoryTemplate : public UAttackFactoryTemplate {
 	GENERATED_BODY()
 
-protected:
-	virtual bool isValid() const override;
-	 
 public:
 	UPROPERTY(EditAnywhere, Instanced, Category = "UProjectileFactoryTemplate")
 	UAOEConfig* _AOEConfig;
 	UPROPERTY(EditAnywhere, Instanced, Category = "UProjectileFactoryTemplate")
 	UAOEAttributes* _AOEAttributes;
 
-	virtual AAttackFactory* createFactory(APawn*, UObject*) const override;
+	virtual AAttackFactory* createFactory(APawn*, UCombatantAttributes*) const override;
 	UAOEFactoryTemplate(const FObjectInitializer& init) : Super(init) {
 		_AOEConfig = init.CreateDefaultSubobject<UAOEConfig>(this, "_AOEConfig");
 		_AOEAttributes = init.CreateDefaultSubobject<UAOEAttributes>(this, "_AOEAttributes");

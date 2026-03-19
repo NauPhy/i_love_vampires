@@ -1,6 +1,12 @@
 #include "BaseAttributeSet.h"
 
 void ABaseAttributeSet::tick(float delta) {
+	TArray<UBaseAttributeComponent*> components;
+	GetComponents(components, false);
+	for (auto& component : components) {
+		component->_final = component->_base;
+		component->modifyAttributes(_modifiers);
+	}
 	for (const auto& statusEffect : _statusEffects) {
 		if (IsValid(statusEffect)) {
 			statusEffect->prebonusStep(delta, this);
@@ -22,6 +28,9 @@ void ABaseAttributeSet::tick(float delta) {
 			_statusEffects.RemoveAt(i);
 		}
 	}
+	for (auto& component : components) {
+		component->_final = component->_base
+	}
 	for (auto it = _callbacks.begin(); it != _callbacks.end();) {
 		CallbackBase* callback = (*it).get();
 		if (!callback->tick()) {
@@ -30,5 +39,19 @@ void ABaseAttributeSet::tick(float delta) {
 		else {
 			it++;
 		}
+	}
+}
+
+void ABaseAttributeSet::initialise_ABaseAttributeSet(AActor* caller) {
+	_owner = TWeakObjectPtr<AActor>(caller);
+	_initialised = true;
+}
+
+void ABaseAttributeSet::Tick(float delta) {
+	if (!_initialised)
+		return;
+	if (!_owner.IsValid()) {
+		Destroy();
+		return;
 	}
 }

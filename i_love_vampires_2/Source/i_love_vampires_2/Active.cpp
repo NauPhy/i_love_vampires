@@ -17,9 +17,10 @@ void UActive::tick(float delta) {
 		LOGERROR("UActive::tick - config is not valid");
 		return;
 	}
-	if (_timeSinceLastActivation >= _config->_warmup) {
+	if (_chargeRatio >= 1) {
 		activate();
 		_timeSinceLastActivation = 0;
+		_chargeRatio = 0;
 	}
 }
 
@@ -59,7 +60,7 @@ void UActive::activate_first() {
 }
 
 void UActive::initialise_UActive(APawn* caller, const UWeaponTemplate* rawData, UCombatantAttributes* callerAttributes) {
-	if (!IsValid(rawData) || !IsValid(rawData->_config)) {
+	if (!IsValid(rawData) || !IsValid(rawData->_config) || !IsValid(callerAttributes)) {
 		LOGERROR("UActive::initialise_UActive - invalid parameter");
 		return;
 	}
@@ -67,7 +68,7 @@ void UActive::initialise_UActive(APawn* caller, const UWeaponTemplate* rawData, 
 	_combatantAttributes = TWeakObjectPtr<UCombatantAttributes>(callerAttributes);
 	_config = DuplicateObject(rawData->_config, this);
 	for (const auto& data : rawData->_attackData) {
-		AAttackFactory* factory = data->createFactory(caller, this);
+		AAttackFactory* factory = data->createFactory(caller, callerAttributes);
 		_factories.Add(factory);
 	}
 	//warmup

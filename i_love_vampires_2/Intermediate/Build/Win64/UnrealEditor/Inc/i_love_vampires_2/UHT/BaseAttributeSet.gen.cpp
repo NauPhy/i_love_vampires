@@ -57,6 +57,8 @@ struct Z_Construct_UClass_ABaseAttributeSet_Statics
 		{ "ModuleRelativePath", "BaseAttributeSet.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__statusEffects_MetaData[] = {
+		{ "AllowPrivateAccess", "TRUE" },
+		{ "Category", "BaseAttributeSet" },
 		{ "ModuleRelativePath", "BaseAttributeSet.h" },
 	};
 #endif // WITH_METADATA
@@ -74,8 +76,8 @@ struct Z_Construct_UClass_ABaseAttributeSet_Statics
 }; // struct Z_Construct_UClass_ABaseAttributeSet_Statics
 
 // ********** Begin Class ABaseAttributeSet Property Definitions ***********************************
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ABaseAttributeSet_Statics::NewProp__statusEffects_Inner = { "_statusEffects", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UStatusEffect_NoRegister, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_ABaseAttributeSet_Statics::NewProp__statusEffects = { "_statusEffects", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABaseAttributeSet, _statusEffects), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__statusEffects_MetaData), NewProp__statusEffects_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ABaseAttributeSet_Statics::NewProp__statusEffects_Inner = { "_statusEffects", nullptr, (EPropertyFlags)0x0000000000020000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UStatusEffect_NoRegister, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_ABaseAttributeSet_Statics::NewProp__statusEffects = { "_statusEffects", nullptr, (EPropertyFlags)0x0020080000020001, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABaseAttributeSet, _statusEffects), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__statusEffects_MetaData), NewProp__statusEffects_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ABaseAttributeSet_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABaseAttributeSet_Statics::NewProp__statusEffects_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABaseAttributeSet_Statics::NewProp__statusEffects,
@@ -113,7 +115,6 @@ UClass* Z_Construct_UClass_ABaseAttributeSet()
 	}
 	return Z_Registration_Info_UClass_ABaseAttributeSet.OuterSingleton;
 }
-ABaseAttributeSet::ABaseAttributeSet(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, ABaseAttributeSet);
 ABaseAttributeSet::~ABaseAttributeSet() {}
 // ********** End Class ABaseAttributeSet **********************************************************
@@ -122,10 +123,10 @@ ABaseAttributeSet::~ABaseAttributeSet() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributeSet_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ABaseAttributeSet, ABaseAttributeSet::StaticClass, TEXT("ABaseAttributeSet"), &Z_Registration_Info_UClass_ABaseAttributeSet, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABaseAttributeSet), 2654192918U) },
+		{ Z_Construct_UClass_ABaseAttributeSet, ABaseAttributeSet::StaticClass, TEXT("ABaseAttributeSet"), &Z_Registration_Info_UClass_ABaseAttributeSet, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABaseAttributeSet), 252199700U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributeSet_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributeSet_h__Script_i_love_vampires_2_3676002922{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributeSet_h__Script_i_love_vampires_2_1253192264{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributeSet_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseAttributeSet_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

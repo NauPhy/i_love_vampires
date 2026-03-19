@@ -56,6 +56,7 @@ void UExplosiveProjectileAttributes::modifyAttributes(const UCombatantAttributes
 
 void AExplosiveProjectileFactory::initialise_AExplosiveProjectileFactory(
 	APawn* pawn,
+	UCombatantAttributes* comb,
 	const UAttackConfig* attackConfig,
 	const UAttackAttributes* attackAttributes,
 	const UProjectileConfig* projectileConfig,
@@ -65,7 +66,7 @@ void AExplosiveProjectileFactory::initialise_AExplosiveProjectileFactory(
 	const UAOEConfig* aoeConfig,
 	const UAOEAttributes* aoeAttributes)
 {
-	initialise_AProjectileFactory(pawn, attackConfig, attackAttributes, projectileConfig, projectileAttributes);
+	initialise_AProjectileFactory(pawn, comb, attackConfig, attackAttributes, projectileConfig, projectileAttributes);
 	_explosiveProjectileConfig = DuplicateObject<UExplosiveProjectileConfig>(explosiveProjectileConfig, this);
 	_explosiveProjectileComponent = NewObject<UExplosiveProjectileComponent>(this);
 	_explosiveProjectileComponent->initialise_UExplosiveProjectileComponent(explosiveProjectileAttributes);
@@ -93,28 +94,26 @@ void AExplosiveProjectileFactory::launchAttack_fan(const FVector& forward) {
 		LOGERROR("AExplosiveProjectileFactory::launchAttack_fan - projectile config is not valid");
 		return;
 	}
-	UProjectileAttributes* disc = comp->getDiscretizedFinal<UProjectileAttributes>(this)->_projectileCount;
+	UProjectileAttributes* disc = comp->getDiscretizedFinal<UProjectileAttributes>(this);
 	if (!IsValid(disc)) {
 		LOGERROR("AExplosiveProjectileFactory::launchAttack_fan - discretized projectile attributes is not valid");
 		return;
 	}
-	FActorSpawnParameters spawnParams;
-	spawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 	for (int i = 0; i < static_cast<int>(disc->_projectileCount); i++) {
 		if (_tempAOE.IsValid()) {
 			LOGERROR("AExplosiveProjectileFactory::launchAttack - tempAOE is already valid when launching attack");
 			return;
 		}
 		FVector direction = AProjectileFactory::launchAttack_fan_getDirection(disc, forward, i);
-		_directionX = direction.X;
-		_directionY = direction.Y;
+		setDirectionX(direction.X);
+		setDirectionZ(direction.Z);
 		{
-			AAOE* aoe = spawnActor<AAOE>();
+			AAOE* aoe = unrealHelpers::spawnActorOnTopOfMe<AAOE>(_pawnRef.Get());
 			if (aoe == nullptr)
 				return;
 			_tempAOE = TWeakObjectPtr<AAOE>(aoe);
 		}
-		AExplosiveProjectile* newAttack = spawnActor<AExplosiveProjectile>();
+		AExplosiveProjectile* newAttack = unrealHelpers::spawnActorOnTopOfMe<AExplosiveProjectile>(_pawnRef.Get());
 		if (newAttack == nullptr) {
 			_tempAOE->Destroy();
 			_tempAOE = nullptr;
@@ -170,32 +169,19 @@ void AExplosiveProjectileFactory::initExplosiveProjectile(AExplosiveProjectile* 
 
 ///////////////////////////////////////////////////////////////////////////////
 
-bool UExplosiveProjectileFactoryTemplate::isValid() const {
-	if (!IsValid(_explosiveProjectileConfig)) {
-		LOGERROR("UExplosiveProjectileFactoryTemplate::isValid - explosiveProjectileConfig is not valid");
-		return false;
-	}
-	if (!IsValid(_explosiveProjectileAttributes)) {
-		LOGERROR("UExplosiveProjectileFactoryTemplate::isValid - explosiveProjectileAttributes is not valid");
-		return false;
-	}
-	if (!IsValid(_AOEConfig)) {
-		LOGERROR("UExplosiveProjectileFactoryTemplate::isValid - aoeConfig is not valid");
-		return false;
-	}
-	if (!IsValid(_AOEAttributes)) {
-		LOGERROR("UExplosiveProjectileFactoryTemplate::isValid - aoeComponent is not valid");
-		return false;
-	}
-	return UProjectileFactoryTemplate::isValid();
-}
-
-AAttackFactory* UExplosiveProjectileFactoryTemplate::createFactory(APawn* pawn, UObject* caller) const {
-	if (!isValid())
+AAttackFactory* UExplosiveProjectileFactoryTemplate::createFactory(APawn* pawn, UCombatantAttributes* comb) const {
+	if (!IsValid(pawn)) {
+		LOGERROR("UExplosiveProjectileFactoryTemplate::createFactory - pawn is not valid");
 		return nullptr;
-	AExplosiveProjectileFactory* factory = NewObject<AExplosiveProjectileFactory>(caller);
+	}
+	AExplosiveProjectileFactory* factory = unrealHelpers::spawnActorOnTopOfMe<AExplosiveProjectileFactory>(pawn);
+	if (!IsValid(factory)) {
+		LOGERROR("UExplosiveProjectileFactoryTemplate::createFactory - failed to create factory");
+		return nullptr;
+	}
 	factory->initialise_AExplosiveProjectileFactory(
 		pawn,
+		comb,
 		_attackConfig,
 		_attackAttributes,
 		_projectileConfig,
