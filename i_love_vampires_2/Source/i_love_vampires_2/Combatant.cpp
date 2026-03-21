@@ -30,14 +30,18 @@ ACombatant::ACombatant()
 void ACombatant::burnTick() { _attributeSet->burnTick(); }
 void ACombatantAttributeSet::burnTick() { 
 	for (auto& status : _statusEffects) {
+		if (!IsValid(status)) {
+			LOGERROR("ACombatantAttributeSet::burnTick - status effect not valid");
+			continue;
+		}
 		UStatusEffect_Burn* burnStatus = Cast<UStatusEffect_Burn>(status);
-		if (burnStatus != nullptr)
+		if (IsValid(burnStatus))
 			burnStatus->burnTick();
 	}
 }
 
 void ACombatant::initialise_ACombatant(const UCombatantTemplate* rawData) {
-	if (rawData == nullptr || rawData->_config == nullptr || rawData->_attributes == nullptr) {
+	if (!IsValid(rawData) || !IsValid(rawData->_config) || !IsValid(rawData->_attributes)) {
 		LOGERROR("ACombatant::initialise_ACombatant - invalid parameter");
 		return;
 	}
@@ -61,9 +65,17 @@ void ACombatant::initialise_ACombatant(const UCombatantTemplate* rawData) {
 	// It is now of type TSoftObjectPtr<UWeaponTemplate>
 	// The code here doesn't need to change tho
 	for (const auto& data : _config->_startingWeapons) {
+		if (!IsValid(data)) {
+			LOGERROR("ACombatant::initialise_ACombatant - starting weapon data not valid");
+			continue;
+		}
 		UActive* active = NewObject<UActive>(this);
+		if (!IsValid(active)) {
+			LOGERROR("ACombatant::initialise_ACombatant - active creation failed");
+			continue;
+		}
 		UCombatantComponent* comp = _attributeSet->FindComponentByClass<UCombatantComponent>();
-		if (comp == nullptr) {
+		if (!IsValid(comp)) {
 			LOGERROR("ACombatant::initialise_ACombatant - combatant component not found");
 			continue;
 		}
@@ -121,7 +133,7 @@ void ACombatant::Tick(float DeltaTime) {
 			return;
 		}
 		UCombatantAttributes* attr = _attributeSet->getFinal<UCombatantComponent, UCombatantAttributes>();
-		if (attr == nullptr)
+		if (!IsValid(attr))
 			return;
 		FVector currentScale = GetActorScale3D();
 		SetActorScale3D(currentScale * attr->_selfSize);
@@ -129,6 +141,14 @@ void ACombatant::Tick(float DeltaTime) {
 
 }
 void ACombatant::inflictStatus(UStatusEffect* newStatus) {
+	if (!IsValid(newStatus)) {
+		LOGERROR("ACombatant::inflictStatus - newStatus not valid");
+		return;
+	}
+	if (!IsValid(_attributeSet)) {
+		LOGERROR("ACombatant::inflictStatus - _attributeSet not valid");
+		return;
+	}
 	_attributeSet->inflictStatus(newStatus);
 }
 void ACombatant::inflictStatus(const FEffectStruct& effectStruct) {
@@ -144,6 +164,10 @@ void ACombatant::lookAtDirection(float X, float Z) {
 }
 
 void ACombatant::exchangeContactDamage(ACombatant* left, ACombatant* right) {
+	if (!IsValid(left) || !IsValid(right)) {
+		LOGERROR("ACombatant::exchangeContactDamage - parameter not valid");
+		return;
+	}
 	UCombatantAttributes* leftAttr = nullptr;
 	if (!left->getAttributes(leftAttr))
 		return;
@@ -154,8 +178,16 @@ void ACombatant::exchangeContactDamage(ACombatant* left, ACombatant* right) {
 	const float rightThreat = rightAttr->_contactDamage;
 
 	UStatusEffect_Damage* leftDamage = NewObject<UStatusEffect_Damage>(left);
+	if (!IsValid(leftDamage)) {
+		LOGERROR("ACombatant::exchangeContactDamage - leftDamage creation failed");
+		return;
+	}
 	leftDamage->initialise_UStatusEffect_Damage(rightThreat);
 	UStatusEffect_Damage* rightDamage = NewObject<UStatusEffect_Damage>(right);
+	if (!IsValid(rightDamage)) {
+		LOGERROR("ACombatant::exchangeContactDamage - rightDamage creation failed");
+		return;
+	}
 	rightDamage->initialise_UStatusEffect_Damage(leftThreat);
 
 	left->inflictStatus(leftDamage);
@@ -163,18 +195,26 @@ void ACombatant::exchangeContactDamage(ACombatant* left, ACombatant* right) {
 }
 
 bool ACombatant::getAttributes(UCombatantAttributes*& ret) {
+	if (!IsValid(_attributeSet)) {
+		LOGERROR("ACombatant::getAttributes - _attributeSet not valid");
+		return false;
+	}
 	UCombatantComponent* comp = _attributeSet->getComponent<UCombatantComponent>();
-	if (comp == nullptr) {
+	if (!IsValid(comp)) {
 		LOGERROR("ACombatant::getAttributes - combatant component not found");
 		return false;
 	}
 	ret = comp->getFinal<UCombatantAttributes>();
-	if (ret == nullptr)
+	if (!IsValid(ret))
 		return false;
 	return true;
 }
 
 UCombatantAttributes* UCombatantAttributes::getDiscretizedCopy(UObject* outer) const {
+	if (!IsValid(outer)) {
+		LOGERROR("UCombatantAttributes::getDiscretizedCopy - outer not valid");
+		return nullptr;
+	}
 	LOGERROR("I'm not sure if there's ever a reason to call this");
 	return DuplicateObject<UCombatantAttributes>(this, outer, FName());
 }

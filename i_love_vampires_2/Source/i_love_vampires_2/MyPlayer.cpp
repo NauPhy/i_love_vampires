@@ -24,6 +24,10 @@ AMyPlayer::AMyPlayer() : ACombatant() {
 	//	_springArm->SetWorldRotation(FRotator(0, -90, 0), false, unused, ETeleportType::TeleportPhysics);
 	//}
 	_camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+	if (!IsValid(_camera)) {
+		LOGERROR("AMyPlayer::AMyPlayer - _camera creation failed");
+		return;
+	}
 	_camera->SetupAttachment(RootComponent);
 	_camera->ProjectionMode = ECameraProjectionMode::Orthographic;
 	_camera->OrthoWidth = 300;
@@ -35,19 +39,23 @@ AMyPlayer::AMyPlayer() : ACombatant() {
 }
 
 void AMyPlayer::onOverlapBegin(AActor* me, AActor* other) {
+	if (!IsValid(me)) {
+		LOGERROR("AMyPlayer::onOverlapBegin - self actor is invalid");
+		return;
+	}
 	if (!IsValid(other))
 		//other actor is being constructed or destructed
 		return;
 	{
 		AExperienceShard* shard = Cast<AExperienceShard>(other);
-		if (shard != nullptr) {
+		if (IsValid(shard)) {
 			handleExperienceShardCollision(shard);
 			return;
 		}
 	}
 	{
 		AEnemyBase* enemy = Cast<AEnemyBase>(other);
-		if (enemy != nullptr) {
+		if (IsValid(enemy)) {
 			handleEnemyCollision(enemy);
 			return;
 		}
@@ -55,6 +63,10 @@ void AMyPlayer::onOverlapBegin(AActor* me, AActor* other) {
 }
 
 void AMyPlayer::handleExperienceShardCollision(AExperienceShard* other) {
+	if (!IsValid(other)) {
+		LOGERROR("AMyPlayer::handleExperienceShardCollision - other is invalid");
+		return;
+	}
 	if (other->isMagnetised()) {
 		addExperience(other->getExperienceValue());
 		other->suicide();
@@ -93,7 +105,7 @@ bool AMyPlayer::addKeyboardContext() {
 		return false;
 	}
 	const UInputMappingContext* keyboardContext = assetRefs->getKeyboardContext();
-	if (keyboardContext == nullptr) {
+	if (!IsValid(keyboardContext)) {
 		return false;
 	}
 	// Assume keyboard for now
@@ -113,6 +125,10 @@ bool AMyPlayer::addKeyboardContext() {
 //}
 
 void AMyPlayer::initialise_AMyPlayer(const UCombatantTemplate* data) {
+	if (!IsValid(data)) {
+		LOGERROR("AMyPlayer::initialise_AMyPlayer - data is invalid");
+		return;
+	}
 	initialise_ACombatant(data);
 	if (!addKeyboardContext())
 		return;
@@ -131,7 +147,7 @@ void AMyPlayer::handleMovement(const FVector2D& input) {
 	if (!isOutOfDeadzone(input.X, input.Y))
 		return;
 	UCombatantAttributes* attr = _attributeSet->getFinal<UCombatantComponent, UCombatantAttributes>();
-	if (attr == nullptr)
+	if (!IsValid(attr))
 		return;
 	FVector movement = FVector(input.X * _MOVEMENT_SPEED, 0, input.Y * _MOVEMENT_SPEED * attr->_movementSpeed);
 	{

@@ -7,6 +7,7 @@
 #include "GameFramework/Pawn.h"
 #include "Engine/World.h"
 #include "Engine/AssetManager.h"
+#include "BaseAttributeSet.h"
 
 UEnemySpawner::UEnemySpawner() {
 }
@@ -15,8 +16,8 @@ bool UEnemySpawner::spawnTestEnemy(ACombatant*& ret) {
 	const float spawnDistance = 100.0f;
 
 	APawn* player = UGameplayStatics::GetPlayerPawn(this, 0);
-	if (player == nullptr) {
-		LOGERROR("player is nullptr");
+	if (!IsValid(player)) {
+		LOGERROR("player is invalid");
 		return false;
 	}
 	FVector playerPos = player->K2_GetActorLocation();
@@ -28,17 +29,26 @@ bool UEnemySpawner::spawnTestEnemy(ACombatant*& ret) {
 }
 
 bool UEnemySpawner::spawnEnemy(const FVector& spawnLocation, const UCombatantTemplate* rawData, ACombatant*& ret) {
+	if (!IsValid(rawData) || !IsValid(rawData->_config)) {
+		LOGERROR("UEnemySpawner::spawnEnemy - invalid rawData");
+		return false;
+	}
 	TSubclassOf<ACombatant> enemyClass = rawData->_config->_combatantClass;
 	FRotator spawnRotation(0, 0, 0);
 	FActorSpawnParameters spawnParams;
 	spawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-	ret = GetWorld()->SpawnActor<ACombatant>(
+	UWorld* world = GetWorld();
+	if (!IsValid(world)) {
+		LOGERROR("UEnemySpawner::spawnEnemy - world is invalid");
+		return false;
+	}
+	ret = world->SpawnActor<ACombatant>(
 		enemyClass,
 		spawnLocation,
 		spawnRotation,
 		spawnParams
 	);
-	if (ret == nullptr) {
+	if (!IsValid(ret)) {
 		LOGERROR("UEnemySpawner::spawnEnemy - failed to spawn enemy");
 		return false;
 	}

@@ -27,6 +27,10 @@ void AProjectile::initialise_AProjectile(
 	const UProjectileConfig* projectileConfig, 
 	const UProjectileAttributes* projectileAttributes)
 {
+	if (!IsValid(projectileConfig) || !IsValid(projectileAttributes)) {
+		LOGERROR("AProjectile::initialise_AProjectile - invalid projectile config or attributes");
+		return;
+	}
 	initialise_AAttackActor(pawnRef, attackConfig, attackAttributes);
 	_projectileConfig = DuplicateObject<UProjectileConfig>(projectileConfig, this);
 	_projectileAttributes = DuplicateObject<UProjectileAttributes>(projectileAttributes, this);
@@ -34,8 +38,8 @@ void AProjectile::initialise_AProjectile(
 	_directionZ = directionZ; 
 	_distanceTravelled = 0;
 
-	_pierce = _projectileAttributes->_pierce;
-	_bounce = _projectileAttributes->_bounce;
+	_pierce = projectileAttributes->_pierce;
+	_bounce = projectileAttributes->_bounce;
 	FVector currentScale = GetActorScale3D();
 	SetActorScale3D(currentScale * _projectileAttributes->_radius);
 }
@@ -45,15 +49,17 @@ void AProjectile::performSweep(const FVector& startPos, const FVector& endPos, T
 	params.AddObjectTypesToQuery(ECC_Pawn);
 	FCollisionQueryParams params2;
 	params2.AddIgnoredActor(this);
-	if (_pawnRef.Get() != nullptr)
+	if (_pawnRef.IsValid())
 		params2.AddIgnoredActor(_pawnRef.Get());
 	for (const auto& tempPawn : _effectedPawns) {
+		if (!tempPawn.IsValid())
+			continue;
 		if (tempPawn.Get() != nullptr)
 			params2.AddIgnoredActor(tempPawn.Get());
 	}
 	UWorld* world = GetWorld();
-	if (world == nullptr) {
-		LOGERROR("AProjectile::performSweep - world is null");
+	if (!IsValid(world)) {
+		LOGERROR("AProjectile::performSweep - world is invalid");
 		return;
 	}
 	if (!IsValid(_projectileConfig)) {
@@ -76,10 +82,10 @@ void AProjectile::handleSweepResults(const TArray<struct FHitResult>& hits) {
 	for (const FHitResult& hit : hits) {
 		AActor* hitActor = hit.GetActor();
 		//hitActor is in the middle of construction or destruction
-		if (hitActor == nullptr)
+		if (!IsValid(hitActor))
 			continue;
 		ACombatant* combatantActor = Cast<ACombatant>(hitActor);
-		if (combatantActor == nullptr) {
+		if (!IsValid(combatantActor)) {
 			LOGERROR("AProjectile::handleSweepResults - hitActor is not a combatant");
 			continue;
 		}
@@ -162,12 +168,35 @@ void AProjectile::factoryInitQuery(AAttackFactory* factory) {
 ///////////////////////////////////////////////////////////////////////////////
 
 void UProjectileAttributes::modifyAttributes(const UCombatantAttributes* combatantAttributes, const UProjectileAttributes* baseAttributes, UProjectileAttributes* finalAttributes) {
+	if (!IsValid(combatantAttributes) || !IsValid(baseAttributes) || !IsValid(finalAttributes)) {
+		LOGERROR("UProjectileAttributes::modifyAttributes - invalid argument");
+		return;
+	}
 	finalAttributes->_radius = baseAttributes->_radius * combatantAttributes->_projectileSize;
 	finalAttributes->_speed = baseAttributes->_speed * combatantAttributes->_projectileSpeed;
 	finalAttributes->_pierce = baseAttributes->_pierce + combatantAttributes->_bonusPierce;
 	finalAttributes->_bounce = baseAttributes->_bounce + combatantAttributes->_bonusBounces;
 	finalAttributes->_projectileCount = baseAttributes->_projectileCount + combatantAttributes->_bonusProjectiles;
 }
+///////////////////////////////////////////////////////////////////////////////
+
+void UProjectileComponent::modifyAttributes(ABaseAttributeSet* set) {
+	if (!IsValid(set)) {
+		LOGERROR("UAttackComponent::modifyAttributes - set is not valid");
+		return;
+	}
+	UCombatantAttributes* attr = nullptr;
+	if (!set->getModifiers<UCombatantAttributes>(attr))
+		return;
+	if (!IsValid(_base) || !IsValid(_final)) {
+		LOGERROR("UAttackComponent::modifyAttributes - base or final is not valid");
+		return;
+	}
+	UProjectileAttributes* base = Cast<UProjectileAttributes>(_base);
+	UProjectileAttributes* final = Cast<UProjectileAttributes>(_final);
+	UProjectileAttributes::modifyAttributes(attr, base, final);
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 void AProjectileFactory::initialise_AProjectileFactory(
 	APawn* pawn,
@@ -177,6 +206,10 @@ void AProjectileFactory::initialise_AProjectileFactory(
 	const UProjectileConfig* projectileConfig,
 	const UProjectileAttributes* projectileAttributes)
 {
+	if (!IsValid(projectileConfig) || !IsValid(projectileAttributes)) {
+		LOGERROR("AProjectileFactory::initialise_AProjectileFactory - invalid projectile config or attributes");
+		return;
+	}
 	initialise_AAttackFactory(pawn, comb, attackConfig, attackAttributes);
 	_projectileConfig = DuplicateObject<UProjectileConfig>(projectileConfig, this);
 	_projectileComponent = NewObject<UProjectileComponent>(this);
@@ -207,8 +240,11 @@ void AProjectileFactory::initProjectile(AProjectile* projectile) {
 		LOGERROR("AProjectileFactory::initProjectile - variable is not valid");
 		return;
 	}
+	if (!_owner.IsValid())
+		return;
+	APawn* pawnRef = Cast<APawn>(_owner.Get());
 	projectile->initialise_AProjectile(
-		_pawnRef.Get(),
+		pawnRef,
 		getDirectionX(),
 		getDirectionZ(),
 		_attackConfig,
@@ -240,14 +276,15 @@ void AProjectileFactory::launchAttack_fan(const FVector& forward) {
 	UProjectileAttributes* attr = comp->getDiscretizedFinal<UProjectileAttributes>(this);
 	if (!IsValid(attr))
 		return;
-	if (!_pawnRef.IsValid()) {
+	if (!_owner.IsValid())
 		return;
-	}
 	for (int i = 0; i < static_cast<int>(attr->_projectileCount); i++) {
 		FVector direction = launchAttack_fan_getDirection(attr, forward, i);
 		_directionX = direction.X;
 		_directionZ = direction.Z;
-		AProjectile* projectile = unrealHelpers::spawnActorOnTopOfMe<AProjectile>(_pawnRef.Get());
+
+		APawn* pawnRef = Cast<APawn>(_owner.Get());
+		AProjectile* projectile = unrealHelpers::spawnActorOnTopOfMe<AProjectile>(pawnRef);
 		if (!IsValid(projectile)) {
 			LOGERROR("AProjectileFactory::launchAttack_fan - failed to spawn projectile");
 			continue;

@@ -61,6 +61,10 @@ class I_LOVE_VAMPIRES_2_API UExplosiveProjectileAttributes : public UBaseAttribu
 public:
 	static void modifyAttributes(const UCombatantAttributes*, const UExplosiveProjectileAttributes*, UExplosiveProjectileAttributes*);
 	virtual UExplosiveProjectileAttributes* getDiscretizedCopy(UObject* outer) const override {
+		if (!IsValid(outer)) {
+			LOGERROR("UExplosiveProjectileAttributes::getDiscretizedCopy - outer not valid");
+			return nullptr;
+		}
 		return DuplicateObject<UExplosiveProjectileAttributes>(this, outer, FName());
 	}
 	UExplosiveProjectileAttributes(const FObjectInitializer& init) : Super(init) {}
@@ -73,11 +77,16 @@ class I_LOVE_VAMPIRES_2_API UExplosiveProjectileComponent : public UBaseAttribut
 	GENERATED_BODY()
 public:
 	void initialise_UExplosiveProjectileComponent(const UExplosiveProjectileAttributes* baseAttributes) {
+		if (!IsValid(baseAttributes)) {
+			LOGERROR("UExplosiveProjectileComponent::initialise_UExplosiveProjectileComponent - baseAttributes not valid");
+			return;
+		}
 		_base = DuplicateObject(baseAttributes, this);
 		_final = DuplicateObject(baseAttributes, this);
 		_offsets = DuplicateObject(baseAttributes, this);
 		zeroOffsets();
 	}
+	virtual void modifyAttributes(ABaseAttributeSet* set) override;
 };
 
 ///////////////////////////////////////////////////////////////////////////////

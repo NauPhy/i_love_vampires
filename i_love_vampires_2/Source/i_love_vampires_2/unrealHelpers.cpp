@@ -7,6 +7,10 @@
 #include "Components/SceneComponent.h"
 
 bool unrealHelpers::initFlipbook(AActor* caller, ESprite sprite, UPaperFlipbookComponent*& flipbook) {
+	if (!IsValid(caller) || !IsValid(flipbook)) {
+		LOGERROR("unrealHelpers::initFlipbook - parameter is not valid");
+		return false;
+	}
 	USpriteManager* spriteManager = nullptr;
 	if (!MyGameplayStatics::getSpriteManager(caller, spriteManager)) {
 		return false;
@@ -23,6 +27,10 @@ bool unrealHelpers::initFlipbook(AActor* caller, ESprite sprite, UPaperFlipbookC
 }
 
 bool unrealHelpers::constructFlipbook(AActor* caller, USceneComponent* rootComp, UPaperFlipbookComponent*& flipbook) {
+	if (!IsValid(caller) || !IsValid(rootComp)) {
+		LOGERROR("unrealHelpers::constructFlipbook - parameter is not valid");
+		return false;
+	}
 	flipbook = caller->CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("flipbook"));
 	flipbook->SetupAttachment(rootComp);
 	flipbook->SetCollisionEnabled(ECollisionEnabled::QueryOnly);

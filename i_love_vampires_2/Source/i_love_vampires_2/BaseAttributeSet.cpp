@@ -1,11 +1,23 @@
 #include "BaseAttributeSet.h"
 
+/*
+1. Set _final = _base
+2. Modify _final based on the static functions in the respective UBaseAttributes subclasses. UBaseAttributeComponent subclasses are responsible for typing and 
+calling.
+3. Apply all status effects
+4. Delete expired status effects
+5. Execute callbacks
+*/
 void ABaseAttributeSet::tick(float delta) {
 	TArray<UBaseAttributeComponent*> components;
 	GetComponents(components, false);
 	for (auto& component : components) {
-		component->_final = component->_base;
-		component->modifyAttributes(_modifiers);
+		if (!IsValid(component))
+			continue;
+		component->resetFinal();
+		// The UBaseAttribues inheritance hierarchy should only be 1 layer deep. Each component is responsible for overriding modifyAttributes and knowing what 
+		// modifiers its attributes need.
+		component->modifyAttributes(this);
 	}
 	for (const auto& statusEffect : _statusEffects) {
 		if (IsValid(statusEffect)) {
@@ -28,11 +40,13 @@ void ABaseAttributeSet::tick(float delta) {
 			_statusEffects.RemoveAt(i);
 		}
 	}
-	for (auto& component : components) {
-		component->_final = component->_base
-	}
 	for (auto it = _callbacks.begin(); it != _callbacks.end();) {
 		CallbackBase* callback = (*it).get();
+		if (callback == nullptr) {
+			LOGERROR("ABaseAttributeSet::tick - callback (a non-UCLASS) is null");
+			it = _callbacks.erase(it);
+			continue;
+		}
 		if (!callback->tick()) {
 			it = _callbacks.erase(it);
 		}
@@ -42,8 +56,19 @@ void ABaseAttributeSet::tick(float delta) {
 	}
 }
 
-void ABaseAttributeSet::initialise_ABaseAttributeSet(AActor* caller) {
+void ABaseAttributeSet::initialise_ABaseAttributeSet(AActor* caller, UBaseAttributes* mods) {
+	if (!IsValid(caller)) {
+		LOGERROR("ABaseAttributeSet::initialise_ABaseAttributeSet - caller is not valid");
+		return;
+	}
 	_owner = TWeakObjectPtr<AActor>(caller);
+	if (mods != nullptr) {
+		if (!IsValid(mods)) {
+			LOGERROR("ABaseAttributeSet::initialise_ABaseAttributeSet - mods is not valid and also not null");
+			return;
+		}
+		_modifiers = TWeakObjectPtr<UBaseAttributes>(mods);
+	}
 	_initialised = true;
 }
 

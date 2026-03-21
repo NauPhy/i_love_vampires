@@ -10,13 +10,13 @@ void UActive::tick(float delta) {
 	}
 	//If this is performance intensive I can change the trigger to onAttributeChanged
 	for (const auto& factory : _factories) {
+		if (!IsValid(factory)) {
+			LOGERROR("UActive::tick - factory is not valid");
+			continue;
+		}
 		factory->tick(delta);
 	}
 	updateWarmup(delta);
-	if (!IsValid(_config)) {
-		LOGERROR("UActive::tick - config is not valid");
-		return;
-	}
 	if (_chargeRatio >= 1) {
 		activate();
 		_timeSinceLastActivation = 0;
@@ -56,11 +56,15 @@ void UActive::activate() {
 void UActive::activate_first() {
 	if (_factories.Num() == 0)
 		return;
+	if (!IsValid(_factories[0])) {
+		LOGERROR("UActive::activate_first - factory is not valid");
+		return;
+	}
 	_factories[0]->launchAttack(_myForwardVector);
 }
 
 void UActive::initialise_UActive(APawn* caller, const UWeaponTemplate* rawData, UCombatantAttributes* callerAttributes) {
-	if (!IsValid(rawData) || !IsValid(rawData->_config) || !IsValid(callerAttributes)) {
+	if (!IsValid(caller) || !IsValid(rawData) || !IsValid(rawData->_config) || !IsValid(callerAttributes)) {
 		LOGERROR("UActive::initialise_UActive - invalid parameter");
 		return;
 	}

@@ -14,88 +14,110 @@
 
 
 bool MyGameplayStatics::myGetEnhancedInputLocalPlayerSubsystem(const UObject* caller, UEnhancedInputLocalPlayerSubsystem*& ret) {
-	ret = nullptr;
+	if (!IsValid(caller)) {
+		LOGERROR("MyGameplayStatics::myGetEnhancedInputLocalPlayerSubsystem - caller is not valid");
+		return false;
+	}
 	APlayerController* controller = nullptr;
 	if (!myGetPlayerController(caller, controller))
 		return false;
 	ULocalPlayer* localPlayer = controller->GetLocalPlayer();
-	if (localPlayer == nullptr) {
-		LOGERROR("APlayer::myGetEnhancedInputLocalPlayerSubsystem - localPlayer is nullptr");
+	if (!IsValid(localPlayer)) {
+		LOGERROR("APlayer::myGetEnhancedInputLocalPlayerSubsystem - localPlayer is invalid");
 		return false;
 	}
 	ret = localPlayer->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>();
-	if (ret == nullptr) {
-		LOGERROR("APlayer::myGetEnhancedInputLocalPlayerSubsystem - subsystem is nullptr");
+	if (!IsValid(ret)) {
+		LOGERROR("APlayer::myGetEnhancedInputLocalPlayerSubsystem - subsystem is invalid");
 		return false;
 	}
 	return true;
 }
 
 bool MyGameplayStatics::myGetPlayerController(const UObject* caller, APlayerController*& ret) {
+	if (!IsValid(caller)) {
+		LOGERROR("MyGameplayStatics::myGetPlayerController - caller is not valid");
+		return false;
+	}
 	ret = UGameplayStatics::GetPlayerController(caller, 0);
-	if (ret == nullptr) {
-		LOGERROR("MyGameplayStatics::myGetPlayerController - ret is nullptr");
+	if (!IsValid(ret)) {
+		LOGERROR("MyGameplayStatics::myGetPlayerController - ret is invalid");
 		return false;
 	}
 	return true;
 }
 
 bool MyGameplayStatics::myGetGameInstance(const UObject* caller, UGameInstance*& ret) {
-	ret = nullptr;
+	if (!IsValid(caller)) {
+		LOGERROR("MyGameplayStatics::myGetGameInstance - caller is not valid");
+		return false;
+	}
 	UWorld* world = caller->GetWorld();
-	if (world == nullptr) {
-		LOGERROR("MyGameplayStatics::myGetGameInstance - world is nullptr");
+	if (!IsValid(world)) {
+		LOGERROR("MyGameplayStatics::myGetGameInstance - world is invalid");
 		return false;
 	}
 	ret = world->GetGameInstance();
-	if (ret == nullptr) {
-		LOGERROR("MyGameplayStatics::myGetGameInstance - ret is nullptr");
+	if (!IsValid(ret)) {
+		LOGERROR("MyGameplayStatics::myGetGameInstance - ret is invalid");
 		return false;
 	}
 	return true;
 }
 
 bool MyGameplayStatics::getAssetRefs(const UObject* caller, UAssetRefs*& ret) {
+	if (!IsValid(caller)) {
+		LOGERROR("MyGameplayStatics::getAssetRefs - caller is not valid");
+		return false;
+	}
 	UGameInstance* gameInstance = nullptr;
 	if (!myGetGameInstance(caller, gameInstance)) {
 		return false;
 	}
 	ret = gameInstance->GetSubsystem<UAssetRefs>();
-	if (ret == nullptr) {
-		LOGERROR("MyGameplayStatics::myGetAssetRefs - ret is nullptr");
+	if (!IsValid(ret)) {
+		LOGERROR("MyGameplayStatics::myGetAssetRefs - ret is invalid");
 		return false;
 	}
 	return true;
 }
 
 bool MyGameplayStatics::getCombatantManager(const UObject* caller, UCombatantManager*& ret) {
+	if (!IsValid(caller)) {
+		LOGERROR("MyGameplayStatics::getCombatantManager - caller is not valid");
+		return false;
+	}
 	UWorld* world = caller->GetWorld();
-	if (world == nullptr) {
-		LOGERROR("ACombatant::getCombatantManager - world is nullptr");
+	if (!IsValid(world)) {
+		LOGERROR("ACombatant::getCombatantManager - world is invalid");
 		return false;
 	}
 	ret = world->GetSubsystem<UCombatantManager>();
-	if (ret == nullptr) {
-		LOGERROR("ACombatant::getCombatantManager - ret is nullptr");
+	if (!IsValid(ret)) {
+		LOGERROR("ACombatant::getCombatantManager - ret is invalid");
 		return false;
 	}
 	return true;
 }
 
 bool MyGameplayStatics::getSpriteManager(const UObject* caller, USpriteManager*& ret) {
+	if (!IsValid(caller)) {
+		LOGERROR("MyGameplayStatics::getSpriteManager - caller is not valid");
+		return false;
+	}
 	UWorld* world = caller->GetWorld();
-	if (world == nullptr) {
-		LOGERROR("ACombatant::initialiseFromTemplate - No world found");
+	if (!IsValid(world)) {
+		LOGERROR("ACombatant::initialiseFromTemplate - world is invalid");
 		return false;
 	}
 	UGameInstance* gameInstance = world->GetGameInstance();
-	if (gameInstance == nullptr) {
-		LOGERROR("ACombatant::initialiseFromTemplate - No game instance found");
+	if (!IsValid(gameInstance)) {
+		LOGERROR("ACombatant::initialiseFromTemplate - game instance invalid");
 		return false;
 	}
 	ret = gameInstance->GetSubsystem<USpriteManager>();
-	if (ret == nullptr) {
-		LOGERROR("ACombatant::initialiseFromTemplate - No sprite manager found");
+	if (!IsValid(ret)) {
+		LOGERROR("ACombatant::initialiseFromTemplate - ret is invalid");
 		return false;
 	}
 	return true;

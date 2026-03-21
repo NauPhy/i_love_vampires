@@ -6,6 +6,7 @@
 #include "StatusEffect.h"
 #include "BaseAttributeComponent.generated.h"
 class UStatusEffect;
+class ABaseAttributeSet;
 
 UCLASS()
 class I_LOVE_VAMPIRES_2_API UBaseAttributeComponent : public UActorComponent
@@ -34,6 +35,18 @@ public:
 	attributeType* getOffsets() const;
 	template <typename attributeType>
 	attributeType* getDiscretizedFinal(UObject* outer) const;
+	virtual void modifyAttributes(ABaseAttributeSet* attr);
+	void resetFinal() { 
+		if (_base == nullptr)
+			_final = nullptr;
+		else if (!IsValid(_base)) {
+			LOGERROR("UBaseAttributeComponent::resetFinal - _base is invalid and non-null");
+			return;
+		}
+		else
+			// Theoretically GC should take care of the orphaned object. If it doesn't this is a memory leak.
+			_final = DuplicateObject<UBaseAttributes>(_base, this);
+	}
 };
 /////////////////////////////////////////////////////////////
 
@@ -70,10 +83,19 @@ attributeType* UBaseAttributeComponent::getOffsets() const {
 template<typename attributeType>
 attributeType* UBaseAttributeComponent::getDiscretizedFinal(UObject* outer) const {
 	static_assert(TIsDerivedFrom<attributeType, UBaseAttributes>::IsDerived, "T must derive from UBaseAttributes");
-	attributeType* ret = Cast<attributeType>(_offsets);
-	if (ret == nullptr) {
-		LOGERROR("Abondon hope all ye who enter here");
+	if (!IsValid(outer)) {
+		LOGERROR("UBaseAttributeComponent::getDiscretizedFinal - outer not valid");
 		return nullptr;
 	}
-	return ret->getDiscretizedCopy(outer);
+	attributeType* ret = Cast<attributeType>(_final);
+	if (!IsValid(ret)) {
+		LOGERROR("Abandon hope all ye who enter here");
+		return nullptr;
+	}
+	attributeType* temp = ret->getDiscretizedCopy(outer);
+	if (!IsValid(temp)) {
+		LOGERROR("return value invalid");
+		return nullptr;
+	}
+	return temp;
 }

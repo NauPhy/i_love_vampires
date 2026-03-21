@@ -2,14 +2,20 @@
 #include "Combatant.h"
 
 void UStatusEffect_Burn::postbonusStep(float delta, ABaseAttributeSet* caller) {
+	if (!IsValid(caller)) {
+		LOGERROR("UStatusEffect_Burn::postbonusStep - caller is not valid");
+		return;
+	}
 	if (_burnThisFrame) {
 		UCombatantComponent* component = caller->getComponent<UCombatantComponent>();
-		if (component == nullptr)
+		if (!IsValid(component))
 			return;
 		const UCombatantAttributes* myFinal = component->getFinal<UCombatantAttributes>();
-		if (myFinal == nullptr)
+		if (!IsValid(myFinal))
 			return;
 		UCombatantAttributes* offsets = component->getOffsets<UCombatantAttributes>();
+		if (!IsValid(offsets))
+			return;
 		offsets->_currentHP -= (_magnitude / 100.0f) * myFinal->_maxHP;
 		_burnThisFrame = false;
 	}

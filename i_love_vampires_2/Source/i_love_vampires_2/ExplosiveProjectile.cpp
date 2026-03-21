@@ -1,6 +1,7 @@
 #include "ExplosiveProjectile.h"
 #include "Definitions.h"
 #include "AOE.h"
+#include "Combatant.h"
 
 void AExplosiveProjectile::initialise_AExplosiveProjectile(
 	APawn* pawnRef,
@@ -13,6 +14,10 @@ void AExplosiveProjectile::initialise_AExplosiveProjectile(
 	const UProjectileAttributes* projectileAttributes,
 	const UExplosiveProjectileConfig* explosiveProjectileConfig,
 	const UExplosiveProjectileAttributes* explosiveProjectileAttributes) {
+	if (!IsValid(explosiveProjectileConfig) || !IsValid(explosiveProjectileAttributes) || !IsValid(aoe)) {
+		LOGERROR("AExplosiveProjectile::initialise_AExplosiveProjectile - invalid explosive projectile config or attributes");
+		return;
+	}
 	AProjectile::initialise_AProjectile(
 		pawnRef,
 		directionX,
@@ -30,6 +35,8 @@ void AExplosiveProjectile::initialise_AExplosiveProjectile(
 void AExplosiveProjectile::bulletDeath() {
 	if (!IsValid(_AOE)) {
 		LOGERROR("AExplosiveProjectile::bulletDeath - aoe is not valid");
+		AProjectile::bulletDeath();
+		return;
 	}
 	_AOE->completeDelayedConstruction();
 	AProjectile::bulletDeath();
@@ -52,6 +59,25 @@ void AExplosiveProjectile::factoryInitQuery(AAttackFactory* factory) {
 
 void UExplosiveProjectileAttributes::modifyAttributes(const UCombatantAttributes* combatantAttributes, const UExplosiveProjectileAttributes* projectileAttributes, UExplosiveProjectileAttributes* finalAttributes) {
 }
+
+///////////////////////////////////////////////////////////////////////////////
+
+void UExplosiveProjectileComponent::modifyAttributes(ABaseAttributeSet* set) {
+	if (!IsValid(set)) {
+		LOGERROR("UAttackComponent::modifyAttributes - set is not valid");
+		return;
+	}
+	UCombatantAttributes* attr = nullptr;
+	if (!set->getModifiers<UCombatantAttributes>(attr))
+		return;
+	if (!IsValid(_base) || !IsValid(_final)) {
+		LOGERROR("UAttackComponent::modifyAttributes - base or final attributes not valid");
+		return;
+	}
+	UExplosiveProjectileAttributes* base = Cast<UExplosiveProjectileAttributes>(_base);
+	UExplosiveProjectileAttributes* final = Cast<UExplosiveProjectileAttributes>(_final);
+	UExplosiveProjectileAttributes::modifyAttributes(attr, base, final);
+}
 ///////////////////////////////////////////////////////////////////////////////
 
 void AExplosiveProjectileFactory::initialise_AExplosiveProjectileFactory(
@@ -66,6 +92,10 @@ void AExplosiveProjectileFactory::initialise_AExplosiveProjectileFactory(
 	const UAOEConfig* aoeConfig,
 	const UAOEAttributes* aoeAttributes)
 {
+	if (!IsValid(explosiveProjectileConfig) || !IsValid(explosiveProjectileAttributes) || !IsValid(aoeConfig) || !IsValid(aoeAttributes)) {
+		LOGERROR("AExplosiveProjectileFactory::initialise_AExplosiveProjectileFactory - invalid config or attributes");
+		return;
+	}
 	initialise_AProjectileFactory(pawn, comb, attackConfig, attackAttributes, projectileConfig, projectileAttributes);
 	_explosiveProjectileConfig = DuplicateObject<UExplosiveProjectileConfig>(explosiveProjectileConfig, this);
 	_explosiveProjectileComponent = NewObject<UExplosiveProjectileComponent>(this);
@@ -76,6 +106,10 @@ void AExplosiveProjectileFactory::initialise_AExplosiveProjectileFactory(
 }
 
 void AExplosiveProjectileFactory::launchAttack(const FVector& forward) {
+	if (!IsValid(_projectileConfig)) {
+		LOGERROR("AExplosiveProjectileFactory::launchAttack - projectile config is not valid");
+		return;
+	}
 	EAttackShape type = _projectileConfig->_attackShape;
 	if (type == EAttackShape::fan) {
 		launchAttack_fan(forward);
@@ -87,9 +121,13 @@ void AExplosiveProjectileFactory::launchAttack(const FVector& forward) {
 }
 
 void AExplosiveProjectileFactory::launchAttack_fan(const FVector& forward) {
-	if (!_pawnRef.IsValid())
+	if (!_owner.IsValid())
 		return;
 	UProjectileComponent* comp = getComponent<UProjectileComponent>();
+	if (!IsValid(comp)) {
+		LOGERROR("AExplosiveProjectileFactory::launchAttack_fan - projectile component is not valid");
+		return;
+	}
 	if (!IsValid(_projectileConfig)) {
 		LOGERROR("AExplosiveProjectileFactory::launchAttack_fan - projectile config is not valid");
 		return;
@@ -108,13 +146,17 @@ void AExplosiveProjectileFactory::launchAttack_fan(const FVector& forward) {
 		setDirectionX(direction.X);
 		setDirectionZ(direction.Z);
 		{
-			AAOE* aoe = unrealHelpers::spawnActorOnTopOfMe<AAOE>(_pawnRef.Get());
-			if (aoe == nullptr)
+			AAOE* aoe = unrealHelpers::spawnActorOnTopOfMe<AAOE>(_owner.Get());
+			if (!IsValid(aoe)) {
+				LOGERROR("AExplosiveProjectileFactory::launchAttack_fan - failed to spawn aoe");
 				return;
+			}
 			_tempAOE = TWeakObjectPtr<AAOE>(aoe);
 		}
-		AExplosiveProjectile* newAttack = unrealHelpers::spawnActorOnTopOfMe<AExplosiveProjectile>(_pawnRef.Get());
-		if (newAttack == nullptr) {
+		AExplosiveProjectile* newAttack = unrealHelpers::spawnActorOnTopOfMe<AExplosiveProjectile>(_owner.Get());
+		if (!IsValid(newAttack)) {
+			LOGERROR("AExplosiveProjectileFactory::launchAttack_fan - failed to spawn explosive projectile");
+			// Important! GC will not collect this
 			_tempAOE->Destroy();
 			_tempAOE = nullptr;
 			return;
@@ -134,8 +176,11 @@ void AExplosiveProjectileFactory::initAOE(AAOE* attack) {
 		LOGERROR("AExplosiveProjectileFactory::initAOE - tempAOE does not match attack");
 		return;
 	}
+	if (!_owner.IsValid())
+		return;
+	APawn* pawnRef = Cast<APawn>(_owner.Get());
 	_tempAOE->initialise_AAOE(
-		_pawnRef.Get(),
+		pawnRef,
 		_attackConfig,
 		_attackComponent->getFinal<UAttackAttributes>(),
 		_AOEConfig,
@@ -153,8 +198,11 @@ void AExplosiveProjectileFactory::initExplosiveProjectile(AExplosiveProjectile* 
 		LOGERROR("AExplosiveProjectileFactory::initExplosiveProjectile - tempAOE not valid when initializing explosive projectile");
 		return;
 	}
+	if (!_owner.IsValid())
+		return;
+	APawn* pawnRef = Cast<APawn>(_owner.Get());
 	attack->initialise_AExplosiveProjectile(
-		_pawnRef.Get(),
+		pawnRef,
 		getDirectionX(),
 		getDirectionZ(),
 		_tempAOE.Get(),

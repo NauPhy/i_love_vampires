@@ -89,6 +89,10 @@ public:
 
 	static void modifyAttributes(const UCombatantAttributes*, const UAOEAttributes*, UAOEAttributes*);
 	virtual UAOEAttributes* getDiscretizedCopy(UObject* outer) const override {
+		if (!IsValid(outer)) {
+			LOGERROR("UAOEAttributes::getDiscretizedCopy - outer not valid");
+			return nullptr;
+		}
 		return DuplicateObject(this, outer, FName());
 	}
 	UAOEAttributes(const FObjectInitializer& init) : Super(init) {}
@@ -106,6 +110,7 @@ public:
 		_offsets = DuplicateObject(baseAttributes, this);
 		zeroOffsets();
 	}
+	virtual void modifyAttributes(ABaseAttributeSet* set) override;
 };
 ///////////////////////////////////////////////////////////////////////////////
 

@@ -33,8 +33,8 @@ void AEnemyBase::EndPlay(EEndPlayReason::Type EndPlayReason) {
 
 void AEnemyBase::persuePlayer(float delta) {
 	APawn* player = UGameplayStatics::GetPlayerPawn(this, 0);
-	if (player == nullptr) {
-		LOGERROR("AEnemyBase::persuePlayer - player is nullptr");
+	if (!IsValid(player)) {
+		LOGERROR("AEnemyBase::persuePlayer - player is invalid");
 		return;
 	}
 	const FVector playerPos = player->K2_GetActorLocation();

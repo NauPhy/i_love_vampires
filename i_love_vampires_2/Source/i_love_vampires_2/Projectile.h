@@ -93,6 +93,10 @@ public:
 
 	static void modifyAttributes(const UCombatantAttributes*, const UProjectileAttributes*, UProjectileAttributes*);
 	virtual UProjectileAttributes* getDiscretizedCopy(UObject* outer) const override {
+		if (!IsValid(outer)) {
+			LOGERROR("UProjectileAttributes::getDiscretizedCopy - outer not valid");
+			return nullptr;
+		}
 		UProjectileAttributes* ret = DuplicateObject<UProjectileAttributes>(this, outer, FName());
 		ret->_pierce = discretize(ret->_pierce);
 		ret->_bounce = discretize(ret->_bounce);
@@ -109,11 +113,16 @@ class I_LOVE_VAMPIRES_2_API UProjectileComponent : public UBaseAttributeComponen
 	GENERATED_BODY()
 public:
 	void initialise_UProjectileComponent(const UProjectileAttributes* baseAttributes) {
+		if (!IsValid(baseAttributes)) {
+			LOGERROR("UProjectileComponent::initialise_UProjectileComponent - baseAttributes not valid");
+			return;
+		}
 		_base = DuplicateObject(baseAttributes, this);
 		_final = DuplicateObject(baseAttributes, this);
 		_offsets = DuplicateObject(baseAttributes, this);
 		zeroOffsets();
 	}
+	virtual void modifyAttributes(ABaseAttributeSet* set) override;
 };
 ///////////////////////////////////////////////////////////////////////////////
 

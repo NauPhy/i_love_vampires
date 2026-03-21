@@ -152,6 +152,7 @@ public:
 
 	UCombatantAttributes(const FObjectInitializer& init) : Super(init) {}
 	virtual UCombatantAttributes* getDiscretizedCopy(UObject* outer) const override;
+	static void modifyAttributes(const UBaseAttributes* mods, const UCombatantAttributes* base, UCombatantAttributes* final) {}
 };
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -161,10 +162,22 @@ class I_LOVE_VAMPIRES_2_API UCombatantComponent : public UBaseAttributeComponent
 	GENERATED_BODY()
 public:
 	void initialise_UCombatantComponent(const UCombatantAttributes* baseAttributes) {
+		if (!IsValid(baseAttributes)) {
+			LOGERROR("UCombatantComponent::initialise_UCombatantComponent - baseAttributes not valid");
+			return;
+		}
 		_base = DuplicateObject(baseAttributes, this);
 		_final = DuplicateObject(baseAttributes, this);
 		_offsets = DuplicateObject(baseAttributes, this);
 		zeroOffsets();
+	}
+	// _base and _final aren't actually used here. I pass nullptr so that I can match the function signature without unnecessary casting.
+	virtual void modifyAttributes(ABaseAttributeSet* set) override {
+		if (!IsValid(set)) {
+			LOGERROR("UCombatantComponent::modifyAttributes - set not valid");
+			return;
+		}
+		UCombatantAttributes::modifyAttributes(nullptr, nullptr, nullptr);
 	}
 };
 ///////////////////////////////////////////////////////////////////////////////
@@ -177,10 +190,17 @@ class I_LOVE_VAMPIRES_2_API ACombatantAttributeSet : public ABaseAttributeSet
 	UCombatantComponent* _combatantComponent;
 public:
 	void initialise_ACombatantAttributeSet(AActor* owner, const UCombatantAttributes* baseAttributes) {
-		initialise_ABaseAttributeSet(owner);
+		if (!IsValid(owner) || !IsValid(baseAttributes)) {
+			LOGERROR("ACombatantAttributeSet::initialise_ACombatantAttributeSet - owner or baseAttributes not valid");
+			return;
+		}
+		initialise_ABaseAttributeSet(owner, nullptr);
 		_combatantComponent = NewObject<UCombatantComponent>(this);
+		if (!IsValid(_combatantComponent)) {
+			LOGERROR("ACombatantAttributeSet::initialise_ACombatant - combatantComponent not valid after creation");
+			return;
+		}
 		_combatantComponent->initialise_UCombatantComponent(baseAttributes);
-
 	}
 	void burnTick();
 };

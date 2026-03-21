@@ -28,9 +28,5 @@ T* unrealHelpers::spawnActorOnTopOfMe(AActor* caller) {
 	FActorSpawnParameters spawnParams;
 	spawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 	UWorld* world = caller->GetWorld();
-	if (!IsValid(world)) {
-		LOGERROR("unrealHelpers::spawnActorOnTopOfMe - world is invalid");
-		return nullptr;
-	}
 	return world->SpawnActor<T>(location, rot, spawnParams);
 }

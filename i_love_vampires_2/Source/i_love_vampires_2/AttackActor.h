@@ -77,6 +77,10 @@ public:
 
 	static void modifyAttributes(const UCombatantAttributes* modifiers, const UAttackAttributes* baseAttributes, UAttackAttributes* finalAttributes);
 	virtual UAttackAttributes* getDiscretizedCopy(UObject* outer) const override {
+		if (!IsValid(outer)) {
+			LOGERROR("UAttackAttributes::getDiscretizedCopy - outer not valid");
+			return nullptr;
+		}
 		UAttackAttributes* ret = DuplicateObject<UAttackAttributes>(this, outer, FName());
 		return ret;
 	}
@@ -90,11 +94,18 @@ class I_LOVE_VAMPIRES_2_API UAttackComponent : public UBaseAttributeComponent
 	GENERATED_BODY()
 public:
 	void initialise_UAttackComponent(const UAttackAttributes* baseAttributes) {
+		if (!IsValid(baseAttributes)) {
+			LOGERROR("UAttackComponent::initialise_UAttackComponent - baseAttributes not valid");
+			return;
+		}
 		_base = DuplicateObject(baseAttributes, this);
 		_final = DuplicateObject(baseAttributes, this);
 		_offsets = DuplicateObject(baseAttributes, this);
 		zeroOffsets();
 	}
+	// initialise_UAttackComponent is not guaranteed to be called, but if it is, _base and _final are guaranteed to be of type UAttackAttributes*. You do however
+	// still need to cast them.
+	virtual void modifyAttributes(ABaseAttributeSet* set) override;
 };
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -110,16 +121,12 @@ class I_LOVE_VAMPIRES_2_API AAttackFactory : public ABaseAttributeSet
 	void shouldNotRunError() const;
 
 protected:
-	TWeakObjectPtr<UCombatantAttributes> _combatantAttributes = nullptr;
-
 	UPROPERTY()
 	UAttackConfig* _attackConfig = nullptr;
 	UPROPERTY()
 	UAttackComponent* _attackComponent = nullptr;
 
 public:
-	TWeakObjectPtr<APawn> _pawnRef = nullptr;
-
 	// This double dispatch is currently only used so the init function can have specialised AAttackActor subclass parameters. 
 	// This parameter is not used for nested function calls, or even for member variable access. It's used because, for example, AAttackActor does not have 
 	// initialise_AProjectile. initialise_AProjectile calls AAttackActor::initialise_AAttackActor, but the factory still needs access to the declaration
@@ -130,6 +137,7 @@ public:
 	virtual void initExplosiveProjectile(AExplosiveProjectile*) { shouldNotRunError(); }
 
 	virtual void launchAttack(const FVector& forward);
+	// Compile time guarantee that _owner is set to a pointer of type APawn rather than just AActor
 	void initialise_AAttackFactory(APawn*, UCombatantAttributes*, const UAttackConfig*, const UAttackAttributes*);
 };
 ///////////////////////////////////////////////////////////////////////////////
