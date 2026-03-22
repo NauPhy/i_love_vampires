@@ -1,0 +1,346 @@
+I can't remember why UStatusEffect needs to be a UClass but I swear it does
+
+Owner (i.e. active) has:
+TWeakObjectPtr<UCombatantAttribute> modifiers
+UPROPERTY()
+TArray<AttackData> data
+AttackData = {
+TSubclassOf<AAttackActor> class
+UPROPERTY()
+UAttackAttributes* base
+UPROPERTY()
+UAttackAttributes* final
+UPROPERTY()
+UAttackAttributes* offset
+UMyAttributeSet(base, final, offset)
+
+inflictStatus(ProjectileAttributes)
+MyAttributeSet
+
+TArray<std::unique_ptr<UStatusEffect>>
+statusEffect->modifyAttributes(final, offset, delta)
+
+
+modifyAttributes(ProjectileData, ProjectileData, float)
+
+I think the only way to make this templated is to template UActive. And that's obviously not possible. 
+
+How does UActive know whether to make an AttackData<AttackAttributes> or an AttackData<ProjectileAttributes>?
+the distinction is not known at compile time, it's not even known at time of construction. 
+
+So templates are a no go. Is that the only two options? Templates and runtime checking? I'd be okay with mirroring if it is compile time safe.
+
+Currently we've mirrored each subclass of AAttackActor and ACombatant as an AttackAttributes and CombatantAttributes.
+I could additionally mirror the AttributeSets such that each attribute set has its own applyModifiers- but I did that before and it didn't work?
+So let's say everything is mirrored-
+
+We load a UPrimaryDataAsset using its type-agnostic FPrimaryDataId. It contains:
+*A UWeaponData (base)
+*A UWeaponConfig (base)
+*A UAttackData (defined in UAttack
+
+
+We load a UPRimaryDataAsset containing
+*A UWeaponData : UAssetData
+	*A UWeaponConfig : UBaseConfig
+	*A TArray<UAttackData*>
+		*UProjectileConfig : UAttackConfig : UBaseConfig
+		*UProjectileAttributes : UAttackAttributes : UBaseAttributes
+
+1.We have a factory that casts the UPrimaryDataAsset to UWeaponData; alternatively it checks a TSubclassOf, maybe if I'm lucky even being able to do it generically
+2. The factory creates a new UActive and hands it the UWeaponData, already casted
+3. The UActive initialises and then creates its TArray<AttackData>
+4. In this example there's only 1 AttackData. AttackData is not mirrored?
+5. AttackData will need to cast UAttackData to UProjectileData to know it needs to make a projectile. It can store this as TSubclassOf for later if needed, or it can just cast when the attack is generated.
+6. AttackData will need to store the UProjectileConfig and UProjectileAttributes.
+	Option A: store them as UBaseConfig and UBaseAttributes and cast them later
+	Option B: cast them now and create a wrapper for no reason
+	Option C: Store them as UAttackData and perform the cast later when needed
+7. A new attack needs to be generated
+8. To instantiate an object of type AProjectile, AttackData (or UActive, let's use UActive going forward) either needs to have a factory
+function that casts UAttackdata/UBaseConfig or it needs to use a TSubclassOf stored in UBaseConfig
+9. When AProjectile is constructed it will be expecting a parameter of type UProjectileData. UWeaponData doesn't have this by default. UProjectileData does, but of course not every UWeaponData has a UProjectileData. I could get around this without requiring a unique UAsset for every combination of weapon and attack by storing a TArray<UPrimaryAssetId> in the UWeaponData.
+
+10. So then we load the UPrimaryAssetId at runtime and we would have to cast it to UProjectileData because it's UObject by default- which defeats the purpose because every UWeaponData has a UAttackData and we could just cast from that instead.
+
+The UProjectileData also contains a TArray<StatusStruct> which thankfully for my sanity uses an Enum for its typing. There is still a factory but instead of casting it just uses the Enum (which I guess is just a simplified USubclassOf?)
+
+So now we have our attack- we had to load a UPrimaryDataAsset and cast it to UWeaponData before we could construct the UActive, then we had to cast the UAttackData to UProjectileData before we could construct a projectile.
+
+But the status effects did not require a cast, despite being polymorphic. Why? They use a UEnum. Can I use a UEnum elsewhere?
+
+Let's say instead of casting UAttackData to UProjectileData, we have an Enum that tells us it's a UProjectileData. The status effects get away with this because they're all initialised with the same data.
+If we had a FEffectStruct{burn, x, x, x} and another one with FEffectStruct{bleed, x, x, x} then when creating burn we can do
+if (burn)
+create burn
+burn->init(x,x,x)
+if (bleed)
+create bleed
+bleed->init(x,x,x)
+
+if we tried to do the same with projectile and aoe...
+if (projectile)
+create projectile
+projectile->init(cast)
+
+What if we did do one struct for each weapon attack pair?
+e.g. phantasm- alternates between arrows and missiles
+UWeaponTemplate{
+	UWeaponConfig
+		{alternate}
+	TArray<UAttackData>
+		UArrowData
+		UMissileData
+
+Then we go
+UObject->phantasm?
+UActive.init(phantasmData)
+no ugh I don't think so
+
+Can we at least cast everything early? In one central factory?
+So 
+1. Load weapon as UObject
+2. Cast to UWeaponTemplate
+3. All UWeaponTemplates contain a TArray<AAttackData*>
+4. for each in Tarray
+5. cast to projectileData
+6. create primed attack?
+What if we only cast when loading UPrimaryDataAsset?
+UWeaponTemplate has TArray<UPrimaryAssetId>
+
+1.UActive::activate
+2.load asset as UAttackData
+3. UAttackData contains a UAttackConfig, UAttackAttributes
+4. UAttackConfig contains USubclassOf<AAttackActor> = AProjectile
+5. Load AProjectile CDO
+6. duplicate AProjectile CDO
+7. AProjectile->init(UAttackData, UAttackConfig)? would need to cast both
+
+Or load asset as UProjectileData, contains UProjectileConfig, UProjectileAttribute, no casting needed HERE
+
+So then UActive has one UWeaponTemplate containing TArray<UPrimaryAssetID>
+You load a UPrimaryAssetID as UObject and need to cast it to UProjectileData
+So indistinguishable from UWeaponTemplate containing TArray<UObject>
+
+So you need a cast whenever you initialise something differently from its relatives?
+
+Another alternative is a singleton
+
+UAssetRefs ofc
+
+UAssetRefs loads phantasm as UObject
+UAssetRefs casts phantasm to UWeaponTemplate
+All UWeaponTemplates contain a TArray<UPrimaryAssetID> or a TArray<UObject>. If it's UPrimaryAssetID you can ignore it as long as it's loaded later
+If it's UObject you then need to cast it to UProjectileData, which could be done in static bool UWeaponTemplate::loadSafetyCheck
+
+
+So in other words all casting must be done through a data asset function, and all data asset functions are called on startup.
+
+If that is the case, you can't cast 
+
+
+UWeaponData->
+	UWeaponConfig
+	TArray<UAttackData*>
+
+
+
+
+
+
+
+
+
+
+aaaaaaaaaaaaaaaaaa
+
+
+
+
+AAttackActor
+has a UAttackAttribute
+modifyAttributes() modifies the attackAttribute
+
+AProjectile
+has a UProjectileAttribute (not inherited)
+modifyAttributes() modifies the UProjectileAttribute AND CALLS AATTACKACTOR::MODIFYATTRIBUTES
+
+Status Effect
+pass it the whole component by reference
+if the component is of the wrong type it throws
+alternatively/additionally, pass it the component on initialisation
+
+Then the attribute set has...?
+TArray<AttributeData>
+AttributeData = {
+TSubclassOf<AAttackActor> attributeType
+
+So:
+1. Load a UObject
+2. Cast to UWeaponTemplate
+2.1 Create a UActive
+3. cache UWeaponConfig
+4. cast to UProjectileData
+5. UProjectileData has: UAttackConfig, UAttackAttributes, (inherited) UProjectileConfig, UProjectileAttributes (explicit)
+5.1 Create an AttackFactory, which has those 4 components attached, plus one AttributeSet for each component
+	The AttackFactory mirrors the AAttackActor subclass
+5.2 If you make multiple attack factories and they have overlapping components that's fine
+
+5.3 You call UActive::inflictStatusEffect(UAttackStatusEffect) with UProjectileStatusEffect effect
+5.31 add effect to TArray<UAttackStatusEffect*>
+
+5.32 Tick(delta)
+5.33 For each factory
+5.34 For each attribute component
+5.35 final = base
+5.4 For each status effect
+5.5 For each factory
+5.7 statusEffect::applyToObject()
+	Calls FindComponentByClass and returns if it doesn't find UProjectileAttributeComponent
+	If it does find it, it does prebonusStep(UProjectileAttributeComponent)
+Repeat 5.4 to 5.7 for multiplierStep and postbonusStep
+
+
+
+
+
+
+6. Create a new attack of type Factory->UAttackConfig->TSubclassOf (by duplicating the CDO, for example)
+7. The factory is subclass-specific, so it should know exactly what to do.
+8. init(UProjectileData*) : _projectileConfig(projectileConfig), _projectileAttribute(projectileAttributes), AAttackActor(attackConfig, attackAttributes);
+
+
+
+UActive::tick
+	UFactory::reset
+		Component::reset
+			final = base
+	Apply statuses
+
+//
+WORK IN PROGRESS
+///////////////////////////////////////////////////////////////////////////////
+//data holders
+UBaseTemplate : UPrimaryDataAsset
+
+UBaseAttributeActorTemplate : UObject
+	TSubclassOf<UBaseAttributeSet> _attributeSetType
+
+UBaseAttributeTemplate : UObject
+
+//runtime
+UBaseAttributeSet : UObject
+
+// UBaseAttributeComponent needs #include "UStatusEffect.h". UStatusEffect can forward declare.
+UBaseAttributeComponent : UObject
+	virtual void applyStatus(UStatusEffect* status){
+		status->applyBase(this);
+	}
+
+UStatusEffect : UObject
+	virtual void applyBase(UBaseAttributeComponent){}
+	virtual void applyCombatant(UCombatantAttributeComponent){}
+	virtual void applyAttack(UAttackAttributeComponent){}
+	virtual void applyProjectile(UProjectileAttributeComponent){}
+
+e.g. 
+UStatusEffect_Burn : UStatusEffect
+	virtual void applyCombatant(UCombatantAttributeComponent) override;
+
+//both
+UBaseConfig : UObject
+FStatus : struct
+
+//////////////////////////
+attack composition
+// data
+UWeaponTemplate : UBaseTemplate
+	UWeaponConfig : UBaseConfig
+	TArray<UAttackAttributeActorTemplate : UBaseAttributeActorTemplate>
+
+UAttackAttributeActorTemplate : UBaseAttributeActorTemplate
+	UAttackConfig : UBaseConfig
+	UAttackAttributeTemplate : UBaseAttributeTemplate
+
+UProjectileAttributeActorTemplate : UAttackAttributeActorTemplate
+	UProjectileConfig : UObject
+	UProjectileAttributeTemplate : UBaseAttributeTemplate
+
+// runtime
+UActive
+	UWeaponConfig _config
+	TArray<UStatusEffect*> : UObject
+	TArray<UAttackFactory*> : UBaseAttributeSet
+
+// capable of constructing an attack
+// uses the CDO specified by TSubclassOf<AAttackActor> UAttackConfig::_attackClass
+// followed by 
+// virtual void init(){
+// CDOCopy->initialise_AAttackActor(UAttackConfig, UAttackAttributeComponent)
+// }
+UAttackFactory : UBaseAttributeSet
+	UAttackConfig : UBaseConfig
+	UAttackAttributeComponent : UBaseAttributeComponent
+
+// This requires UAttackConfig and UAttackAttributeComponent to be protected (and more typing), but the alternative is breaking my coding pattern
+// which is gonna
+// cause bugs.
+// virtual void init() override{
+// CDOCopy->initialise_AProjectile(UAttackConfig, UAttackAttributeComponent, UProjectileConfig, UProjectileAttributeComponent)
+// }
+UProjectileFactory : UAttackFactory
+	UProjectileConfig : UBaseConfig
+	UProjectileAttributeComponent : UBaseAttributeComponent
+
+
+UAttackAttributeComponent : UBaseAttributeComponent
+	virtual void applyStatus(UStatusEffect* status) override {status->applyAttack(this)}
+	float a
+	float b
+	float c
+
+UProjectileAttributeComponent : UBaseAttributeComponent
+	virtual void applyStatus(UStatusEffect* status) override {status->applyProjectile(this)}
+	float d
+	float e
+	float f
+
+// both
+UWeaponConfig : UBaseConfig
+UAttackConfig : UBaseConfig
+UProjectileConfig : UBaseConfig
+//?UAttackAttributes : UBaseAttributes
+//?UProjectileAttributes : UBaseAttributes
+
+////////////////////////////
+inheritance
+UPrimaryDataAsset
+	UWeaponTemplate
+UObject/UStruct
+	UWeaponConfig
+	UAttackConfig
+	UProjectileConfig
+	UAttackAttributes_old
+	UProjectileAttributes_old
+Component
+	UAttackAttributes
+	UProjectileAttributes
+UObject
+	UActive
+	UAttributeSet
+		UFactory
+			UAttackFactory
+			UProjectileFactory
+		UCombatantSet
+	UStatusEffect
+		UProjectileStatusEffect
+APawn
+	AAttackActor
+		AProjectile
+////////////////////////////
+Case of combatant
+ACombatant : APawn
+	UCombatantSet : UAttributeSet
+		UCombatantAttributes : 
+			UBaseAttribut
+			

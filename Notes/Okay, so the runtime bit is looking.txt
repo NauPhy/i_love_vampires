@@ -1,0 +1,58 @@
+Okay, so the runtime bit is looking solid. Not sure how I'm supposed to put it in the editor?
+
+I think the only way is probably to just do a second lookup?
+
+Use inheritance with the top or 2nd level attack template, such that at runtime you can call attackTemplate->createFactory
+
+
+So
+
+Data has
+Weapon config (defined by UActive.h)
+Array of attack factory configs
+
+
+wait wait
+
+//PrimaryDataAsset for weapon
+UWeaponTemplate (defined by Active.h) : UPrimaryDataAsset (or UBaseDataAsset)
+	UWeaponConfig : UBaseConfig (defined by Active.h)
+	TArray<TObjectPtr<UAttackFactoryTemplate>> (defined by AttackFactory.h) : UAttributeActorTemplate
+		UAttackFactoryTemplate (defined by Attack.h) : UAttributeActorTemplate
+			UAttackConfig (defined by Attack.h) : UBaseConfig
+			UAttackAttributes (defined by Attack.h) : UBaseAttributes
+		UProjectileFactoryTemplate (defined by Projectile.h)
+			UAttackConfig (defined by Attack.h, inherited from UAttackFactoryTemplate) : UBaseConfig
+			UAttackAttributes (defined by Attack.h, inherited from UAttackFactoryTemplate) : UBaseAttributes
+			UProjectileConfig (defined by Projectile.h) : UBaseConfig
+			UProjectileAttributes (defined by Projectile.h) : UBaseAttributes
+
+//Runtime structure for weapon
+// !! denotes the same structure is used in the same place in the primary data asset and runtime structure
+UActive (defined by Active.h)
+	!!UWeaponConfig (defined by Active.h) : UBaseConfig
+	TArray<UAttackFactory*> (defined by Attack.h) : UBaseAttributeSet
+		UAttackFactory* (defined by Attack.h) : UBaseAttributeSet
+			!!UAttackConfig (defined by Attack.h) : UBaseConfig
+			UAttackComponent (defined by Attack.h) : UActorComponent
+				UAttackAttributesX3 (defined by Attack.h) : UBaseAttributes
+			AAttack (fire and forget) (defined by Attack.h) : AActor
+		UProjectileFactory* as UAttackFactory* (defined by Projectile.h) - never needs to be cast
+			!!UAttackConfig (defined by Attack.h, inherited from UAttackFactory) : UBaseConfig
+			UAttackComponent (defined by Attack.h) : UActorComponent
+				UAttackAttributesX3 (defined by Attack.h) : UBaseAttributes
+			!!UProjectileConfig (defined by Projectile.h) : UBaseConfig
+			UProjectileComponent (defined by Projectile.h) : UActorComponent
+				UProjectileAttributesX3 (defined by Projectile.h) : UBaseAttributes
+			AProjectile (fire and forget) (defined by Projectile.h) : AAttack
+
+Format of AAttackActor subclass .h file
+
+UCLASS AAttackActorSubclass : AAttackActor
+UCLASS UAttackFactorySubclass : UAttackFactory
+UCLASS UAttackConfigVariant : UBaseConfig
+UCLASS UAttackAttributesVariant : UBaseAttributes
+UCLASS UAttackComponentVariant : UBaseAttributeComponent
+
+		
+		

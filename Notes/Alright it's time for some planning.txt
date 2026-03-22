@@ -1,0 +1,120 @@
+Alright it's time for some planning.
+
+Ugh this is going to be such an overhaul. What a waste of time.
+
+So what we want is the following:
+
+*Everything that has a data table entry should have a USTRUCT : DataTableRow:
+	Combatant Template (incl attributes)
+	Weapon Template
+	Projectile Template
+	AOETemplate
+
+*The members of this data table should not be nested in a smaller struct, nor should they be copied by an Enum class or UENUM. 
+
+*After an object has been initialised by its template, it maintains a direct reference to its original template (base value) as well as a 
+private instance of its current values (final value). Both will remain USTRUCT, though perhaps the reference should not be UPROPERTY().
+
+An object recalculates its entire current template from scratch every frame. If this is performance intensive, it can have a more complicated trigger.
+If it is even more performance intensive, individual fields can be reconstructed.
+
+Reconstruction follows this pattern:
+Repeat for each field
+	1. temp = currentValue;
+	2. get base value from const reference
+	3. modify based on combatant attributes (final values)
+Repeat for each non-instant status effect
+	1. prebonusStep(finalVal&);
+	2. multiplierStep(finalVal&);
+	3. postBonusStep(finalVal&);
+Repeat for each instant status effect
+	1. postBonusStep(finalVal&);
+Repeat for each field
+	1. if (abs(currentValue-temp) > EPSILON) : onThisFieldChanged(temp, currentValue)
+		*This will need to be manually implemented for each attribute, but whatever
+Destroy all instant status effects in queue
+Destroy all expired non-instant status effects
+
+So in other words instant status effects get queued up and then apply on the next frame.
+
+Although the status system will primarily be used by ACombatant, it still calls for inheritance. So, we can create a 
+UClass()
+template<typename TRow>
+UMyAttributeSet : public UObject{
+	std::vector<std::unique_ptr<StatusEffect>> _instantStatusQueue;
+	std::vector<std::unique_ptr<StatusEffect>> _statusEffects;
+	UPROPERTY()
+	TRow _baseAttributes3B
+	UPROPERTY()
+	TRow _finalAttributes;
+	std::unordered_map<size_t, std::function<void(float, float)> _callbacks;
+	size_t rowSize = 1;
+protected:
+	FName _ID = "default";
+
+private:
+	void MyNoop(float, float){};
+	void reconstruct(delta);
+	float getMemberValue(size_t offset) const {
+		if (offset >= rowSize){
+			//macro containing checkSlow(false)
+			LOGERROR("UMyAttributeSet::getMemberValue - offset is out of bounds");
+			return 0;
+		}
+		uint8* byte = reinterpret_cast<uint8*>(&_finalAttributes) + offset;
+		return *(reinterpret_cast<const float*>(byte));
+	}
+protected :
+	// calculates size_t from address
+	void addCallback(float* memberReference, std::function<void(float,float)> callback);
+	virtual void tick(delta) {
+		std::unordered_map<size_t, float> oldValues;
+		for (const auto& pair : _callbacks) {
+			oldValues[pair.first] = getMemberValue(pair.first);
+		}
+		reconstruct(delta);
+		for (const auto& pair : _callbacks) {
+			float newValue = getMemberValue(pair.first);
+			if (abs(newValue-oldValues[pair.first]) > EPSILON)
+				pair.second(oldValues[pair.first], newValue);
+		}
+	}
+public :
+	UMyAttributeSet() = default;
+	Initialise_UMyAttributeSet(FName ID, const TRow* rowReference){
+		_ID = ID;
+		_baseAttributes = *rowReference;
+		_finalAttributes = *rowReference;
+		_rowSize = sizeof(TRow);
+	}
+	inflictInstantStatus(std::unique_ptr<StatusEffect>);
+	inflictStatus(std::unique_ptr<StatusEffect>);
+	const FTableRowBase* getAttributes() const {return _finalAttributes.Get()};
+};
+UClass()
+UInheritor : public UMyAttributeSet<ThisSpecificRow> {
+	UInheritor::UInheritor() = default;
+	Initialise_UInheritor(FName ID){
+		ThisSpecificRow* myRow = Inheritor::lookupRow(ID);
+		if (myRow == nullptr){
+			LOGERROR("UInheritor::UInheritor - myRow is nullptr");
+			Destroy();
+			return;
+		}
+		Initialise_UMyAttributeSet(ID, myRow);
+	}
+	static ThisSpecificRow* Inheritor::lookupRow(ID);
+};
+		
+
+
+Enums that are not exposed to the editor can remain Enum class (none that I can think of)
+
+Enums that are exposed to the editor but are only single fields can remain UENUM (no Enum class)
+	Sprite
+	Status effect
+	AOEShape
+	ProjectileShape
+	AttackShape
+	ProjectileTargeting
+

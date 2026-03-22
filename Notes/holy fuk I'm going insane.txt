@@ -1,0 +1,261 @@
+// This object and all of its children should be treated as immutable. Probably self enforced?
+UWeaponTemplate : UDataAsset
+	FWeaponConfig
+		float _warmup
+
+
+FWeaponConfigRuntime
+	float _warmup
+
+FAttackAttributes
+	float _damage;
+	float _critChance;
+	float _critMultiplier;
+
+// general notes
+Use a check with a preprocessor directive instead of checkslow
+You can probably move IsValid inside the LOGERROR macro- or just make a slightly different macro
+Make the status effects more scalable- reference chat
+You can easily add more attribute structs like you have been doing with the components
+BeginPlay allows you to check for failure early but prevents you from making a parameter list
+Work on making attacks more scalable? The quad scaling was a compromise I did before... but I might be able to do better now.
+TObjectPtr<const dataAsset> keeps things from getting weird but doesn't prevent reassignment of ptr. 
+
+The reason for using a USTRUCT was visibility in the DataAsset, which is no longer relevant. The reason for using UCLASS() was inheritance, which is also no longer relevant, since a single virtual function allows full inheritance in C++ structs. So, we can change the runtime attributes to C++ structs. Or classes, there's not really a difference. And then give them templates!
+
+struct GlobalStatusState{
+	bool _burnThisFrame;
+}
+
+class Stat{
+	float _final;
+public:
+	const float _base;
+	float _prebonus;
+	float _postbonus;
+	float _multiplier;
+	float _offset;
+	stat() = delete;
+	stat(float base) : _base(base), _prebonus(0), _postbonus(0), _multiplier(0), _offset(0) {}
+	float calculateFinal() {
+		_final = (_base+_prebonus)*(1+_multiplier)+_postbonus+_offset;
+		return _final;
+	}
+	float getFinal(){
+		return _final;
+	}
+	void softReset(){
+		_prebonus = 0;
+		_postbonus = 0;
+		_multiplier = 0;
+	}
+};
+
+template<typename ConfigType>
+class attributeClass{
+	ConfigType _core;
+
+public:
+//not automatic
+// Status effects are owned by attributeClass' owner. The owner is responsible for managing duration and deletion of elements, as well as handling
+// statusEffect subclass-specific internal state.
+// It will also be responsible for modifiers? Maybe not, we'll see.
+
+// Alternatively, instead of passing GlobalStatusState, just call MyGameplayStatics::GetCombatantManager->getBurnThisFrame()
+void tick(float delta, const std::vector<FStatusEffect>& statusEffects, const GlobalStatusState& state){
+	ConfigType newFinal = _base;
+	for (auto& status : _statusEffects)
+		_core.applyStatus(status, delta, state);
+	// later: add "on attribute change" callbacks here
+	_final = newFinal
+}
+};
+
+class ConfigTypeBase{
+virtual void applyStatus(const FStatusEffect* status, float delta) = 0;
+};
+
+class CombatantType : public ConfigTypeBase{
+	Stat _maxHP = Stat(0);
+	Stat _currentHP = Stat(0);
+	...
+public:
+	virtual void applyStatus(const FStatusEffect* status, float delta, const GlobalStatusState& state) override{
+		switch(status._type){
+			case damage:
+				_currentHP._offset -= status->_magnitude;
+				break;
+			case bleed:
+				_currentHP._offset -= status->_magnitude*delta;
+				break;
+			case burn:
+				if (state._burnThisFrame)
+					_currentHP._offset -= status._magnitude*_currentHP.getFinal();
+				break;
+			default:
+			break;
+		}
+	}
+};
+
+//NOTE: YOU NEED TO CALL SOFT RESET. SEE IF YOU CAN FIGURE OUT A WAY TO DO IT WITHOUT DUPLICATING THE IDENTIFIERS.
+class AttackType{
+	Stat _damage = Stat(0);
+	Stat _critChance = Stat(0);
+	Stat _critDamage = Stat(1);
+public:
+	//Example of an attribute that is unaffected by currently implemented status effects. Instead of throwing an error for unrecognized
+	//statuses, it just returns.
+	virtual void applyStatus(const FStatusEffect* status, float delta, const GlobalStatusState& state) override{
+		switch(status._type){
+			default:
+			break;
+		}
+	}
+};
+
+
+
+//pseudocode
+UENUM()
+EStatus{
+damageMult,
+damageBonus,
+baseDamageBonus,
+critBonus
+};
+
+USTRUCT()
+FStatusEffect{
+GENERATED_USTRUCT_BODY()
+
+public:
+EStatus _type;
+float duration;
+float magnitude;
+};
+
+//You would need one of these for each attribute struct- not very scalable, but to be fair only combatant is really implemented atm.
+class StatusManager {
+	//delete constructors and assignment operators
+	static void applyStatusPrebonus(FStatusEffect& status, FAttackAttributesRuntime& final, float delta){
+		if (status._type == EStatus::damageMult){}
+		else if (status._type == EStatus::damageBonus){}
+		else if (status._type == EStatus::baseDamageBonus){
+			final._damage += status._magnitude;
+		}
+		else if (status._type == critBonus){}
+		else { LOGERROR("Not implemented"); }
+	}
+	static void applyStatusMultiplier(FStatusEffect& status, FAttackAttributesRuntime& final, float delta){
+		if (status._type == EStatus::damageMult){
+			final._damage *= (1+status._magnitude);
+		}
+		else if (status._type == EStatus::damageBonus){}
+		else if (status._type == EStatus::baseDamageBonus){}
+		else if (status._type == critBonus){}
+		else { LOGERROR("Not implemented"); }
+	}
+	static void applyStatusPostbonus(FStatusEffect& status, FAttackAttributesRuntime& offsets, float delta){
+		if (status._type == EStatus::damageMult){}
+		else if (status._type == EStatus::damageBonus){
+			final._damage += status._magnitude;
+		}
+		else if (status._type == EStatus::baseDamageBonus){}
+		else if (status._type == critBonus){
+			final._critChance += critBonus._magnitude;
+			final._critMultiplier += 3*critBonus._magnitude;
+		}
+		else { LOGERROR("Not implemented"); }
+		status._duration -= delta;
+	}
+};
+		
+
+UCLASS()
+class AAttackActor : public AActor{
+	GENERATED_BODY()
+
+	private:
+		TObjectPtr<const UAttackData> _dataRef;
+		const FAttackAttributes& getBase() const {return _dataRef->_attackAttributes;}
+		FAttackAttributesRuntime _offsets;
+		FAttackAttributesRuntime _final;
+		TArray<FStatusEffect> _statuses;
+		
+	public:
+		// How do I guarantee that this is called?
+		initialise_AAttackActor(FAttackAttributes* dataRef){
+			_dataRef = dataRef;
+			//offsets is initialised at 0 for all values, regardless of function
+			_final.setFromBase(getBase());
+		//alternative
+		virtual void BeginPlay() override{
+			Super::BeginPlay();
+			//check(_dataRef)? if (!IsValid(_dataRef))?
+			_final.setFromBase(getBase());
+		addStatus(const FStatusEffect& status){_statuses.Add(status)};
+		Tick(float delta){
+			_final.setFromBase(getBase());
+			for (auto& status : statuses){
+				//static function
+				StatusManager::applyStatusPrebonus(status, _final, delta);
+			}
+			for (auto& status : statuses){
+				StatusManager::applyStatusMultiplier(status, _final, delta);
+			}
+			for (auto& status : statuses){
+				StatusManager::applyStatusPostbonus(status, _offsets, delta);
+			}
+			for (auto i = 0; i < _statuses.Num();i+=0){
+				if (statuses[i]._duration <= 0)
+					_statuses.RemoveAt(i);
+				else
+					i++;
+			}
+			_final += _offets;
+};
+
+USTRUCT()
+struct FAttackAttributesRuntime {
+	GENERATED_USTRUCT_BODY()
+
+	private:
+		float _damage = 0;
+		float _critChance = 0;
+		float _critMultiplier = 0;
+	public:
+		void setFromBase(const FAttackAttributes& attr){
+			_damage = attr._damage;
+			_critChance = attr._critChance;
+			_critMultiplier = attr._critMultiplier
+		
+		FAttackAttributesRuntime& operator+=(const FAttackAttributesRuntime& other){
+			_damage += other._damage;
+			_critChance += other._critChance;
+			_critMultiplier += other._critMultiplier;
+			return *this;
+		}
+};
+
+USTRUCT(BlueprintType, EditInlineNew)
+struct FAttackAttributes {
+	GENERATED_USTRUCT_BODY
+	
+	public:
+	UPROPERTY(EditAnywhere)
+	float _damage = 0;
+	UPROPERTY(EditAnywhere)
+	float _critChance = 0;
+	UPROPERTY(EditAnywhere)
+	float _critMultiplier = 1;
+};
+
+UCLASS(BlueprintType)
+class UAttackData : public UDataAsset{
+	GENERATED_BODY()
+	
+	public:
+	UPROPERTY(EditAnywhere, Instanced)
+	FAttackAttributes _attackAttributes;
+};

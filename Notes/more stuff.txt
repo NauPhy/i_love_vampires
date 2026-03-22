@@ -1,0 +1,96 @@
+Okay so I have something close to a working system but it's still too restrictive.
+
+I want:
+UActive represents a weapon- it may or may not be final. It is responsible for creating AAttackActor instances via fire and forget.
+UActive can create arbitrary AAttackActor types. There should be a way to alternate between bullets and chain lightning, for example.
+
+An AAttackActor should be capable of creating another AAttackActor
+
+One option for explosive bullet (and similar attacks) is to create both the bullet and the AOE at the same time, but disable the AOE until the bullet expires. That way we can centralise the authority to create AAttackActor in only UActive.
+
+I could create a modular component of UActive that is only capable of creating one attack type. It may even have most of the class' logic.
+
+So when creating a weapon I could do something like
+weapon newWeapon;
+weapon.addAttack(bullet);
+weapon.addAttack(chainLightning);
+weapon.setAttackMode(EAttackMode::Alternating);
+
+then each "attack factory" component has a single _template, _config, and _attributeSet. It would also be responsible for knowing attackType-specific initialisation procedure, such as spreading the shots in a fan. To reduce mirroring it would be sensible to make it templated.
+
+So that solves my 2 main problems, but I still have more mirroring than I'm comfortable with. 
+
+No matter what I'm going to need a struct with float data members for the data table. Should I template entirely off of that?
+
+So let's say we have a base struct WeaponFull which contains both WeaponConfig and WeaponAttributes. AAttackActor would then be templated
+such that instead of ABullet : AAttackActor we have AAttackActor<BulletFull>
+
+...no
+WeaponFull is a USTRUCT and AAttackActor is a UCLASS, so neither can be templated off the other. Not only that, but no wrapper containing AAttackActor can be templated off of WeaponFull, because it must be a UCLASS.
+
+I could store information about how to spawn various attacks as static variables/methods inside the classes.
+
+For example, 
+static ABullet::spawnBulletFan(float angle, float projectileCount, bulletConfig, bulletAttributes)
+or
+static ABullet::spawn(ESpawnType type, spawnConfig, bulletConfig, bulletAttributes)
+
+Our goal here would be making UActive entirely generic. Can we do that?
+
+UActive would need an activate function. It could just spawn the 
+
+
+okay fuck lets step back from the complicated stuff a bit. AAttackActor doesn't care about status effects, just the initialiser list. So all I need to do is initialise an object with a complicated inheritance hierarchy. Normally I would just do 
+AAttackActor(float A, float B) : _A(A), _B(B)
+ABullet(float A, float B, float C) : AAttackActor(A, B), _C(C).
+
+That would work fine here, the constructor is there to remind me what I need to add. What it doesn't do is add the specific item to the constructor. TInstancedStruct is good for that, but it of course needs a struct which is going to have a different inheritance hierarchy. 
+
+Since I normally include A, B, C in the constructor of ABullet, I could just make a separate struct for each inheritor-
+you'd have
+AAttackActor::AAttackActor(AAttackActorInitStruct) : _A(AAttackActorInitStruct._A), _B(AAttackActorInitStruct._B)
+AAttackActor::AAttackActor(float A, float B) : _A(A), _B(B)
+ABullet(ABulletInitStruct) : AAttackActor(ABulletInitStruct._A, ABulletInitStruct._B), _C(ABulletInitStruct._c)
+ABullet(float A, float B, float C) : _AAttackActor(A, B), _C(C)
+
+or even 
+AAttackActor attack(
+AAttackActorInitStruct._A,
+AAttackActorInitStruct._B);
+ABullet bullet(
+ABulletInitStruct._A,
+ABulletInitStruct._B,
+ABulletInitStruct._C);
+
+which would actually be worse in every way so never mind.
+
+However we still need different behaviour on the MyAttributeSet... I suppose I could store that in the classes themselves, so instead of
+MyAttributeSet<ABulletStruct>.updateModifiers(ABulletStruct finalAttributes&) we could do
+static void ABullet::updateModifiers(const CombatantStruct&, ABulletStruct finalAttributes&)
+which wouldn't work.
+
+If I really wanted to I could do 
+static void ABullet::updateModifiers(const CombatantStruct&, float& A, float& B, float& C)...
+
+
+So nested initialiser structs are starting to sound appealing, the issue is getting them to show in the editor. I guess it might be usable.
+
+So in conclusion,
+I will keep the TInstancedStruct, but instead of p
+
+
+
+
+
+
+
+Okay.
+I'm pretty sure what I wanna do.
+I have unfortunately wasted even MORE time but there's no solution to this impasse that does not throw away work, since I was working towards something that would have never worked.
+
+AAttackActor (which is a UCLASS) and each of its inheritors will define a USTRUCT in the same .h file (not within their class body) that contains their initialisation data including default values. The master table row struct TM will then include every one of these structs. When you are adding new weapons to the game, you do not need to remember what fields belong to what subclasses- that'll be there already. What you DO need to know is the inheritance path to the subclass you're using, and you may need to override fields in each struct corresponding to a subclass on that path.
+This will result in empty/unrelated/unused entries on every row. The only way to avoid that is creating multiple data tables (or reading from json).
+
+Additionally, the USTRUCT defined in the .h file of each subclass will contain 2 USTRUCTS as its data members- _config and _attributes- which will also be defined in that file. So 3 USTRUCTS and 1 UCLASS total.
+
+I should be able to put class-specific attribute set behaviour in the AAttackActor subclass, then template the attribute set based on the subclass.
