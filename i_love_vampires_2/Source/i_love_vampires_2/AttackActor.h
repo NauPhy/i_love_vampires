@@ -1,45 +1,54 @@
 #pragma once
 #include "CoreMinimal.h"
-//
+// AAttackActor
 #include "GameFramework/Actor.h"
-//
+#include <memory>
+#include "StatusEnum.h"
+#include "GameFramework/Pawn.h"
+// UAttackConfig
 #include "SpriteEnum.h"
 #include "BaseConfig.h"
-//
-#include "BaseAttributes.h"
 #include "EffectStruct.h"
-//
-#include "BaseAttributeComponent.h"
-//
+// UAttackAttributeData
+#include "BaseAttributeData.h"
+// AttackAttributes
+#include "BaseAttributes.h"
+// AttackFactory
 #include "BaseAttributeSet.h"
+// UAttackTemplate
+#include "BaseTemplate.h"
 //
-#include "BaseAttributeSetTemplate.h"
-#include "unrealHelpers.h"
-//
-#include "Engine/World.h"
-#include "GameFramework/Pawn.h"
 #include "AttackActor.generated.h"
-class ACombatant;
 class UAttackConfig;
+class AttackAttributes;
+class AttackFactory;
+class UAttackAttributeData;
+class UAttackTemplate;
+
+class ACombatant;
 class UPaperFlipbookComponent;
 
 UCLASS()
 class I_LOVE_VAMPIRES_2_API AAttackActor : public AActor {
 	GENERATED_BODY()
+
+	const EStatus _DAMAGE = EStatus::Damage;
+
+	TObjectPtr<UAttackConfig> _attackConfig = nullptr;
 	
 protected:
 	TWeakObjectPtr<APawn> _pawnRef = nullptr;
 	TArray<TWeakObjectPtr<APawn>> _effectedPawns;
-
+	std::unique_ptr<const AttackAttributes> _attackAttributes = nullptr;
 	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = true))
 	UPaperFlipbookComponent* _flipbook = nullptr;
-	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = true))
-	UAttackConfig* _attackConfig = nullptr;
-	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = true))
-	UAttackAttributes* _attackAttributes = nullptr;
+
+	const UAttackConfig* getAttackConfig() const { return _attackConfig.Get(); }
+
 public:
 	AAttackActor();
-	void initialise_AAttackActor(APawn* pawnRef, const UAttackConfig*, const UAttackAttributes*);
+	void initialise_AAttackActor(APawn* pawnRef, UAttackConfig* attackConfig, const AttackAttributes& attackAttributes);
+	virtual void BeginPlay() override;
 	virtual void factoryInitQuery(AAttackFactory* factory);
 	virtual void Tick(float delta) override;
 	void applyEffect(ACombatant* target); 
@@ -63,98 +72,87 @@ public:
 class UCombatantAttributes;
 
 UCLASS(BlueprintType, EditInlineNew)
-class I_LOVE_VAMPIRES_2_API UAttackAttributes : public UBaseAttributes
+class I_LOVE_VAMPIRES_2_API UAttackAttributeData : public UBaseAttributes
 {
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "WeaponAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "WeaponAttributes")
 	float _damage = 0.f;
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "WeaponAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "WeaponAttributes")
 	float _critChance = 0.f;
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "WeaponAttributes")
+	UPROPERTY(VisibleAnywhere, Category = "WeaponAttributes")
 	float _critMultiplier = 2.f;
 
-	static void modifyAttributes(const UCombatantAttributes* modifiers, const UAttackAttributes* baseAttributes, UAttackAttributes* finalAttributes);
-	virtual UAttackAttributes* getDiscretizedCopy(UObject* outer) const override {
-		if (!IsValid(outer)) {
-			LOGERROR("UAttackAttributes::getDiscretizedCopy - outer not valid");
-			return nullptr;
-		}
-		UAttackAttributes* ret = DuplicateObject<UAttackAttributes>(this, outer, FName());
-		return ret;
-	}
-	UAttackAttributes(const FObjectInitializer& init) : Super(init) {}
+	UAttackAttributeData(const FObjectInitializer& init) : Super(init) {}
 };
 ///////////////////////////////////////////////////////////////////////////////
+class AttackAttributes : public BaseAttributes {
+	Stat _damage;
+	Stat _critChance;
+	Stat _critMultiplier;
 
-UCLASS()
-class I_LOVE_VAMPIRES_2_API UAttackComponent : public UBaseAttributeComponent
-{
-	GENERATED_BODY()
 public:
-	void initialise_UAttackComponent(const UAttackAttributes* baseAttributes) {
-		if (!IsValid(baseAttributes)) {
-			LOGERROR("UAttackComponent::initialise_UAttackComponent - baseAttributes not valid");
-			return;
-		}
-		_base = DuplicateObject(baseAttributes, this);
-		_final = DuplicateObject(baseAttributes, this);
-		_offsets = DuplicateObject(baseAttributes, this);
-		zeroOffsets();
-	}
-	// initialise_UAttackComponent is not guaranteed to be called, but if it is, _base and _final are guaranteed to be of type UAttackAttributes*. You do however
-	// still need to cast them.
-	virtual void modifyAttributes(ABaseAttributeSet* set) override;
+	AttackAttributes() = delete;
+	AttackAttributes(const UAttackAttributeData* attr) : _damage(attr->_damage), _critChance(attr->_critChance), _critMultiplier(attr->_critMultiplier) {}
+	virtual void modifyAttributes(const CombatantAttributes& modifiers);
+	virtual void discretizeFull() override {}
+	virtual void applyStatus(const FEffectStruct& status, float delta) override {}
 };
+
+class AttackAttributeSet : public BaseAttributeSet {
+	BaseAttributeWrapper<AttackAttributes> _attackAttributes;
+public:
+	AttackAttributeSet() = delete;
+	AttackAttributeSet(const UAttackAttributeData* attr) : _attributes(AttackAttributes(attr)) {}
+	virtual void tick(float delta) override {
+		_attributes.tick(delta, getStatusEffects());
+		BaseAttributeSet::tick(delta);
+	}
+	float getMember(float AttackAttributes::* member) const {
+		return _attackAttributes.getMember(member);
+	}
+	const BaseAttributeWrapper<AttackAttributes>& getAttackAttributeWrapper() const { return _attackAttributes; }
+};
+
 ///////////////////////////////////////////////////////////////////////////////
 
 class AProjectile;
 class AExplosiveProjectile;
 class AAOE;
 
-UCLASS()
-class I_LOVE_VAMPIRES_2_API AAttackFactory : public ABaseAttributeSet
-{
-	GENERATED_BODY()
-
-	void shouldNotRunError() const;
-
-protected:
-	UPROPERTY()
-	UAttackConfig* _attackConfig = nullptr;
-	UPROPERTY()
-	UAttackComponent* _attackComponent = nullptr;
+class AttackFactory : public BaseAttributeSet {
+	const TObjectPtr<const APawn> _owner = nullptr;
+	const TObjectPtr<const UAttackConfig> _attackConfig = nullptr;
+	BaseAttributeWrapper<AttackAttributes> _attackAttributes;
 
 public:
-	// This double dispatch is currently only used so the init function can have specialised AAttackActor subclass parameters. 
-	// This parameter is not used for nested function calls, or even for member variable access. It's used because, for example, AAttackActor does not have 
-	// initialise_AProjectile. initialise_AProjectile calls AAttackActor::initialise_AAttackActor, but the factory still needs access to the declaration
-	// of initialise_AProjectile to call it.
-	virtual void initAttack(AAttackActor*);
-	virtual void initProjectile(AProjectile*) { shouldNotRunError(); }
-	virtual void initAOE(AAOE*) { shouldNotRunError(); }
-	virtual void initExplosiveProjectile(AExplosiveProjectile*) { shouldNotRunError(); }
-
+	AttackFactory() = delete;
+	AttackFactory(APawn* owner, const UAttackConfig* config, const UAttackAttributeData* data) : _owner(owner), _attackConfig(config), _attackAttributes(AttackAttributes(data)) {}
+	virtual void tick(float delta) override {
+		_attackAttributes.tick(delta, getStatusEffects());
+		BaseAttributeSet::tick(delta);
+	}
+	float getMember(float AttackAttributes::* member) const {
+		return _attackAttributes.getMember(member);
+	}
+	const BaseAttributeWrapper<AttackAttributes>& getAttackAttributeWrapper() const { return _attackAttributes; }
 	virtual void launchAttack(const FVector& forward);
-	// Compile time guarantee that _owner is set to a pointer of type APawn rather than just AActor
-	void initialise_AAttackFactory(APawn*, UCombatantAttributes*, const UAttackConfig*, const UAttackAttributes*);
 };
 ///////////////////////////////////////////////////////////////////////////////
 
 UCLASS(BlueprintType, EditInlineNew)
-class I_LOVE_VAMPIRES_2_API UAttackFactoryTemplate : public UBaseAttributeSetTemplate {
+class I_LOVE_VAMPIRES_2_API UAttackTemplate : public UBaseTemplate {
 	GENERATED_BODY()
 
 public:
 	UPROPERTY(VisibleAnywhere, Instanced, Category = "UAttackFactoryTemplate")
 	UAttackConfig* _attackConfig;
 	UPROPERTY(VisibleAnywhere, Instanced, Category = "UAttackFactoryTemplate")
-	UAttackAttributes* _attackAttributes;
+	UAttackAttributeData* _attackAttributes;
 
-	virtual AAttackFactory* createFactory(APawn*, UCombatantAttributes*) const;
 	UAttackFactoryTemplate(const FObjectInitializer& init) : Super(init) {
 		_attackConfig = init.CreateDefaultSubobject<UAttackConfig>(this, "_attackConfig");
-		_attackAttributes = init.CreateDefaultSubobject<UAttackAttributes>(this, "_attackAttributes");
+		_attackAttributes = init.CreateDefaultSubobject<UAttackAttributeData>(this, "_attackAttributes");
 	}
 };

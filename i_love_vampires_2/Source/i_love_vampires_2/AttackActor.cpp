@@ -1,12 +1,10 @@
 #include "AttackActor.h"
 #include "Definitions.h"
-#include <type_traits>
 #include "Combatant.h"
-#include "StatusFactory.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "unrealHelpers.h"
 #include "PaperFlipbookComponent.h"
-#include "StatusEffect_Damage.h"
+#include "Engine/World.h"
 
 AAttackActor::AAttackActor() {
 	if (!RootComponent)
@@ -21,20 +19,24 @@ AAttackActor::AAttackActor() {
 	_flipbook->SetCollisionObjectType(ECollisionChannel::ECC_WorldDynamic);
 }
 
-void AAttackFactory::shouldNotRunError() const {
-	LOGERROR("UAttackFactory::shouldNotRunError - this should not run");
-}
-
 void AAttackActor::Tick(float delta) {}
 
-void AAttackActor::initialise_AAttackActor(APawn* pawnRef, const UAttackConfig* config, const UAttackAttributes* attributes) {
-	if (!IsValid(config) || !IsValid(attributes) || !IsValid(pawnRef)) {
-		LOGERROR("AAttackActor::initialise_AAttackActor - invalid parameter");
+void AAttackActor::initialise_AAttackActor(APawn* pawnRef, UAttackConfig* config, const AttackAttributes& attributes) {
+	if (!IsValid(config)) {
+		LOGERROR("AAttackActor::initialise_AAttackActor - parameter not valid");
 		return;
 	}
-	_attackConfig = DuplicateObject<UAttackConfig>(config, this);
-	_attackAttributes = DuplicateObject<UAttackAttributes>(attributes, this);
+	_attackConfig = TObjectPtr<const UAttackConfig>(config);
+	_attackAttributes = std::make_unique<AttackAttributes>(attributes);
 	_pawnRef = TWeakObjectPtr<APawn>(pawnRef);
+}
+
+void AAttackActor::BeginPlay() {
+	Super::BeginPlay();
+	if (!IsValid(_attackConfig) || _attackAttributes.get() == nullptr) {
+		LOGERROR("AAttackActor::BeginPlay - _attackConfig is not valid");
+		return;
+	}
 	if (!unrealHelpers::initFlipbook(this, _attackConfig->_sprite, _flipbook))
 		return;
 }
@@ -62,32 +64,20 @@ void AAttackActor::applyEffect(ACombatant* target) {
 	// Damage is (for some reason) separate from the other status effects
 	// For now let's say only base damage can crit (will change later)
 	{
-		if (!IsValid(_attackAttributes)) {
-			LOGERROR("AAttackActor::applyEffect - _attackAttributes is not valid");
-			return;
-		}
 		float damage = _attackAttributes->_damage;
 		float critChance = _attackAttributes->_critChance;
 		if (FMath::FRand() < critChance) {
 			damage *= _attackAttributes->_critMultiplier;
 		}
-		UStatusEffect_Damage* temp = NewObject<UStatusEffect_Damage>(this);
-		if (!IsValid(temp)) {
-			LOGERROR("AAttackActor::applyEffect - failed to create damage status effect");
-			return;
-		}
-		temp->initialise_UStatusEffect_Damage(damage);
+		FEffectStruct temp = FEffectStruct(_DAMAGE, damage, 0, 1);
 		target->inflictStatus(temp);
 	}
-	if (!IsValid(_attackConfig)) {
-		LOGERROR("AAttackActor::applyEffect - _attackConfig is not valid");
-		return;
-	}
 	// Chance is included in the newly created effect, just in case
-	for (const FEffectStruct& tempStruct : _attackConfig->_statusEffects) {
+	for (const auto& effect : _attackConfig->_statusEffects) {
 		if (FMath::FRand() <= tempStruct._chance) {
-
-			target->inflictStatus(StatusFactory::createStatusEffect(tempStruct));
+			FEffectStruct temp = effect;
+			temp._chance = 1;
+			target->inflictStatus(temp);
 		}
 	}
 	{
@@ -99,102 +89,30 @@ void AAttackActor::applyEffect(ACombatant* target) {
 		_effectedPawns.Add(TWeakObjectPtr<APawn>(temp));
 	}
 }
+///////////////////////////////////////////////////////////////////////////////
 
-void AAttackActor::factoryInitQuery(AAttackFactory* factory) {
-	if (!IsValid(factory)) {
-		LOGERROR("AAttackActor::factoryInitQuery - not valid");
-		return;
-	}
-	factory->initAttack(this);
+void AttackAttributes::modifyAttributes(const CombatantAttributes& modifiers) {
+	_critChance += modifiers._critChance;
+	_critMultiplier += modifiers._critMultiplier;
 }
 ///////////////////////////////////////////////////////////////////////////////
 
-void UAttackAttributes::modifyAttributes(const UCombatantAttributes* modifiers, const UAttackAttributes* baseAttributes, UAttackAttributes* finalAttributes) {
-	if (!IsValid(modifiers) || !IsValid(baseAttributes) || !IsValid(finalAttributes)) {
-		LOGERROR("UAttackAttributes::modifyAttributes - invalid parameter");
-		return;
-	}
-	finalAttributes->_critChance = baseAttributes->_critChance + modifiers->_critChance;
-	finalAttributes->_critMultiplier = baseAttributes->_critMultiplier + modifiers->_critMultiplier;
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
-void UAttackComponent::modifyAttributes(ABaseAttributeSet* set) {
-	if (!IsValid(set)) {
-		LOGERROR("UAttackComponent::modifyAttributes - set is not valid");
-		return;
-	}
-	UCombatantAttributes* attr = nullptr;
-	if (!set->getModifiers<UCombatantAttributes>(attr))
-		return;
-	if (!IsValid(_base) || !IsValid(_final)) {
-		LOGERROR("UAttackComponent::modifyAttributes - base or final not valid");
-		return;
-	}
-	UAttackAttributes* base = Cast<UAttackAttributes>(_base);
-	UAttackAttributes* final = Cast<UAttackAttributes>(_final);
-	UAttackAttributes::modifyAttributes(attr, base, final);
-}
-///////////////////////////////////////////////////////////////////////////////
-
-void AAttackFactory::initialise_AAttackFactory(APawn* pawnRef, UCombatantAttributes* comb, const UAttackConfig* config, const UAttackAttributes* attributes) {
-	if (!IsValid(pawnRef) || !IsValid(comb) || !IsValid(config) || !IsValid(attributes)) {
-		LOGERROR("AAttackFactory::initialise_AAttackFactory - invalid parameter");
-		return;
-	}
-	initialise_ABaseAttributeSet(pawnRef, comb);
-	_attackConfig = DuplicateObject<UAttackConfig>(config, this);
-	_attackComponent = NewObject<UAttackComponent>(this);
-	if (!IsValid(_attackComponent)) {
-		LOGERROR("AAttackFactory::initialise_AAttackFactory - failed to create attack component");
-		return;
-	}
-	_attackComponent->initialise_UAttackComponent(attributes);
-}
-
-// This could just as easily (maybe even slightly more easily) be done with TSubclassOf<AAttackActor> in either AAttackFactory or UAttackConfig,
-// but I'm more used to inheritance and this shit is really complicated.
-void AAttackFactory::launchAttack(const FVector& forward) {
-	if (!_owner.IsValid()) {
-		return;
-	}
+void AttackFactory::launchAttack(const FVector& forward) {
 	AAttackActor* newAttack = unrealHelpers::spawnActorOnTopOfMe<AAttackActor>(_owner.Get());
 	if (!IsValid(newAttack)) {
 		LOGERROR("AAttackFactory::launchAttack - failed to create attack");
 		return;
 	}
-	newAttack->factoryInitQuery(this);
+	initAttack(newAttack);
 }
 
 void AAttackFactory::initAttack(AAttackActor* attack) {
-	if (!IsValid(attack) ||
-		!IsValid(_attackComponent)
-		) {
+	if (!IsValid(attack)) {
 		LOGERROR("AAttackFactory::initAttack - variable is not valid");
 		return;
 	}
-	if (!_owner.IsValid())
-		return;
-	UAttackAttributes* disc = _attackComponent->getDiscretizedFinal<UAttackAttributes>(this);
-	APawn* pawnRef = Cast<APawn>(_owner.Get());
+	AttackAttributes temp = _attackAttributes.getCore();
+	temp.discretizeFull();
 	// This creates an unnecessary copy but imma roll with it
-	attack->initialise_AAttackActor(pawnRef, _attackConfig, _attackComponent->getDiscretizedFinal<UAttackAttributes>(this));
-}
-	
-
-
-///////////////////////////////////////////////////////////////////////////////
-AAttackFactory* UAttackFactoryTemplate::createFactory(APawn* pawnRef, UCombatantAttributes* combatant) const {
-	if (!IsValid(pawnRef) || !IsValid(combatant)){
-		LOGERROR("UAttackFactoryTemplate::createFactory - invalid parameter");
-		return nullptr;
-	}
-	AAttackFactory* factory = unrealHelpers::spawnActorOnTopOfMe<AAttackFactory>(pawnRef);
-	if (!IsValid(factory)) {
-		LOGERROR("UAttackFactoryTemplate::createFactory - failed to spawn factory");
-		return nullptr;
-	}
-	factory->initialise_AAttackFactory(pawnRef, combatant, _attackConfig, _attackAttributes);
-	return factory;
+	attack->initialise_AAttackActor(_pawnRef.Get(), _attackConfig.Get(), temp);
 }

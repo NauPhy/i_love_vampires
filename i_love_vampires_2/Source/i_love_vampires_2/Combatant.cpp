@@ -1,5 +1,5 @@
 #include "Combatant.h"
-#include <functional>
+//#include <functional>
 #include "MyGameplayStatics.h"
 #include "PaperFlipbookComponent.h"
 #include "Active.h"
@@ -9,7 +9,6 @@
 #include "Definitions.h"
 #include "StatusEffect_Damage.h"
 #include "Engine/AssetManager.h"
-#include "StatusEffect_Burn.h"
 #include "StatusFactory.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "unrealHelpers.h"
@@ -27,87 +26,28 @@ ACombatant::ACombatant()
 	_combatantFlipbook->SetCollisionObjectType(ECollisionChannel::ECC_Pawn);
 }
 
-void ACombatant::burnTick() { _attributeSet->burnTick(); }
-void ACombatantAttributeSet::burnTick() { 
-	for (auto& status : _statusEffects) {
-		if (!IsValid(status)) {
-			LOGERROR("ACombatantAttributeSet::burnTick - status effect not valid");
-			continue;
-		}
-		UStatusEffect_Burn* burnStatus = Cast<UStatusEffect_Burn>(status);
-		if (IsValid(burnStatus))
-			burnStatus->burnTick();
-	}
-}
-
-void ACombatant::initialise_ACombatant(const UCombatantTemplate* rawData) {
-	if (!IsValid(rawData) || !IsValid(rawData->_config) || !IsValid(rawData->_attributes)) {
-		LOGERROR("ACombatant::initialise_ACombatant - invalid parameter");
+void ACombatant::initialise_ACombatant(const UCombatantTemplate* temp) {
+	if (!IsValid(temp) || !IsValid(temp->_config) || !IsValid(temp->_attributeData)) {
+		LOGERROR("ACombatant::initialise_ACombatant - parameter not valid");
 		return;
 	}
-	_config = rawData->_config;
-	const UCombatantAttributes* attributes = rawData->_attributes;
-	// attribute set
-	{
-		_attributeSet = unrealHelpers::spawnActorOnTopOfMe<ACombatantAttributeSet>(this);
-		if (!IsValid(_attributeSet)) {
-			LOGERROR("ACombatant::initialise_ACombatant - _attributeSet creation failed");
-			return;
-		}
-		_attributeSet->initialise_ACombatantAttributeSet(this, attributes);
-		//callbacks
-		std::function <void(float, float)> callback = std::bind(&ACombatant::onCurrentHPChanged, this, std::placeholders::_1, std::placeholders::_2);
-		float UCombatantAttributes::* member = &UCombatantAttributes::_currentHP;
-		_attributeSet->addCallback<UCombatantComponent, UCombatantAttributes>(member, callback);
+	_config = TObjectPtr<const UCombatantTemplate>(temp);
+	_attributeSet = std::make_unique<CombatantAttributeSet>(temp->_attributeData);
+}
+
+void ACombatant::BeginPlay() {
+	Super::BeginPlay();
+	if (!_config.IsValid() || _attributeSet.get() == nullptr) {
+		LOGERROR("ACombatant::BeginPlay - _config or _attributeSet not valid");
+		return;
 	}
-	// weapons
-	// data used to be of type FPrimaryAssetId
-	// It is now of type TSoftObjectPtr<UWeaponTemplate>
-	// The code here doesn't need to change tho
 	for (const auto& data : _config->_startingWeapons) {
-		if (!IsValid(data)) {
-			LOGERROR("ACombatant::initialise_ACombatant - starting weapon data not valid");
-			continue;
-		}
-		UActive* active = NewObject<UActive>(this);
-		if (!IsValid(active)) {
-			LOGERROR("ACombatant::initialise_ACombatant - active creation failed");
-			continue;
-		}
-		UCombatantComponent* comp = _attributeSet->FindComponentByClass<UCombatantComponent>();
-		if (!IsValid(comp)) {
-			LOGERROR("ACombatant::initialise_ACombatant - combatant component not found");
-			continue;
-		}
-		active->initialise_UActive(this, data, comp->getFinal<UCombatantAttributes>());
-		_activeAbilities.Add(active);
+		_activeAbilities.push_back(Active(this, data));
 	}
 	unrealHelpers::initFlipbook(this, _config->_sprite, _combatantFlipbook);
 	_myForwardVector = GetActorForwardVector();
-	_isInitialised = true;
 }
 
-//void ACombatant::initialise_ACombatant(const FPrimaryAssetId& id)
-//{
-//	UAssetManager& assetManager = UAssetManager::Get();
-//	UObject* temp = assetManager.GetPrimaryAssetObject(id);
-//	if (temp == nullptr) {
-//
-//		auto handle = assetManager.LoadPrimaryAsset(id);
-//		handle->WaitUntilComplete();
-//		temp = assetManager.GetPrimaryAssetObject(id);
-//	}
-//	if (temp == nullptr) {
-//		LOGERROR("ACombatant::initialise_ACombatant - asset not found ");
-//		return;
-//	}
-//	UCombatantTemplate* templateData = Cast<UCombatantTemplate>(temp);
-//	if (templateData == nullptr) {
-//		LOGERROR("ACombatant::initialise_ACombatant - asset is not a UCombatantTemplate");
-//		return;
-//	}
-//	initialise_ACombatant(templateData);
-//}
 void ACombatant::EndPlay(EEndPlayReason::Type EndPlayReason)
 {
 	Super::EndPlay(EndPlayReason);
@@ -119,41 +59,18 @@ void ACombatant::onCurrentHPChanged(float oldVal, float newVal)
 	}
 }
 void ACombatant::Tick(float DeltaTime) {
-	if (!_isInitialised)
-		return;
 	Super::Tick(DeltaTime);
+	float oldHP = _attributeSet->getMember(&CombatantAttributes::_currentHP);
 	_attributeSet->tick(DeltaTime);
+	float newHP = _attributeSet->getMember(&CombatantAttributes::_currentHP);
+	if (!nearEq(oldHP, newHP)) {
+		onCurrentHPChanged(oldHP, newHP);
+	})
 	for (auto& active : _activeAbilities) {
-		active->tick(DeltaTime);
+		active->tick(DeltaTime, _attributeSet->getAttributeWrapper().getCore(), _myForwardVector);
 	}
-
-	{
-		if (!IsValid(_combatantFlipbook) || !IsValid(_attributeSet)) {
-			LOGERROR("ACombatant::Tick - variable not valid");
-			return;
-		}
-		UCombatantAttributes* attr = _attributeSet->getFinal<UCombatantComponent, UCombatantAttributes>();
-		if (!IsValid(attr))
-			return;
-		FVector currentScale = GetActorScale3D();
-		SetActorScale3D(currentScale * attr->_selfSize);
-	}
-
-}
-void ACombatant::inflictStatus(UStatusEffect* newStatus) {
-	if (!IsValid(newStatus)) {
-		LOGERROR("ACombatant::inflictStatus - newStatus not valid");
-		return;
-	}
-	if (!IsValid(_attributeSet)) {
-		LOGERROR("ACombatant::inflictStatus - _attributeSet not valid");
-		return;
-	}
-	_attributeSet->inflictStatus(newStatus);
-}
-void ACombatant::inflictStatus(const FEffectStruct& effectStruct) {
-	inflictStatus(StatusFactory::createStatusEffect(effectStruct));
-}
+	FVector currentScale = GetActorScale3D();
+	SetActorScale3D(currentScale * _attributeSet->getMember(&CombatantAttributes::_selfSize);
 
 void ACombatant::lookAtDirection(float X, float Z) {
 	const FRotator rotation = UKismetMathLibrary::FindLookAtRotation(FVector(0, 0, 0), FVector(X, 0, Z));
@@ -168,53 +85,83 @@ void ACombatant::exchangeContactDamage(ACombatant* left, ACombatant* right) {
 		LOGERROR("ACombatant::exchangeContactDamage - parameter not valid");
 		return;
 	}
-	UCombatantAttributes* leftAttr = nullptr;
-	if (!left->getAttributes(leftAttr))
-		return;
-	UCombatantAttributes* rightAttr = nullptr;
-	if (!right->getAttributes(rightAttr))
-		return;
-	const float leftThreat = leftAttr->_contactDamage;
-	const float rightThreat = rightAttr->_contactDamage;
+	const float leftThreat = left->_attributeSet->getMember(&CombatantAttributes::_contactDamage);
+	const float rightThreat = right->_attributeSet->getMember(&CombatantAttributes::_contactDamage);
+	FEffectStruct leftEffect = FEffectStruct(EStatusEffect::Damage, leftThreat, 0, 1);
+	FEffectStruct rightEffect = FEffectStruct(EStatusEffect::Damage, rightThreat, 0, 1);
+	left->inflictStatus(rightEffect);
+	right->inflictStatus(leftEffect);
+}
+///////////////////////////////////////////////////////////////////////////////
 
-	UStatusEffect_Damage* leftDamage = NewObject<UStatusEffect_Damage>(left);
-	if (!IsValid(leftDamage)) {
-		LOGERROR("ACombatant::exchangeContactDamage - leftDamage creation failed");
-		return;
-	}
-	leftDamage->initialise_UStatusEffect_Damage(rightThreat);
-	UStatusEffect_Damage* rightDamage = NewObject<UStatusEffect_Damage>(right);
-	if (!IsValid(rightDamage)) {
-		LOGERROR("ACombatant::exchangeContactDamage - rightDamage creation failed");
-		return;
-	}
-	rightDamage->initialise_UStatusEffect_Damage(leftThreat);
-
-	left->inflictStatus(leftDamage);
-	right->inflictStatus(rightDamage);
+CombatantAttributes::CombatantAttributes(const UCombatantAttributeData* attr) :
+	_maxHP(attr->_maxHP),
+	_currentHP(attr->_currentHP),
+	_damageReduction_flat(attr->_damageReduction_flat),
+	_damageReduction_percent(attr->_damageReduction_percent),
+	_healthRegen_flat(attr->_healthRegen_flat),
+	_healthRegen_percent(attr->_healthRegen_percent),
+	_critChance(attr->_critChance),
+	_critMultiplier(attr->_critMultiplier),
+	_attackSpeed(attr->_attackSpeed),
+	_bonusBounces(attr->_bonusBounces),
+	_bonusPierce(attr->_bonusPierce),
+	_bonusProjectiles(attr->_bonusProjectiles),
+	_projectileSpeed(attr->_projectileSpeed),
+	_projectileSize(attr->_projectileSize),
+	_movementSpeed(attr->_movementSpeed),
+	_range(attr->_range),
+	_contactDamage(attr->_contactDamage),
+	_selfSize(attr->_selfSize),
+	_iFrameDuration(attr->_iFrameDuration)
+{
 }
 
-bool ACombatant::getAttributes(UCombatantAttributes*& ret) {
-	if (!IsValid(_attributeSet)) {
-		LOGERROR("ACombatant::getAttributes - _attributeSet not valid");
-		return false;
+//void CombatantAttributes::applyToAllStats(const std::function<void(Stat&)>& func) {
+//	func(_maxHP);
+//	func(_currentHP);
+//	func(_damageReduction_flat);
+//	func(_damageReduction_percent);
+//	func(_healthRegen_flat);
+//	func(_healthRegen_percent);
+//	func(_critChance);
+//	func(_critMultiplier);
+//	func(_attackSpeed);
+//	func(_bonusBounces);
+//	func(_bonusPierce);
+//	func(_bonusProjectiles);
+//	func(_projectileSpeed);
+//	func(_projectileSize);
+//	func(_movementSpeed);
+//	func(_range);
+//	func(_contactDamage);
+//	func(_selfSize);
+//	func(_iFrameDuration);
+//}
+
+void CombatantAttributes::applyStatus(const FStatusEffect* status, float delta) {
+	// Require nothing
+	if (stats->_type == _DAMAGE)
+		_currentHP._offset -= status->_magnitude;
+	else if (stats->_type == _BLEED)
+		_currentHP._offset -= status->_magnitude * delta;
+	// Require combatant manager
+	else if (stats->_type == _BURN || false) {
+		UCombatantManager* manager = nullptr;
+		if (!MyGameplayStatics::GetCombatantManager(manager)) {
+			LOGERROR("CombatantAttributes::applyStatus - could not get combatant manager for burn damage");
+			return;
+		}
+		if (stats->_type == _BURN)
+			if (manager->getBurnThisFrame())
+				_currentHP._offset -= (status->_magnitude / 100.0f) * _currentHP.getFinal();
 	}
-	UCombatantComponent* comp = _attributeSet->getComponent<UCombatantComponent>();
-	if (!IsValid(comp)) {
-		LOGERROR("ACombatant::getAttributes - combatant component not found");
-		return false;
-	}
-	ret = comp->getFinal<UCombatantAttributes>();
-	if (!IsValid(ret))
-		return false;
-	return true;
+	else
+		return;
 }
 
-UCombatantAttributes* UCombatantAttributes::getDiscretizedCopy(UObject* outer) const {
-	if (!IsValid(outer)) {
-		LOGERROR("UCombatantAttributes::getDiscretizedCopy - outer not valid");
-		return nullptr;
-	}
-	LOGERROR("I'm not sure if there's ever a reason to call this");
-	return DuplicateObject<UCombatantAttributes>(this, outer, FName());
+void CombatantAttributes::discretizeFull() {
+	_bonusBounces.discretize();
+	_bonusPierce.discretize();
+	_bonusProjectiles.discretize();
 }

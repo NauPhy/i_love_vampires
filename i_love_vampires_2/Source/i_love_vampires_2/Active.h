@@ -9,27 +9,18 @@
 #include "BaseTemplate.h"
 #include "AttackActor.h"
 //
-#include "Active.generated.h"
 class APawn;
-class UCombatantAttributes;
+class CombatantAttributes;
 class UWeaponConfig;
 //class AAttackFactory;
 
-UCLASS()
-class I_LOVE_VAMPIRES_2_API UActive : public UObject {
-	GENERATED_BODY()
-
-	//WARNING May cause errors. Use initialise_UActive(caller, template) instead if possible.
-	//void initialise_UActive(APawn* caller, const FPrimaryAssetId& ID, UCombatantAttributes* callerAttributes);
-
+class  Active {
 	float _timeSinceLastActivation = 0;
 	float _chargeRatio = 0;
-	TWeakObjectPtr<UCombatantAttributes> _combatantAttributes = nullptr;
 	TWeakObjectPtr<APawn> _pawnRef = nullptr;
 	FVector _myForwardVector;
 
-	UPROPERTY()
-	UWeaponConfig* _config;
+	
 	UPROPERTY()
 	TArray<AAttackFactory*> _factories;
 
@@ -39,8 +30,11 @@ class I_LOVE_VAMPIRES_2_API UActive : public UObject {
 	//bool initAttackData(const TArray<UAttackData*>&);
 
 public:
+	Active() = delete;
+	Active(APawn* caller, const UWeaponTemplate* data);
+
 	void initialise_UActive(APawn* caller, const UWeaponTemplate* data, UCombatantAttributes* callerAttributes);
-	virtual void tick(float delta);
+	virtual void tick(float delta, const CombatantAttributes& attr, const FVector& forward);
 	void setForwardVector(const FVector& val) { _myForwardVector = val; }
 };
 ///////////////////////////////////////////////////////////////////////////////
