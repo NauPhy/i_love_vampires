@@ -37,7 +37,8 @@ The weapons are further organized into sets, which are both a thematic and gamep
 aknowledged. In this game the sets are quite distinct, and each set has a couple of "ultimate" weapons or passives that need to be unlocked via meta progression. 
 This system is very similar to the one used Nova Drift, though the ultimate items (super mods) in Nova Drift are independent from any sets. <br>
 
-I'm considering giving each attack its own version of a few generic attacks. For example, "fireball" could have an "ice ball" version and a "shadow ball" version from ice and dark sets.
+I'm considering giving each set its own version of a few generic attacks. For example, "fireball" could have an "ice ball" version and a "shadow ball" version from ice and dark sets.
+They may have somewhat different pierce/size/speed/damage/attack speed, and of course status effects.
 This would allow sprite reuse via pallete swaps and would require fewer ideas from me (thinking is hard). Possibly a bit lazy, but it's exactly what Soulstone Survivors did and I think
 it worked incredibly well for them. <br>
 
