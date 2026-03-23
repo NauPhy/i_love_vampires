@@ -17,7 +17,7 @@ So how do you upload new files to this folder? <br>
 6. Once it is done cloning, you can navigate to the filepath on your computer and copy/paste files normally there.
 7. When you want to upload your changes, go back to GitHub Desktop, make sure you're in the right repository. It should look something like this, with your new changes
 on the left.
-![image](Spritework/repository.png)
+![image](repository.png)
 8. In order to Upload, Github requires a summary. You can do that or just keyboard mash. Then click "Commit X files to main".
 9. After you create a new commit, the button that said "Fetch origin" in the upper right should now say "Push origin". Click that and you're done!
 
