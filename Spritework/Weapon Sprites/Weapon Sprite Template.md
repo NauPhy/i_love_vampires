@@ -1,4 +1,4 @@
-##Weapon Details
+## Weapon Details
 Name:
 <br>
 Origin:
@@ -13,7 +13,7 @@ Status Effects:
 <br>
 Description:
 
-##Attack 1
+## Attack 1
 Type: (projectile, AOE, slash)
 <br>
 Shape:
