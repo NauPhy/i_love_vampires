@@ -47,6 +47,7 @@ For the first round of sprite work I'm requesting, I'll only list sprites for th
 - Explosive
 - Blood
 - Silver
+<br>
 So in other words not too different from sets in other games like Teamfight Tactics, Megaloot, etc. <br>
 
 Each weapon will explicitly state what sprite it needs for its attack effect, with at least a basic description. There will also be at least a basic description of the 
