@@ -1,4 +1,4 @@
-##Weapon Details
+## Weapon Details
 Name: Heaven's Gate
 <br>
 Origin: [An EBF weapon](https://epicbattlefantasy.fandom.com/wiki/Heaven%27s_Gate)
@@ -14,7 +14,7 @@ Status Effects: none
 Description: A hand-and-a-half sword that emits standard shaped slash attacks. <br>
 Note: Slower and wider than Night’s Edge from the Dark Set
 
-##Attack 1
+## Attack 1
 Type: Slash
 <br>
 Shape: Arc

@@ -1,4 +1,4 @@
-##Weapon Details
+## Weapon Details
 Name: Hell’s Artificial Sun 
 <br>
 Origin: [A bullet hell attack from Subterranean Animism](https://www.youtube.com/watch?v=Wmc4ZbBnynE)
@@ -14,7 +14,7 @@ Status Effects: burn, blind
 Description: Creates a massive AOE at a random location that pulls in enemies while 
 doing high damage over time for a few seconds.
 
-##Attack 1
+## Attack 1
 Type: AOE
 <br>
 Shape: circle

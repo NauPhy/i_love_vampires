@@ -1,4 +1,4 @@
-##Weapon Details
+## Weapon Details
 Name: Rainbow Beam 
 <br>
 Origin: [Lux's Ultimate](https://youtu.be/Yd5d0F83C1I?si=iM5uJqqhGJk1mvKt&t=1883)
@@ -14,7 +14,7 @@ Status Effects: blind
 Description: Evolved Chromatic Bolt. An infinite range/infinite pierce laser that damages 
 and blinds enemies in a line.
 
-##Attack 1
+## Attack 1
 Type: Laser (AOE)
 <br>
 Shape:  Tileable  rectangle; it can have a start but shouldn’t have an end

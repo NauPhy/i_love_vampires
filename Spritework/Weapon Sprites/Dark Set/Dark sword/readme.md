@@ -1,4 +1,4 @@
-##Weapon Details
+## Weapon Details
 Name: Night’s Edge 
 <br>
 Origin: [A terraria weapon](https://terraria.fandom.com/wiki/Night%27s_Edge)
@@ -13,7 +13,7 @@ Status Effects: none
 <br>
 Description: Emits long, narrow slash attacks. High crit chance. 
 
-##Attack 1
+## Attack 1
 Type: Slash
 <br>
 Shape: An arc, stretched in the away from the caster to be narrow. 

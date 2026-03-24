@@ -1,4 +1,4 @@
-##Weapon Details
+## Weapon Details
 Name: Shadow Bolt
 <br>
 Origin: 
@@ -14,7 +14,7 @@ Status Effects: blind, root
 <br>
 Description: Long range, somewhat shoots an projectile in an arc that explodes on contact. 
 
-##Attack 1
+## Attack 1
 Type: Projectile
 <br>
 Shape: Ellipse
@@ -25,7 +25,7 @@ Needs Animation?: no
 <br>
 Description: Could reuse the shadow bolt sprite, though this one would be lower velocity.
 
-##Attack 2
+## Attack 2
 Type: Explosion/AOE
 <br>
 Shape: Circle

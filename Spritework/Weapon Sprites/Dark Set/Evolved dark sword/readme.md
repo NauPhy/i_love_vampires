@@ -1,4 +1,4 @@
-##Weapon Details
+## Weapon Details
 Name: True Night's Edge
 <br>
 Origin: [An upgraded Terraria weapon](https://terraria.fandom.com/wiki/True_Night%27s_Edge)
@@ -14,7 +14,7 @@ Status Effects: none
 Description: The evolution of Night’s edge. Attack faster, with broader swings, and fires 
 projectiles.  
 
-##Attack 1
+## Attack 1
 Type: slash
 <br>
 Shape: arc

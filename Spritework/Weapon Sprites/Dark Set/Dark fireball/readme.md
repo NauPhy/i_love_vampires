@@ -1,4 +1,4 @@
-##Weapon Details
+## Weapon Details
 Name: Shadow Bolt
 <br>
 Origin: [A Soulstone Survivors weapon](https://soulstone-survivors.fandom.com/wiki/Shadow_Bolt)
@@ -13,7 +13,7 @@ Status Effects: blind
 <br>
 Description: Long range, somewhat slow projectile that explodes on contact. 
 
-##Attack 1
+## Attack 1
 Type: Projectile
 <br>
 Shape: Ellipse
@@ -25,7 +25,7 @@ Needs Animation?: no
 Description: Essentially a dark fireball that inflicts blind instead of burn. Could be a 
 palette swap of fireball. 
 
-##Attack 2
+## Attack 2
 Type: Explosion
 <br>
 Shape: Circle

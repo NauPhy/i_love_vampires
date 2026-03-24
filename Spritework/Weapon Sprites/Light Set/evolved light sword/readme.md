@@ -1,4 +1,4 @@
-##Weapon Details
+## Weapon Details
 Name: Heaven's Gate
 <br>
 Origin: [An EBF weapon](https://epicbattlefantasy.fandom.com/wiki/Heaven%27s_Gate)<br>
@@ -17,7 +17,7 @@ Description: Evolved Heaven’s Gate. A reference to Kayle’s sword when split 
 Attacks fire two slashes at once, mirrored, at higher speed and narrower hitbox than 
 Heaven’s Gate. Fires waves of holy fire that burn enemies in a line.
 
-##Attack 1
+## Attack 1
 Type: Slash
 <br>
 Shape: Arc
@@ -28,7 +28,7 @@ Needs Animation?: ~3 frames showing propagation of swing from left to right (or 
 <br>
 Description: Single handed sword, creates somewhat smaller slashes
 
-##Attack 2
+## Attack 2
 Type: Projectile
 <br>
 Shape: Arc
