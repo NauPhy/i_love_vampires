@@ -6,6 +6,10 @@
 #include "PaperFlipbookComponent.h"
 #include "Engine/World.h"
 
+void AAttackActor::initialise_AAttackActor(AttackInitStruct& temp) {
+	initialise_AAttackActor(temp._pawnRef, temp._attackConfig, temp._attackAttributes);
+}
+
 AAttackActor::AAttackActor() {
 	if (!RootComponent)
 	{
@@ -21,14 +25,14 @@ AAttackActor::AAttackActor() {
 
 void AAttackActor::Tick(float delta) {}
 
-void AAttackActor::initialise_AAttackActor(APawn* pawnRef, UAttackConfig* config, const AttackAttributes& attributes) {
+void AAttackActor::initialise_AAttackActor(ACombatant* pawnRef, const UAttackConfig* config, const AttackAttributes& attributes) {
 	if (!IsValid(config)) {
 		LOGERROR("AAttackActor::initialise_AAttackActor - parameter not valid");
 		return;
 	}
 	_attackConfig = TObjectPtr<const UAttackConfig>(config);
 	_attackAttributes = std::make_unique<AttackAttributes>(attributes);
-	_pawnRef = TWeakObjectPtr<APawn>(pawnRef);
+	_pawnRef = TWeakObjectPtr<ACombatant>(pawnRef);
 }
 
 void AAttackActor::BeginPlay() {
@@ -64,17 +68,17 @@ void AAttackActor::applyEffect(ACombatant* target) {
 	// Damage is (for some reason) separate from the other status effects
 	// For now let's say only base damage can crit (will change later)
 	{
-		float damage = _attackAttributes->_damage;
-		float critChance = _attackAttributes->_critChance;
+		float damage = _attackAttributes->_damage.getFinal();
+		float critChance = _attackAttributes->_critChance.getFinal();
 		if (FMath::FRand() < critChance) {
-			damage *= _attackAttributes->_critMultiplier;
+			damage *= _attackAttributes->_critMultiplier.getFinal();
 		}
 		FEffectStruct temp = FEffectStruct(_DAMAGE, damage, 0, 1);
 		target->inflictStatus(temp);
 	}
 	// Chance is included in the newly created effect, just in case
 	for (const auto& effect : _attackConfig->_statusEffects) {
-		if (FMath::FRand() <= tempStruct._chance) {
+		if (FMath::FRand() <= effect._chance) {
 			FEffectStruct temp = effect;
 			temp._chance = 1;
 			target->inflictStatus(temp);
@@ -91,9 +95,9 @@ void AAttackActor::applyEffect(ACombatant* target) {
 }
 ///////////////////////////////////////////////////////////////////////////////
 
-void AttackAttributes::modifyAttributes(const CombatantAttributes& modifiers) {
-	_critChance += modifiers._critChance;
-	_critMultiplier += modifiers._critMultiplier;
+void AttackAttributes::modifyAttributes(const CombatantAttributes* modifiers) {
+	_critChance.modify(_critChance._base + modifiers->_critChance.getFinal());
+	_critMultiplier.modify(_critMultiplier._base + modifiers->_critMultiplier.getFinal());
 }
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -103,16 +107,32 @@ void AttackFactory::launchAttack(const FVector& forward) {
 		LOGERROR("AAttackFactory::launchAttack - failed to create attack");
 		return;
 	}
-	initAttack(newAttack);
+	{
+		AttackInitStruct temp = getAttackInit();
+		newAttack->initialise_AAttackActor(temp);
+	}
 }
 
-void AAttackFactory::initAttack(AAttackActor* attack) {
-	if (!IsValid(attack)) {
-		LOGERROR("AAttackFactory::initAttack - variable is not valid");
+AttackFactory::AttackFactory(
+	ACombatant* owner,
+	const UAttackConfig* config,
+	const UAttackAttributeData* data) :
+	_owner(owner),
+	_attackConfig(config),
+	_attackAttributes(owner, data)
+{
+	if (!IsValid(owner) || !IsValid(_attackConfig.Get())) {
+		LOGERROR("AttackFactory::AttackFactory - invalid parameters");
 		return;
 	}
-	AttackAttributes temp = _attackAttributes.getCore();
-	temp.discretizeFull();
-	// This creates an unnecessary copy but imma roll with it
-	attack->initialise_AAttackActor(_pawnRef.Get(), _attackConfig.Get(), temp);
+}
+
+void AttackFactory::tick(float delta) {
+	const CombatantAttributes& temp = _owner->getAttributes();
+	_attackAttributes.tick(delta, getStatusEffects(), &temp);
+	BaseAttributeSet::tick(delta);
+}
+
+AttackFactory::AttackFactory() {
+	LOGERROR("AttackFactory::AttackFactory - default constructor should not be used");
 }

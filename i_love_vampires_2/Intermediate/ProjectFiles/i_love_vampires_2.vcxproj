@@ -537,21 +537,13 @@
     <ClCompile Include="..\..\Source\i_love_vampires_2\AssetRefs.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\BaseAttributeSet.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\BaseAttributes.cpp" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseAttributeSetTemplate.h" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseAttributeComponent.cpp" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseAttributeComponent.h" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseAttributes_old.cpp" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseAttributeSet_old.cpp" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseAttributeSetTemplate.cpp" />
+    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseAttributeWrapper.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\BaseConfig.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\BaseConfig.h" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\CombatantAttributes.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\EffectStruct.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\ExperienceShard.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\helpers.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\MyGameplayStatics.cpp" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\StatusEffect_Damage.cpp" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\StatusFactory.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\BaseTemplate.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\unrealHelpers.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\unrealHelpers.h" />
@@ -560,9 +552,7 @@
     <ClInclude Include="..\..\Source\i_love_vampires_2\BaseAttributeSet.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\BaseAttributeData.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\BaseAttributes.h" />
-    <ClInclude Include="..\..\Source\i_love_vampires_2\CombatantAttributes.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\BaseAttributeWrapper.h" />
-    <ClInclude Include="..\..\Source\i_love_vampires_2\BaseAttributeSet_old.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\BaseTemplate.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\AOEEnum.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\AssetRefs.h" />
@@ -573,9 +563,7 @@
     <ClInclude Include="..\..\Source\i_love_vampires_2\MyGameplayStatics.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\MyPlayer.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\SpriteEnum.h" />
-    <ClInclude Include="..\..\Source\i_love_vampires_2\StatusEffect_Damage.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\StatusEnum.h" />
-    <ClInclude Include="..\..\Source\i_love_vampires_2\StatusFactory.h" />
     <None Include="..\..\.vsconfig" />
     <None Include="..\..\Config\DefaultEditor.ini" />
     <None Include="..\..\Config\DefaultEngine.ini" />
@@ -699,12 +687,6 @@
     <ClCompile Include="..\..\Source\i_love_vampires_2\MyPlayer.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\SpriteManager.cpp" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\SpriteManager.h" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\StatusEffect.cpp" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\StatusEffect_Bleed.cpp" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\StatusEffect_Burn.cpp" />
-    <ClInclude Include="..\..\Source\i_love_vampires_2\StatusEffect.h" />
-    <ClInclude Include="..\..\Source\i_love_vampires_2\StatusEffect_Bleed.h" />
-    <ClInclude Include="..\..\Source\i_love_vampires_2\StatusEffect_Burn.h" />
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <PropertyGroup>

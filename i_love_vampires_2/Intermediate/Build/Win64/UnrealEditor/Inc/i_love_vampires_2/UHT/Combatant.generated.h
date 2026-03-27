@@ -15,17 +15,12 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
-class UCombatantTemplate;
 
 // ********** Begin Class ACombatant ***************************************************************
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_31_RPC_WRAPPERS_NO_PURE_DECLS \
-	DECLARE_FUNCTION(execinitialise_ACombatant);
-
-
 struct Z_Construct_UClass_ACombatant_Statics;
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_ACombatant_NoRegister();
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_31_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_34_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesACombatant(); \
 	friend struct ::Z_Construct_UClass_ACombatant_Statics; \
@@ -36,7 +31,7 @@ public: \
 	DECLARE_SERIALIZER(ACombatant)
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_31_ENHANCED_CONSTRUCTORS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_34_ENHANCED_CONSTRUCTORS \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	ACombatant(ACombatant&&) = delete; \
 	ACombatant(const ACombatant&) = delete; \
@@ -46,13 +41,12 @@ public: \
 	NO_API virtual ~ACombatant();
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_28_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_31_GENERATED_BODY \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_31_PROLOG
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_34_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_31_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_31_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_31_ENHANCED_CONSTRUCTORS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_34_INCLASS_NO_PURE_DECLS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_34_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -61,11 +55,50 @@ class ACombatant;
 
 // ********** End Class ACombatant *****************************************************************
 
+// ********** Begin Class UCombatantAttributeData **************************************************
+struct Z_Construct_UClass_UCombatantAttributeData_Statics;
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UCombatantAttributeData_NoRegister();
+
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_73_INCLASS_NO_PURE_DECLS \
+private: \
+	static void StaticRegisterNativesUCombatantAttributeData(); \
+	friend struct ::Z_Construct_UClass_UCombatantAttributeData_Statics; \
+	static UClass* GetPrivateStaticClass(); \
+	friend I_LOVE_VAMPIRES_2_API UClass* ::Z_Construct_UClass_UCombatantAttributeData_NoRegister(); \
+public: \
+	DECLARE_CLASS2(UCombatantAttributeData, UBaseAttributeData, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_UCombatantAttributeData_NoRegister) \
+	DECLARE_SERIALIZER(UCombatantAttributeData)
+
+
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_73_ENHANCED_CONSTRUCTORS \
+	/** Deleted move- and copy-constructors, should never be used */ \
+	UCombatantAttributeData(UCombatantAttributeData&&) = delete; \
+	UCombatantAttributeData(const UCombatantAttributeData&) = delete; \
+	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UCombatantAttributeData); \
+	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UCombatantAttributeData); \
+	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UCombatantAttributeData) \
+	NO_API virtual ~UCombatantAttributeData();
+
+
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_70_PROLOG
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_73_GENERATED_BODY \
+PRAGMA_DISABLE_DEPRECATION_WARNINGS \
+public: \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_73_INCLASS_NO_PURE_DECLS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_73_ENHANCED_CONSTRUCTORS \
+private: \
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+
+
+class UCombatantAttributeData;
+
+// ********** End Class UCombatantAttributeData ****************************************************
+
 // ********** Begin Class UCombatantConfig *********************************************************
 struct Z_Construct_UClass_UCombatantConfig_Statics;
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UCombatantConfig_NoRegister();
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_74_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_178_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUCombatantConfig(); \
 	friend struct ::Z_Construct_UClass_UCombatantConfig_Statics; \
@@ -76,7 +109,7 @@ public: \
 	DECLARE_SERIALIZER(UCombatantConfig)
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_74_ENHANCED_CONSTRUCTORS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_178_ENHANCED_CONSTRUCTORS \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	UCombatantConfig(UCombatantConfig&&) = delete; \
 	UCombatantConfig(const UCombatantConfig&) = delete; \
@@ -86,12 +119,12 @@ public: \
 	NO_API virtual ~UCombatantConfig();
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_71_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_74_GENERATED_BODY \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_175_PROLOG
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_178_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_74_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_74_ENHANCED_CONSTRUCTORS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_178_INCLASS_NO_PURE_DECLS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_178_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -100,132 +133,11 @@ class UCombatantConfig;
 
 // ********** End Class UCombatantConfig ***********************************************************
 
-// ********** Begin Class UCombatantAttributes *****************************************************
-struct Z_Construct_UClass_UCombatantAttributes_Statics;
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UCombatantAttributes_NoRegister();
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_92_INCLASS_NO_PURE_DECLS \
-private: \
-	static void StaticRegisterNativesUCombatantAttributes(); \
-	friend struct ::Z_Construct_UClass_UCombatantAttributes_Statics; \
-	static UClass* GetPrivateStaticClass(); \
-	friend I_LOVE_VAMPIRES_2_API UClass* ::Z_Construct_UClass_UCombatantAttributes_NoRegister(); \
-public: \
-	DECLARE_CLASS2(UCombatantAttributes, UBaseAttributes, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_UCombatantAttributes_NoRegister) \
-	DECLARE_SERIALIZER(UCombatantAttributes)
-
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_92_ENHANCED_CONSTRUCTORS \
-	/** Deleted move- and copy-constructors, should never be used */ \
-	UCombatantAttributes(UCombatantAttributes&&) = delete; \
-	UCombatantAttributes(const UCombatantAttributes&) = delete; \
-	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UCombatantAttributes); \
-	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UCombatantAttributes); \
-	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UCombatantAttributes) \
-	NO_API virtual ~UCombatantAttributes();
-
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_89_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_92_GENERATED_BODY \
-PRAGMA_DISABLE_DEPRECATION_WARNINGS \
-public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_92_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_92_ENHANCED_CONSTRUCTORS \
-private: \
-PRAGMA_ENABLE_DEPRECATION_WARNINGS
-
-
-class UCombatantAttributes;
-
-// ********** End Class UCombatantAttributes *******************************************************
-
-// ********** Begin Class UCombatantComponent ******************************************************
-struct Z_Construct_UClass_UCombatantComponent_Statics;
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UCombatantComponent_NoRegister();
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_162_INCLASS_NO_PURE_DECLS \
-private: \
-	static void StaticRegisterNativesUCombatantComponent(); \
-	friend struct ::Z_Construct_UClass_UCombatantComponent_Statics; \
-	static UClass* GetPrivateStaticClass(); \
-	friend I_LOVE_VAMPIRES_2_API UClass* ::Z_Construct_UClass_UCombatantComponent_NoRegister(); \
-public: \
-	DECLARE_CLASS2(UCombatantComponent, UBaseAttributeComponent, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_UCombatantComponent_NoRegister) \
-	DECLARE_SERIALIZER(UCombatantComponent)
-
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_162_ENHANCED_CONSTRUCTORS \
-	/** Standard constructor, called after all reflected properties have been initialized */ \
-	NO_API UCombatantComponent(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
-	/** Deleted move- and copy-constructors, should never be used */ \
-	UCombatantComponent(UCombatantComponent&&) = delete; \
-	UCombatantComponent(const UCombatantComponent&) = delete; \
-	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UCombatantComponent); \
-	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UCombatantComponent); \
-	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UCombatantComponent) \
-	NO_API virtual ~UCombatantComponent();
-
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_159_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_162_GENERATED_BODY \
-PRAGMA_DISABLE_DEPRECATION_WARNINGS \
-public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_162_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_162_ENHANCED_CONSTRUCTORS \
-private: \
-PRAGMA_ENABLE_DEPRECATION_WARNINGS
-
-
-class UCombatantComponent;
-
-// ********** End Class UCombatantComponent ********************************************************
-
-// ********** Begin Class ACombatantAttributeSet ***************************************************
-struct Z_Construct_UClass_ACombatantAttributeSet_Statics;
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_ACombatantAttributeSet_NoRegister();
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_188_INCLASS_NO_PURE_DECLS \
-private: \
-	static void StaticRegisterNativesACombatantAttributeSet(); \
-	friend struct ::Z_Construct_UClass_ACombatantAttributeSet_Statics; \
-	static UClass* GetPrivateStaticClass(); \
-	friend I_LOVE_VAMPIRES_2_API UClass* ::Z_Construct_UClass_ACombatantAttributeSet_NoRegister(); \
-public: \
-	DECLARE_CLASS2(ACombatantAttributeSet, ABaseAttributeSet, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_ACombatantAttributeSet_NoRegister) \
-	DECLARE_SERIALIZER(ACombatantAttributeSet)
-
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_188_ENHANCED_CONSTRUCTORS \
-	/** Standard constructor, called after all reflected properties have been initialized */ \
-	NO_API ACombatantAttributeSet(); \
-	/** Deleted move- and copy-constructors, should never be used */ \
-	ACombatantAttributeSet(ACombatantAttributeSet&&) = delete; \
-	ACombatantAttributeSet(const ACombatantAttributeSet&) = delete; \
-	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, ACombatantAttributeSet); \
-	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(ACombatantAttributeSet); \
-	DEFINE_DEFAULT_CONSTRUCTOR_CALL(ACombatantAttributeSet) \
-	NO_API virtual ~ACombatantAttributeSet();
-
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_185_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_188_GENERATED_BODY \
-PRAGMA_DISABLE_DEPRECATION_WARNINGS \
-public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_188_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_188_ENHANCED_CONSTRUCTORS \
-private: \
-PRAGMA_ENABLE_DEPRECATION_WARNINGS
-
-
-class ACombatantAttributeSet;
-
-// ********** End Class ACombatantAttributeSet *****************************************************
-
 // ********** Begin Class UCombatantTemplate *******************************************************
 struct Z_Construct_UClass_UCombatantTemplate_Statics;
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UCombatantTemplate_NoRegister();
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_212_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_197_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUCombatantTemplate(); \
 	friend struct ::Z_Construct_UClass_UCombatantTemplate_Statics; \
@@ -236,7 +148,7 @@ public: \
 	DECLARE_SERIALIZER(UCombatantTemplate)
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_212_ENHANCED_CONSTRUCTORS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_197_ENHANCED_CONSTRUCTORS \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	UCombatantTemplate(UCombatantTemplate&&) = delete; \
 	UCombatantTemplate(const UCombatantTemplate&) = delete; \
@@ -246,12 +158,12 @@ public: \
 	NO_API virtual ~UCombatantTemplate();
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_209_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_212_GENERATED_BODY \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_194_PROLOG
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_197_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_212_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_212_ENHANCED_CONSTRUCTORS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_197_INCLASS_NO_PURE_DECLS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h_197_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

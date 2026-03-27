@@ -1,0 +1,124 @@
+work
+coffee
+cook
+more work
+
+description of Active
+UActive is a UObject attached to an ACombatant. The convention would probably be to make it a component, but I don't know the implications of that and I don't need them so a UObject it will stay.
+
+UActive contains:
+	*an unreal unique ptr to a UMyWeaponAttributeSet
+	*an unreal unique ptr to a UMyProjectileAttributeSet
+	*an unreal unique ptr to a UMyAOEAttributeSet
+
+UActive (being a UObject) is initialised with UActive::initialise_UActive(FName ID)
+	*It will construct the UMyWeaponAttributeSet and initialise it with UMyWeaponAttributeSet::initialise_UMyWeaponAttributeSet(ID)
+	*It will look up the data table row for FWeaponTemplate(ID) and check hasProjectileData. if(hasProjectileData), construct and initialise
+UMyProjectileAttributeSet
+	*It will look up the data table row for FWeaponTemplate(ID) and check hasAOEData. if(hasAOEData) construct and initialise UMyAOEAttributeSet.
+
+
+In summary- from bottom up
+*AAttackActor is an instance of any tangible effect, such as a sword slash or a bullet. It is owned by no one.
+	*AAttackActor is initialised with a set of status effects to apply to ACombatants it contacts.
+		*Probably some other data later too
+	*AAttackActor is a virtual class and contains no logic to destroy itself
+*ABullet, AAOE, AExplosiveProjectile, etc. are inheritors of AAttackActor. They are initialised with other data, but typically just fundamentals. They contain logic for their propagation, expiration, and destruction.
+
+*Although AAttackActor is owned by no one, it is created by a UActive during UActive::tick(delta)->UActivee::activate().
+	*UActive::activate() may create many AAttackActor instances
+	*UActive is responsible for determining which inheritor of AAttackActor to create
+
+Ignore most of that
+
+UWeapon is responsible for:
+what AAttackActors spawn
+how many AAttackActors spawn
+where AAttackActors spawn
+
+the rest is handled by status effects- enabled by the MyAttributeSets owned by UWeapon- and AAttackActor
+	
+For simplicity we will assume that the only aspects of any active or attackactor that change from the data table templates are the float attributes owned by MyAttributeSets. If this changes later (e.g. the player gets homing on all projectiles) it should be clear how to proceed at that point. 
+
+Assuming for a moment that we only need one data table row to describe a weapon- which we would if the game only had 1 weapon in it-, we can
+create 2 data table rows, one which contains data needed by UActive and not by AAttack, and one which contains data needed by AAttack actor and possibly UActive. 
+
+Now, if we want to apply our MyAttributeSets we would now need 4 rows- 1 for the floats and 1 for the non-floats
+
+Now, if we want to add in projectiles and AOEs, we'd need 12 rows...
+
+Instead of duplicating, let's try some light nesting.
+
+Let's go back to 1 data table row. The row contains float and non-float data. 
+-AAttack actor, as well as each of its inheritors, has its own field in the row, a standard USTRUCT().
+-We don't care about the ordering of these fields, or the inheritance hierarchy, only that every class has its own struct.
+-If there is crossover- for example, the range of a beam and range of a bullet, that's fine. They can even have the same name as they're in different scopes. No duplication of data table fields will be necessary, because nothing can be both a beam and a bullet, and anything that inherits from beam won't need to obtain stats already owned by beam.
+
+This breaks the current "float-only" architecture of the MyAttributeSet, but I should be able to fix that fairly easily- albeit dangerously- 1.Ensure that there is NEVER any non-float data member that comes after a float data member. 
+2.Add a "_barrier" dummy member between the non-floats and floats
+3.Create a member MyAttributeSet::size_t _barrierOffset
+4.Inheritors of MyAttributeSet are responsible for setting (pseudocode) _barrierOffset = &TRow._barrier - &TRow
+
+Alright, so our row is made up of structs:
+1. Data needed by UActive only
+2. non-float data for final class A
+3. float data for final class A
+4. non-float data for final class B
+5. float data for final class B
+
+So again this takes advantage of the fact that an object of class B can never be an object of class A, so although there is field duplication there is no need for data duplication.
+
+We then need 2 structs for each AAttackActor class- although only the final ones will be in the data table
+
+Alternatively, since inheritors are essentially nested already, we could mirror this by nesting the structs.
+So, since ABullet and AAOE both need _projectileSize, 
+instead of using
+ABulletStruct{
+	_projectileSize,
+	_projectileSpeed
+}
+AAOEStruct{
+	_projectileSize,
+	_duration
+}
+
+We use
+AAttackActorStruct{
+	_projectileSize
+}
+ABulletStruct{
+	AAttackActorStruct _super,
+	_projectileSize
+}
+AAOEStruct{
+	AAttackActorStruct _super,
+	_duration
+}
+AExplosiveBulletStruct{
+	ABulletStruct _super,
+	AAOEStruct _AOEData
+}
+
+Actually, I think I'm going to need to use FInstancedStruct in combination with this to resolve confusion around inheritance- since you can spawn an AExplosiveBullet or an ABullet and both use ABulletStruct.
+
+Okay, instead of nesting, we use FInstancedStruct with mirrored (self-enforced) inheritance.
+
+*Each AAttackActor inheritor has exactly 2 properties that are related to the data table template-
+	<unrealPtr>(AAttackActorConfigStruct) and
+	<unrealPtr>(AAttackActorAttributeStruct)
+
+*Using FInstancedStruct we can just select the struct type in the data table and override any entries we need
+
+*Anything working on the AAttackActorInheritor (including its base class) can cast the structs to AAttackActorConfigStruct to access any of that struct's data
+
+*Status effects that apply to a portion of the inheritance hierarchy can specify that in their class definition (via the status effect template)
+
+*AttributeSet still works with the offsets
+
+Typical use case is
+1. Define new row in table- default config and attribute structs are either null or AAttackActor
+2. Select a subclass, config struct, and attribute struct, all belonging to a specific AAttackActor inheritor- they must match, but it's self enforced
+	If this isn't okay you could probably nest them in a higher level struct, but that seems annoying to work with
+3. Override any values if needed
+and that's it really.
+	

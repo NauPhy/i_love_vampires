@@ -3,7 +3,366 @@
     "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
     "runs": [
         {
-            "results": [],
+            "results": [
+                {
+                    "ruleId": "C2672",
+                    "level": "error",
+                    "message": {
+                        "text": "'std::construct_at': no matching overloaded function found"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/INCLUDE/xmemory"
+                                },
+                                "region": {
+                                    "startLine": 730,
+                                    "startColumn": 14,
+                                    "snippet": {
+                                        "text": "        _STD construct_at(_Ptr, _STD forward<_Types>(_Args)...);"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/INCLUDE/xutility"
+                                },
+                                "region": {
+                                    "startLine": 461,
+                                    "startColumn": 16,
+                                    "snippet": {
+                                        "text": "constexpr _Ty* construct_at(_Ty* const _Location, _Types&&... _Args)"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "could be '_Ty *std::construct_at(_Ty *const ,_Types ...) noexcept(<expr>)'"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/INCLUDE/xmemory"
+                                },
+                                "region": {
+                                    "startLine": 730,
+                                    "startColumn": 14,
+                                    "snippet": {
+                                        "text": "        _STD construct_at(_Ptr, _STD forward<_Types>(_Args)...);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "the associated constraints are not satisfied"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        },
+                        {
+                            "id": 2,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/INCLUDE/xutility"
+                                },
+                                "region": {
+                                    "startLine": 459,
+                                    "startColumn": 50,
+                                    "snippet": {
+                                        "text": "        ::new (static_cast<void*>(_Location)) _Ty(_STD forward<_Types>(_Args)...); // per LWG-3888"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "'std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>::unique_ptr(const std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>> &)': attempting to reference a deleted function"
+                            },
+                            "properties": {
+                                "nestingLevel": 2
+                            }
+                        },
+                        {
+                            "id": 3,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/INCLUDE/memory"
+                                },
+                                "region": {
+                                    "startLine": 3475,
+                                    "startColumn": 5,
+                                    "snippet": {
+                                        "text": "    unique_ptr(const unique_ptr&)            = delete;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "'std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>::unique_ptr(const std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>> &)': function was explicitly deleted"
+                            },
+                            "properties": {
+                                "nestingLevel": 3
+                            }
+                        },
+                        {
+                            "id": 4,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/INCLUDE/memory"
+                                },
+                                "region": {
+                                    "startLine": 3475,
+                                    "startColumn": 5,
+                                    "snippet": {
+                                        "text": "    unique_ptr(const unique_ptr&)            = delete;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>::unique_ptr'"
+                            },
+                            "properties": {
+                                "nestingLevel": 2
+                            }
+                        },
+                        {
+                            "id": 5,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/INCLUDE/xutility"
+                                },
+                                "region": {
+                                    "startLine": 459,
+                                    "startColumn": 50,
+                                    "snippet": {
+                                        "text": "        ::new (static_cast<void*>(_Location)) _Ty(_STD forward<_Types>(_Args)...); // per LWG-3888"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "'std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>::unique_ptr(const std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>> &)': attempting to reference a deleted function"
+                            },
+                            "properties": {
+                                "nestingLevel": 2
+                            }
+                        },
+                        {
+                            "id": 6,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/INCLUDE/memory"
+                                },
+                                "region": {
+                                    "startLine": 3475,
+                                    "startColumn": 5,
+                                    "snippet": {
+                                        "text": "    unique_ptr(const unique_ptr&)            = delete;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "'std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>::unique_ptr(const std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>> &)': function was explicitly deleted"
+                            },
+                            "properties": {
+                                "nestingLevel": 3
+                            }
+                        },
+                        {
+                            "id": 7,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/INCLUDE/memory"
+                                },
+                                "region": {
+                                    "startLine": 3475,
+                                    "startColumn": 5,
+                                    "snippet": {
+                                        "text": "    unique_ptr(const unique_ptr&)            = delete;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>::unique_ptr'"
+                            },
+                            "properties": {
+                                "nestingLevel": 2
+                            }
+                        },
+                        {
+                            "id": 8,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/INCLUDE/xmemory"
+                                },
+                                "region": {
+                                    "startLine": 730,
+                                    "startColumn": 14,
+                                    "snippet": {
+                                        "text": "        _STD construct_at(_Ptr, _STD forward<_Types>(_Args)...);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "the template instantiation context (the oldest one first) is"
+                            }
+                        },
+                        {
+                            "id": 9,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Active.h"
+                                },
+                                "region": {
+                                    "startLine": 22,
+                                    "startColumn": 46,
+                                    "snippet": {
+                                        "text": "\tstd::vector<std::unique_ptr<AttackFactory>> _factories;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see reference to class template instantiation 'std::vector<std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>,std::allocator<std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>>>' being compiled"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        },
+                        {
+                            "id": 10,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/INCLUDE/vector"
+                                },
+                                "region": {
+                                    "startLine": 745,
+                                    "startColumn": 5,
+                                    "snippet": {
+                                        "text": "    _CONSTEXPR20 vector(const vector& _Right)"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "while compiling class template member function 'std::vector<std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>,std::allocator<std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>>>::vector(const std::vector<std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>,std::allocator<std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>>> &)'"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        },
+                        {
+                            "id": 11,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Active.h"
+                                },
+                                "region": {
+                                    "startLine": 35,
+                                    "startColumn": 1,
+                                    "snippet": {
+                                        "text": "};"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see the first reference to 'std::vector<std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>,std::allocator<std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>>>::vector' in 'Active::Active'"
+                            },
+                            "properties": {
+                                "nestingLevel": 2
+                            }
+                        },
+                        {
+                            "id": 12,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/INCLUDE/vector"
+                                },
+                                "region": {
+                                    "startLine": 749,
+                                    "startColumn": 9,
+                                    "snippet": {
+                                        "text": "        _Construct_n(_Count, _Right_data._Myfirst, _Right_data._Mylast);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see reference to function template instantiation 'void std::vector<std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>,std::allocator<std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>>>::_Construct_n<std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>*const &,std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>*const &>(const unsigned __int64,std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>> *const &,std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>> *const &)' being compiled"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        },
+                        {
+                            "id": 13,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/INCLUDE/vector"
+                                },
+                                "region": {
+                                    "startLine": 2120,
+                                    "startColumn": 41,
+                                    "snippet": {
+                                        "text": "                _My_data._Mylast = _STD _Uninitialized_copy(_STD forward<_Valty>(_Val)..., _My_data._Myfirst, _Al);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see reference to function template instantiation 'std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>> *std::_Uninitialized_copy<std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>*,std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>*,std::allocator<std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>>>(_InIt,_Se,std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>> *,_Alloc &)' being compiled\n        with\n        [\n            _InIt=std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>> *,\n            _Se=std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>> *,\n            _Alloc=std::allocator<std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>>\n        ]"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        },
+                        {
+                            "id": 14,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/INCLUDE/xmemory"
+                                },
+                                "region": {
+                                    "startLine": 1902,
+                                    "startColumn": 18,
+                                    "snippet": {
+                                        "text": "        _Backout._Emplace_back(*_UFirst);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see reference to function template instantiation 'void std::_Uninitialized_backout_al<std::allocator<std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>>>::_Emplace_back<std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>&>(std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>> &)' being compiled"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        },
+                        {
+                            "id": 15,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/INCLUDE/xmemory"
+                                },
+                                "region": {
+                                    "startLine": 1844,
+                                    "startColumn": 35,
+                                    "snippet": {
+                                        "text": "        allocator_traits<_Alloc>::construct(_Al, _STD _Unfancy(_Last), _STD forward<_Types>(_Vals)...);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see reference to function template instantiation 'void std::_Default_allocator_traits<_Alloc>::construct<_Ty,std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>&>(_Alloc &,_Objty *const ,std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>> &)' being compiled\n        with\n        [\n            _Alloc=std::allocator<std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>>,\n            _Ty=std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>,\n            _Objty=std::unique_ptr<AttackFactory,std::default_delete<AttackFactory>>\n        ]"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        }
+                    ]
+                }
+            ],
             "tool": {
                 "driver": {
                     "name": "MSVC",

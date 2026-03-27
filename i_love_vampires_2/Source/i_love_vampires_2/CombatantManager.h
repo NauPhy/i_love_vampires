@@ -15,6 +15,7 @@ class I_LOVE_VAMPIRES_2_API UCombatantManager : public UTickableWorldSubsystem
 	const float _BURN_PERIOD = 1.f;
 
 	int _nextKey = 0;
+	bool _burnThisFrame = false;
 	float _burnTimer = 0.0f;
 	UPROPERTY()
 	TMap<int, TWeakObjectPtr<ACombatant>> _enemyReferences;
@@ -34,6 +35,7 @@ public:
 	void removeFromRegister(int key);
 	int getEnemyCount() { return _enemyReferences.Num(); }
 	bool getRandomEnemyPtr(TWeakObjectPtr<ACombatant>& ret);
+	bool getBurnThisFrame() const { return _burnThisFrame; }
 
 protected:
 	virtual void Tick(float DeltaTime) override;

@@ -4,12 +4,13 @@ void BaseAttributeSet::tick(float delta) {
 	for (auto& status : _statusEffects) {
 		status._duration -= delta;
 	}
-	for (auto it = _statusEffects.begin(); it != _statusEffects.end();) {
-		if (it->second._duration <= 0) {
-			it = _statusEffects.erase(it);
+	int index = 0;
+	while (index < _statusEffects.Num()) {
+		if (_statusEffects[index]._duration <= 0) {
+			_statusEffects.RemoveAt(index);
 		}
 		else {
-			++it;
+			index++;
 		}
 	}
 }

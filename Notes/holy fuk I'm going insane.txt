@@ -259,3 +259,96 @@ class UAttackData : public UDataAsset{
 	UPROPERTY(EditAnywhere, Instanced)
 	FAttackAttributes _attackAttributes;
 };
+
+What I've done so far
+Fully overhauled ACombatant and AAttackActor
+What I need to do
+overhaul subclasses of ACombatant and AAttackActor
+overhaul Active
+Fix references outside of classes
+
+General goal structure
+
+ACombatant
+	TObjectPtr<const UCombatantConfig : UBaseConfig> _config
+	std::unique_ptr<CombatantAttributeSet : BaseAttributeSet> _attributeSet
+		BaseAttributeWrapper<CombatantAttributes> _attributes
+			CombatantAttributes : BaseAttributes _core
+				Stat _damage
+					float _base
+					float _final
+					float _offsets
+					float _prebonus
+					float _multiplier
+					float _postbonus
+				...
+	TArray/std::vector<UActive/Active> _activeAbilities
+		TObjectPtr<const UWeaponConfig : UBaseConfig> _config
+		std::vector<std::unique_ptr<AttackFactory : BaseAttributeSet>> _factories
+			AttackFactory : BaseAttributeSet <0> 
+				TObjectPtr<const UAttackConfig : UBaseConfig> _attackConfig
+				BaseAttributeWrapper<AttackAttributes : BaseAttributes> _attackAttributes
+					AttackAttributes : BaseAttributes _core
+						Stat _damage
+						...
+			ProjectileFactory : AttackFactory <1>
+				TObjectPtr<const UAttackConfig : UBaseConfig> _attackConfig (inherited)
+				BaseAttributeWrapper<AttackAttributes : BaseAttributes> _attackAttributes (inherited)
+				TObjectPtr<const UProjectileConfig : UBaseConfig> _projectileConfig
+				BaseAttributeWrapper<ProjectileAttributes : BaseAttributes> _projectileAttributes
+
+AAttackActor
+	TObjectPtr<const UAttackConfig : UBaseConfig> _attackConfig
+	const AttackAttributes : BaseAttributes _attackAttributes
+
+AProjectile
+	TObjectPtr<const UAttackConfig : UBaseConfig> _attackConfig (inherited)
+	const AttackAttributes : BaseAttributes _attackAttributes (inherited)
+	TObjectPtr<const UProjectileConfig : UProjectileConfig> _projectileConfig
+	const ProjectileAttributes : BaseAttributes _projectileAttributes
+
+ExplosiveProjectileFactory::launchAttack{
+AExplosiveProjectile* newAttack = SpawnActorOnMe<AExplosiveProjectile>();
+initExplosiveProjecile(newAttack);
+}
+
+ExplosiveProjectileFactory::initExplosiveProjectile(AExplosiveProjectile* newAttack){
+ExplosiveProjectileInitStruct temp = getInitStruct();
+newAttack->initialise_AExplosiveProjectile(temp);
+}
+ExplosiveProjectileFactory::getInitStruct(){
+return ExplosiveProjectileInitStruct({AProjectile::getInitStruct(), explosiveProjectileParams})
+}
+
+AExplosiveProjectile::initialise_AExplosiveProjectile(const ExplosiveProjectileInitStruct& init){
+initExplosiveProjectile(explosiveProjectileParams);
+AProjectile::initialise_AProjectile(init._projectileStruct);
+}
+
+
+Inheritance hierarchies mirrored via inheritance
+AAttackActor
+UAttackTemplate
+AttackFactory
+
+Inheritance hierarchies mirrored via composition
+UAttackAttributeData
+AttackAttributes
+UAttackConfig
+
+General structure
+UBaseTemplate
+	UBaseConfig1
+	UBaseConfig2
+	UBaseAttributeData1
+	UBaseAttributeData2
+l
+v
+attribute using unit
+	TObjectPtr<const UBaseConfig1>
+	TObjectPtr<const UBaseConfig2>
+	BaseAttributeSet
+		BaseAttributeWrapper<BaseAttributes1>
+			BaseAttributes1
+		BaseAttributeWrapper<BaseAttributes2>
+			BaseAttributes2

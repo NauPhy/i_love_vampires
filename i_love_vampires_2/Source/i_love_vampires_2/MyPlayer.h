@@ -18,8 +18,6 @@ class I_LOVE_VAMPIRES_2_API AMyPlayer : public ACombatant
 	float _experience = 0;
 	float _maxExperience = 1;
 	float _level = 1;
-	//UPROPERTY(VisibleAnywhere, Category="Components")
-	//USpringArmComponent* _springArm = nullptr;
 	UPROPERTY(VisibleAnywhere, Category="Components")
 	UCameraComponent* _camera = nullptr;
 
@@ -35,10 +33,11 @@ class I_LOVE_VAMPIRES_2_API AMyPlayer : public ACombatant
 
 public:
 	AMyPlayer();
-	//UFUNCTION(BlueprintCallable)
-	//void initialise_AMyPlayer(const FPrimaryAssetId& id);
 	UFUNCTION(BlueprintCallable)
 	void initialise_AMyPlayer(const UCombatantTemplate* data);
-	virtual void myInitialise(const UCombatantTemplate* temp) override { initialise_AMyPlayer(temp); }
+	virtual void myInitialise(const UCombatantTemplate* temp) override {
+		initialise_AMyPlayer(temp);
+	}
+	virtual void BeginPlay() override;
 	virtual void Tick(float delta) override;
 };	

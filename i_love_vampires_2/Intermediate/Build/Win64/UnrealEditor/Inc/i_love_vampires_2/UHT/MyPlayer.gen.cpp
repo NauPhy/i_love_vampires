@@ -30,13 +30,7 @@ struct Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer_Statics
 	};
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "//UFUNCTION(BlueprintCallable)\n//void initialise_AMyPlayer(const FPrimaryAssetId& id);\n" },
-#endif
 		{ "ModuleRelativePath", "MyPlayer.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "UFUNCTION(BlueprintCallable)\nvoid initialise_AMyPlayer(const FPrimaryAssetId& id);" },
-#endif
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_data_MetaData[] = {
 		{ "NativeConst", "" },
@@ -177,14 +171,8 @@ struct Z_Construct_UClass_AMyPlayer_Statics
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__camera_MetaData[] = {
 		{ "Category", "Components" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "//UPROPERTY(VisibleAnywhere, Category=\"Components\")\n//USpringArmComponent* _springArm = nullptr;\n" },
-#endif
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "MyPlayer.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "UPROPERTY(VisibleAnywhere, Category=\"Components\")\nUSpringArmComponent* _springArm = nullptr;" },
-#endif
 	};
 #endif // WITH_METADATA
 
@@ -198,7 +186,7 @@ struct Z_Construct_UClass_AMyPlayer_Statics
 	};
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer, "initialise_AMyPlayer" }, // 3055842102
+		{ &Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer, "initialise_AMyPlayer" }, // 1096820025
 		{ &Z_Construct_UFunction_AMyPlayer_onOverlapBegin, "onOverlapBegin" }, // 3264895144
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
@@ -256,10 +244,10 @@ AMyPlayer::~AMyPlayer() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AMyPlayer, AMyPlayer::StaticClass, TEXT("AMyPlayer"), &Z_Registration_Info_UClass_AMyPlayer, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyPlayer), 4043880058U) },
+		{ Z_Construct_UClass_AMyPlayer, AMyPlayer::StaticClass, TEXT("AMyPlayer"), &Z_Registration_Info_UClass_AMyPlayer, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyPlayer), 4103066779U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_2153684169{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_957969812{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

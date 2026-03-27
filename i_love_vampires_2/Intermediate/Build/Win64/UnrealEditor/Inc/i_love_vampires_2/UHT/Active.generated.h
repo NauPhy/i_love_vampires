@@ -16,52 +16,11 @@
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
-// ********** Begin Class UActive ******************************************************************
-struct Z_Construct_UClass_UActive_Statics;
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UActive_NoRegister();
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_20_INCLASS_NO_PURE_DECLS \
-private: \
-	static void StaticRegisterNativesUActive(); \
-	friend struct ::Z_Construct_UClass_UActive_Statics; \
-	static UClass* GetPrivateStaticClass(); \
-	friend I_LOVE_VAMPIRES_2_API UClass* ::Z_Construct_UClass_UActive_NoRegister(); \
-public: \
-	DECLARE_CLASS2(UActive, UObject, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_UActive_NoRegister) \
-	DECLARE_SERIALIZER(UActive)
-
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_20_ENHANCED_CONSTRUCTORS \
-	/** Standard constructor, called after all reflected properties have been initialized */ \
-	NO_API UActive(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
-	/** Deleted move- and copy-constructors, should never be used */ \
-	UActive(UActive&&) = delete; \
-	UActive(const UActive&) = delete; \
-	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UActive); \
-	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UActive); \
-	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UActive) \
-	NO_API virtual ~UActive();
-
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_18_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_20_GENERATED_BODY \
-PRAGMA_DISABLE_DEPRECATION_WARNINGS \
-public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_20_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_20_ENHANCED_CONSTRUCTORS \
-private: \
-PRAGMA_ENABLE_DEPRECATION_WARNINGS
-
-
-class UActive;
-
-// ********** End Class UActive ********************************************************************
-
 // ********** Begin Class UWeaponConfig ************************************************************
 struct Z_Construct_UClass_UWeaponConfig_Statics;
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UWeaponConfig_NoRegister();
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_51_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_41_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUWeaponConfig(); \
 	friend struct ::Z_Construct_UClass_UWeaponConfig_Statics; \
@@ -72,7 +31,7 @@ public: \
 	DECLARE_SERIALIZER(UWeaponConfig)
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_51_ENHANCED_CONSTRUCTORS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_41_ENHANCED_CONSTRUCTORS \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	UWeaponConfig(UWeaponConfig&&) = delete; \
 	UWeaponConfig(const UWeaponConfig&) = delete; \
@@ -82,12 +41,12 @@ public: \
 	NO_API virtual ~UWeaponConfig();
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_48_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_51_GENERATED_BODY \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_38_PROLOG
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_41_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_51_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_51_ENHANCED_CONSTRUCTORS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_41_INCLASS_NO_PURE_DECLS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_41_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -100,7 +59,7 @@ class UWeaponConfig;
 struct Z_Construct_UClass_UWeaponTemplate_Statics;
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UWeaponTemplate_NoRegister();
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_69_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_53_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUWeaponTemplate(); \
 	friend struct ::Z_Construct_UClass_UWeaponTemplate_Statics; \
@@ -111,7 +70,7 @@ public: \
 	DECLARE_SERIALIZER(UWeaponTemplate)
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_69_ENHANCED_CONSTRUCTORS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_53_ENHANCED_CONSTRUCTORS \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	UWeaponTemplate(UWeaponTemplate&&) = delete; \
 	UWeaponTemplate(const UWeaponTemplate&) = delete; \
@@ -121,12 +80,12 @@ public: \
 	NO_API virtual ~UWeaponTemplate();
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_66_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_69_GENERATED_BODY \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_50_PROLOG
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_53_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_69_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_69_ENHANCED_CONSTRUCTORS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_53_INCLASS_NO_PURE_DECLS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h_53_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

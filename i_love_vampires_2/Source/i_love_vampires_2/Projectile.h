@@ -1,13 +1,20 @@
 #pragma once
 #include "CoreMinimal.h"
-//
+// AProjectile
 #include "AttackActor.h"
-//
 #include "ProjectileEnum.h"
+// UProjectileConfig
+#include "BaseConfig.h"
+// UProjectileAttributeData
+#include "BaseAttributeData.h"
+// ProjectileAttributes
+#include "BaseAttributes.h"
 //
 #include "Projectile.generated.h"
 class UProjectileConfig;
-class UProjectileAttributes;
+class UProjectileAttributeData;
+class ProjectileAttributes;
+struct ProjectileInitStruct;
 
 UCLASS()
 class AProjectile : public AAttackActor {
@@ -22,10 +29,8 @@ protected:
 	float _bounce = 0;
 	float _distanceTravelled = 0;
 
-	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = true))
-	UProjectileConfig* _projectileConfig = nullptr;
-	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = true))
-	UProjectileAttributes* _projectileAttributes = nullptr;
+	TObjectPtr<const UProjectileConfig> _projectileConfig = nullptr;
+	std::unique_ptr<ProjectileAttributes> _projectileAttributes = nullptr;
 
 private:
 	void performSweep(const FVector&, const FVector&, TArray<struct FHitResult>&);
@@ -38,17 +43,17 @@ protected:
 
 public:
 	AProjectile() : AAttackActor() {}
+	virtual void BeginPlay() override;
 	
-	void initialise_AProjectile(
-		APawn* pawnRef, 
-		float directionX, 
-		float directionZ, 
-		const UAttackConfig* config,
-		const UAttackAttributes* attributes,
-		const UProjectileConfig*,
-		const UProjectileAttributes*);
+	void initialise_AProjectile(ProjectileInitStruct&);
 	virtual void Tick(float delta) override;
-	virtual void factoryInitQuery(AAttackFactory* factory) override;
+};
+struct ProjectileInitStruct {
+	AttackInitStruct _attack;
+	const UProjectileConfig* _projectileConfig;
+	const ProjectileAttributes& _projectileAttributes;
+	float _directionX;
+	float _directionZ;
 };
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -72,7 +77,7 @@ public:
 ///////////////////////////////////////////////////////////////////////////////
 
 UCLASS(BlueprintType, EditInlineNew)
-class I_LOVE_VAMPIRES_2_API UProjectileAttributes : public UBaseAttributes
+class I_LOVE_VAMPIRES_2_API UProjectileAttributeData : public UBaseAttributeData
 {
 	GENERATED_BODY()
 public:
@@ -91,88 +96,96 @@ public:
 	UPROPERTY(VisibleAnywhere, Category = "ProjectileAttributes")
 	float _projectileCount = 1.f;
 
-	static void modifyAttributes(const UCombatantAttributes*, const UProjectileAttributes*, UProjectileAttributes*);
-	virtual UProjectileAttributes* getDiscretizedCopy(UObject* outer) const override {
-		if (!IsValid(outer)) {
-			LOGERROR("UProjectileAttributes::getDiscretizedCopy - outer not valid");
-			return nullptr;
-		}
-		UProjectileAttributes* ret = DuplicateObject<UProjectileAttributes>(this, outer, FName());
-		ret->_pierce = discretize(ret->_pierce);
-		ret->_bounce = discretize(ret->_bounce);
-		ret->_projectileCount = discretize(ret->_projectileCount);
-		return ret;
-	}
-	UProjectileAttributes(const FObjectInitializer& init) : Super(init) {}
+	UProjectileAttributeData(const FObjectInitializer& init) : Super(init) {}
 };
 ///////////////////////////////////////////////////////////////////////////////
-
-UCLASS()
-class I_LOVE_VAMPIRES_2_API UProjectileComponent : public UBaseAttributeComponent
-{
-	GENERATED_BODY()
+class ProjectileAttributes : public BaseAttributes {
 public:
-	void initialise_UProjectileComponent(const UProjectileAttributes* baseAttributes) {
-		if (!IsValid(baseAttributes)) {
-			LOGERROR("UProjectileComponent::initialise_UProjectileComponent - baseAttributes not valid");
-			return;
-		}
-		_base = DuplicateObject(baseAttributes, this);
-		_final = DuplicateObject(baseAttributes, this);
-		_offsets = DuplicateObject(baseAttributes, this);
-		zeroOffsets();
+	Stat _spread;
+	Stat _radius;
+	Stat _speed;
+	Stat _range;
+	Stat _pierce;
+	Stat _bounce;
+	Stat _projectileCount;
+
+	ProjectileAttributes() = delete;
+	ProjectileAttributes(const UProjectileAttributeData* attr) : _spread(attr->_spread), _radius(attr->_radius), _speed(attr->_speed), _range(attr->_range), _pierce(attr->_pierce), _bounce(attr->_bounce), _projectileCount(attr->_projectileCount) {}
+	virtual void modifyAttributes(const CombatantAttributes* modifiers) override;
+	virtual void discretizeFull() override {
+		_pierce.discretize();
+		_bounce.discretize();
+		_projectileCount.discretize();
 	}
-	virtual void modifyAttributes(ABaseAttributeSet* set) override;
+	virtual void applyToAllStats(const std::function<void(Stat&)>& func) override {
+		func(_spread);
+		func(_radius);
+		func(_speed);
+		func(_range);
+		func(_pierce);
+		func(_bounce);
+		func(_projectileCount);
+	}
+	virtual void applyStatus(UObject* context, const FEffectStruct& status, float delta) override {}
 };
 ///////////////////////////////////////////////////////////////////////////////
 
-UCLASS()
-class I_LOVE_VAMPIRES_2_API AProjectileFactory : public AAttackFactory
+class ProjectileFactory : public AttackFactory
 {
-	GENERATED_BODY()
-
 	float _directionX = 0;
 	float _directionZ = 1;
 
 protected:
-	UPROPERTY()
-	UProjectileConfig* _projectileConfig;
-	UPROPERTY()
-	UProjectileComponent* _projectileComponent = nullptr;
+	TObjectPtr<const UProjectileConfig> _projectileConfig;
+	BaseAttributeWrapper<ProjectileAttributes, UProjectileAttributeData> _projectileAttributes;
 
 	virtual void launchAttack(const FVector& forward) override;
 	virtual void launchAttack_fan(const FVector& forward);
-	FVector launchAttack_fan_getDirection(const UProjectileAttributes* attr, const FVector& forward, int projectileIndex);
+	FVector launchAttack_fan_getDirection(const FVector& forward, int projectileIndex, int projectileCount);
 	float getDirectionX() const { return _directionX; }
 	void setDirectionX(float x) { _directionX = x; }
 	float getDirectionZ() const { return _directionZ; }
 	void setDirectionZ(float z) { _directionZ = z; }
+	ProjectileInitStruct getProjectileInit() const {
+		ProjectileAttributes temp = _projectileAttributes.getCore();
+		temp.discretizeFull();
+		ProjectileInitStruct ret ={ AttackFactory::getAttackInit(), _projectileConfig.Get(), temp, _directionX, _directionZ};
+		return ret;
+	}
 
 public:
-	virtual void initProjectile(AProjectile*) override;
-	void initialise_AProjectileFactory(
-		APawn*,
-		UCombatantAttributes*,
+	ProjectileFactory() = delete;
+	ProjectileFactory(
+		ACombatant*,
 		const UAttackConfig*,
-		const UAttackAttributes*,
+		const UAttackAttributeData*,
 		const UProjectileConfig*,
-		const UProjectileAttributes*);
+		const UProjectileAttributeData*);
+	virtual void tick(float delta) override;
 };
 ///////////////////////////////////////////////////////////////////////////////
 
 UCLASS(BlueprintType, EditInlineNew)
-class I_LOVE_VAMPIRES_2_API UProjectileFactoryTemplate : public UAttackFactoryTemplate {
+class I_LOVE_VAMPIRES_2_API UProjectileTemplate : public UAttackTemplate {
 	GENERATED_BODY()
 
 public:
 	UPROPERTY(VisibleAnywhere, Instanced, Category = "UProjectileFactoryTemplate")
 	UProjectileConfig* _projectileConfig;
 	UPROPERTY(VisibleAnywhere, Instanced, Category = "UProjectileFactoryTemplate")
-	UProjectileAttributes* _projectileAttributes;
+	UProjectileAttributeData* _projectileAttributes;
 
-	virtual AAttackFactory* createFactory(APawn*, UCombatantAttributes*) const override;
-	UProjectileFactoryTemplate(const FObjectInitializer& init) : Super(init) {
+	UProjectileTemplate(const FObjectInitializer& init) : Super(init) {
 		_projectileConfig = init.CreateDefaultSubobject<UProjectileConfig>(this, "_projectileConfig");
-		_projectileAttributes = init.CreateDefaultSubobject<UProjectileAttributes>(this, "_projectileAttributes");
+		_projectileAttributes = init.CreateDefaultSubobject<UProjectileAttributeData>(this, "_projectileAttributes");
+	}
+	virtual std::unique_ptr<AttackFactory> createFactory(ACombatant* owner) const override {
+		return std::make_unique<ProjectileFactory>(
+			owner,
+			_attackConfig,
+			_attackAttributes,
+			_projectileConfig,
+			_projectileAttributes
+		);
 	}
 };

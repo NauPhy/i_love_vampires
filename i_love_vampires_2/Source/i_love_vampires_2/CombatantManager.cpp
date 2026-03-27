@@ -9,20 +9,13 @@ void UCombatantManager::Tick(float delta) {
 		return;
 	if (_burnTimer <= 0.0f)
 		burnAll();
+	else
+		_burnThisFrame = false;
 	_burnTimer -= delta;
 }
 
 void UCombatantManager::burnAll() {
-	// pair is TPair
-	for (const auto& pair : _enemyReferences) {
-		if (!pair.Value.IsValid()) {
-			LOGERROR("UCombatantManager::burnAll - invalid combatant reference");
-			continue;
-		}
-		pair.Value->burnTick();
-	}
-	if (_playerRef.IsValid())
-		_playerRef->burnTick();
+	_burnThisFrame = true;
 	_burnTimer = _BURN_PERIOD;
 }
 

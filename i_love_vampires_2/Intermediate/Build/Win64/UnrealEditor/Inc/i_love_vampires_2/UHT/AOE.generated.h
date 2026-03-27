@@ -20,14 +20,14 @@ class UPrimitiveComponent;
 struct FHitResult;
 
 // ********** Begin Class AAOE *********************************************************************
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_16_RPC_WRAPPERS_NO_PURE_DECLS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_22_RPC_WRAPPERS_NO_PURE_DECLS \
 	DECLARE_FUNCTION(execOnOverlapBegin);
 
 
 struct Z_Construct_UClass_AAOE_Statics;
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AAOE_NoRegister();
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_16_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_22_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAAOE(); \
 	friend struct ::Z_Construct_UClass_AAOE_Statics; \
@@ -38,7 +38,7 @@ public: \
 	DECLARE_SERIALIZER(AAOE)
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_16_ENHANCED_CONSTRUCTORS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_22_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API AAOE(); \
 	/** Deleted move- and copy-constructors, should never be used */ \
@@ -50,13 +50,13 @@ public: \
 	NO_API virtual ~AAOE();
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_14_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_16_GENERATED_BODY \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_20_PROLOG
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_22_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_16_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_16_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_16_ENHANCED_CONSTRUCTORS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_22_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_22_INCLASS_NO_PURE_DECLS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_22_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -69,7 +69,7 @@ class AAOE;
 struct Z_Construct_UClass_UAOEConfig_Statics;
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAOEConfig_NoRegister();
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_70_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_69_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUAOEConfig(); \
 	friend struct ::Z_Construct_UClass_UAOEConfig_Statics; \
@@ -80,7 +80,7 @@ public: \
 	DECLARE_SERIALIZER(UAOEConfig)
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_70_ENHANCED_CONSTRUCTORS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_69_ENHANCED_CONSTRUCTORS \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	UAOEConfig(UAOEConfig&&) = delete; \
 	UAOEConfig(const UAOEConfig&) = delete; \
@@ -90,12 +90,12 @@ public: \
 	NO_API virtual ~UAOEConfig();
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_67_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_70_GENERATED_BODY \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_66_PROLOG
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_69_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_70_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_70_ENHANCED_CONSTRUCTORS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_69_INCLASS_NO_PURE_DECLS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_69_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -104,165 +104,85 @@ class UAOEConfig;
 
 // ********** End Class UAOEConfig *****************************************************************
 
-// ********** Begin Class UAOEAttributes ***********************************************************
-struct Z_Construct_UClass_UAOEAttributes_Statics;
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAOEAttributes_NoRegister();
+// ********** Begin Class UAOEAttributeData ********************************************************
+struct Z_Construct_UClass_UAOEAttributeData_Statics;
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAOEAttributeData_NoRegister();
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_82_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_81_INCLASS_NO_PURE_DECLS \
 private: \
-	static void StaticRegisterNativesUAOEAttributes(); \
-	friend struct ::Z_Construct_UClass_UAOEAttributes_Statics; \
+	static void StaticRegisterNativesUAOEAttributeData(); \
+	friend struct ::Z_Construct_UClass_UAOEAttributeData_Statics; \
 	static UClass* GetPrivateStaticClass(); \
-	friend I_LOVE_VAMPIRES_2_API UClass* ::Z_Construct_UClass_UAOEAttributes_NoRegister(); \
+	friend I_LOVE_VAMPIRES_2_API UClass* ::Z_Construct_UClass_UAOEAttributeData_NoRegister(); \
 public: \
-	DECLARE_CLASS2(UAOEAttributes, UBaseAttributes, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_UAOEAttributes_NoRegister) \
-	DECLARE_SERIALIZER(UAOEAttributes)
+	DECLARE_CLASS2(UAOEAttributeData, UBaseAttributeData, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_UAOEAttributeData_NoRegister) \
+	DECLARE_SERIALIZER(UAOEAttributeData)
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_82_ENHANCED_CONSTRUCTORS \
-	/** Deleted move- and copy-constructors, should never be used */ \
-	UAOEAttributes(UAOEAttributes&&) = delete; \
-	UAOEAttributes(const UAOEAttributes&) = delete; \
-	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UAOEAttributes); \
-	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UAOEAttributes); \
-	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UAOEAttributes) \
-	NO_API virtual ~UAOEAttributes();
-
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_79_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_82_GENERATED_BODY \
-PRAGMA_DISABLE_DEPRECATION_WARNINGS \
-public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_82_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_82_ENHANCED_CONSTRUCTORS \
-private: \
-PRAGMA_ENABLE_DEPRECATION_WARNINGS
-
-
-class UAOEAttributes;
-
-// ********** End Class UAOEAttributes *************************************************************
-
-// ********** Begin Class UAOEComponent ************************************************************
-struct Z_Construct_UClass_UAOEComponent_Statics;
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAOEComponent_NoRegister();
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_105_INCLASS_NO_PURE_DECLS \
-private: \
-	static void StaticRegisterNativesUAOEComponent(); \
-	friend struct ::Z_Construct_UClass_UAOEComponent_Statics; \
-	static UClass* GetPrivateStaticClass(); \
-	friend I_LOVE_VAMPIRES_2_API UClass* ::Z_Construct_UClass_UAOEComponent_NoRegister(); \
-public: \
-	DECLARE_CLASS2(UAOEComponent, UBaseAttributeComponent, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_UAOEComponent_NoRegister) \
-	DECLARE_SERIALIZER(UAOEComponent)
-
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_105_ENHANCED_CONSTRUCTORS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_81_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
-	NO_API UAOEComponent(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
+	NO_API UAOEAttributeData(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 	/** Deleted move- and copy-constructors, should never be used */ \
-	UAOEComponent(UAOEComponent&&) = delete; \
-	UAOEComponent(const UAOEComponent&) = delete; \
-	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UAOEComponent); \
-	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UAOEComponent); \
-	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UAOEComponent) \
-	NO_API virtual ~UAOEComponent();
+	UAOEAttributeData(UAOEAttributeData&&) = delete; \
+	UAOEAttributeData(const UAOEAttributeData&) = delete; \
+	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UAOEAttributeData); \
+	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UAOEAttributeData); \
+	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UAOEAttributeData) \
+	NO_API virtual ~UAOEAttributeData();
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_102_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_105_GENERATED_BODY \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_78_PROLOG
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_81_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_105_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_105_ENHANCED_CONSTRUCTORS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_81_INCLASS_NO_PURE_DECLS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_81_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-class UAOEComponent;
+class UAOEAttributeData;
 
-// ********** End Class UAOEComponent **************************************************************
+// ********** End Class UAOEAttributeData **********************************************************
 
-// ********** Begin Class AAOEFactory **************************************************************
-struct Z_Construct_UClass_AAOEFactory_Statics;
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AAOEFactory_NoRegister();
+// ********** Begin Class UAOETemplate *************************************************************
+struct Z_Construct_UClass_UAOETemplate_Statics;
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAOETemplate_NoRegister();
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_120_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_135_INCLASS_NO_PURE_DECLS \
 private: \
-	static void StaticRegisterNativesAAOEFactory(); \
-	friend struct ::Z_Construct_UClass_AAOEFactory_Statics; \
+	static void StaticRegisterNativesUAOETemplate(); \
+	friend struct ::Z_Construct_UClass_UAOETemplate_Statics; \
 	static UClass* GetPrivateStaticClass(); \
-	friend I_LOVE_VAMPIRES_2_API UClass* ::Z_Construct_UClass_AAOEFactory_NoRegister(); \
+	friend I_LOVE_VAMPIRES_2_API UClass* ::Z_Construct_UClass_UAOETemplate_NoRegister(); \
 public: \
-	DECLARE_CLASS2(AAOEFactory, AAttackFactory, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_AAOEFactory_NoRegister) \
-	DECLARE_SERIALIZER(AAOEFactory)
+	DECLARE_CLASS2(UAOETemplate, UAttackTemplate, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_UAOETemplate_NoRegister) \
+	DECLARE_SERIALIZER(UAOETemplate)
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_120_ENHANCED_CONSTRUCTORS \
-	/** Standard constructor, called after all reflected properties have been initialized */ \
-	NO_API AAOEFactory(); \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_135_ENHANCED_CONSTRUCTORS \
 	/** Deleted move- and copy-constructors, should never be used */ \
-	AAOEFactory(AAOEFactory&&) = delete; \
-	AAOEFactory(const AAOEFactory&) = delete; \
-	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, AAOEFactory); \
-	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(AAOEFactory); \
-	DEFINE_DEFAULT_CONSTRUCTOR_CALL(AAOEFactory) \
-	NO_API virtual ~AAOEFactory();
+	UAOETemplate(UAOETemplate&&) = delete; \
+	UAOETemplate(const UAOETemplate&) = delete; \
+	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UAOETemplate); \
+	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UAOETemplate); \
+	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UAOETemplate) \
+	NO_API virtual ~UAOETemplate();
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_117_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_120_GENERATED_BODY \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_133_PROLOG
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_135_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_120_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_120_ENHANCED_CONSTRUCTORS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_135_INCLASS_NO_PURE_DECLS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_135_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-class AAOEFactory;
+class UAOETemplate;
 
-// ********** End Class AAOEFactory ****************************************************************
-
-// ********** Begin Class UAOEFactoryTemplate ******************************************************
-struct Z_Construct_UClass_UAOEFactoryTemplate_Statics;
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAOEFactoryTemplate_NoRegister();
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_142_INCLASS_NO_PURE_DECLS \
-private: \
-	static void StaticRegisterNativesUAOEFactoryTemplate(); \
-	friend struct ::Z_Construct_UClass_UAOEFactoryTemplate_Statics; \
-	static UClass* GetPrivateStaticClass(); \
-	friend I_LOVE_VAMPIRES_2_API UClass* ::Z_Construct_UClass_UAOEFactoryTemplate_NoRegister(); \
-public: \
-	DECLARE_CLASS2(UAOEFactoryTemplate, UAttackFactoryTemplate, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_UAOEFactoryTemplate_NoRegister) \
-	DECLARE_SERIALIZER(UAOEFactoryTemplate)
-
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_142_ENHANCED_CONSTRUCTORS \
-	/** Deleted move- and copy-constructors, should never be used */ \
-	UAOEFactoryTemplate(UAOEFactoryTemplate&&) = delete; \
-	UAOEFactoryTemplate(const UAOEFactoryTemplate&) = delete; \
-	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UAOEFactoryTemplate); \
-	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UAOEFactoryTemplate); \
-	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UAOEFactoryTemplate) \
-	NO_API virtual ~UAOEFactoryTemplate();
-
-
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_140_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_142_GENERATED_BODY \
-PRAGMA_DISABLE_DEPRECATION_WARNINGS \
-public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_142_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_142_ENHANCED_CONSTRUCTORS \
-private: \
-PRAGMA_ENABLE_DEPRECATION_WARNINGS
-
-
-class UAOEFactoryTemplate;
-
-// ********** End Class UAOEFactoryTemplate ********************************************************
+// ********** End Class UAOETemplate ***************************************************************
 
 #undef CURRENT_FILE_ID
 #define CURRENT_FILE_ID FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h

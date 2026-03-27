@@ -17,4 +17,6 @@ public:
 	float _duration = 0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "EffectStruct")
 	float _chance = 1;
+	//Rediculous I have to add this myself but whatever
+	FEffectStruct(EStatus type, float mag, float dur, float cha) : _type(type), _magnitude(mag), _duration(dur), _chance(cha) {}
 };

@@ -1,15 +1,21 @@
 #pragma once
 #include "CoreMinimal.h"
-//
+// AAOE
 #include "AttackActor.h"
-//
+// UAOEConfig
 #include "AOEEnum.h"
+// UAOEAttributeData
+#include "BaseAttributeData.h"
+// AOEAttributes
+#include "BaseAttributes.h"
 //
 #include "AOE.generated.h"
 
 class UShapeComponent;
 class UAOEConfig;
-class UAOEAttributes;
+class UAOEAttributeData;
+class AOEAttributes;
+struct AOEInitStruct;
 
 UCLASS()
 class AAOE : public AAttackActor {
@@ -19,37 +25,24 @@ class AAOE : public AAttackActor {
 
 	float _consumedDuration = 0;
 	bool _isAfterimage = false;
+	bool _initialisedWithDelay = false;
 	UPROPERTY()
 	UShapeComponent* _collider = nullptr;
 
 protected:
-	UAOEConfig* _AOEConfig = nullptr;
-	UAOEAttributes* _AOEAttributes = nullptr;
+	TObjectPtr<const UAOEConfig> _AOEConfig = nullptr;
+	std::unique_ptr<const AOEAttributes> _AOEAttributes = nullptr;
 
 private:
 	void initShape();
-	TWeakObjectPtr<APawn> _delayedConstruction_pawnRef = nullptr;
-	UPROPERTY()
-	UAOEConfig* _delayedConstruction_AOEConfig = nullptr;
-	UPROPERTY()
-	UAOEAttributes* _delayedConstruction_AOEAttributes = nullptr;
-	UPROPERTY()
-	UAttackConfig* _delayedConstruction_attackConfig = nullptr;
-	UPROPERTY()
-	UAttackAttributes* _delayedConstruction_attackAttributes = nullptr;
 
 public:
-	void initialise_AAOE(
-		APawn*, 
-		const UAttackConfig*,
-		const UAttackAttributes*,
-		const UAOEConfig*,
-		const UAOEAttributes*,
-		bool delayFullConstruction = false);
+	void initialise_AAOE(AOEInitStruct& temp);
 	void completeDelayedConstruction();
-	virtual void factoryInitQuery(AAttackFactory* factory) override;
+	//virtual void factoryInitQuery(AAttackFactory* factory) override;
 
 	virtual void Tick(float delta) override;
+	virtual void BeginPlay() override;
 
 	UFUNCTION()
 	void OnOverlapBegin(
@@ -61,6 +54,12 @@ public:
 		const FHitResult& SweepResult
 	);
 };
+struct AOEInitStruct {
+	AttackInitStruct _attack;
+	const UAOEConfig* _AOEConfig;
+	const AOEAttributes& _AOEAttributes;
+	bool _delayFullConstruction = false;
+};
 ///////////////////////////////////////////////////////////////////////////////
 
 
@@ -70,87 +69,89 @@ class I_LOVE_VAMPIRES_2_API UAOEConfig : public UBaseConfig
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AOEConfig")
+	UPROPERTY(EditAnywhere, Category = "AOEConfig")
 	EAOEShape _shape = static_cast<EAOEShape>(0);
 	UAOEConfig(const FObjectInitializer& init) : Super(init) {}
 };
 ///////////////////////////////////////////////////////////////////////////////
 
 UCLASS(BlueprintType, EditInlineNew)
-class I_LOVE_VAMPIRES_2_API UAOEAttributes : public UBaseAttributes
+class I_LOVE_VAMPIRES_2_API UAOEAttributeData : public UBaseAttributeData
 {
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AOEAttributes")
+	UPROPERTY(EditAnywhere, Category = "AOEAttributes")
 	float _radius = 1.f;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AOEAttributes")
+	UPROPERTY(EditAnywhere, Category = "AOEAttributes")
 	float _duration = 0.f;
-
-	static void modifyAttributes(const UCombatantAttributes*, const UAOEAttributes*, UAOEAttributes*);
-	virtual UAOEAttributes* getDiscretizedCopy(UObject* outer) const override {
-		if (!IsValid(outer)) {
-			LOGERROR("UAOEAttributes::getDiscretizedCopy - outer not valid");
-			return nullptr;
-		}
-		return DuplicateObject(this, outer, FName());
-	}
-	UAOEAttributes(const FObjectInitializer& init) : Super(init) {}
 };
 ///////////////////////////////////////////////////////////////////////////////
 
-UCLASS()
-class I_LOVE_VAMPIRES_2_API UAOEComponent : public UBaseAttributeComponent
-{
-	GENERATED_BODY()
+class AOEAttributes : public BaseAttributes {
 public:
-	void initialise_UAOEComponent(const UAOEAttributes* baseAttributes) {
-		_base = DuplicateObject(baseAttributes, this);
-		_final = DuplicateObject(baseAttributes, this);
-		_offsets = DuplicateObject(baseAttributes, this);
-		zeroOffsets();
+	Stat _radius;
+	Stat _duration;
+	AOEAttributes() = delete;
+	AOEAttributes(const UAOEAttributeData* attr) : _radius(attr->_radius), _duration(attr->_duration) {}
+	virtual void modifyAttributes(const CombatantAttributes* modifiers) override;
+	virtual void discretizeFull() override {}
+	virtual void applyStatus(UObject* context, const FEffectStruct& status, float delta) override {}
+	virtual void applyToAllStats(const std::function<void(Stat&)>& func) override {
+		func(_radius);
+		func(_duration);
 	}
-	virtual void modifyAttributes(ABaseAttributeSet* set) override;
 };
 ///////////////////////////////////////////////////////////////////////////////
 
-UCLASS()
-class I_LOVE_VAMPIRES_2_API AAOEFactory : public AAttackFactory
+class AOEFactory : public AttackFactory
 {
-	GENERATED_BODY()
+	TObjectPtr<const UAOEConfig> _AOEConfig = nullptr;
+	BaseAttributeWrapper<AOEAttributes, UAOEAttributeData> _AOEAttributes;
+protected:
+	AOEInitStruct getAOEInit() const {
+		AOEAttributes temp = _AOEAttributes.getCore();
+		temp.discretizeFull();
+		AOEInitStruct ret ={ AttackFactory::getAttackInit(), _AOEConfig.Get(), temp };
+		return ret;
+	}
 
 public:
-	UPROPERTY()
-	UAOEConfig* _AOEConfig;
-	UPROPERTY()
-	UAOEComponent* _AOEComponent = nullptr;
-
-	virtual void initAOE(AAOE*) override;
+	AOEFactory();
+	AOEFactory(
+		ACombatant* owner,
+		const UAttackConfig* attackConfig,
+		const UAttackAttributeData* attackAttributes,
+		const UAOEConfig* AOEConfig,
+		const UAOEAttributeData* AOEAttributes
+	);
 	virtual void launchAttack(const FVector& forward) override;
-	void initialise_AAOEFactory(
-		APawn*,
-		UCombatantAttributes* comb,
-		const UAttackConfig*,
-		const UAttackAttributes*,
-		const UAOEConfig*,
-		const UAOEAttributes*);
+	virtual void tick(float delta) override;
 };
 ///////////////////////////////////////////////////////////////////////////////
 
 UCLASS(BlueprintType, EditInlineNew)
-class I_LOVE_VAMPIRES_2_API UAOEFactoryTemplate : public UAttackFactoryTemplate {
+class I_LOVE_VAMPIRES_2_API UAOETemplate : public UAttackTemplate {
 	GENERATED_BODY()
 
 public:
 	UPROPERTY(EditAnywhere, Instanced, Category = "UProjectileFactoryTemplate")
 	UAOEConfig* _AOEConfig;
 	UPROPERTY(EditAnywhere, Instanced, Category = "UProjectileFactoryTemplate")
-	UAOEAttributes* _AOEAttributes;
+	UAOEAttributeData* _AOEAttributes;
 
-	virtual AAttackFactory* createFactory(APawn*, UCombatantAttributes*) const override;
-	UAOEFactoryTemplate(const FObjectInitializer& init) : Super(init) {
+	UAOETemplate(const FObjectInitializer& init) : Super(init) {
 		_AOEConfig = init.CreateDefaultSubobject<UAOEConfig>(this, "_AOEConfig");
-		_AOEAttributes = init.CreateDefaultSubobject<UAOEAttributes>(this, "_AOEAttributes");
+		_AOEAttributes = init.CreateDefaultSubobject<UAOEAttributeData>(this, "_AOEAttributes");
+	}
+	virtual std::unique_ptr<AttackFactory> createFactory(ACombatant* owner) const override {
+		return std::make_unique<AOEFactory>(
+			owner,
+			_attackConfig,
+			_attackAttributes,
+			_AOEConfig,
+			_AOEAttributes
+		);
 	}
 };
 

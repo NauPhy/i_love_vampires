@@ -8,21 +8,11 @@
 #include "CombatantManager.h"
 #include "MyGameplayStatics.h"
 #include "Camera/CameraComponent.h"
+#include "Definitions.h"
 
 
 AMyPlayer::AMyPlayer() : ACombatant() {
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
-	//_springArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
-	//_springArm->SetupAttachment(RootComponent);
-	//_springArm->TargetArmLength = 58.6;
-	//_springArm->bUsePawnControlRotation = false;
-	//_springArm->bInheritPitch = false;
-	//_springArm->bInheritRoll = false;
-	//_springArm->bInheritYaw = false;
-	//{
-	//	FHitResult* unused = nullptr;
-	//	_springArm->SetWorldRotation(FRotator(0, -90, 0), false, unused, ETeleportType::TeleportPhysics);
-	//}
 	_camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	if (!IsValid(_camera)) {
 		LOGERROR("AMyPlayer::AMyPlayer - _camera creation failed");
@@ -113,23 +103,12 @@ bool AMyPlayer::addKeyboardContext() {
 	return true;
 }
 
-//void AMyPlayer::initialise_AMyPlayer(const FPrimaryAssetId& data) {
-//	initialise_ACombatant(data);
-//	if (!addKeyboardContext())
-//		return;
-//	UCombatantManager* combatantManager = nullptr;
-//	if (!MyGameplayStatics::getCombatantManager(this, combatantManager)) {
-//		return;
-//	}
-//	combatantManager->setPlayerRef(this);
-//}
-
 void AMyPlayer::initialise_AMyPlayer(const UCombatantTemplate* data) {
-	if (!IsValid(data)) {
-		LOGERROR("AMyPlayer::initialise_AMyPlayer - data is invalid");
-		return;
-	}
 	initialise_ACombatant(data);
+}
+
+void AMyPlayer::BeginPlay() {
+	ACombatant::BeginPlay();
 	if (!addKeyboardContext())
 		return;
 	UCombatantManager* combatantManager = nullptr;
@@ -146,10 +125,7 @@ bool AMyPlayer::isOutOfDeadzone(float x, float z) const {
 void AMyPlayer::handleMovement(const FVector2D& input) {
 	if (!isOutOfDeadzone(input.X, input.Y))
 		return;
-	UCombatantAttributes* attr = _attributeSet->getFinal<UCombatantComponent, UCombatantAttributes>();
-	if (!IsValid(attr))
-		return;
-	FVector movement = FVector(input.X * _MOVEMENT_SPEED, 0, input.Y * _MOVEMENT_SPEED * attr->_movementSpeed);
+	FVector movement = FVector(input.X * _MOVEMENT_SPEED, 0, input.Y * _MOVEMENT_SPEED * ACombatant::getAttributeMember(&CombatantAttributes::_movementSpeed));
 	{
 		FHitResult* unused = nullptr;
 		AddActorWorldOffset(movement, false, unused, ETeleportType::TeleportPhysics);

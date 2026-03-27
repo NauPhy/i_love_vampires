@@ -1,41 +1,37 @@
 #pragma once
+
+// Afaik the only attribute will be attack speed/warmup. To simplify things I'm just going to use the template as the config and copy the base warmup to a member float.
 #include "CoreMinimal.h"
-#include "UObject/Object.h"
-#include "UObject/PrimaryAssetID.h"
-//
-#include "BaseConfig.h"
-#include "ActiveEnum.h"
-//
-#include "BaseTemplate.h"
+// Active
+#include <memory>
+#include <vector>
 #include "AttackActor.h"
+// WeaponTemplate
+#include "ActiveEnum.h"
+#include "BaseTemplate.h"
+// UWeaponConfig
+#include "BaseConfig.h"
 //
-class APawn;
+#include "Active.generated.h"
+class ACombatant;
 class CombatantAttributes;
-class UWeaponConfig;
-//class AAttackFactory;
+class UWeaponTemplate;
 
-class  Active {
-	float _timeSinceLastActivation = 0;
+class Active {
 	float _chargeRatio = 0;
-	TWeakObjectPtr<APawn> _pawnRef = nullptr;
-	FVector _myForwardVector;
-
-	
-	UPROPERTY()
-	TArray<AAttackFactory*> _factories;
+	std::vector<std::unique_ptr<AttackFactory>> _factories;
+	TWeakObjectPtr<ACombatant> _owner = nullptr;
+	TObjectPtr<const UWeaponTemplate> _weaponTemplate = nullptr;
 
 	void updateWarmup(float delta);
-	void activate();
-	void activate_first();
-	//bool initAttackData(const TArray<UAttackData*>&);
+	void activate(const FVector&);
+	void activate_first(const FVector&);
 
 public:
 	Active() = delete;
-	Active(APawn* caller, const UWeaponTemplate* data);
+	Active(ACombatant* owner, const UWeaponTemplate* data);
 
-	void initialise_UActive(APawn* caller, const UWeaponTemplate* data, UCombatantAttributes* callerAttributes);
-	virtual void tick(float delta, const CombatantAttributes& attr, const FVector& forward);
-	void setForwardVector(const FVector& val) { _myForwardVector = val; }
+	void tick(float delta, const FVector& forward);
 };
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -45,17 +41,11 @@ class I_LOVE_VAMPIRES_2_API UWeaponConfig : public UBaseConfig
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, Category = "WeaponConfig")
-	FString _name = "Active";
-	UPROPERTY(EditAnywhere, Category = "WeaponConfig")
-	bool _startOnCooldown = true;
-	UPROPERTY(EditAnywhere, Category = "WeaponConfig")
-	float _warmup = 1.f;
-	UPROPERTY(EditAnywhere, Category = "WeaponConfig")
-	EAttackType _attackType = static_cast<EAttackType>(0);
+	
 	UWeaponConfig(const FObjectInitializer& init) : Super(init) {}
 };
 ///////////////////////////////////////////////////////////////////////////////
+class UAttackTemplate;
 
 UCLASS(BlueprintType)
 class I_LOVE_VAMPIRES_2_API UWeaponTemplate : public UBaseTemplate
@@ -63,11 +53,16 @@ class I_LOVE_VAMPIRES_2_API UWeaponTemplate : public UBaseTemplate
 	GENERATED_BODY()
 
 public:
+	UPROPERTY(EditAnywhere, Category = "WeaponTemplate")
+	FString _name = "Active";
+	UPROPERTY(EditAnywhere, Category = "WeaponTemplate")
+	bool _startOnCooldown = true;
+	UPROPERTY(EditAnywhere, Category = "WeaponTemplate")
+	float _warmup = 1.f;
+	UPROPERTY(EditAnywhere, Category = "WeaponTemplate")
+	EAttackType _attackType = static_cast<EAttackType>(0);
 	UPROPERTY(EditAnywhere, Instanced, Category = "WeaponTemplate")
-	UWeaponConfig* _config;
-	UPROPERTY(EditAnywhere, Instanced, Category = "WeaponTemplate")
-	TArray<UAttackFactoryTemplate*> _attackData;
+	TArray<UAttackTemplate*> _attackData;
 	UWeaponTemplate(const FObjectInitializer& init) : Super(init) {
-		_config = init.CreateDefaultSubobject<UWeaponConfig>(this, "_config");
 	}
 };

@@ -3,14 +3,12 @@
 	{
 		"Module.i_love_vampires_2.gen.cpp.obj": [
 			"Active.gen.cpp.obj",
+			"ActiveEnum.gen.cpp.obj",
 			"AOE.gen.cpp.obj",
 			"AOEEnum.gen.cpp.obj",
 			"AssetRefs.gen.cpp.obj",
 			"AttackActor.gen.cpp.obj",
-			"BaseAttributeComponent.gen.cpp.obj",
-			"BaseAttributes.gen.cpp.obj",
-			"BaseAttributeSet.gen.cpp.obj",
-			"BaseAttributeSetTemplate.gen.cpp.obj",
+			"BaseAttributeData.gen.cpp.obj",
 			"BaseConfig.gen.cpp.obj",
 			"BaseTemplate.gen.cpp.obj",
 			"Combatant.gen.cpp.obj",

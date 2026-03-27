@@ -4,98 +4,57 @@
 #include "Combatant.h"
 #include "GameFramework/Pawn.h"
 
-void UActive::tick(float delta) {
-	if (!_pawnRef.IsValid()) {
+void Active::tick(float delta, const FVector& forwardVector) {
+	if (!_owner.IsValid()) {
 		return;
 	}
 	//If this is performance intensive I can change the trigger to onAttributeChanged
 	for (const auto& factory : _factories) {
-		if (!IsValid(factory)) {
-			LOGERROR("UActive::tick - factory is not valid");
-			continue;
-		}
 		factory->tick(delta);
 	}
 	updateWarmup(delta);
 	if (_chargeRatio >= 1) {
-		activate();
-		_timeSinceLastActivation = 0;
+		activate(forwardVector);
 		_chargeRatio = 0;
 	}
 }
 
-void UActive::updateWarmup(float delta) {
-	if (!_combatantAttributes.IsValid())
+void Active::updateWarmup(float delta) {
+	if (!_owner.IsValid())
 		return;
-	if (!IsValid(_config)) {
-		LOGERROR("UActive::tick - config is not valid");
-		return;
-	}
-	const float newAttackSpeed = _combatantAttributes->_attackSpeed;
-	const float baseWarmup = _config->_warmup;
-
-	const float modifiedWarmup = baseWarmup * (1.0f / _combatantAttributes->_attackSpeed);
-	_timeSinceLastActivation = _chargeRatio * modifiedWarmup + delta;
-	_chargeRatio = _timeSinceLastActivation / modifiedWarmup;
+	const float newAttackSpeed = _owner->getAttributeMember(&CombatantAttributes::_attackSpeed);
+	const float baseWarmup = _weaponTemplate->_warmup;
+	const float newWarmup = baseWarmup * (1.0f / newAttackSpeed);
+	const float timeSinceLastActivation = _chargeRatio * newWarmup + delta;
+	_chargeRatio = timeSinceLastActivation / newWarmup;
 }
 
-void UActive::activate() {
-	if (!IsValid(_config)) {
-		// This may be expected behaviour if activate is called exterally while its owner is being constructed or destructed-which is exactly why LOGERROR uses checkslow
-		LOGERROR("UActive::activate - _config is nullptr");
-	}
-	EAttackType type = _config->_attackType;
+void Active::activate(const FVector& forward) {
+	EAttackType type = _weaponTemplate->_attackType;
 	if (type == EAttackType::first) {
-		activate_first();
+		activate_first(forward);
 	}
 	else {
 		LOGERROR("UActive::activate - not implemented for this attackType");
 	}
 }
 
-void UActive::activate_first() {
-	if (_factories.Num() == 0)
+void Active::activate_first(const FVector& forward) {
+	if (_factories.size() == 0)
 		return;
-	if (!IsValid(_factories[0])) {
-		LOGERROR("UActive::activate_first - factory is not valid");
-		return;
-	}
-	_factories[0]->launchAttack(_myForwardVector);
+	_factories[0]->launchAttack(forward);
 }
 
-void UActive::initialise_UActive(APawn* caller, const UWeaponTemplate* rawData, UCombatantAttributes* callerAttributes) {
-	if (!IsValid(caller) || !IsValid(rawData) || !IsValid(rawData->_config) || !IsValid(callerAttributes)) {
-		LOGERROR("UActive::initialise_UActive - invalid parameter");
+Active::Active(ACombatant* owner, const UWeaponTemplate* rawData) : _owner(owner), _weaponTemplate(rawData)
+{
+	if (!IsValid(owner) || !IsValid(rawData)) {
+		LOGERROR("Active::Active - invalid parameters");
 		return;
 	}
-	_pawnRef = TWeakObjectPtr<APawn>(caller);
-	_combatantAttributes = TWeakObjectPtr<UCombatantAttributes>(callerAttributes);
-	_config = DuplicateObject(rawData->_config, this);
 	for (const auto& data : rawData->_attackData) {
-		AAttackFactory* factory = data->createFactory(caller, callerAttributes);
-		_factories.Add(factory);
+
+		_factories.push_back(std::move(data->createFactory(_owner.Get())));
 	}
 	//warmup
-	_timeSinceLastActivation = _config->_startOnCooldown ? 0 : _config->_warmup;
+	_chargeRatio = _weaponTemplate->_startOnCooldown ? 0 : 1;
 }
-
-//void UActive::initialise_UActive(APawn* caller, const FPrimaryAssetId& ID, UCombatantAttributes* callerAttributes) {
-//	UWeaponTemplate* rawData = nullptr;
-//	UAssetManager& manager = UAssetManager::Get();
-//	UObject* asset = manager.GetPrimaryAssetObject(ID);
-//	if (asset == nullptr) {
-//		auto temp = manager.LoadPrimaryAsset(ID);
-//		temp->WaitUntilComplete();
-//		asset = manager.GetPrimaryAssetObject(ID);
-//	}
-//	if (asset == nullptr) {
-//		LOGERROR("UActive::initialise_UActive - asset is null");
-//		return;
-//	}
-//	rawData = Cast<UWeaponTemplate>(asset);
-//	if (rawData == nullptr) {
-//		LOGERROR("UActive::initialise_UActive - asset is not a UWeaponTemplate");
-//		return;
-//	}
-//	initialise_UActive(caller, TSoftObjectPtr<UWeaponTemplate>(rawData), callerAttributes);
-//}
