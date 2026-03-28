@@ -57,11 +57,11 @@ struct Z_Construct_UClass_UEnemySpawner_Statics
 		{ "ModuleRelativePath", "EnemySpawner.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__testEnemy_MetaData[] = {
-		{ "Category", "UEnemySpawner" },
+		{ "Category", "EnemySpawner" },
 		{ "ModuleRelativePath", "EnemySpawner.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__gameReady_MetaData[] = {
-		{ "Category", "UEnemySpawner" },
+		{ "Category", "EnemySpawner" },
 		{ "ModuleRelativePath", "EnemySpawner.h" },
 	};
 #endif // WITH_METADATA
@@ -131,10 +131,10 @@ UEnemySpawner::~UEnemySpawner() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UEnemySpawner, UEnemySpawner::StaticClass, TEXT("UEnemySpawner"), &Z_Registration_Info_UClass_UEnemySpawner, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UEnemySpawner), 3500386151U) },
+		{ Z_Construct_UClass_UEnemySpawner, UEnemySpawner::StaticClass, TEXT("UEnemySpawner"), &Z_Registration_Info_UClass_UEnemySpawner, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UEnemySpawner), 2430361615U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h__Script_i_love_vampires_2_126464400{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h__Script_i_love_vampires_2_2607614379{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

@@ -33,26 +33,36 @@ bool UEnemySpawner::spawnEnemy(const FVector& spawnLocation, const UCombatantTem
 		LOGERROR("UEnemySpawner::spawnEnemy - invalid rawData");
 		return false;
 	}
-	TSubclassOf<ACombatant> enemyClass = rawData->_config->_combatantClass;
-	FRotator spawnRotation(0, 0, 0);
-	FActorSpawnParameters spawnParams;
-	spawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+	const TSubclassOf<ACombatant> enemyClass = rawData->_config->_combatantClass;
+	const FRotator spawnRotation(0, 0, 0);
+	const FVector spawnScale(1, 1, 1);
+	const FTransform spawnTransform(spawnRotation, spawnLocation, spawnScale);
+	const ESpawnActorScaleMethod scaleMethod = ESpawnActorScaleMethod::MultiplyWithRoot;
+
 	UWorld* world = GetWorld();
 	if (!IsValid(world)) {
 		LOGERROR("UEnemySpawner::spawnEnemy - world is invalid");
 		return false;
 	}
-	ret = world->SpawnActor<ACombatant>(
+	ret = world->SpawnActorDeferred<ACombatant>(
 		enemyClass,
-		spawnLocation,
-		spawnRotation,
-		spawnParams
+		spawnTransform,
+		nullptr,
+		nullptr,
+		ESpawnActorCollisionHandlingMethod::AlwaysSpawn,
+		scaleMethod
 	);
 	if (!IsValid(ret)) {
 		LOGERROR("UEnemySpawner::spawnEnemy - failed to spawn enemy");
 		return false;
 	}
 	ret->myInitialise(rawData);
+	UGameplayStatics::FinishSpawningActor(ret, spawnTransform, scaleMethod);
+	if (!IsValid(ret)) {
+		LOGERROR("UEnemySpawner::spawnEnemy - failed to finish spawning enemy");
+		return false;
+	}
 	return true;
 }
 

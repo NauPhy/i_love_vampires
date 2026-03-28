@@ -15,3 +15,6 @@ enum class ESprite : uint8
 	//Other
 	testShard UMETA(DisplayName = "testShard")
 };
+// Dependencies (C++)
+// testShard
+//     - ExperienceShard.h

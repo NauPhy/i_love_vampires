@@ -36,6 +36,7 @@ void ACombatant::initialise_ACombatant(const UCombatantTemplate* temp) {
 		return;
 	}
 	_config = TObjectPtr<const UCombatantConfig>(temp->_config);
+	CombatantAttributeSet tempSet(this, temp->_attributes);
 	_attributeSet = std::make_unique<CombatantAttributeSet>(this, temp->_attributes);
 }
 
@@ -93,6 +94,9 @@ void ACombatant::exchangeContactDamage(ACombatant* left, ACombatant* right) {
 	FEffectStruct rightEffect = FEffectStruct(_DAMAGE, rightThreat, 0, 1);
 	left->inflictStatus(rightEffect);
 	right->inflictStatus(leftEffect);
+}
+void ACombatant::inflictStatus(const FEffectStruct& status) {
+	_attributeSet->inflictStatus(status);
 }
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -166,4 +170,100 @@ void CombatantAttributes::discretizeFull() {
 	_bonusBounces.discretize();
 	_bonusPierce.discretize();
 	_bonusProjectiles.discretize();
+}
+
+//Template stuff
+CombatantAttributes::CombatantAttributes(const UCombatantAttributeData* attr) :
+	_maxHP(attr->_maxHP),
+	_currentHP(attr->_currentHP),
+	_damageReduction_flat(attr->_damageReduction_flat),
+	_damageReduction_percent(attr->_damageReduction_percent),
+	_healthRegen_flat(attr->_healthRegen_flat),
+	_healthRegen_percent(attr->_healthRegen_percent),
+	_critChance(attr->_critChance),
+	_critMultiplier(attr->_critMultiplier),
+	_attackSpeed(attr->_attackSpeed),
+	_bonusBounces(attr->_bonusBounces),
+	_bonusPierce(attr->_bonusPierce),
+	_bonusProjectiles(attr->_bonusProjectiles),
+	_projectileSpeed(attr->_projectileSpeed),
+	_projectileSize(attr->_projectileSize),
+	_movementSpeed(attr->_movementSpeed),
+	_range(attr->_range),
+	_contactDamage(attr->_contactDamage),
+	_selfSize(attr->_selfSize),
+	_iFrameDuration(attr->_iFrameDuration)
+{
+}
+CombatantAttributes::CombatantAttributes(const CombatantAttributes& other) :
+	_maxHP(other._maxHP),
+	_currentHP(other._currentHP),
+	_damageReduction_flat(other._damageReduction_flat),
+	_damageReduction_percent(other._damageReduction_percent),
+	_healthRegen_flat(other._healthRegen_flat),
+	_healthRegen_percent(other._healthRegen_percent),
+	_critChance(other._critChance),
+	_critMultiplier(other._critMultiplier),
+	_attackSpeed(other._attackSpeed),
+	_bonusBounces(other._bonusBounces),
+	_bonusPierce(other._bonusPierce),
+	_bonusProjectiles(other._bonusProjectiles),
+	_projectileSpeed(other._projectileSpeed),
+	_projectileSize(other._projectileSize),
+	_movementSpeed(other._movementSpeed),
+	_range(other._range),
+	_contactDamage(other._contactDamage),
+	_selfSize(other._selfSize),
+	_iFrameDuration(other._iFrameDuration)
+{
+}
+CombatantAttributes::CombatantAttributes(CombatantAttributes&& other) :
+	_maxHP(std::move(other._maxHP)),
+	_currentHP(std::move(other._currentHP)),
+	_damageReduction_flat(std::move(other._damageReduction_flat)),
+	_damageReduction_percent(std::move(other._damageReduction_percent)),
+	_healthRegen_flat(std::move(other._healthRegen_flat)),
+	_healthRegen_percent(std::move(other._healthRegen_percent)),
+	_critChance(std::move(other._critChance)),
+	_critMultiplier(std::move(other._critMultiplier)),
+	_attackSpeed(std::move(other._attackSpeed)),
+	_bonusBounces(std::move(other._bonusBounces)),
+	_bonusPierce(std::move(other._bonusPierce)),
+	_bonusProjectiles(std::move(other._bonusProjectiles)),
+	_projectileSpeed(std::move(other._projectileSpeed)),
+	_projectileSize(std::move(other._projectileSize)),
+	_movementSpeed(std::move(other._movementSpeed)),
+	_range(std::move(other._range)),
+	_contactDamage(std::move(other._contactDamage)),
+	_selfSize(std::move(other._selfSize)),
+	_iFrameDuration(std::move(other._iFrameDuration))
+{
+}
+//CombatantAttributes& CombatantAttributes::operator=(CombatantAttributes&& other) {
+//	if (this != &other) {
+//		_maxHP = std::move(other._maxHP);
+//		_currentHP = std::move(other._currentHP);
+//		_damageReduction_flat = std::move(other._damageReduction_flat);
+//		_damageReduction_percent = std::move(other._damageReduction_percent);
+//		_healthRegen_flat = std::move(other._healthRegen_flat);
+//		_healthRegen_percent = std::move(other._healthRegen_percent);
+//		_critChance = std::move(other._critChance);
+//		_critMultiplier = std::move(other._critMultiplier);
+//		_attackSpeed = std::move(other._attackSpeed);
+//		_bonusBounces = std::move(other._bonusBounces);
+//		_bonusPierce = std::move(other._bonusPierce);
+//		_bonusProjectiles = std::move(other._bonusProjectiles);
+//		_projectileSpeed = std::move(other._projectileSpeed);
+//		_projectileSize = std::move(other._projectileSize);
+//		_movementSpeed = std::move(other._movementSpeed);
+//		_range = std::move(other._range);
+//		_contactDamage = std::move(other._contactDamage);
+//		_selfSize = std::move(other._selfSize);
+//		_iFrameDuration = std::move(other._iFrameDuration);
+//	}
+//	return *this;
+//}
+CombatantAttributeSet::CombatantAttributeSet(CombatantAttributeSet&& other) :
+	_attributes(std::move(other._attributes))
+{
 }

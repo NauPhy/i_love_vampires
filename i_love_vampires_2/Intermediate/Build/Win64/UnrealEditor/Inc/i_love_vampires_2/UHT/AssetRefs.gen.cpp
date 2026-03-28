@@ -17,6 +17,7 @@ ENGINE_API UClass* Z_Construct_UClass_UGameInstanceSubsystem();
 ENHANCEDINPUT_API UClass* Z_Construct_UClass_UInputMappingContext_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAssetRefs();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAssetRefs_NoRegister();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UCombatantTemplate_NoRegister();
 UPackage* Z_Construct_UPackage__Script_i_love_vampires_2();
 // ********** End Cross Module References **********************************************************
 
@@ -54,16 +55,14 @@ struct Z_Construct_UClass_UAssetRefs_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "//struct FActiveTemplate;\n//struct FCombatantTemplateFull;\n" },
-#endif
 		{ "IncludePath", "AssetRefs.h" },
 		{ "ModuleRelativePath", "AssetRefs.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "struct FActiveTemplate;\nstruct FCombatantTemplateFull;" },
-#endif
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__keyboardInputMappingContext_MetaData[] = {
+		{ "Category", "AssetRefs" },
+		{ "ModuleRelativePath", "AssetRefs.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__basePlayerTemplate_MetaData[] = {
 		{ "Category", "AssetRefs" },
 		{ "ModuleRelativePath", "AssetRefs.h" },
 	};
@@ -71,6 +70,7 @@ struct Z_Construct_UClass_UAssetRefs_Statics
 
 // ********** Begin Class UAssetRefs constinit property declarations *******************************
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__keyboardInputMappingContext;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp__basePlayerTemplate;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class UAssetRefs constinit property declarations *********************************
 	static UObject* (*const DependentSingletons[])();
@@ -82,8 +82,10 @@ struct Z_Construct_UClass_UAssetRefs_Statics
 
 // ********** Begin Class UAssetRefs Property Definitions ******************************************
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAssetRefs_Statics::NewProp__keyboardInputMappingContext = { "_keyboardInputMappingContext", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAssetRefs, _keyboardInputMappingContext), Z_Construct_UClass_UInputMappingContext_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__keyboardInputMappingContext_MetaData), NewProp__keyboardInputMappingContext_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAssetRefs_Statics::NewProp__basePlayerTemplate = { "_basePlayerTemplate", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAssetRefs, _basePlayerTemplate), Z_Construct_UClass_UCombatantTemplate_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__basePlayerTemplate_MetaData), NewProp__basePlayerTemplate_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAssetRefs_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAssetRefs_Statics::NewProp__keyboardInputMappingContext,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAssetRefs_Statics::NewProp__basePlayerTemplate,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAssetRefs_Statics::PropPointers) < 2048);
 // ********** End Class UAssetRefs Property Definitions ********************************************
@@ -126,10 +128,10 @@ UAssetRefs::~UAssetRefs() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AssetRefs_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UAssetRefs, UAssetRefs::StaticClass, TEXT("UAssetRefs"), &Z_Registration_Info_UClass_UAssetRefs, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAssetRefs), 817079562U) },
+		{ Z_Construct_UClass_UAssetRefs, UAssetRefs::StaticClass, TEXT("UAssetRefs"), &Z_Registration_Info_UClass_UAssetRefs, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAssetRefs), 497908789U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AssetRefs_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AssetRefs_h__Script_i_love_vampires_2_683258736{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AssetRefs_h__Script_i_love_vampires_2_477715662{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AssetRefs_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AssetRefs_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

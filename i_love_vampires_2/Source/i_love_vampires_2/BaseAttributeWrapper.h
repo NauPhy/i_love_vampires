@@ -28,7 +28,11 @@ public:
 	void tick(float delta, const TArray<FEffectStruct>& statusEffects, const CombatantAttributes* combatantAttributes) {
 		_core.tick(_context.Get(), delta, statusEffects, combatantAttributes);
 	}
-	BaseAttributeWrapper();
+	BaseAttributeWrapper() = delete;
+	BaseAttributeWrapper(const BaseAttributeWrapper& other) : _context(other._context), _core(other._core) {}
+	BaseAttributeWrapper(BaseAttributeWrapper&& other) : _context(std::move(other._context)), _core(std::move(other._core)) { other._context = nullptr; }
+	BaseAttributeWrapper& operator=(const BaseAttributeWrapper& other) = delete;
+	BaseAttributeWrapper& operator=(BaseAttributeWrapper&& other) = delete;
 	//extra copy
 	BaseAttributeWrapper(UObject* context, const dataType* attr) : _context(context), _core(attr){}
 	const attrType& getCore() const { return _core; }

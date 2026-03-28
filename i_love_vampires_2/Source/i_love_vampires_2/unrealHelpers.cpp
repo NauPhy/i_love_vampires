@@ -41,3 +41,16 @@ bool unrealHelpers::constructFlipbook(AActor* caller, USceneComponent* rootComp,
 	caller->SetActorScale3D(currentScale*2.56);
 	return true;
 }
+
+bool unrealHelpers::getActorSpawnTransform(AActor* caller, FTransform& ret) {
+	if (!IsValid(caller)) {
+		LOGERROR("unrealHelpers::spawnActorOnTopOfMe - caller is not valid");
+		return false;
+	}
+
+	FVector location = caller->GetActorLocation();
+	FRotator rot = caller->GetActorRotation();
+	FVector scale(1, 1, 1);
+	ret = FTransform(rot, location, scale);
+	return true;
+}

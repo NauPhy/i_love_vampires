@@ -6,7 +6,7 @@
 #include "Combatant.h"
 #include "unrealHelpers.h"
 
-void AAOE::initialise_AAOE(AOEInitStruct& temp) 
+void AAOE::initialise_AAOE(const AOEInitStruct& temp) 
 {
 	AAttackActor::initialise_AAttackActor(temp._attack);
 	_AOEConfig = temp._AOEConfig;
@@ -116,8 +116,8 @@ void AOEAttributes::modifyAttributes(const CombatantAttributes* attr) {
 ///////////////////////////////////////////////////////////////////////////////
 
 void AOEFactory::launchAttack(const FVector& forward) {
-	AAOE* newAttack = unrealHelpers::spawnActorOnTopOfMe<AAOE>(_owner.Get());
-	if (!IsValid(newAttack)) {
+	AAOE* newAttack = nullptr;
+	if (!unrealHelpers::spawnActorOnTopOfMeDeferred<AAOE>(_owner.Get(), newAttack)){
 		LOGERROR("AAOEFactory::launchAttack - failed to spawn AAOE");
 		return;
 	}
@@ -125,6 +125,7 @@ void AOEFactory::launchAttack(const FVector& forward) {
 		AOEInitStruct temp = getAOEInit();
 		newAttack->initialise_AAOE(temp);
 	}
+	unrealHelpers::finishDeferredSpawn<AAOE>(_owner.Get(), newAttack);
 }
 
 AOEFactory::AOEFactory(
@@ -150,3 +151,38 @@ void  AOEFactory::tick(float delta) {
 	AttackFactory::tick(delta);
 }
 ///////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////
+//AOEAttributes& AOEAttributes::operator=(const AOEAttributes& other) {
+//	if (this == &other)
+//		return *this;
+//	BaseAttributes::operator=(other);
+//	_radius = other._radius;
+//	_duration = other._duration;
+//	return *this;
+//}
+//AOEAttributes& AOEAttributes::operator=(AOEAttributes&& other) {
+//	if (this == &other)
+//		return *this;
+//	BaseAttributes::operator=(std::move(other));
+//	_radius = std::move(other._radius);
+//	_duration = std::move(other._duration);
+//	return *this;
+//}
+///////////////////////////////////////////////////////////////////////////////
+AOEFactory::AOEFactory(AOEFactory&& other) :
+	AttackFactory(std::move(other)),
+	_AOEConfig(other._AOEConfig),
+	_AOEAttributes(std::move(other._AOEAttributes))
+{
+	//other._AOEConfig = nullptr;
+}
+//AOEFactory& AOEFactory::operator=(AOEFactory&& other) {
+//	if (this == &other)
+//		return *this;
+//	AttackFactory::operator=(std::move(other));
+//	_AOEConfig = other._AOEConfig;
+//	_AOEAttributes = std::move(other._AOEAttributes);
+//	other._AOEConfig = nullptr;
+//	return *this;
+//}

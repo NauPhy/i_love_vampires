@@ -17,9 +17,9 @@ class I_LOVE_VAMPIRES_2_API UEnemySpawner : public UTickableWorldSubsystem
 	bool spawnEnemy(const FVector& location, const UCombatantTemplate* data, ACombatant*& ret);
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UEnemySpawner")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UCombatantTemplate* _testEnemy;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UEnemySpawner")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool _gameReady = false;
 
 	UEnemySpawner();

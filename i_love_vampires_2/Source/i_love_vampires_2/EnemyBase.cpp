@@ -5,6 +5,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "MyGameplayStatics.h"
+#include "ExperienceShard.h"
+#include "unrealHelpers.h"
 
 AEnemyBase::AEnemyBase() : ACombatant() {};
 
@@ -17,18 +19,32 @@ void AEnemyBase::BeginPlay() {
 }
 
 void AEnemyBase::EndPlay(EEndPlayReason::Type EndPlayReason) {
+	auto end = [this, EndPlayReason]() {
+		Super::EndPlay(EndPlayReason);
+		return;
+		};
 	UWorld* world = GetWorld();
 	if (!world) {
 		LOGERROR("EnemyBase::EndPlay - failed to get world");
-		return;
+		end();
 	}
 	UCombatantManager* subsystem = world->GetSubsystem<UCombatantManager>();
 	if (!subsystem) {
 		LOGERROR("EnemyBase::EndPlay - failed to get CombatantManager subsystem");
-		return;
+		end();
 	}
 	subsystem->removeFromRegister(_registerKey);
-	Super::EndPlay(EndPlayReason);
+	AExperienceShard* shard = nullptr;
+	if (!unrealHelpers::spawnActorOnTopOfMeDeferred<AExperienceShard>(this, shard)) {
+		LOGERROR("EnemyBase::EndPlay - failed to spawn experience shard");
+		end();
+	}
+	shard->initialise_AExperienceShard(_experienceValue);
+	if (!unrealHelpers::finishDeferredSpawn<AExperienceShard>(this, shard)) {
+		LOGERROR("EnemyBase::EndPlay - failed to finish spawning experience shard");
+		end();
+	}
+	end();
 }
 
 void AEnemyBase::persuePlayer(float delta) {

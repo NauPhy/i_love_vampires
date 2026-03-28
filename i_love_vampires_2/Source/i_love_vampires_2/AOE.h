@@ -37,7 +37,7 @@ private:
 	void initShape();
 
 public:
-	void initialise_AAOE(AOEInitStruct& temp);
+	void initialise_AAOE(const AOEInitStruct& temp);
 	void completeDelayedConstruction();
 	//virtual void factoryInitQuery(AAttackFactory* factory) override;
 
@@ -54,12 +54,7 @@ public:
 		const FHitResult& SweepResult
 	);
 };
-struct AOEInitStruct {
-	AttackInitStruct _attack;
-	const UAOEConfig* _AOEConfig;
-	const AOEAttributes& _AOEAttributes;
-	bool _delayFullConstruction = false;
-};
+
 ///////////////////////////////////////////////////////////////////////////////
 
 
@@ -69,7 +64,7 @@ class I_LOVE_VAMPIRES_2_API UAOEConfig : public UBaseConfig
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, Category = "AOEConfig")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	EAOEShape _shape = static_cast<EAOEShape>(0);
 	UAOEConfig(const FObjectInitializer& init) : Super(init) {}
 };
@@ -81,9 +76,9 @@ class I_LOVE_VAMPIRES_2_API UAOEAttributeData : public UBaseAttributeData
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, Category = "AOEAttributes")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float _radius = 1.f;
-	UPROPERTY(EditAnywhere, Category = "AOEAttributes")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float _duration = 0.f;
 };
 ///////////////////////////////////////////////////////////////////////////////
@@ -92,8 +87,13 @@ class AOEAttributes : public BaseAttributes {
 public:
 	Stat _radius;
 	Stat _duration;
+
 	AOEAttributes() = delete;
-	AOEAttributes(const UAOEAttributeData* attr) : _radius(attr->_radius), _duration(attr->_duration) {}
+	AOEAttributes(const AOEAttributes& other) : BaseAttributes(other), _radius(other._radius), _duration(other._duration) {}
+	AOEAttributes(AOEAttributes&& other) : BaseAttributes(std::move(other)), _radius(std::move(other._radius)), _duration(std::move(other._duration)) {}
+	AOEAttributes& operator=(const AOEAttributes& other) = delete;
+	AOEAttributes& operator=(AOEAttributes&& other) = delete;
+	AOEAttributes(const UAOEAttributeData* attr) : BaseAttributes(), _radius(attr->_radius), _duration(attr->_duration) {}
 	virtual void modifyAttributes(const CombatantAttributes* modifiers) override;
 	virtual void discretizeFull() override {}
 	virtual void applyStatus(UObject* context, const FEffectStruct& status, float delta) override {}
@@ -104,9 +104,17 @@ public:
 };
 ///////////////////////////////////////////////////////////////////////////////
 
+struct AOEInitStruct {
+	AttackInitStruct _attack;
+	const UAOEConfig* _AOEConfig;
+	const AOEAttributes _AOEAttributes;
+	const bool _delayFullConstruction = false;
+};
+///////////////////////////////////////////////////////////////////////////////
+
 class AOEFactory : public AttackFactory
 {
-	TObjectPtr<const UAOEConfig> _AOEConfig = nullptr;
+	const TObjectPtr<const UAOEConfig> _AOEConfig = nullptr;
 	BaseAttributeWrapper<AOEAttributes, UAOEAttributeData> _AOEAttributes;
 protected:
 	AOEInitStruct getAOEInit() const {
@@ -117,7 +125,11 @@ protected:
 	}
 
 public:
-	AOEFactory();
+	AOEFactory() = delete;
+	AOEFactory(const AOEFactory& other) = delete;
+	AOEFactory& operator=(const AOEFactory& other) = delete;
+	AOEFactory(AOEFactory&& other);
+	AOEFactory& operator=(AOEFactory&& other) = delete;
 	AOEFactory(
 		ACombatant* owner,
 		const UAttackConfig* attackConfig,
@@ -135,9 +147,9 @@ class I_LOVE_VAMPIRES_2_API UAOETemplate : public UAttackTemplate {
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, Instanced, Category = "UProjectileFactoryTemplate")
+	UPROPERTY(EditAnywhere, Instanced)
 	UAOEConfig* _AOEConfig;
-	UPROPERTY(EditAnywhere, Instanced, Category = "UProjectileFactoryTemplate")
+	UPROPERTY(EditAnywhere, Instanced)
 	UAOEAttributeData* _AOEAttributes;
 
 	UAOETemplate(const FObjectInitializer& init) : Super(init) {
@@ -154,4 +166,3 @@ public:
 		);
 	}
 };
-

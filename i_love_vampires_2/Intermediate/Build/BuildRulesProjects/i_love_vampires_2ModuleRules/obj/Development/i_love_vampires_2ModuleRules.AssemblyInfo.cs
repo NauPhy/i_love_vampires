@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("i_love_vampires_2ModuleRules")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Development")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+14de3b4ba5583a718693240d4e457c216e9d8489")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9457096dbfc62f9348286cacbf90c7a9a50424c5")]
 [assembly: System.Reflection.AssemblyProductAttribute("i_love_vampires_2ModuleRules")]
 [assembly: System.Reflection.AssemblyTitleAttribute("i_love_vampires_2ModuleRules")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

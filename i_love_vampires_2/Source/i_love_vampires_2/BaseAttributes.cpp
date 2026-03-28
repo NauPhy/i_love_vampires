@@ -7,16 +7,13 @@
 void Stat::discretize() {
 	float rng = FMath::FRand();
 	float value = getFinal();
-	_final = rng < value ? ceil(value) : floor(value);
+	_final = rng < (value-floor(value+EPSILON)) ? ceil(value-EPSILON) : floor(value+EPSILON);
 }
 void Stat::modify(float newVal) {
 	if (!_softReset)
 		LOGERROR("Stat::modify - modifying a stat that hasn't been soft reset this frame");
 	_final = newVal;
 	_softReset = false;
-}
-Stat::Stat() : _final(0), _base(0), _prebonus(0), _postbonus(0), _multiplier(0), _offset(0) {
-	LOGERROR("Stat::Stat() - default constructor called, this should never happen");
 }
 
 void BaseAttributes::tick(UObject* context, float delta, const TArray<FEffectStruct>& statusEffects, const CombatantAttributes* modifiers) {
@@ -25,10 +22,12 @@ void BaseAttributes::tick(UObject* context, float delta, const TArray<FEffectStr
 	for (const auto& status : statusEffects) {
 		applyStatus(context, status, delta);
 	}
+	applyToAllStats(Stat::calculateFinal);
 }
 void BaseAttributes::tick(UObject* context, float delta, const TArray<FEffectStruct>& statusEffects) {
 	applyToAllStats(Stat::softReset);
 	for (const auto& status : statusEffects) {
 		applyStatus(context, status, delta);
 	}
+	applyToAllStats(Stat::calculateFinal);
 }

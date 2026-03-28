@@ -4,8 +4,7 @@
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "AssetRefs.generated.h"
 class UInputMappingContext;
-//struct FActiveTemplate;
-//struct FCombatantTemplateFull;
+class UCombatantTemplate;
 
 UCLASS()
 class I_LOVE_VAMPIRES_2_API UAssetRefs : public UGameInstanceSubsystem
@@ -15,14 +14,10 @@ class I_LOVE_VAMPIRES_2_API UAssetRefs : public UGameInstanceSubsystem
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="AssetRefs")
 	UInputMappingContext* _keyboardInputMappingContext = nullptr;
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AssetRefs")
-	//UDataTable* _activeTable = nullptr;
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AssetRefs")
-	//UDataTable* _combatantTable = nullptr;
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AssetRefs")
+	UCombatantTemplate* _basePlayerTemplate = nullptr;
 
 	UAssetRefs() = default;
 	const UInputMappingContext* getKeyboardContext() const;
-	//const FCombatantTemplateFull* getCombatantTemplateFull() const;
-	//const FActiveTemplate* getActiveTemplate(FName) const;
+	const UCombatantTemplate* getBasePlayerTemplate() const;
 };

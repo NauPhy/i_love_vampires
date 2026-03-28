@@ -43,22 +43,17 @@ protected:
 	TWeakObjectPtr<const ACombatant> _pawnRef = nullptr;
 	TArray<TWeakObjectPtr<APawn>> _effectedPawns;
 	std::unique_ptr<const AttackAttributes> _attackAttributes = nullptr;
-	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = true))
 	UPaperFlipbookComponent* _flipbook = nullptr;
 
 	const UAttackConfig* getAttackConfig() const { return _attackConfig.Get(); }
 
 public:
 	AAttackActor();
-	void initialise_AAttackActor(AttackInitStruct& temp);
+	void initialise_AAttackActor(const AttackInitStruct& temp);
 	virtual void BeginPlay() override;
 	virtual void Tick(float delta) override;
 	void applyEffect(ACombatant* target); 
-};
-struct AttackInitStruct {
-	ACombatant* _pawnRef;
-	const UAttackConfig* _attackConfig;
-	const AttackAttributes& _attackAttributes;
 };
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -68,9 +63,9 @@ class I_LOVE_VAMPIRES_2_API UAttackConfig : public UBaseConfig
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(VisibleAnywhere, Category = "UAttackConfig")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TArray<FEffectStruct> _statusEffects;
-	UPROPERTY(VisibleAnywhere, Category = "UAttackConfig")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	ESprite _sprite = static_cast<ESprite>(0);
 	UAttackConfig(const FObjectInitializer& init) : Super(init) {}
 };
@@ -84,11 +79,11 @@ class I_LOVE_VAMPIRES_2_API UAttackAttributeData : public UBaseAttributeData
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(VisibleAnywhere, Category = "WeaponAttributes")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float _damage = 0.f;
-	UPROPERTY(VisibleAnywhere, Category = "WeaponAttributes")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float _critChance = 0.f;
-	UPROPERTY(VisibleAnywhere, Category = "WeaponAttributes")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float _critMultiplier = 2.f;
 
 	UAttackAttributeData(const FObjectInitializer& init) : Super(init) {}
@@ -101,9 +96,12 @@ public:
 	Stat _critMultiplier;
 
 	AttackAttributes() = delete;
-	AttackAttributes(const UAttackAttributeData* attr) : _damage(attr->_damage), _critChance(attr->_critChance), _critMultiplier(attr->_critMultiplier) {}
-	AttackAttributes(const AttackAttributes& other) : _damage(other._damage), _critChance(other._critChance), _critMultiplier(other._critMultiplier) {}
-	AttackAttributes(AttackAttributes&& other) : _damage(std::move(other._damage)), _critChance(std::move(other._critChance)), _critMultiplier(std::move(other._critMultiplier)) {}
+	AttackAttributes(const AttackAttributes& other) : BaseAttributes(other), _damage(other._damage), _critChance(other._critChance), _critMultiplier(other._critMultiplier) {}
+	AttackAttributes(AttackAttributes&& other) : BaseAttributes(std::move(other)), _damage(std::move(other._damage)), _critChance(std::move(other._critChance)), _critMultiplier(std::move(other._critMultiplier)) {}
+	AttackAttributes& operator=(const AttackAttributes& other) = delete;
+	AttackAttributes& operator=(AttackAttributes&& other) = delete;
+	AttackAttributes(const UAttackAttributeData* attr) : BaseAttributes(), _damage(attr->_damage), _critChance(attr->_critChance), _critMultiplier(attr->_critMultiplier) {}
+
 	virtual void modifyAttributes(const CombatantAttributes* modifiers) override;
 	virtual void discretizeFull() override {}
 	virtual void applyStatus(UObject* context, const FEffectStruct& status, float delta) override {}
@@ -113,7 +111,13 @@ public:
 		func(_critMultiplier);
 	}
 };
+///////////////////////////////////////////////////////////////////////////////
 
+struct AttackInitStruct {
+	ACombatant* _pawnRef;
+	const UAttackConfig* _attackConfig;
+	const AttackAttributes _attackAttributes;
+};
 ///////////////////////////////////////////////////////////////////////////////
 
 class AProjectile;
@@ -135,10 +139,12 @@ protected:
 	}
 
 public:
-	AttackFactory();
-	AttackFactory(ACombatant* owner, const UAttackConfig* config, const UAttackAttributeData* data);
-	AttackFactory(const AttackFactory& other);
+	AttackFactory() = delete;
+	AttackFactory(const AttackFactory& other) = delete;
+	AttackFactory& operator=(const AttackFactory& other) = delete;
 	AttackFactory(AttackFactory&& other);
+	AttackFactory& operator=(AttackFactory&& other) = delete;
+	AttackFactory(ACombatant* owner, const UAttackConfig* config, const UAttackAttributeData* data);
 	virtual void tick(float delta) override;
 	float getMember(Stat AttackAttributes::* member) const {
 		return _attackAttributes.getMember(member);
@@ -153,9 +159,9 @@ class I_LOVE_VAMPIRES_2_API UAttackTemplate : public UBaseTemplate {
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(VisibleAnywhere, Instanced, Category = "UAttackFactoryTemplate")
+	UPROPERTY(EditAnywhere, Instanced)
 	UAttackConfig* _attackConfig;
-	UPROPERTY(VisibleAnywhere, Instanced, Category = "UAttackFactoryTemplate")
+	UPROPERTY(EditAnywhere, Instanced)
 	UAttackAttributeData* _attackAttributes;
 
 	UAttackTemplate(const FObjectInitializer& init) : Super(init) {
@@ -166,18 +172,3 @@ public:
 		return std::make_unique<AttackFactory>(owner, _attackConfig, _attackAttributes);
 	}
 };
-
-//template stuff
-AttackFactory::AttackFactory(const AttackFactory& other) : 
-	//shallow copy
-	_attackConfig(other._attackConfig), 
-	//normal copy (not ptr)
-	_attackAttributes(other._attackAttributes),
-	//shallow copy
-	_owner(other._owner) {}
-
-AttackFactory::AttackFactory(AttackFactory&& other) :
-	_attackConfig(std::move(other._attackConfig)), 
-	_attackAttributes(std::move(other._attackAttributes)),
-	_owner(std::move(other._owner)) {
-}

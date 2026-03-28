@@ -997,7 +997,10 @@
             "c:\\program files\\epic games\\ue_5.7\\engine\\source\\runtime\\core\\public\\misc\\timecode.h",
             "c:\\program files\\epic games\\ue_5.7\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\kismetmathlibrary.generated.h",
             "c:\\program files\\epic games\\ue_5.7\\engine\\source\\runtime\\engine\\classes\\kismet\\kismetmathlibrary.inl",
-            "c:\\users\\byron\\documents\\github\\i_love_vampires\\i_love_vampires_2\\source\\i_love_vampires_2\\mygameplaystatics.h"
+            "c:\\users\\byron\\documents\\github\\i_love_vampires\\i_love_vampires_2\\source\\i_love_vampires_2\\mygameplaystatics.h",
+            "c:\\users\\byron\\documents\\github\\i_love_vampires\\i_love_vampires_2\\source\\i_love_vampires_2\\experienceshard.h",
+            "c:\\users\\byron\\documents\\github\\i_love_vampires\\i_love_vampires_2\\intermediate\\build\\win64\\unrealeditor\\inc\\i_love_vampires_2\\uht\\experienceshard.generated.h",
+            "c:\\users\\byron\\documents\\github\\i_love_vampires\\i_love_vampires_2\\source\\i_love_vampires_2\\unrealhelpers.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

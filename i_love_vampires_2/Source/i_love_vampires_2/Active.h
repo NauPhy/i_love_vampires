@@ -29,6 +29,10 @@ class Active {
 
 public:
 	Active() = delete;
+	Active(const Active& other) = delete;
+	Active(Active&& other);
+	Active& operator=(const Active& other) = delete;
+	Active& operator=(Active&& other);
 	Active(ACombatant* owner, const UWeaponTemplate* data);
 
 	void tick(float delta, const FVector& forward);
@@ -53,15 +57,15 @@ class I_LOVE_VAMPIRES_2_API UWeaponTemplate : public UBaseTemplate
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, Category = "WeaponTemplate")
+	UPROPERTY(EditAnywhere)
 	FString _name = "Active";
-	UPROPERTY(EditAnywhere, Category = "WeaponTemplate")
+	UPROPERTY(EditAnywhere)
 	bool _startOnCooldown = true;
-	UPROPERTY(EditAnywhere, Category = "WeaponTemplate")
+	UPROPERTY(EditAnywhere)
 	float _warmup = 1.f;
-	UPROPERTY(EditAnywhere, Category = "WeaponTemplate")
+	UPROPERTY(EditAnywhere)
 	EAttackType _attackType = static_cast<EAttackType>(0);
-	UPROPERTY(EditAnywhere, Instanced, Category = "WeaponTemplate")
+	UPROPERTY(EditAnywhere, Instanced)
 	TArray<UAttackTemplate*> _attackData;
 	UWeaponTemplate(const FObjectInitializer& init) : Super(init) {
 	}

@@ -30,6 +30,7 @@ class I_LOVE_VAMPIRES_2_API AMyPlayer : public ACombatant
 	void handleEnemyCollision(AEnemyBase* other);
 	bool isOutOfDeadzone(float, float) const;
 	void handleMovement(const FVector2D&);
+	//bool assetRefInitialise();
 
 public:
 	AMyPlayer();
@@ -40,4 +41,6 @@ public:
 	}
 	virtual void BeginPlay() override;
 	virtual void Tick(float delta) override;
+	// This is the last member function called before BeginPlay()
+	//virtual void PostInitializeComponents() override;
 };	

@@ -11,6 +11,11 @@ protected:
 	virtual void modifyAttributes(const CombatantAttributes* modifiers) {}
 
 public:
+	BaseAttributes() = default;
+	BaseAttributes(const BaseAttributes& other) = default;
+	BaseAttributes(BaseAttributes&& other) = default;
+	BaseAttributes& operator=(const BaseAttributes& other) = default;
+	BaseAttributes& operator=(BaseAttributes&& other) = default;
 	virtual void discretizeFull() = 0;
 	virtual void applyStatus(UObject* context, const FEffectStruct& status, float delta) = 0;
 	
@@ -28,13 +33,16 @@ public:
 	float _postbonus;
 	float _multiplier;
 	float _offset;
-	Stat();
+	Stat() = delete;
 	Stat(const Stat& other) : _final(other._final), _base(other._base), _prebonus(other._prebonus), _postbonus(other._postbonus), _multiplier(other._multiplier), _offset(other._offset) {}
 	Stat(Stat&& other) : _final(other._final), _base(other._base), _prebonus(other._prebonus), _postbonus(other._postbonus), _multiplier(other._multiplier), _offset(other._offset) {}
+	// copy and move deleted due to const member
+	Stat& operator=(const Stat& other) = delete;
+	Stat& operator=(Stat&& other) = delete;
 	Stat(float base) : _final(base), _base(base), _prebonus(0), _postbonus(0), _multiplier(0), _offset(0) {}
-	float calculateFinal() {
-		_final = (_base + _prebonus) * (1 + _multiplier) + _postbonus + _offset;
-		return _final;
+	static float calculateFinal(Stat& stat) {
+		stat._final = (stat._base + stat._prebonus) * (1 + stat._multiplier) + stat._postbonus + stat._offset;
+		return stat._final;
 	}
 	float getFinal() const {
 		return _final;
@@ -50,3 +58,4 @@ public:
 	}
 	void modify(float newVal);
 };
+

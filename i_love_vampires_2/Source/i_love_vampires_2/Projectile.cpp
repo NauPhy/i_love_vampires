@@ -18,7 +18,7 @@ namespace {
 	}
 }
 
-void AProjectile::initialise_AProjectile(ProjectileInitStruct& temp)
+void AProjectile::initialise_AProjectile(const ProjectileInitStruct& temp)
 {
 	initialise_AAttackActor(temp._attack);
 	_projectileConfig = temp._projectileConfig;
@@ -185,6 +185,8 @@ void ProjectileFactory::launchAttack(const FVector& forward) {
 FVector ProjectileFactory::launchAttack_fan_getDirection(const FVector& forward, int projectileIndex, int projectileCount) {	
 	float angle = 0;
 	const float tempSpread = _projectileAttributes.getMemberDiscretized(&ProjectileAttributes::_spread);
+	if (angle <= EPSILON)
+		return forward;
 	if (helpers::nearEq(1, projectileCount)) {
 		angle = FMath::FRandRange(-tempSpread / 2.0, tempSpread / 2.0);
 	}
@@ -205,8 +207,8 @@ void ProjectileFactory::launchAttack_fan(const FVector& forward) {
 		_directionX = direction.X;
 		_directionZ = direction.Z;
 
-		AProjectile* projectile = unrealHelpers::spawnActorOnTopOfMe<AProjectile>(_owner.Get());
-		if (!IsValid(projectile)) {
+		AProjectile* projectile = nullptr;
+		if (!unrealHelpers::spawnActorOnTopOfMeDeferred<AProjectile>(_owner.Get(), projectile)){
 			LOGERROR("AProjectileFactory::launchAttack_fan - failed to spawn projectile");
 			continue;
 		}
@@ -214,11 +216,112 @@ void ProjectileFactory::launchAttack_fan(const FVector& forward) {
 			ProjectileInitStruct temp = getProjectileInit();
 			projectile->initialise_AProjectile(temp);
 		}
+		unrealHelpers::finishDeferredSpawn<AProjectile>(_owner.Get(), projectile);
 	}
 }
 
+
+///////////////////////////////////////////////////////////////////////////////
+void ProjectileAttributes::applyToAllStats(const std::function<void(Stat&)>& func) {
+	func(_spread);
+	func(_radius);
+	func(_speed);
+	func(_range);
+	func(_pierce);
+	func(_bounce);
+	func(_projectileCount);
+}
+void ProjectileAttributes::discretizeFull() {
+	_pierce.discretize();
+	_bounce.discretize();
+	_projectileCount.discretize();
+}
+///////////////////////////////////////////////////////////////////////////////
 void ProjectileFactory::tick(float delta) {
 	const CombatantAttributes& temp = _owner->getAttributes();
 	_projectileAttributes.tick(delta, getStatusEffects(), &temp);
 	AttackFactory::tick(delta);
 }
+///////////////////////////////////////////////////////////////////////////////
+ProjectileAttributes::ProjectileAttributes(const ProjectileAttributes& other) :
+	BaseAttributes(other),
+	_spread(other._spread),
+	_radius(other._radius),
+	_speed(other._speed),
+	_range(other._range),
+	_pierce(other._pierce),
+	_bounce(other._bounce),
+	_projectileCount(other._projectileCount)
+{
+}
+ProjectileAttributes::ProjectileAttributes(ProjectileAttributes&& other) :
+	BaseAttributes(std::move(other)),
+	_spread(std::move(other._spread)),
+	_radius(std::move(other._radius)),
+	_speed(std::move(other._speed)),
+	_range(std::move(other._range)),
+	_pierce(std::move(other._pierce)),
+	_bounce(std::move(other._bounce)),
+	_projectileCount(std::move(other._projectileCount))
+{
+}
+//ProjectileAttributes& ProjectileAttributes::operator=(const ProjectileAttributes& other) {
+//	if (this != &other) {
+//		BaseAttributes::operator=(other);
+//		_spread = other._spread;
+//		_radius = other._radius;
+//		_speed = other._speed;
+//		_range = other._range;
+//		_pierce = other._pierce;
+//		_bounce = other._bounce;
+//		_projectileCount = other._projectileCount;
+//	}
+//	return *this;
+//}
+//ProjectileAttributes& ProjectileAttributes::operator=(ProjectileAttributes&& other) {
+//	if (this != &other) {
+//		BaseAttributes::operator=(std::move(other));
+//		_spread = std::move(other._spread);
+//		_radius = std::move(other._radius);
+//		_speed = std::move(other._speed);
+//		_range = std::move(other._range);
+//		_pierce = std::move(other._pierce);
+//		_bounce = std::move(other._bounce);
+//		_projectileCount = std::move(other._projectileCount);
+//	}
+//	return *this;
+//}
+
+ProjectileAttributes::ProjectileAttributes(const UProjectileAttributeData* attr) :
+	BaseAttributes(),
+	_spread(attr->_spread),
+	_radius(attr->_radius),
+	_speed(attr->_speed),
+	_range(attr->_range),
+	_pierce(attr->_pierce),
+	_bounce(attr->_bounce),
+	_projectileCount(attr->_projectileCount)
+{
+}
+///////////////////////////////////////////////////////////////////////////////
+
+ProjectileFactory::ProjectileFactory(ProjectileFactory&& other) :
+	AttackFactory(std::move(other)),
+	_projectileConfig(other._projectileConfig),
+	_projectileAttributes(std::move(other._projectileAttributes)),
+	_directionX(other._directionX),
+	_directionZ(other._directionZ)
+{
+	//other._projectileConfig = nullptr;
+}
+//ProjectileFactory& ProjectileFactory::operator=(ProjectileFactory&& other) {
+//	if (this != &other) {
+//		AttackFactory::operator=(std::move(other));
+//		_projectileConfig = other._projectileConfig;
+//		_projectileAttributes = std::move(other._projectileAttributes);
+//		_directionX = other._directionX;
+//		_directionZ = other._directionZ;
+//		other._projectileConfig = nullptr;
+//	}
+//	return *this;
+//}

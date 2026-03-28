@@ -6,7 +6,7 @@
 #include "PaperFlipbookComponent.h"
 #include "Engine/World.h"
 
-void AAttackActor::initialise_AAttackActor(AttackInitStruct& temp) {
+void AAttackActor::initialise_AAttackActor(const AttackInitStruct& temp) {
 	initialise_AAttackActor(temp._pawnRef, temp._attackConfig, temp._attackAttributes);
 }
 
@@ -102,8 +102,8 @@ void AttackAttributes::modifyAttributes(const CombatantAttributes* modifiers) {
 ///////////////////////////////////////////////////////////////////////////////
 
 void AttackFactory::launchAttack(const FVector& forward) {
-	AAttackActor* newAttack = unrealHelpers::spawnActorOnTopOfMe<AAttackActor>(_owner.Get());
-	if (!IsValid(newAttack)) {
+	AAttackActor* newAttack = nullptr;
+	if (!unrealHelpers::spawnActorOnTopOfMeDeferred<AAttackActor>(_owner.Get(), newAttack)){
 		LOGERROR("AAttackFactory::launchAttack - failed to create attack");
 		return;
 	}
@@ -111,12 +111,14 @@ void AttackFactory::launchAttack(const FVector& forward) {
 		AttackInitStruct temp = getAttackInit();
 		newAttack->initialise_AAttackActor(temp);
 	}
+	unrealHelpers::finishDeferredSpawn<AAttackActor>(_owner.Get(), newAttack);
 }
 
 AttackFactory::AttackFactory(
 	ACombatant* owner,
 	const UAttackConfig* config,
 	const UAttackAttributeData* data) :
+	BaseAttributeSet(),
 	_owner(owner),
 	_attackConfig(config),
 	_attackAttributes(owner, data)
@@ -133,6 +135,60 @@ void AttackFactory::tick(float delta) {
 	BaseAttributeSet::tick(delta);
 }
 
-AttackFactory::AttackFactory() {
-	LOGERROR("AttackFactory::AttackFactory - default constructor should not be used");
+//AttackFactory::AttackFactory() {
+//	LOGERROR("AttackFactory::AttackFactory - default constructor should not be used");
+//}
+//
+//AttackAttributes::AttackAttributes() {
+//	LOGERROR("AttackAttributes::AttackAttributes - default constructor should not be used");
+//}
+
+//template stuff
+//AttackFactory::AttackFactory(const AttackFactory& other) : 
+//	//shallow copy
+//	_attackConfig(other._attackConfig), 
+//	//normal copy (not ptr)
+//	_attackAttributes(other._attackAttributes),
+//	//shallow copy
+//	_owner(other._owner) {}
+
+//AttackAttributes& AttackAttributes::operator=(const AttackAttributes& other) {
+//	if (this != &other) {
+//		BaseAttributes::operator=(other);
+//		_damage = other._damage;
+//		_critChance = other._critChance;
+//		_critMultiplier = other._critMultiplier;
+//	}
+//	return *this;
+//}
+
+//AttackAttributes& AttackAttributes::operator=(AttackAttributes&& other) {
+//	if (this != &other) {
+//		BaseAttributes::operator=(std::move(other));
+//		_damage = std::move(other._damage);
+//		_critChance = std::move(other._critChance);
+//		_critMultiplier = std::move(other._critMultiplier);
+//	}
+//	return *this;
+//}
+///////////////////////////////////////////////////////////////////////////////
+
+AttackFactory::AttackFactory(AttackFactory&& other) :
+	BaseAttributeSet(std::move(other)),
+	_attackConfig(other._attackConfig),
+	_attackAttributes(std::move(other._attackAttributes)),
+	_owner(other._owner)
+{
 }
+//AttackFactory& AttackFactory::operator=(AttackFactory&& other) {
+//	if (this != &other) {
+//		BaseAttributeSet::operator=(std::move(other));
+//		_attackConfig = other._attackConfig;
+//		_attackAttributes = std::move(other._attackAttributes);
+//		_owner = other._owner;
+//		other._attackConfig = nullptr;
+//		other._owner = nullptr;
+//	}
+//	return *this;
+//}
+//

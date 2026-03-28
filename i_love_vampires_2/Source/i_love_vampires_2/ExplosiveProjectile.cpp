@@ -4,7 +4,7 @@
 #include "Combatant.h"
 #include "unrealHelpers.h"
 
-void AExplosiveProjectile::initialise_AExplosiveProjectile(ExplosiveProjectileInitStruct& temp) {
+void AExplosiveProjectile::initialise_AExplosiveProjectile(const ExplosiveProjectileInitStruct& temp) {
 	AProjectile::initialise_AProjectile(temp._projectile);
 	_AOE = temp._AOE;
 	_explosiveProjectileConfig = temp._explosiveProjectileConfig;
@@ -83,15 +83,15 @@ void ExplosiveProjectileFactory::launchAttack_fan(const FVector& forward) {
 		setDirectionX(direction.X);
 		setDirectionZ(direction.Z);
 		{
-			AAOE* aoe = unrealHelpers::spawnActorOnTopOfMe<AAOE>(_owner.Get());
-			if (!IsValid(aoe)) {
+			AAOE* aoe = nullptr;
+			if (!unrealHelpers::spawnActorOnTopOfMeDeferred<AAOE>(_owner.Get(), aoe)){
 				LOGERROR("AExplosiveProjectileFactory::launchAttack_fan - failed to spawn aoe");
 				return;
 			}
 			_tempAOE = TWeakObjectPtr<AAOE>(aoe);
 		}
-		AExplosiveProjectile* newAttack = unrealHelpers::spawnActorOnTopOfMe<AExplosiveProjectile>(_owner.Get());
-		if (!IsValid(newAttack)) {
+		AExplosiveProjectile* newAttack = nullptr;
+		if (!unrealHelpers::spawnActorOnTopOfMeDeferred<AExplosiveProjectile>(_owner.Get(), newAttack)){
 			LOGERROR("AExplosiveProjectileFactory::launchAttack_fan - failed to spawn explosive projectile");
 			// Important! GC will not collect this
 			_tempAOE->Destroy();
@@ -102,11 +102,13 @@ void ExplosiveProjectileFactory::launchAttack_fan(const FVector& forward) {
 			AOEInitStruct temp = getAOEInit();
 			_tempAOE->initialise_AAOE(temp);
 		}
+		unrealHelpers::finishDeferredSpawn(_owner.Get(),_tempAOE.Get());
 		{
 			ExplosiveProjectileInitStruct temp = getExplosiveProjectileInit();
 			newAttack->initialise_AExplosiveProjectile(temp);
 		}
 		_tempAOE = nullptr;
+		unrealHelpers::finishDeferredSpawn<AExplosiveProjectile>(_owner.Get(), newAttack);
 	}
 }
 
@@ -130,3 +132,44 @@ void ExplosiveProjectileFactory::tick(float delta) {
 	_AOEAttributes.tick(delta, getStatusEffects(), &temp);
 	ProjectileFactory::tick(delta);
 }
+
+///////////////////////////////////////////////////////////////////////////////
+//ExplosiveProjectileAttributes& ExplosiveProjectileAttributes::operator=(const ExplosiveProjectileAttributes& other) {
+//	if (this == &other)
+//		return *this;
+//	BaseAttributes::operator=(other);
+//	return *this;
+//}
+//ExplosiveProjectileAttributes& ExplosiveProjectileAttributes::operator=(ExplosiveProjectileAttributes&& other) {
+//	if (this == &other)
+//		return *this;
+//	BaseAttributes::operator=(std::move(other));
+//	return *this;
+//}
+///////////////////////////////////////////////////////////////////////////////
+ExplosiveProjectileFactory::ExplosiveProjectileFactory(ExplosiveProjectileFactory&& other) :
+	ProjectileFactory(std::move(other)),
+	_explosiveProjectileConfig(other._explosiveProjectileConfig),
+	_explosiveProjectileAttributes(std::move(other._explosiveProjectileAttributes)),
+	_AOEConfig(other._AOEConfig),
+	_AOEAttributes(std::move(other._AOEAttributes)),
+	_tempAOE(other._tempAOE)
+{
+	//other._AOEConfig = nullptr;
+	//other._explosiveProjectileConfig = nullptr;
+	other._tempAOE = nullptr;
+}
+//ExplosiveProjectileFactory& ExplosiveProjectileFactory::operator=(ExplosiveProjectileFactory&& other) {
+//	if (this == &other)
+//		return *this;
+//	ProjectileFactory::operator=(std::move(other));
+//	_explosiveProjectileConfig = other._explosiveProjectileConfig;
+//	_explosiveProjectileAttributes = std::move(other._explosiveProjectileAttributes);
+//	_AOEConfig = other._AOEConfig;
+//	_AOEAttributes = std::move(other._AOEAttributes);
+//	_tempAOE = other._tempAOE;
+//	other._AOEConfig = nullptr;
+//	other._explosiveProjectileConfig = nullptr;
+//	other._tempAOE = nullptr;
+//	return *this;
+//}

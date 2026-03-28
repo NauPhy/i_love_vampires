@@ -10,9 +10,27 @@
 #include "Camera/CameraComponent.h"
 #include "Definitions.h"
 
+//void AMyPlayer::PostInitializeComponents() {
+//	Super::PostInitializeComponents();
+//}
+//
+//bool AMyPlayer::assetRefInitialise() {
+//	UAssetRefs* refs = nullptr;
+//	if (!MyGameplayStatics::getAssetRefs(this, refs)) {
+//		LOGERROR("AMyPlayer::assetRefInitialise - failed to get asset refs");
+//		return false;
+//	}
+//	const UCombatantTemplate* playerTemplate = refs->getBasePlayerTemplate();
+//	if (!IsValid(playerTemplate)) {
+//		LOGERROR("AMyPlayer::assetRefInitialise - failed to get player template");
+//		return false;
+//	}
+//	initialise_AMyPlayer(playerTemplate);
+//	return true;
+//}
 
 AMyPlayer::AMyPlayer() : ACombatant() {
-	AutoPossessPlayer = EAutoReceiveInput::Player0;
+	//AutoPossessPlayer = EAutoReceiveInput::Player0;
 	_camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	if (!IsValid(_camera)) {
 		LOGERROR("AMyPlayer::AMyPlayer - _camera creation failed");
@@ -108,6 +126,10 @@ void AMyPlayer::initialise_AMyPlayer(const UCombatantTemplate* data) {
 }
 
 void AMyPlayer::BeginPlay() {
+	//if (!assetRefInitialise()) {
+	//	LOGERROR("AMyPlayer::BeginPlay - assetRefInitialise failed");
+	//	return;
+	//}
 	ACombatant::BeginPlay();
 	if (!addKeyboardContext())
 		return;

@@ -35,17 +35,12 @@ protected:
 public:
 	AExplosiveProjectile() : AProjectile() {}
 
-	void initialise_AExplosiveProjectile(ExplosiveProjectileInitStruct& temp);
+	void initialise_AExplosiveProjectile(const ExplosiveProjectileInitStruct& temp);
 	virtual void BeginPlay() override;
 
 	const AAOE* getAOE() const { return _AOE; }
 };
-struct ExplosiveProjectileInitStruct {
-	ProjectileInitStruct _projectile;
-	AAOE* _AOE;
-	const UExplosiveProjectileConfig* _explosiveProjectileConfig;
-	const ExplosiveProjectileAttributes& _explosiveProjectileAttributes;
-};
+
 ///////////////////////////////////////////////////////////////////////////////
 
 UCLASS(BlueprintType, EditInlineNew)
@@ -71,11 +66,23 @@ public:
 class ExplosiveProjectileAttributes : public BaseAttributes {
 public:
 	ExplosiveProjectileAttributes() = delete;
-	ExplosiveProjectileAttributes(const UExplosiveProjectileAttributeData* data) {}
+	ExplosiveProjectileAttributes(const ExplosiveProjectileAttributes& other) : BaseAttributes(other) {}
+	ExplosiveProjectileAttributes(ExplosiveProjectileAttributes&& other) : BaseAttributes(std::move(other)) {}
+	ExplosiveProjectileAttributes& operator=(const ExplosiveProjectileAttributes& other) = delete;
+	ExplosiveProjectileAttributes& operator=(ExplosiveProjectileAttributes&& other) = delete;
+	ExplosiveProjectileAttributes(const UExplosiveProjectileAttributeData* data) : BaseAttributes() {}
 	virtual void modifyAttributes(const CombatantAttributes* modifiers) override {}
 	virtual void discretizeFull() override {}
 	virtual void applyStatus(UObject* context, const FEffectStruct& status, float delta) override {}
 	virtual void applyToAllStats(const std::function<void(Stat&)>& func) override {}
+};
+///////////////////////////////////////////////////////////////////////////////
+
+struct ExplosiveProjectileInitStruct {
+	ProjectileInitStruct _projectile;
+	AAOE* _AOE;
+	const UExplosiveProjectileConfig* _explosiveProjectileConfig;
+	const ExplosiveProjectileAttributes _explosiveProjectileAttributes;
 };
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -84,17 +91,19 @@ class ExplosiveProjectileFactory : public ProjectileFactory
 	TWeakObjectPtr<AAOE> _tempAOE = nullptr;
 
 protected:
-	TObjectPtr<const UExplosiveProjectileConfig> _explosiveProjectileConfig = nullptr;
+	const TObjectPtr<const UExplosiveProjectileConfig> _explosiveProjectileConfig = nullptr;
 	BaseAttributeWrapper<ExplosiveProjectileAttributes, UExplosiveProjectileAttributeData> _explosiveProjectileAttributes;
-	TObjectPtr<const UAOEConfig> _AOEConfig = nullptr;
+	const TObjectPtr<const UAOEConfig> _AOEConfig = nullptr;
 	BaseAttributeWrapper<AOEAttributes, UAOEAttributeData> _AOEAttributes;
 
 	ExplosiveProjectileInitStruct getExplosiveProjectileInit() const;
 	AOEInitStruct getAOEInit() const;
 public:
-	virtual void launchAttack(const FVector& forward) override;
-	virtual void launchAttack_fan(const FVector& forward) override;
 	ExplosiveProjectileFactory() = delete;
+	ExplosiveProjectileFactory(const ExplosiveProjectileFactory& other) = delete;
+	ExplosiveProjectileFactory& operator=(const ExplosiveProjectileFactory& other) = delete;
+	ExplosiveProjectileFactory(ExplosiveProjectileFactory&& other);
+	ExplosiveProjectileFactory& operator=(ExplosiveProjectileFactory&& other) = delete;
 	ExplosiveProjectileFactory(
 		ACombatant*,
 		const UAttackConfig*,
@@ -106,6 +115,8 @@ public:
 		const UAOEConfig*,
 		const UAOEAttributeData*);
 	virtual void tick(float delta) override;
+	virtual void launchAttack(const FVector& forward) override;
+	virtual void launchAttack_fan(const FVector& forward) override;
 };
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -114,13 +125,13 @@ class I_LOVE_VAMPIRES_2_API UExplosiveProjectileTemplate : public UProjectileTem
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, Instanced, Category = "UExplosiveProjectileFactoryTemplate")
+	UPROPERTY(EditAnywhere, Instanced)
 	UExplosiveProjectileConfig* _explosiveProjectileConfig;
-	UPROPERTY(EditAnywhere, Instanced, Category = "UExplosiveProjectileFactoryTemplate")
+	UPROPERTY(EditAnywhere, Instanced)
 	UExplosiveProjectileAttributeData* _explosiveProjectileAttributes;
-	UPROPERTY(EditAnywhere, Instanced, Category = "UExplosiveProjectileFactoryTemplate")
+	UPROPERTY(EditAnywhere, Instanced)
 	UAOEConfig* _AOEConfig;
-	UPROPERTY(EditAnywhere, Instanced, Category = "UExplosiveProjectileFactoryTemplate")
+	UPROPERTY(EditAnywhere, Instanced)
 	UAOEAttributeData* _AOEAttributes;
 
 	UExplosiveProjectileTemplate(const FObjectInitializer& init) : Super(init) {
@@ -130,3 +141,4 @@ public:
 		_AOEAttributes = init.CreateDefaultSubobject<UAOEAttributeData>(this, "_AOEAttributes");
 	}
 };
+

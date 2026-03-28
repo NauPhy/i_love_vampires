@@ -58,3 +58,26 @@ Active::Active(ACombatant* owner, const UWeaponTemplate* rawData) : _owner(owner
 	//warmup
 	_chargeRatio = _weaponTemplate->_startOnCooldown ? 0 : 1;
 }
+
+//template stuff
+Active::Active(Active&& other) :
+	_chargeRatio(other._chargeRatio),
+	_factories(std::move(other._factories)),
+	_owner(other._owner),
+	_weaponTemplate(other._weaponTemplate)
+{
+	other._owner = nullptr;
+	other._weaponTemplate = nullptr;
+}
+
+Active& Active::operator=(Active&& other) {
+	if (this != &other) {
+		_chargeRatio = other._chargeRatio;
+		_factories = std::move(other._factories);
+		_owner = other._owner;
+		_weaponTemplate = other._weaponTemplate;
+		other._owner = nullptr;
+		other._weaponTemplate = nullptr;
+	}
+	return *this;
+}
