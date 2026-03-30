@@ -66,8 +66,7 @@ bool UEnemySpawner::spawnEnemy(const FVector& spawnLocation, const UCombatantTem
 	return true;
 }
 
-
-void UEnemySpawner::Tick(float DeltaTime) {
+void UEnemySpawner::tick(float DeltaTime) {
 	if (!_gameReady)
 		return;
 	const float time = GetWorld()->TimeSeconds;
@@ -77,4 +76,3 @@ void UEnemySpawner::Tick(float DeltaTime) {
 	spawnTestEnemy(newEnemy);
 	_nextTick += 5.f;
 }
-

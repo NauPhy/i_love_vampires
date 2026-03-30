@@ -269,6 +269,12 @@
     <ClCompile Include="..\..\Source\i_love_vampires_2\EffectStruct.cpp">
       <Filter>Source\i_love_vampires_2\NewGAS\Status Effects</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\CombatGameModeBase.cpp">
+      <Filter>Source\i_love_vampires_2\WorldSubsystems</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\Definitions.cpp">
+      <Filter>Source\i_love_vampires_2\Admin</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\i_love_vampires_2\Combatant.h">
@@ -351,6 +357,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\EffectStruct.h">
       <Filter>Source\i_love_vampires_2\NewGAS\Status Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\CombatGameModeBase.h">
+      <Filter>Source\i_love_vampires_2\WorldSubsystems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

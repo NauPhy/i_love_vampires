@@ -16,7 +16,7 @@
                                     "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/ExplosiveProjectile.cpp"
                                 },
                                 "region": {
-                                    "startLine": 153,
+                                    "startLine": 155,
                                     "startColumn": 2,
                                     "snippet": {
                                         "text": "\t_AOEAttributes(std::move(other._AOEAttributes)),"

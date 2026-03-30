@@ -17,11 +17,11 @@ class I_LOVE_VAMPIRES_2_API AEnemyBase : public ACombatant
 
 protected:
 	void persuePlayer(float);
+	virtual void onKilled() override;
 
 public:
 	AEnemyBase();
 	virtual void BeginPlay() override;
-	virtual void EndPlay(EEndPlayReason::Type EndPlayReason) override;
 	virtual void Tick(float delta) override;
 	void initialise_AEnemyBase(const UCombatantTemplate* temp) { initialise_ACombatant(temp); }
 	virtual void myInitialise(const UCombatantTemplate* temp) override { initialise_AEnemyBase(temp); }

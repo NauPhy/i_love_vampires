@@ -13,6 +13,7 @@ void EmptyLinkFunctionForGeneratedCodeExperienceShard() {}
 
 // ********** Begin Cross Module References ********************************************************
 ENGINE_API UClass* Z_Construct_UClass_AActor();
+ENGINE_API UClass* Z_Construct_UClass_USphereComponent_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AExperienceShard();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AExperienceShard_NoRegister();
 PAPER2D_API UClass* Z_Construct_UClass_UPaperFlipbookComponent_NoRegister();
@@ -56,6 +57,10 @@ struct Z_Construct_UClass_AExperienceShard_Statics
 		{ "IncludePath", "ExperienceShard.h" },
 		{ "ModuleRelativePath", "ExperienceShard.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__collider_MetaData[] = {
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "ExperienceShard.h" },
+	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__flipbook_MetaData[] = {
 		{ "Category", "ExperienceShard" },
 		{ "EditInline", "true" },
@@ -64,6 +69,7 @@ struct Z_Construct_UClass_AExperienceShard_Statics
 #endif // WITH_METADATA
 
 // ********** Begin Class AExperienceShard constinit property declarations *************************
+	static const UECodeGen_Private::FObjectPropertyParams NewProp__collider;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__flipbook;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class AExperienceShard constinit property declarations ***************************
@@ -75,8 +81,10 @@ struct Z_Construct_UClass_AExperienceShard_Statics
 }; // struct Z_Construct_UClass_AExperienceShard_Statics
 
 // ********** Begin Class AExperienceShard Property Definitions ************************************
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AExperienceShard_Statics::NewProp__collider = { "_collider", nullptr, (EPropertyFlags)0x0040000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AExperienceShard, _collider), Z_Construct_UClass_USphereComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__collider_MetaData), NewProp__collider_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AExperienceShard_Statics::NewProp__flipbook = { "_flipbook", nullptr, (EPropertyFlags)0x00100000000a0009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AExperienceShard, _flipbook), Z_Construct_UClass_UPaperFlipbookComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__flipbook_MetaData), NewProp__flipbook_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AExperienceShard_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AExperienceShard_Statics::NewProp__collider,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AExperienceShard_Statics::NewProp__flipbook,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AExperienceShard_Statics::PropPointers) < 2048);
@@ -120,10 +128,10 @@ AExperienceShard::~AExperienceShard() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExperienceShard_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AExperienceShard, AExperienceShard::StaticClass, TEXT("AExperienceShard"), &Z_Registration_Info_UClass_AExperienceShard, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AExperienceShard), 3897641914U) },
+		{ Z_Construct_UClass_AExperienceShard, AExperienceShard::StaticClass, TEXT("AExperienceShard"), &Z_Registration_Info_UClass_AExperienceShard, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AExperienceShard), 398485880U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExperienceShard_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExperienceShard_h__Script_i_love_vampires_2_3347277935{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExperienceShard_h__Script_i_love_vampires_2_3748395035{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExperienceShard_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExperienceShard_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

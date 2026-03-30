@@ -1,14 +1,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Subsystems/WorldSubsystem.h"
+#include "UObject/Object.h"
 #include "CombatantManager.generated.h"
 class ACombatant;
 
 
 
-UCLASS()
-class I_LOVE_VAMPIRES_2_API UCombatantManager : public UTickableWorldSubsystem
+UCLASS(BlueprintType)
+class I_LOVE_VAMPIRES_2_API UCombatantManager : public UObject
 {
 	GENERATED_BODY()
 
@@ -17,18 +17,12 @@ class I_LOVE_VAMPIRES_2_API UCombatantManager : public UTickableWorldSubsystem
 	int _nextKey = 0;
 	bool _burnThisFrame = false;
 	float _burnTimer = 0.0f;
+	bool _gameReady = false;
 	UPROPERTY()
 	TMap<int, TWeakObjectPtr<ACombatant>> _enemyReferences;
 	UPROPERTY()
 	TWeakObjectPtr<ACombatant> _playerRef = nullptr;
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UCombatantManager")
-	bool _gameReady = false;
-
-	FORCEINLINE TStatId GetStatId() const
-	{
-		RETURN_QUICK_DECLARE_CYCLE_STAT(UCombatantManager, STATGROUP_Tickables);
-	}
 	UCombatantManager() = default;
 	void setPlayerRef(ACombatant* playerRef);
 	int registerEnemy(ACombatant* enemy);
@@ -36,9 +30,8 @@ public:
 	int getEnemyCount() { return _enemyReferences.Num(); }
 	bool getRandomEnemyPtr(TWeakObjectPtr<ACombatant>& ret);
 	bool getBurnThisFrame() const { return _burnThisFrame; }
-
-protected:
-	virtual void Tick(float DeltaTime) override;
+	virtual void tick(float DeltaTime);
+	void setGameReady(bool val) { _gameReady = val; }
 
 private:
 	void burnAll();

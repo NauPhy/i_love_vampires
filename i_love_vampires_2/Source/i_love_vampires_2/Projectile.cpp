@@ -40,30 +40,51 @@ void AProjectile::BeginPlay() {
 	SetActorScale3D(currentScale * _projectileAttributes->_radius.getFinal());
 }
 
-void AProjectile::performSweep(const FVector& startPos, const FVector& endPos, TArray<struct FHitResult>& OutHits) {
-	FCollisionObjectQueryParams params;
-	params.AddObjectTypesToQuery(ECC_Pawn);
-	FCollisionQueryParams params2;
-	params2.AddIgnoredActor(this);
-	if (_pawnRef.IsValid())
-		params2.AddIgnoredActor(_pawnRef.Get());
-	for (const auto& tempPawn : _effectedPawns) {
-		if (!tempPawn.IsValid())
-			continue;
-		if (tempPawn.Get() != nullptr)
-			params2.AddIgnoredActor(tempPawn.Get());
-	}
-	UWorld* world = GetWorld();
-	if (!IsValid(world)) {
-		LOGERROR("AProjectile::performSweep - world is invalid");
-		return;
-	}
+bool AProjectile::performSweep(const FVector& startPos, const FVector& endPos, TArray<struct FHitResult>& OutHits) {
+	FCollisionShape collisionShape;
 	if (_projectileConfig->_shape == _CIRCLE) {
-		world->SweepMultiByObjectType(OutHits, startPos, endPos, FQuat::Identity, params, FCollisionShape::MakeSphere(_projectileAttributes->_radius.getFinal()), params2);
+		collisionShape = FCollisionShape::MakeSphere(_projectileAttributes->_radius.getFinal());
 	}
 	else {
 		LOGERROR("AProjectile::performSweep - shape not implemented");
 	}
+	//Inefficient
+	TArray<const APawn*> tempArr;
+	for (const auto& tempPawn : _effectedPawns) {
+		if (!tempPawn.IsValid())
+			continue;
+		tempArr.Add(tempPawn.Get());
+	}
+	if (_pawnRef.IsValid())
+		tempArr.Add(_pawnRef.Get());
+	if (!unrealHelpers::performSweepAtPawn(this, startPos, endPos, collisionShape, OutHits, tempArr)) {
+		LOGERROR("AProjectile::performSweep - performSweepAtPawn failed");
+		return false;
+	}
+	return true;
+	//FCollisionObjectQueryParams params;
+	//params.AddObjectTypesToQuery(ECC_Pawn);
+	//FCollisionQueryParams params2;
+	//params2.AddIgnoredActor(this);
+	//if (_pawnRef.IsValid())
+	//	params2.AddIgnoredActor(_pawnRef.Get());
+	//for (const auto& tempPawn : _effectedPawns) {
+	//	if (!tempPawn.IsValid())
+	//		continue;
+	//	if (tempPawn.Get() != nullptr)
+	//		params2.AddIgnoredActor(tempPawn.Get());
+	//}
+	//UWorld* world = GetWorld();
+	//if (!IsValid(world)) {
+	//	LOGERROR("AProjectile::performSweep - world is invalid");
+	//	return;
+	//}
+	//if (_projectileConfig->_shape == _CIRCLE) {
+	//	world->SweepMultiByObjectType(OutHits, startPos, endPos, FQuat::Identity, params, FCollisionShape::MakeSphere(_projectileAttributes->_radius.getFinal()), params2);
+	//}
+	//else {
+	//	LOGERROR("AProjectile::performSweep - shape not implemented");
+	//}
 }
 
 void AProjectile::handleSweepResults(const TArray<struct FHitResult>& hits) {
@@ -114,7 +135,7 @@ void AProjectile::executeBounce() {
 		}
 	}
 	if (!newTarget.IsValid()) {
-		LOGERROR("AProjectile::executeBounce - bullet could not find new target to bounce to")
+		LOGERROR("AProjectile::executeBounce - bullet could not find new target to bounce to");
 		bulletDeath();
 		return;
 	}
@@ -135,7 +156,8 @@ void AProjectile::Tick(float delta) {
 	FVector start = GetActorLocation();
 	FVector end = start + FVector(_directionX, 0, _directionZ) * _projectileAttributes->_speed.getFinal() * delta;
 	TArray<struct FHitResult> OutHits;
-	performSweep(start, end, OutHits);
+	if (!performSweep(start, end, OutHits))
+		return;
 	handleSweepResults(OutHits);
 
 	FHitResult* throwaway = nullptr;

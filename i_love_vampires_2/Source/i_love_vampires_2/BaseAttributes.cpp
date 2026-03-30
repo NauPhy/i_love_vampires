@@ -16,6 +16,16 @@ void Stat::modify(float newVal) {
 	_softReset = false;
 }
 
+void Stat::softReset(Stat& stat) {
+	stat._prebonus = 0;
+	stat._postbonus = 0;
+	stat._multiplier = 0;
+	// The starting value of a Stat each frame is set by ModifyAttributes. Setting _final=_base is
+	// just default behaviour for subclasses that implement ModifyAttributes as noop.
+	stat._final = stat._base;
+	stat._softReset = true;
+}
+
 void BaseAttributes::tick(UObject* context, float delta, const TArray<FEffectStruct>& statusEffects, const CombatantAttributes* modifiers) {
 	applyToAllStats(Stat::softReset);
 	modifyAttributes(modifiers);

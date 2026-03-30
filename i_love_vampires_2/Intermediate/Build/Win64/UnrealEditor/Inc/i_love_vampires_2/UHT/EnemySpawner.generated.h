@@ -20,18 +20,18 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 struct Z_Construct_UClass_UEnemySpawner_Statics;
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UEnemySpawner_NoRegister();
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h_13_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h_12_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUEnemySpawner(); \
 	friend struct ::Z_Construct_UClass_UEnemySpawner_Statics; \
 	static UClass* GetPrivateStaticClass(); \
 	friend I_LOVE_VAMPIRES_2_API UClass* ::Z_Construct_UClass_UEnemySpawner_NoRegister(); \
 public: \
-	DECLARE_CLASS2(UEnemySpawner, UTickableWorldSubsystem, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_UEnemySpawner_NoRegister) \
+	DECLARE_CLASS2(UEnemySpawner, UObject, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_UEnemySpawner_NoRegister) \
 	DECLARE_SERIALIZER(UEnemySpawner)
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h_13_ENHANCED_CONSTRUCTORS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h_12_ENHANCED_CONSTRUCTORS \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	UEnemySpawner(UEnemySpawner&&) = delete; \
 	UEnemySpawner(const UEnemySpawner&) = delete; \
@@ -41,12 +41,12 @@ public: \
 	NO_API virtual ~UEnemySpawner();
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h_10_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h_13_GENERATED_BODY \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h_9_PROLOG
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h_12_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h_13_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h_13_ENHANCED_CONSTRUCTORS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h_12_INCLASS_NO_PURE_DECLS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h_12_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

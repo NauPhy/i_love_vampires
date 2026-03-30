@@ -7,8 +7,11 @@ class UGameInstance;
 class UAssetRefs;
 class UCombatantManager;
 class USpriteManager;
+class ACombatGameModeBase;
 
 class MyGameplayStatics {
+
+	static bool getCombatGameMode(const UObject* caller, ACombatGameModeBase*& ret);
 public:
 	static bool myGetEnhancedInputLocalPlayerSubsystem(const UObject* caller, UEnhancedInputLocalPlayerSubsystem*&);
 	static bool myGetPlayerController(const UObject* caller, APlayerController*&);

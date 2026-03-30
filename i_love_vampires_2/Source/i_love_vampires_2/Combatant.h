@@ -46,6 +46,7 @@ protected:
 	void lookAtDirection(float x, float y);
 	virtual void onCurrentHPChanged(float oldHP, float newHP);
 	static void exchangeContactDamage(ACombatant* left, ACombatant* right);
+	virtual void onKilled() { Destroy(); }
 
 	const UCombatantConfig* getConfig() const { return _config.Get(); }
 
@@ -188,8 +189,8 @@ public:
 	FString _name = "Combatant";
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	ESprite _sprite = static_cast<ESprite>(0);
-	UPROPERTY(EditAnywhere, Instanced, BlueprintReadOnly)
-	TArray<UWeaponTemplate*> _startingWeapons;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TArray<TObjectPtr<UWeaponTemplate>> _startingWeapons;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TSubclassOf<ACombatant> _combatantClass = ACombatant::StaticClass();
 

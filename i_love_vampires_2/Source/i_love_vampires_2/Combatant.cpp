@@ -60,7 +60,7 @@ void ACombatant::EndPlay(EEndPlayReason::Type EndPlayReason)
 void ACombatant::onCurrentHPChanged(float oldVal, float newVal)
 {
 	if (newVal <= 0.0f) {
-		Destroy();
+		onKilled();
 	}
 }
 void ACombatant::Tick(float DeltaTime) {

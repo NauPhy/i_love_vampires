@@ -1,4 +1,5 @@
 #pragma once
+#include "CoreMinimal.h"
 
 #define ATTRIBUTE_ACCESSORS(ClassName, PropertyName) \
 	GAMEPLAYATTRIBUTE_PROPERTY_GETTER(ClassName, PropertyName) \
@@ -9,6 +10,4 @@
 #define EPSILON 0.0001f
 //#define PI 3.14159265359f
 
-#define LOGERROR(inputString) \
-	UE_LOG(LogTemp, Warning, TEXT(inputString))\
-	checkSlow(false);
+void LOGERROR(const char* inputString);

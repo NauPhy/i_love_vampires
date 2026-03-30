@@ -24,7 +24,6 @@ class I_LOVE_VAMPIRES_2_API AMyPlayer : public ACombatant
 	bool addKeyboardContext();
 	UFUNCTION()
 	void onOverlapBegin(AActor* left, AActor* right);
-	void handleExperienceShardCollision(AExperienceShard* other);
 	void addExperience(float);
 	void levelUp();
 	void handleEnemyCollision(AEnemyBase* other);
@@ -41,6 +40,7 @@ public:
 	}
 	virtual void BeginPlay() override;
 	virtual void Tick(float delta) override;
+	void handleExperienceShardCollision(AExperienceShard* other);
 	// This is the last member function called before BeginPlay()
 	//virtual void PostInitializeComponents() override;
 };	

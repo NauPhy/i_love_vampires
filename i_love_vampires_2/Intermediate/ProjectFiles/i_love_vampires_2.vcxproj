@@ -540,6 +540,8 @@
     <ClCompile Include="..\..\Source\i_love_vampires_2\BaseAttributeWrapper.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\BaseConfig.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\BaseConfig.h" />
+    <ClCompile Include="..\..\Source\i_love_vampires_2\CombatGameModeBase.cpp" />
+    <ClCompile Include="..\..\Source\i_love_vampires_2\Definitions.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\EffectStruct.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\ExperienceShard.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\helpers.cpp" />
@@ -556,6 +558,7 @@
     <ClInclude Include="..\..\Source\i_love_vampires_2\BaseTemplate.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\AOEEnum.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\AssetRefs.h" />
+    <ClInclude Include="..\..\Source\i_love_vampires_2\CombatGameModeBase.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\EffectStruct.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\helpers.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\ProjectileEnum.h" />

@@ -18,19 +18,14 @@ void AEnemyBase::BeginPlay() {
 	_registerKey = combatantManager->registerEnemy(this);
 }
 
-void AEnemyBase::EndPlay(EEndPlayReason::Type EndPlayReason) {
-	auto end = [this, EndPlayReason]() {
-		Super::EndPlay(EndPlayReason);
+void AEnemyBase::onKilled() {
+	auto end = [this]() {
+		Super::onKilled();
 		return;
 		};
-	UWorld* world = GetWorld();
-	if (!world) {
-		LOGERROR("EnemyBase::EndPlay - failed to get world");
-		end();
-	}
-	UCombatantManager* subsystem = world->GetSubsystem<UCombatantManager>();
-	if (!subsystem) {
-		LOGERROR("EnemyBase::EndPlay - failed to get CombatantManager subsystem");
+	UCombatantManager* subsystem = nullptr;
+	if (!MyGameplayStatics::getCombatantManager(this, subsystem)) {
+		LOGERROR("EnemyBase::onKilled - failed to get combatant manager");
 		end();
 	}
 	subsystem->removeFromRegister(_registerKey);

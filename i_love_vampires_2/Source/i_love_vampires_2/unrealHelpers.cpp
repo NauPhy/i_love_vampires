@@ -5,6 +5,7 @@
 #include "GameFramework/Actor.h"
 #include "Definitions.h"
 #include "Components/SceneComponent.h"
+#include "GameFramework/Pawn.h"
 
 bool unrealHelpers::initFlipbook(AActor* caller, ESprite sprite, UPaperFlipbookComponent*& flipbook) {
 	if (!IsValid(caller) || !IsValid(flipbook)) {
@@ -52,5 +53,34 @@ bool unrealHelpers::getActorSpawnTransform(AActor* caller, FTransform& ret) {
 	FRotator rot = caller->GetActorRotation();
 	FVector scale(1, 1, 1);
 	ret = FTransform(rot, location, scale);
+	return true;
+}
+
+bool unrealHelpers::performSweepAtPawn(UObject* caller, const FVector& startPos, const FVector& endPos, const FCollisionShape& shape, TArray<struct FHitResult>& OutHits, const TArray<const APawn*>& ignoredPawns) {
+	if (!IsValid(caller)) {
+		LOGERROR("unrealHelpers::performSweepAtPawn_Sphere - caller is not valid");
+		return false;
+	}
+	UWorld* world = caller->GetWorld();
+	if (!IsValid(world)) {
+		LOGERROR("unrealHelpers::performSweepAtPawn_internal - world is invalid");
+		return false;
+	}
+
+	FCollisionObjectQueryParams params;
+	params.AddObjectTypesToQuery(ECC_Pawn);
+	{
+		FCollisionQueryParams params2;
+		APawn* tempPawn = Cast<APawn>(caller);
+		if (IsValid(tempPawn))
+			params2.AddIgnoredActor(tempPawn);
+	}
+	FCollisionQueryParams params2;
+	for (const auto& tempPawn : ignoredPawns) {
+		if (IsValid(tempPawn))
+			params2.AddIgnoredActor(tempPawn);
+	}
+
+	world->SweepMultiByObjectType(OutHits, startPos, endPos, FQuat::Identity, params, shape, params2);
 	return true;
 }

@@ -33,7 +33,7 @@ protected:
 	std::unique_ptr<ProjectileAttributes> _projectileAttributes = nullptr;
 
 private:
-	void performSweep(const FVector&, const FVector&, TArray<struct FHitResult>&);
+	bool performSweep(const FVector&, const FVector&, TArray<struct FHitResult>&);
 	void executeBounce();
 
 protected:
@@ -76,13 +76,13 @@ class I_LOVE_VAMPIRES_2_API UProjectileAttributeData : public UBaseAttributeData
 	GENERATED_BODY()
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _spread = 1.f;
+	float _spread = -1.f;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float _radius = 1.f;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _speed = 1.f;
+	float _speed = 200.f;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _range = 1.f;
+	float _range = 1000.f;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float _pierce = 0.f;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)

@@ -1,9 +1,0 @@
-[24832:24472:0328/152249.932:WARNING:chrome_main_delegate.cc(745)] This is Chrome version 128.0.6613.138 (not a warning)
-[24832:17240:0328/152250.208:ERROR:google_update_settings.cc(265)] Failed opening key Software\Chromium to set usagestats; result: 5
-[24832:24472:0328/152250.327:WARNING:account_consistency_mode_manager.cc(77)] Desktop Identity Consistency cannot be enabled as no OAuth client ID and client secret have been configured.
-[24832:24472:0328/152254.728:WARNING:external_registry_loader_win.cc(232)] Error observing HKLM: 5
-[5812:25492:0328/152316.143:ERROR:frame_impl.cc(537)] frame 6-DE46894C7A864A1398C9ED297EAF95F8 connection timeout
-[5812:25492:0328/152327.159:ERROR:frame_impl.cc(537)] frame 6-DE46894C7A864A1398C9ED297EAF95F8 connection timeout
-[5812:25492:0328/152338.176:ERROR:frame_impl.cc(537)] frame 6-DE46894C7A864A1398C9ED297EAF95F8 connection timeout
-[5812:25492:0328/152349.193:ERROR:frame_impl.cc(537)] frame 6-DE46894C7A864A1398C9ED297EAF95F8 connection timeout
-[5812:25492:0328/152349.193:FATAL:frame_impl.cc(648)] frame 6-DE46894C7A864A1398C9ED297EAF95F8 connection retry failed (reason=CONNECT_TIMEOUT, current_state=CONNECTION_PENDING)

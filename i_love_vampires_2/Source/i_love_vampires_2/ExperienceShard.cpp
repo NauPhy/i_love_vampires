@@ -2,6 +2,8 @@
 #include "unrealHelpers.h"
 #include "PaperFlipbookComponent.h"
 #include "MyPlayer.h"
+#include "Components/SphereComponent.h"
+#include "Definitions.h"
 
 void AExperienceShard::suicide() {
 	Destroy();
@@ -22,15 +24,16 @@ AExperienceShard::AExperienceShard() {
 			LOGERROR("AExperienceShard::AExperienceShard - failed to construct flipbook");
 			return;
 		}
+		SetActorScale3D(FVector(_SIZE_MULTIPLIER, _SIZE_MULTIPLIER, _SIZE_MULTIPLIER));
 		_flipbook->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 		_flipbook->SetCollisionResponseToChannel(ECollisionChannel::ECC_Pawn, ECollisionResponse::ECR_Overlap);
 		//Initialise flipbook as disabled
 		_flipbook->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	}
 	{
-		_collider = NewObject<USphereComponent>(this);
+		_collider = CreateDefaultSubobject<USphereComponent>(TEXT("Sphere"));
 		if (!IsValid(_collider)) {
-			LOGERRROR("AExperienceShard::AExperienceShard - failed to construct collider");
+			LOGERROR("AExperienceShard::AExperienceShard - _collider creation failed");
 			return;
 		}
 		_collider->InitSphereRadius(_MAGNETISM_RADIUS);
@@ -39,9 +42,8 @@ AExperienceShard::AExperienceShard() {
 		_collider->SetCollisionObjectType(ECC_WorldDynamic);
 		_collider->SetCollisionResponseToAllChannels(ECR_Ignore);
 		_collider->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
-		_collider->OnComponentBeginOverlap.AddDynamic(this, &AAOE::OnOverlapBegin);
-		_collider->RegisterComponent();
-		_collider->UpdateOverlaps();
+		// The actual physics collision is handled by Player.
+		/*_collider->OnComponentBeginOverlap.AddDynamic(this, &AAOE::OnOverlapBegin);*/
 	}
 }
 
@@ -63,7 +65,7 @@ void AExperienceShard::BeginPlay() {
 
 void AExperienceShard::Tick(float delta) {
 	Super::Tick(delta);
-	if (!_isMagnetised)
+	if (!_magnetismEnabled)
 		return;
 	accelerateTowardsPlayer(delta);
 }
@@ -75,26 +77,30 @@ void AExperienceShard::accelerateTowardsPlayer(float delta) {
 	}
 	const FVector myPos = GetActorLocation();
 	const FVector playerPos = _playerRef->GetActorLocation();
-
-
-
-	FVector start = GetActorLocation();
-	FVector end = start + FVector(_directionX, 0, _directionZ) * _projectileAttributes->_speed.getFinal() * delta;
+	const FVector difference = playerPos - myPos;
+	const FVector direction = difference.GetSafeNormal(EPSILON, FVector(1, 0, 0));
+	const FVector endPos = myPos + direction * _speed * delta;
+	// This block is one of two ways the experience shard can be collected by the player. To ensure that the shard doesn't teleport over the player, a sweep is performed, modelling the shard
+	// as a sphere. 
+	// The other way it can be collected is if the Player's sprite is overlapping the shard's sprite during AMyPlayer::Tick(float)
 	{
-		TArray<struct FHitResult> OutHits;
-		performSweep(myPos, playerPos, OutHits);
-		for (const FHitResult& hit : OutHits) {
-			if (!IsValid(hit.GetActor()))
-				continue;
-			if (hit.GetActor() == _playerRef.Get()) {
-				_playerRef->handleExperienceShardCollision(this);
+		{
+			TArray<struct FHitResult> OutHits;
+			if (!unrealHelpers::performSweepAtPawn(this, myPos, endPos, FCollisionShape::MakeSphere(_SPRITE_RADIUS), OutHits, {})) {
+				LOGERROR("AExperienceShard::accelerateTowardsPlayer - performSweepAtPawn failed");
 				return;
+			}
+			for (const FHitResult& hit : OutHits) {
+				if (!IsValid(hit.GetActor()))
+					continue;
+				if (hit.GetActor() == _playerRef.Get()) {
+					_playerRef->handleExperienceShardCollision(this);
+					return;
+				}
 			}
 		}
 	}
 	{
-		const FVector difference = playerPos - myPos;
-		const FVector direction = difference.Normalize();
 		const FVector displacement = direction * _speed * delta;
 		FHitResult* throwaway = nullptr;
 		AddActorWorldOffset(displacement, false, throwaway, ETeleportType::TeleportPhysics);
@@ -102,7 +108,7 @@ void AExperienceShard::accelerateTowardsPlayer(float delta) {
 	_speed += _ACCELERATION * delta;
 }
 
-AExperienceShard::beginMagnetism(AMyPlayer* player) {
+void AExperienceShard::beginMagnetism(AMyPlayer* player) {
 	if (!IsValid(player)) {
 		LOGERROR("AExperienceShard::beginMagnetism - player is not valid");
 		return;
@@ -110,6 +116,6 @@ AExperienceShard::beginMagnetism(AMyPlayer* player) {
 	_flipbook->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	_collider->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	_magnetismEnabled = true;
-	_playerRef = TWeakObjectPtr<APawn>(player);
+	_playerRef = TWeakObjectPtr<AMyPlayer>(player);
 	_speed = _STARTING_SPEED;
 }

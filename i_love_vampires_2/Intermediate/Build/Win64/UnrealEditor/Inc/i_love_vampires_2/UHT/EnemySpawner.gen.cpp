@@ -12,7 +12,7 @@ static_assert(!UE_WITH_CONSTINIT_UOBJECT, "This generated code can only be compi
 void EmptyLinkFunctionForGeneratedCodeEnemySpawner() {}
 
 // ********** Begin Cross Module References ********************************************************
-ENGINE_API UClass* Z_Construct_UClass_UTickableWorldSubsystem();
+COREUOBJECT_API UClass* Z_Construct_UClass_UObject();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UCombatantTemplate_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UEnemySpawner();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UEnemySpawner_NoRegister();
@@ -53,6 +53,7 @@ struct Z_Construct_UClass_UEnemySpawner_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
 		{ "IncludePath", "EnemySpawner.h" },
 		{ "ModuleRelativePath", "EnemySpawner.h" },
 	};
@@ -60,16 +61,10 @@ struct Z_Construct_UClass_UEnemySpawner_Statics
 		{ "Category", "EnemySpawner" },
 		{ "ModuleRelativePath", "EnemySpawner.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__gameReady_MetaData[] = {
-		{ "Category", "EnemySpawner" },
-		{ "ModuleRelativePath", "EnemySpawner.h" },
-	};
 #endif // WITH_METADATA
 
 // ********** Begin Class UEnemySpawner constinit property declarations ****************************
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__testEnemy;
-	static void NewProp__gameReady_SetBit(void* Obj);
-	static const UECodeGen_Private::FBoolPropertyParams NewProp__gameReady;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class UEnemySpawner constinit property declarations ******************************
 	static UObject* (*const DependentSingletons[])();
@@ -81,19 +76,13 @@ struct Z_Construct_UClass_UEnemySpawner_Statics
 
 // ********** Begin Class UEnemySpawner Property Definitions ***************************************
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UEnemySpawner_Statics::NewProp__testEnemy = { "_testEnemy", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UEnemySpawner, _testEnemy), Z_Construct_UClass_UCombatantTemplate_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__testEnemy_MetaData), NewProp__testEnemy_MetaData) };
-void Z_Construct_UClass_UEnemySpawner_Statics::NewProp__gameReady_SetBit(void* Obj)
-{
-	((UEnemySpawner*)Obj)->_gameReady = 1;
-}
-const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UEnemySpawner_Statics::NewProp__gameReady = { "_gameReady", nullptr, (EPropertyFlags)0x0010000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UEnemySpawner), &Z_Construct_UClass_UEnemySpawner_Statics::NewProp__gameReady_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__gameReady_MetaData), NewProp__gameReady_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UEnemySpawner_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UEnemySpawner_Statics::NewProp__testEnemy,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UEnemySpawner_Statics::NewProp__gameReady,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UEnemySpawner_Statics::PropPointers) < 2048);
 // ********** End Class UEnemySpawner Property Definitions *****************************************
 UObject* (*const Z_Construct_UClass_UEnemySpawner_Statics::DependentSingletons[])() = {
-	(UObject* (*)())Z_Construct_UClass_UTickableWorldSubsystem,
+	(UObject* (*)())Z_Construct_UClass_UObject,
 	(UObject* (*)())Z_Construct_UPackage__Script_i_love_vampires_2,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UEnemySpawner_Statics::DependentSingletons) < 16);
@@ -131,10 +120,10 @@ UEnemySpawner::~UEnemySpawner() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UEnemySpawner, UEnemySpawner::StaticClass, TEXT("UEnemySpawner"), &Z_Registration_Info_UClass_UEnemySpawner, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UEnemySpawner), 2430361615U) },
+		{ Z_Construct_UClass_UEnemySpawner, UEnemySpawner::StaticClass, TEXT("UEnemySpawner"), &Z_Registration_Info_UClass_UEnemySpawner, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UEnemySpawner), 2258791170U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h__Script_i_love_vampires_2_2607614379{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h__Script_i_love_vampires_2_1090124204{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemySpawner_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

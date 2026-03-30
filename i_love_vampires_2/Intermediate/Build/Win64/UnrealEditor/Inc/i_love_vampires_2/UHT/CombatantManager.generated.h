@@ -27,7 +27,7 @@ private: \
 	static UClass* GetPrivateStaticClass(); \
 	friend I_LOVE_VAMPIRES_2_API UClass* ::Z_Construct_UClass_UCombatantManager_NoRegister(); \
 public: \
-	DECLARE_CLASS2(UCombatantManager, UTickableWorldSubsystem, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_UCombatantManager_NoRegister) \
+	DECLARE_CLASS2(UCombatantManager, UObject, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_UCombatantManager_NoRegister) \
 	DECLARE_SERIALIZER(UCombatantManager)
 
 

@@ -10,6 +10,7 @@
 #include "Engine/World.h"
 #include "Engine/LocalPlayer.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "CombatGameModeBase.h"
 
 
 
@@ -87,14 +88,36 @@ bool MyGameplayStatics::getCombatantManager(const UObject* caller, UCombatantMan
 		LOGERROR("MyGameplayStatics::getCombatantManager - caller is not valid");
 		return false;
 	}
-	UWorld* world = caller->GetWorld();
-	if (!IsValid(world)) {
-		LOGERROR("ACombatant::getCombatantManager - world is invalid");
+	ACombatGameModeBase* gameMode = nullptr;
+	if (!getCombatGameMode(caller, gameMode)) {
 		return false;
 	}
-	ret = world->GetSubsystem<UCombatantManager>();
+	ret = gameMode->getCombatantManager();
 	if (!IsValid(ret)) {
-		LOGERROR("ACombatant::getCombatantManager - ret is invalid");
+		LOGERROR("MyGameplayStatics::getCombatantManager - ret is invalid");
+		return false;
+	}
+	return true;
+}
+
+bool MyGameplayStatics::getCombatGameMode(const UObject* caller, ACombatGameModeBase*& ret) {
+	if (!IsValid(caller)) {
+		LOGERROR("MyGameplayStatics::getCombatGameMode - caller is not valid");
+		return false;
+	}
+	UWorld* world = caller->GetWorld();
+	if (!IsValid(world)) {
+		LOGERROR("MyGameplayStatics::getCombatGameMode - world is invalid");
+		return false;
+	}
+	AGameModeBase* gameMode = world->GetAuthGameMode();
+	if (!IsValid(gameMode)) {
+		LOGERROR("MyGameplayStatics::getCombatGameMode - game mode is invalid");
+		return false;
+	}
+	ret = Cast<ACombatGameModeBase>(gameMode);
+	if (!IsValid(ret)) {
+		LOGERROR("MyGameplayStatics::getCombatGameMode - game mode is not combat game mode");
 		return false;
 	}
 	return true;

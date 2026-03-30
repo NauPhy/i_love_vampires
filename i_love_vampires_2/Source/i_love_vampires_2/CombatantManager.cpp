@@ -2,9 +2,10 @@
 #include "Combatant.h"
 #include "Math/UnrealMathUtility.h"
 #include "Definitions.h"
+#include "Engine/World.h"
+#include "CombatGameModeBase.h"
 
-
-void UCombatantManager::Tick(float delta) {
+void UCombatantManager::tick(float delta) {
 	if (!_gameReady)
 		return;
 	if (_burnTimer <= 0.0f)

@@ -1,0 +1,37 @@
+Name for game: Cut and Gun
+	*Pun of cut and run
+	*The primary image used to market the game (the centerpiece of most Steam images) could be a serious looking woman with a gun
+	in one hand and a sword in the other, commissioned
+	*Cons: Cut has a bit of a self harm connotation, and the game will most certainly feature self harm. Not only might this cause
+	subconscious prejudice from customers, it may lead to the game getting censored by various promotion algorithms.
+
+Note: Even if the name sucks I like this sytem.
+Gameplay theme- Cut and Gun
+	* Playing off the working title, most or all characters could have exactly 1 sword and 1 gun. Actives and possibly passives would then be
+	"slotted" into the weapons, perhaps as gems.
+	* The primary art for the game could feature gems in the weapons prominently.
+	* There's a lot of different avenues you could go with this:
+		-Current favorite: Every active has two forms- a sword form and a gun form. The sword form tends to be shorter range but better in some 
+		other way. You can choose where to slot it when you pick it up. Each weapon only has 3 slots, so you really need to use both.
+		-When you evolve the weapon, you can choose a new slot
+		-Each slot may give a specific bonus, e.g. sword slot 1 has +10% damage and sword slot 2 has +10% attack speed, and you can slot any 
+		active into either one.
+		-Sword and gun can also give special bonuses to all their slots
+		-Instead of choosing your weapons at the start, you can choose from a random subset early on, like equipment in Nova Drift or 
+		Dooley cores. At the very start, you have crappy generic weapons, so every option will be a direct upgrade (like Nova Drift)
+			-New weapons are unlockable through achievements and/or meta progression
+			-Allow reslots when you upgrade/swap the equipment
+		-Pitfalls-
+			-No upgradable bonuses that are specific to the gun or sword
+			-No achievements that rely on using specific weapons- other than the default set
+	* Some ideas for playable characters that interact with this system:
+		-Left handed- sword on the left, probably some other effect
+		-dual swords
+		-dual guns
+		-one armed- equipment selection pulls from both pools. 
+			-Could get bonus slots
+			-Could get bonus stats (like one armed in Brotato)
+			-Could get nothing and just be a challenge character (one armed in Brotato is already a challenge character tbh)
+	* Some ideas for weapon effects
+		-Bayonet - a gun that has 2 gun slots and a sword slot
+		-Gunblade - a sword that has 2 sword slots and a gun slot
