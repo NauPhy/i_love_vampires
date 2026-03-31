@@ -8,6 +8,9 @@
 #include "Definitions.h"
 #include <type_traits>
 #include "Kismet/GameplayStatics.h"
+#include "MyGameplayStatics.h"
+#include "DynamicAssetManager.h"
+#include "UObject/Class.h"
 class UPaperFlipbookComponent;
 class USceneComponent;
 
@@ -25,7 +28,34 @@ public:
 	template <typename T>
 	static bool finishDeferredSpawn(AActor* caller, T* spawnedActor);
 	static bool performSweepAtPawn(UObject* caller, const FVector& startPos, const FVector& endPos, const FCollisionShape& shape, TArray<struct FHitResult>& OutHits, const TArray<const APawn*>& ignoredPawns);
+	static bool isInvalidData(const UObject* obj) { return !IsValid(obj) || obj == nullptr; }
+	template<typename T>
+	static bool isInvalidData(const T& e);
+	template <typename T>
+	static bool isInvalidData(const TSubclassOf<T> val) { return val == nullptr; }
+	static bool isInvalidData(const FString& str) { str == "_invalid_"; }
+	template <typename T>
+	const T* getDynamicTemplate(UObject* caller, const T* diskTemplate);
 };
+
+template <typename T>
+bool unrealHelpers::isInvalidData(const T& e) {
+	static_assert(TIsEnum<T>::Value);
+
+	return static_cast<uint8>(e) == static_cast<uint8>(255);
+}
+
+template <typename T>
+const T* unrealHelpers::getDynamicTemplate(UObject* caller, const T* diskTemplate) {
+	static_assert(std::is_base_of_v<UBaseTemplate, T>, "T must be a subclass of UBaseTemplate");
+
+	UDynamicAssetManager* assetManager = nullptr;
+	if (!MyGameplayStatics::getDynamicAssetManager(caller, assetManager)) {
+		LOGERROR("unrealHelpers::getDynamicTemplate - failed to get asset manager");
+		return nullptr;
+	}
+	return assetManager->registerTemplate<T>(diskTemplate);
+}
 
 template<typename T>
 bool unrealHelpers::spawnActorOnTopOfMe(AActor* caller, T*& ret) {

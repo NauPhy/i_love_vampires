@@ -39,15 +39,20 @@ public:
 };
 ///////////////////////////////////////////////////////////////////////////////
 
-UCLASS(BlueprintType, EditInlineNew)
-class I_LOVE_VAMPIRES_2_API UWeaponConfig : public UBaseConfig
-{
-	GENERATED_BODY()
-
-public:
-	
-	UWeaponConfig(const FObjectInitializer& init) : Super(init) {}
-};
+//UCLASS(BlueprintType, EditInlineNew)
+//class I_LOVE_VAMPIRES_2_API UWeaponConfig : public UBaseConfig
+//{
+//	GENERATED_BODY()
+//
+//protected:
+//	virtual void replaceOverrides() override {
+//		// No members to replace
+//	}
+//
+//public:
+//	
+//	UWeaponConfig(const FObjectInitializer& init) : Super(init) {}
+//};
 ///////////////////////////////////////////////////////////////////////////////
 class UAttackTemplate;
 
@@ -56,17 +61,26 @@ class I_LOVE_VAMPIRES_2_API UWeaponTemplate : public UBaseTemplate
 {
 	GENERATED_BODY()
 
+	static const struct defaults {
+		FString _name = "Active";
+		bool _startOnCooldown = true;
+		float _warmup = 1.f;
+		EAttackType _attackType = static_cast<EAttackType>(0);
+		TArray<UAttackTemplate*> _attackData = {};
+	};
+
 public:
 	UPROPERTY(EditAnywhere)
-	FString _name = "Active";
+	FString _name = "_invalid_";
+	// cannot really be given a sentinel value
 	UPROPERTY(EditAnywhere)
 	bool _startOnCooldown = true;
 	UPROPERTY(EditAnywhere)
-	float _warmup = 1.f;
+	float _warmup = -999;
 	UPROPERTY(EditAnywhere)
-	EAttackType _attackType = static_cast<EAttackType>(0);
+	EAttackType _attackType = static_cast<EAttackType>(static_cast<uint8>(255));
 	UPROPERTY(EditAnywhere, Instanced)
-	TArray<UAttackTemplate*> _attackData;
-	UWeaponTemplate(const FObjectInitializer& init) : Super(init) {
-	}
+	TArray<UAttackTemplate*> _attackData = {};
+	UWeaponTemplate(const FObjectInitializer& init) : Super(init) {}
+	virtual void replaceOverrides() override;
 };

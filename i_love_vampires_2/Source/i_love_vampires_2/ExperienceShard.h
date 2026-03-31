@@ -13,13 +13,13 @@ class I_LOVE_VAMPIRES_2_API AExperienceShard : public AActor
 {
 	GENERATED_BODY()
 
-	const ESprite _DEFAULT_SPRITE = ESprite::testShard;
-	const float _MAGNETISM_RADIUS = 500;
-	const float _STARTING_SPEED = -500;
-	const float _ACCELERATION = 2500;
-	const float _SIZE_MULTIPLIER = 0.5f;
+	const static ESprite _DEFAULT_SPRITE = ESprite::testShard;
+	const static float _MAGNETISM_RADIUS = 500;
+	const static float _STARTING_SPEED = -500;
+	const static float _ACCELERATION = 2500;
+	const static float _SIZE_MULTIPLIER = 0.5f;
 	//afaik it's not possible to perform a sweep with the flipbook, so I model it as a sphere to guarantee that it doesn't teleport over the player. 
-	const float _SPRITE_RADIUS = 16;
+	const static float _SPRITE_RADIUS = 16;
 	
 	float _experienceValue = -1;
 	bool _magnetismEnabled = false;

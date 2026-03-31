@@ -14,6 +14,7 @@
 			"Combatant.gen.cpp.obj",
 			"CombatantManager.gen.cpp.obj",
 			"CombatGameModeBase.gen.cpp.obj",
+			"DynamicAssetManager.gen.cpp.obj",
 			"EffectStruct.gen.cpp.obj",
 			"EnemyBase.gen.cpp.obj",
 			"EnemySpawner.gen.cpp.obj",

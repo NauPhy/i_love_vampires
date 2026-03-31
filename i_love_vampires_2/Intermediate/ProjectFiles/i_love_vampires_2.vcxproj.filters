@@ -275,6 +275,9 @@
     <ClCompile Include="..\..\Source\i_love_vampires_2\Definitions.cpp">
       <Filter>Source\i_love_vampires_2\Admin</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\DynamicAssetManager.cpp">
+      <Filter>Source\i_love_vampires_2\GameInstanceSubsystems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\i_love_vampires_2\Combatant.h">
@@ -360,6 +363,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\CombatGameModeBase.h">
       <Filter>Source\i_love_vampires_2\WorldSubsystems</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\DynamicAssetManager.h">
+      <Filter>Source\i_love_vampires_2\GameInstanceSubsystems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

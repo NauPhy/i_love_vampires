@@ -49,6 +49,7 @@ class I_LOVE_VAMPIRES_2_API UExplosiveProjectileConfig : public UBaseConfig
 	GENERATED_BODY()
 
 public:
+	virtual void replaceOverrides() override {}
 	UExplosiveProjectileConfig(const FObjectInitializer& init) : Super(init) {}
 };
 ///////////////////////////////////////////////////////////////////////////////
@@ -59,6 +60,7 @@ class I_LOVE_VAMPIRES_2_API UExplosiveProjectileAttributeData : public UBaseAttr
 	GENERATED_BODY()
 
 public:
+	virtual void replaceOverrides() override {}
 	UExplosiveProjectileAttributeData(const FObjectInitializer& init) : Super(init) {}
 };
 ///////////////////////////////////////////////////////////////////////////////
@@ -124,6 +126,15 @@ UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UExplosiveProjectileTemplate : public UProjectileTemplate {
 	GENERATED_BODY()
 
+protected:
+	virtual void replaceOverrides() override {
+		Super::replaceOverrides();
+		_explosiveProjectileConfig->replaceOverrides();
+		_explosiveProjectileAttributes->replaceOverrides();
+		_AOEConfig->replaceOverrides();
+		_AOEAttributes->replaceOverrides();
+	}
+
 public:
 	UPROPERTY(EditAnywhere, Instanced)
 	UExplosiveProjectileConfig* _explosiveProjectileConfig;
@@ -140,5 +151,6 @@ public:
 		_AOEConfig = init.CreateDefaultSubobject<UAOEConfig>(this, "_AOEConfig");
 		_AOEAttributes = init.CreateDefaultSubobject<UAOEAttributeData>(this, "_AOEAttributes");
 	}
+	virtual std::unique_ptr<AttackFactory> createFactory(ACombatant* owner) const override;
 };
 

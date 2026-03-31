@@ -57,13 +57,20 @@ class I_LOVE_VAMPIRES_2_API UProjectileConfig : public UBaseConfig
 {
 	GENERATED_BODY()
 
+	const static struct defaults {
+		EProjectileShape _shape = static_cast<EProjectileShape>(0);
+		EAttackShape _attackShape = static_cast<EAttackShape>(0);
+		EProjectileTargeting _targeting = static_cast<EProjectileTargeting>(0);
+	};
+
 public:
+	virtual void replaceOverrides() override;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	EProjectileShape _shape = static_cast<EProjectileShape>(0);
+	EProjectileShape _shape = static_cast<EProjectileShape>(static_cast<uint8>(255));
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	EAttackShape _attackShape = static_cast<EAttackShape>(0);
+	EAttackShape _attackShape = static_cast<EAttackShape>(static_cast<uint8>(255));
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	EProjectileTargeting _targeting = static_cast<EProjectileTargeting>(0);
+	EProjectileTargeting _targeting = static_cast<EProjectileTargeting>(static_cast<uint8>(255));
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	bool _isHoming = false;
 	UProjectileConfig(const FObjectInitializer& init) : Super(init) {}
@@ -74,23 +81,35 @@ UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UProjectileAttributeData : public UBaseAttributeData
 {
 	GENERATED_BODY()
+
+	const static struct defaults {
+		float _spread = -1.f;
+		float _radius = 1.f;
+		float _speed = 200.f;
+		float _range = 1000.f;
+		float _pierce = 0.f;
+		float _bounce = 0.f;
+		float _projectileCount = 1.f;
+	};
+
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _spread = -1.f;
+	float _spread = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _radius = 1.f;
+	float _radius = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _speed = 200.f;
+	float _speed = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _range = 1000.f;
+	float _range = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _pierce = 0.f;
+	float _pierce = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _bounce = 0.f;
+	float _bounce = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _projectileCount = 1.f;
+	float _projectileCount = -999;
 
 	UProjectileAttributeData(const FObjectInitializer& init) : Super(init) {}
+	virtual void replaceOverrides() override;
 };
 ///////////////////////////////////////////////////////////////////////////////
 class ProjectileAttributes : public BaseAttributes {
@@ -168,6 +187,13 @@ UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UProjectileTemplate : public UAttackTemplate {
 	GENERATED_BODY()
 
+protected:
+	virtual void replaceOverrides() override {
+		Super::replaceOverrides();
+		_projectileConfig->replaceOverrides();
+		_projectileAttributes->replaceOverrides();
+	}
+
 public:
 	UPROPERTY(EditAnywhere, Instanced)
 	UProjectileConfig* _projectileConfig;
@@ -178,14 +204,6 @@ public:
 		_projectileConfig = init.CreateDefaultSubobject<UProjectileConfig>(this, "_projectileConfig");
 		_projectileAttributes = init.CreateDefaultSubobject<UProjectileAttributeData>(this, "_projectileAttributes");
 	}
-	virtual std::unique_ptr<AttackFactory> createFactory(ACombatant* owner) const override {
-		return std::make_unique<ProjectileFactory>(
-			owner,
-			_attackConfig,
-			_attackAttributes,
-			_projectileConfig,
-			_projectileAttributes
-		);
-	}
+	virtual std::unique_ptr<AttackFactory> createFactory(ACombatant* owner) const override;
 };
 

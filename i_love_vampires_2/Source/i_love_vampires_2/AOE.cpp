@@ -5,6 +5,7 @@
 #include "Components/SphereComponent.h"
 #include "Combatant.h"
 #include "unrealHelpers.h"
+#include "helpers.h"
 
 void AAOE::initialise_AAOE(const AOEInitStruct& temp) 
 {
@@ -186,3 +187,30 @@ AOEFactory::AOEFactory(AOEFactory&& other) :
 //	other._AOEConfig = nullptr;
 //	return *this;
 //}
+
+std::unique_ptr<AttackFactory> UAOETemplate::createFactory(ACombatant* owner) const {
+	const UAOETemplate* temp = unrealHelpers::getDynamicTemplate<UAOETemplate>(this, this);
+	if (!IsValid(temp)) {
+		LOGERROR("UAOEFactory::createFactory - failed to get template");
+		return nullptr;
+	}
+	return std::make_unique<AOEFactory>(
+		owner,
+		temp->_attackConfig,
+		temp->_attackAttributes,
+		temp->_AOEConfig,
+		temp->_AOEAttributes
+	);
+}
+
+void UAOEConfig::replaceOverrides() {
+	if (unrealHelpers::isInvalidData(static_cast<uint8>(_shape)))
+		_shape = defaults::_shape;
+}
+
+void UAOEAttributeData::replaceOverrides() {
+	if (helpers::isInvalidData(_radius))
+		_radius = defaults::_radius;
+	if (helpers::isInvalidData(_duration))
+		_duration = defaults::_duration;
+}

@@ -62,12 +62,17 @@ class I_LOVE_VAMPIRES_2_API UAttackConfig : public UBaseConfig
 {
 	GENERATED_BODY()
 
+	const static struct defaults {
+		ESprite _sprite = static_cast<ESprite>(0);
+	};
+
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	TArray<FEffectStruct> _statusEffects;
+	TArray<FEffectStruct> _statusEffects = {};
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	ESprite _sprite = static_cast<ESprite>(0);
+	ESprite _sprite = static_cast<ESprite>(static_cast<uint8>(255));
 	UAttackConfig(const FObjectInitializer& init) : Super(init) {}
+	virtual void replaceOverrides() override;
 };
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -78,15 +83,22 @@ class I_LOVE_VAMPIRES_2_API UAttackAttributeData : public UBaseAttributeData
 {
 	GENERATED_BODY()
 
+	const static struct defaults {
+		float _damage = 0.f;
+		float _critChance = 0.f;
+		float _critMultiplier = 2.f;
+	};
+
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _damage = 0.f;
+	float _damage = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _critChance = 0.f;
+	float _critChance = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _critMultiplier = 2.f;
+	float _critMultiplier = -999;
 
 	UAttackAttributeData(const FObjectInitializer& init) : Super(init) {}
+	virtual void replaceOverrides() override;
 };
 ///////////////////////////////////////////////////////////////////////////////
 class AttackAttributes : public BaseAttributes {
@@ -158,6 +170,12 @@ UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UAttackTemplate : public UBaseTemplate {
 	GENERATED_BODY()
 
+protected:
+	virtual void replaceOverrides() override {
+		_attackConfig->replaceOverrides();
+		_attackAttributes->replaceOverrides();
+	}
+
 public:
 	UPROPERTY(EditAnywhere, Instanced)
 	UAttackConfig* _attackConfig;
@@ -168,7 +186,5 @@ public:
 		_attackConfig = init.CreateDefaultSubobject<UAttackConfig>(this, "_attackConfig");
 		_attackAttributes = init.CreateDefaultSubobject<UAttackAttributeData>(this, "_attackAttributes");
 	}
-	virtual std::unique_ptr<AttackFactory> createFactory(ACombatant* owner) const {
-		return std::make_unique<AttackFactory>(owner, _attackConfig, _attackAttributes);
-	}
+	virtual std::unique_ptr<AttackFactory> createFactory(ACombatant* owner) const;
 };

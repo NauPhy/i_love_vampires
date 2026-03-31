@@ -173,3 +173,22 @@ ExplosiveProjectileFactory::ExplosiveProjectileFactory(ExplosiveProjectileFactor
 //	other._tempAOE = nullptr;
 //	return *this;
 //}
+
+std::unique_ptr<AttackFactory> UExplosiveProjectileTemplate::createFactory(ACombatant* owner) const {
+	const UExplosiveProjectileTemplate* temp = unrealHelpers::getDynamicTemplate<UExplosiveProjectileTemplate>(this, this);
+	if (!IsValid(temp)) {
+		LOGERROR("UExplosiveProjectileTemplate::createFactory - failed to get template");
+		return nullptr;
+	}
+	return std::make_unique<ExplosiveProjectileFactory>(
+		owner,
+		temp->_attackConfig,
+		temp->_attackAttributes,
+		temp->_projectileConfig,
+		temp->_projectileAttributes,
+		temp->_explosiveProjectileConfig,
+		temp->_explosiveProjectileAttributes,
+		temp->_AOEConfig,
+		temp->_AOEAttributes
+	);
+}

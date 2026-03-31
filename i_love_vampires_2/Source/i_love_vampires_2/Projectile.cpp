@@ -347,3 +347,44 @@ ProjectileFactory::ProjectileFactory(ProjectileFactory&& other) :
 //	}
 //	return *this;
 //}
+
+std::unique_ptr<AttackFactory> UProjectileTemplate::createFactory(ACombatant* owner) const {
+	const UProjectileTemplate* temp = unrealHelpers::getDynamicTemplate<UProjectileTemplate>(this, this);
+	if (!IsValid(temp)) {
+		LOGERROR("UAttackTemplate::createFactory - failed to get template");
+		return nullptr;
+	}
+	return std::make_unique<ProjectileFactory>(
+		owner,
+		temp->_attackConfig,
+		temp->_attackAttributes,
+		temp->_projectileConfig,
+		temp->_projectileAttributes
+	);
+}
+
+void UProjectileConfig::replaceOverrides() {
+	if (unrealHelpers::isInvalidData(_shape))
+		_shape = defaults::_shape;
+	if (unrealHelpers::isInvalidData(_attackShape))
+		_attackShape = defaults::_attackShape;
+	if (unrealHelpers::isInvalidData(_targeting))
+		_targeting = defaults::_targeting;
+}
+
+void UProjectileAttributeData::replaceOverrides() {
+	if (helpers::isInvalidData(_spread))
+		_spread = defaults::_spread;
+	if (helpers::isInvalidData(_radius))
+		_radius = defaults::_radius;
+	if (helpers::isInvalidData(_speed))
+		_speed = defaults::_speed;
+	if (helpers::isInvalidData(_range))
+		_range = defaults::_range;
+	if (helpers::isInvalidData(_pierce))
+		_pierce = defaults::_pierce;
+	if (helpers::isInvalidData(_bounce))
+		_bounce = defaults::_bounce;
+	if (helpers::isInvalidData(_projectileCount))
+		_projectileCount = defaults::_projectileCount;
+}

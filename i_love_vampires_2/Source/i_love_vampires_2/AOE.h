@@ -57,15 +57,19 @@ public:
 
 ///////////////////////////////////////////////////////////////////////////////
 
-
 UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UAOEConfig : public UBaseConfig
 {
 	GENERATED_BODY()
 
+	const static struct defaults {
+		EAOEShape _shape = static_cast<EAOEShape>(0);
+	};
+
 public:
+	virtual void replaceOverrides() override;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	EAOEShape _shape = static_cast<EAOEShape>(0);
+	EAOEShape _shape = static_cast<EAOEShape>(static_cast<uint8>(255));
 	UAOEConfig(const FObjectInitializer& init) : Super(init) {}
 };
 ///////////////////////////////////////////////////////////////////////////////
@@ -75,11 +79,17 @@ class I_LOVE_VAMPIRES_2_API UAOEAttributeData : public UBaseAttributeData
 {
 	GENERATED_BODY()
 
+	const static struct defaults {
+		float _radius = 1.f;
+		float _duration = 0.f;
+	};
+
 public:
+	virtual void replaceOverrides() override;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _radius = 1.f;
+	float _radius = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _duration = 0.f;
+	float _duration = -999;
 };
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -146,6 +156,13 @@ UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UAOETemplate : public UAttackTemplate {
 	GENERATED_BODY()
 
+protected:
+	virtual void replaceOverrides() override {
+		Super::replaceOverrides();
+		_AOEConfig->replaceOverrides();
+		_AOEAttributes->replaceOverrides();
+	}
+
 public:
 	UPROPERTY(EditAnywhere, Instanced)
 	UAOEConfig* _AOEConfig;
@@ -156,13 +173,5 @@ public:
 		_AOEConfig = init.CreateDefaultSubobject<UAOEConfig>(this, "_AOEConfig");
 		_AOEAttributes = init.CreateDefaultSubobject<UAOEAttributeData>(this, "_AOEAttributes");
 	}
-	virtual std::unique_ptr<AttackFactory> createFactory(ACombatant* owner) const override {
-		return std::make_unique<AOEFactory>(
-			owner,
-			_attackConfig,
-			_attackAttributes,
-			_AOEConfig,
-			_AOEAttributes
-		);
-	}
+	virtual std::unique_ptr<AttackFactory> createFactory(ACombatant* owner) const override;
 };

@@ -5,6 +5,7 @@
 #include "unrealHelpers.h"
 #include "PaperFlipbookComponent.h"
 #include "Engine/World.h"
+#include "helpers.h"
 
 void AAttackActor::initialise_AAttackActor(const AttackInitStruct& temp) {
 	initialise_AAttackActor(temp._pawnRef, temp._attackConfig, temp._attackAttributes);
@@ -192,3 +193,26 @@ AttackFactory::AttackFactory(AttackFactory&& other) :
 //	return *this;
 //}
 //
+
+std::unique_ptr<AttackFactory> UAttackTemplate::createFactory(ACombatant* owner) const {
+	const UAttackTemplate* temp = unrealHelpers::getDynamicTemplate<UAttackTemplate>(this, GetOuter());
+	if (!IsValid(temp)) {
+		LOGERROR("UAttackTemplate::createFactory - failed to get template");
+		return nullptr;
+	}
+	return std::make_unique<AttackFactory>(owner, temp->_attackConfig, temp->_attackAttributes);
+}
+
+void UAttackConfig::replaceOverrides() {
+	if (unrealHelpers::isInvalidData(_sprite))
+		_sprite = defaults::_sprite;
+}
+
+void UAttackAttributeData::replaceOverrides() {
+	if (helpers::isInvalidData(_damage))
+		_damage = defaults::_damage;
+	if (helpers::isInvalidData(_critChance))
+		_critChance = defaults::_critChance;
+	if (helpers::isInvalidData(_critMultiplier))
+		_critMultiplier = defaults::_critMultiplier;
+}

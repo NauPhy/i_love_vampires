@@ -3,7 +3,450 @@
     "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
     "runs": [
         {
-            "results": [],
+            "results": [
+                {
+                    "ruleId": "C2248",
+                    "level": "error",
+                    "message": {
+                        "text": "'UCombatantAttributeData::replaceOverrides': cannot access protected member declared in class 'UCombatantAttributeData'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.h"
+                                },
+                                "region": {
+                                    "startLine": 250,
+                                    "startColumn": 16,
+                                    "snippet": {
+                                        "text": "\t\t_attributes->replaceOverrides();"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.h"
+                                },
+                                "region": {
+                                    "startLine": 99,
+                                    "startColumn": 15,
+                                    "snippet": {
+                                        "text": "\tvirtual void replaceOverrides() override;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UCombatantAttributeData::replaceOverrides'"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.h"
+                                },
+                                "region": {
+                                    "startLine": 72,
+                                    "startColumn": 29,
+                                    "snippet": {
+                                        "text": "class I_LOVE_VAMPIRES_2_API UCombatantAttributeData : public UBaseAttributeData"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UCombatantAttributeData'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C4834",
+                    "level": "error",
+                    "message": {
+                        "text": "discarding return value of function with [[nodiscard]] attribute"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/unrealHelpers.h"
+                                },
+                                "region": {
+                                    "startLine": 36,
+                                    "startColumn": 54,
+                                    "snippet": {
+                                        "text": "\tstatic bool isInvalidData(const FString& str) { str == \"_invalid_\"; }"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2672",
+                    "level": "error",
+                    "message": {
+                        "text": "'unrealHelpers::getDynamicTemplate': no matching overloaded function found"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
+                                },
+                                "region": {
+                                    "startLine": 192,
+                                    "startColumn": 44,
+                                    "snippet": {
+                                        "text": "\tconst UAOETemplate* temp = unrealHelpers::getDynamicTemplate<UAOETemplate>(this, this);"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/unrealHelpers.h"
+                                },
+                                "region": {
+                                    "startLine": 38,
+                                    "startColumn": 11,
+                                    "snippet": {
+                                        "text": "\tconst T* getDynamicTemplate(UObject* caller, const T* diskTemplate);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "could be 'const T *unrealHelpers::getDynamicTemplate(UObject *,const T *)'"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
+                                },
+                                "region": {
+                                    "startLine": 192,
+                                    "startColumn": 77,
+                                    "snippet": {
+                                        "text": "\tconst UAOETemplate* temp = unrealHelpers::getDynamicTemplate<UAOETemplate>(this, this);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "'initializing': cannot convert from 'const UAOETemplate *' to 'UObject *'"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        },
+                        {
+                            "id": 2,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
+                                },
+                                "region": {
+                                    "startLine": 192,
+                                    "startColumn": 77,
+                                    "snippet": {
+                                        "text": "\tconst UAOETemplate* temp = unrealHelpers::getDynamicTemplate<UAOETemplate>(this, this);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "Conversion loses qualifiers"
+                            },
+                            "properties": {
+                                "nestingLevel": 2
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2597",
+                    "level": "error",
+                    "message": {
+                        "text": "illegal reference to non-static member 'UAOEConfig::defaults::_shape'"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
+                                },
+                                "region": {
+                                    "startLine": 208,
+                                    "startColumn": 22,
+                                    "snippet": {
+                                        "text": "\t\t_shape = defaults::_shape;"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
+                                },
+                                "region": {
+                                    "startLine": 208,
+                                    "startColumn": 22,
+                                    "snippet": {
+                                        "text": "\t\t_shape = defaults::_shape;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UAOEConfig::defaults::_shape'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3867",
+                    "level": "error",
+                    "message": {
+                        "text": "'UAOEConfig::defaults::_shape': non-standard syntax; use '&' to create a pointer to member"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
+                                },
+                                "region": {
+                                    "startLine": 208,
+                                    "startColumn": 22,
+                                    "snippet": {
+                                        "text": "\t\t_shape = defaults::_shape;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2568",
+                    "level": "error",
+                    "message": {
+                        "text": "'=': unable to resolve function overload"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
+                                },
+                                "region": {
+                                    "startLine": 208,
+                                    "startColumn": 22,
+                                    "snippet": {
+                                        "text": "\t\t_shape = defaults::_shape;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2597",
+                    "level": "error",
+                    "message": {
+                        "text": "illegal reference to non-static member 'UAOEAttributeData::defaults::_radius'"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
+                                },
+                                "region": {
+                                    "startLine": 213,
+                                    "startColumn": 23,
+                                    "snippet": {
+                                        "text": "\t\t_radius = defaults::_radius;"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
+                                },
+                                "region": {
+                                    "startLine": 213,
+                                    "startColumn": 23,
+                                    "snippet": {
+                                        "text": "\t\t_radius = defaults::_radius;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UAOEAttributeData::defaults::_radius'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3867",
+                    "level": "error",
+                    "message": {
+                        "text": "'UAOEAttributeData::defaults::_radius': non-standard syntax; use '&' to create a pointer to member"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
+                                },
+                                "region": {
+                                    "startLine": 213,
+                                    "startColumn": 23,
+                                    "snippet": {
+                                        "text": "\t\t_radius = defaults::_radius;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2568",
+                    "level": "error",
+                    "message": {
+                        "text": "'=': unable to resolve function overload"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
+                                },
+                                "region": {
+                                    "startLine": 213,
+                                    "startColumn": 23,
+                                    "snippet": {
+                                        "text": "\t\t_radius = defaults::_radius;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2597",
+                    "level": "error",
+                    "message": {
+                        "text": "illegal reference to non-static member 'UAOEAttributeData::defaults::_duration'"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
+                                },
+                                "region": {
+                                    "startLine": 215,
+                                    "startColumn": 25,
+                                    "snippet": {
+                                        "text": "\t\t_duration = defaults::_duration;"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
+                                },
+                                "region": {
+                                    "startLine": 215,
+                                    "startColumn": 25,
+                                    "snippet": {
+                                        "text": "\t\t_duration = defaults::_duration;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UAOEAttributeData::defaults::_duration'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3867",
+                    "level": "error",
+                    "message": {
+                        "text": "'UAOEAttributeData::defaults::_duration': non-standard syntax; use '&' to create a pointer to member"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
+                                },
+                                "region": {
+                                    "startLine": 215,
+                                    "startColumn": 25,
+                                    "snippet": {
+                                        "text": "\t\t_duration = defaults::_duration;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2568",
+                    "level": "error",
+                    "message": {
+                        "text": "'=': unable to resolve function overload"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.cpp"
+                                },
+                                "region": {
+                                    "startLine": 215,
+                                    "startColumn": 25,
+                                    "snippet": {
+                                        "text": "\t\t_duration = defaults::_duration;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            ],
             "tool": {
                 "driver": {
                     "name": "MSVC",

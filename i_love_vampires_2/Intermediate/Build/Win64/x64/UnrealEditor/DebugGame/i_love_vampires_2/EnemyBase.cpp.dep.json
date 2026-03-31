@@ -786,6 +786,7 @@
             "c:\\users\\byron\\documents\\github\\i_love_vampires\\i_love_vampires_2\\intermediate\\build\\win64\\unrealeditor\\inc\\i_love_vampires_2\\uht\\effectstruct.generated.h",
             "c:\\program files\\microsoft visual studio\\2022\\enterprise\\vc\\tools\\msvc\\14.44.35207\\include\\memory",
             "c:\\users\\byron\\documents\\github\\i_love_vampires\\i_love_vampires_2\\source\\i_love_vampires_2\\baseattributedata.h",
+            "c:\\users\\byron\\documents\\github\\i_love_vampires\\i_love_vampires_2\\source\\i_love_vampires_2\\definitions.h",
             "c:\\users\\byron\\documents\\github\\i_love_vampires\\i_love_vampires_2\\intermediate\\build\\win64\\unrealeditor\\inc\\i_love_vampires_2\\uht\\baseattributedata.generated.h",
             "c:\\users\\byron\\documents\\github\\i_love_vampires\\i_love_vampires_2\\source\\i_love_vampires_2\\baseattributes.h",
             "c:\\program files\\microsoft visual studio\\2022\\enterprise\\vc\\tools\\msvc\\14.44.35207\\include\\functional",
@@ -811,7 +812,6 @@
             "c:\\users\\byron\\documents\\github\\i_love_vampires\\i_love_vampires_2\\intermediate\\build\\win64\\unrealeditor\\inc\\i_love_vampires_2\\uht\\enemybase.generated.h",
             "c:\\users\\byron\\documents\\github\\i_love_vampires\\i_love_vampires_2\\source\\i_love_vampires_2\\combatantmanager.h",
             "c:\\users\\byron\\documents\\github\\i_love_vampires\\i_love_vampires_2\\intermediate\\build\\win64\\unrealeditor\\inc\\i_love_vampires_2\\uht\\combatantmanager.generated.h",
-            "c:\\users\\byron\\documents\\github\\i_love_vampires\\i_love_vampires_2\\source\\i_love_vampires_2\\definitions.h",
             "c:\\program files\\epic games\\ue_5.7\\engine\\source\\runtime\\engine\\classes\\engine\\world.h",
             "c:\\program files\\epic games\\ue_5.7\\engine\\source\\runtime\\coreonline\\public\\online\\coreonlinefwd.h",
             "c:\\program files\\epic games\\ue_5.7\\engine\\source\\runtime\\engine\\public\\gametime.h",
@@ -1000,7 +1000,11 @@
             "c:\\users\\byron\\documents\\github\\i_love_vampires\\i_love_vampires_2\\source\\i_love_vampires_2\\mygameplaystatics.h",
             "c:\\users\\byron\\documents\\github\\i_love_vampires\\i_love_vampires_2\\source\\i_love_vampires_2\\experienceshard.h",
             "c:\\users\\byron\\documents\\github\\i_love_vampires\\i_love_vampires_2\\intermediate\\build\\win64\\unrealeditor\\inc\\i_love_vampires_2\\uht\\experienceshard.generated.h",
-            "c:\\users\\byron\\documents\\github\\i_love_vampires\\i_love_vampires_2\\source\\i_love_vampires_2\\unrealhelpers.h"
+            "c:\\users\\byron\\documents\\github\\i_love_vampires\\i_love_vampires_2\\source\\i_love_vampires_2\\unrealhelpers.h",
+            "c:\\users\\byron\\documents\\github\\i_love_vampires\\i_love_vampires_2\\source\\i_love_vampires_2\\dynamicassetmanager.h",
+            "c:\\program files\\epic games\\ue_5.7\\engine\\source\\runtime\\engine\\public\\subsystems\\gameinstancesubsystem.h",
+            "c:\\program files\\epic games\\ue_5.7\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\gameinstancesubsystem.generated.h",
+            "c:\\users\\byron\\documents\\github\\i_love_vampires\\i_love_vampires_2\\intermediate\\build\\win64\\unrealeditor\\inc\\i_love_vampires_2\\uht\\dynamicassetmanager.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

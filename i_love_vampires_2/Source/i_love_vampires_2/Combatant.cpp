@@ -30,9 +30,14 @@ ACombatant::ACombatant()
 	_combatantFlipbook->SetCollisionObjectType(ECollisionChannel::ECC_Pawn);
 }
 
-void ACombatant::initialise_ACombatant(const UCombatantTemplate* temp) {
-	if (!IsValid(temp) || !IsValid(temp->_config) || !IsValid(temp->_attributes)) {
+void ACombatant::initialise_ACombatant(const UCombatantTemplate* diskVal) {
+	if (!IsValid(diskVal) || !IsValid(diskVal->_config) || !IsValid(diskVal->_attributes)) {
 		LOGERROR("ACombatant::initialise_ACombatant - parameter not valid");
+		return;
+	}
+	const UCombatantTemplate* temp = unrealHelpers::getDynamicTemplate<UCombatantTemplate>(this, diskVal)
+	if (!IsValid(temp)) {
+		LOGERROR("ACombatant::initialise_ACombatant - failed to get dynamic template");
 		return;
 	}
 	_config = TObjectPtr<const UCombatantConfig>(temp->_config);
@@ -266,4 +271,54 @@ CombatantAttributes::CombatantAttributes(CombatantAttributes&& other) :
 CombatantAttributeSet::CombatantAttributeSet(CombatantAttributeSet&& other) :
 	_attributes(std::move(other._attributes))
 {
+}
+
+void UCombatantAttributeData::replaceOverrides() override {
+	if (helpers::isInvalidData(_maxHP))
+		_maxHP = defaults::_maxHP;
+	if (helpers::isInvalidData(_currentHP))
+		_currentHP = defaults::_currentHP;
+	if (helpers::isInvalidData(_damageReduction_flat))
+		_damageReduction_flat = defaults::_damageReduction_flat;
+	if (helpers::isInvalidData(_damageReduction_percent))
+		_damageReduction_percent = defaults::_damageReduction_percent;
+	if (helpers::isInvalidData(_healthRegen_flat))
+		_healthRegen_flat = defaults::_healthRegen_flat;
+	if (helpers::isInvalidData(_healthRegen_percent))
+		_healthRegen_percent = defaults::_healthRegen_percent;
+	if (helpers::isInvalidData(_critChance))
+		_critChance = defaults::_critChance;
+	if (helpers::isInvalidData(_critMultiplier))
+		_critMultiplier = defaults::_critMultiplier;
+	if (helpers::isInvalidData(_attackSpeed))
+		_attackSpeed = defaults::_attackSpeed;
+	if (helpers::isInvalidData(_bonusBounces))
+		_bonusBounces = defaults::_bonusBounces;
+	if (helpers::isInvalidData(_bonusPierce))
+		_bonusPierce = defaults::_bonusPierce;
+	if (helpers::isInvalidData(_bonusProjectiles))
+		_bonusProjectiles = defaults::_bonusProjectiles;
+	if (helpers::isInvalidData(_projectileSpeed))
+		_projectileSpeed = defaults::_projectileSpeed;
+	if (helpers::isInvalidData(_projectileSize))
+		_projectileSize = defaults::_projectileSize;
+	if (helpers::isInvalidData(_movementSpeed))
+		_movementSpeed = defaults::_movementSpeed;
+	if (helpers::isInvalidData(_range))
+		_range = defaults::_range;
+	if (helpers::isInvalidData(_contactDamage))
+		_contactDamage = defaults::_contactDamage;
+	if (helpers::isInvalidData(_selfSize))
+		_selfSize = defaults::_selfSize;
+	if (helpers::isInvalidData(_iFrameDuration))
+		_iFrameDuration = defaults::_iFrameDuration;
+};
+
+void UCombatantConfig::replaceOverrides() {
+	if (unrealHelpers::isInvalidData(_name))
+		_name = defaults::_name;
+	if (unrealHelpers::isInvalidData(_sprite))
+		_sprite = defaults::_sprite;
+	if (unrealHelpers::isInvalidData<ACombatant>(_combatantClass))
+		_combatantClass = defaults::_combatantClass;
 }

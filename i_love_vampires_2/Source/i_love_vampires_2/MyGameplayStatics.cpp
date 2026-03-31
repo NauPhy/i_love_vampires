@@ -145,3 +145,26 @@ bool MyGameplayStatics::getSpriteManager(const UObject* caller, USpriteManager*&
 	}
 	return true;
 }
+
+bool MyGameplayStatics::getDynamicAssetManager(const UObject* caller, UDynamicAssetManager*& ret) {
+	if (!IsValid(caller)) {
+		LOGERROR("MyGameplayStatics::getDynamicAssetManager - caller is not valid");
+		return false;
+	}
+	UWorld* world = caller->GetWorld();
+	if (!IsValid(world)) {
+		LOGERROR("MyGameplayStatics::getDynamicAssetManager - world is invalid");
+		return false;
+	}
+	UGameInstance* gameInstance = world->GetGameInstance();
+	if (!IsValid(gameInstance)) {
+		LOGERROR("MyGameplayStatics::getDynamicAssetManager - game instance invalid");
+		return false;
+	}
+	ret = gameInstance->GetSubsystem<UDynamicAssetManager>();
+	if (!IsValid(ret)) {
+		LOGERROR("MyGameplayStatics::getDynamicAssetManager - ret is invalid");
+		return false;
+	}
+	return true;
+}

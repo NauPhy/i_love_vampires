@@ -13,102 +13,12 @@ void EmptyLinkFunctionForGeneratedCodeActive() {}
 
 // ********** Begin Cross Module References ********************************************************
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackTemplate_NoRegister();
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseConfig();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseTemplate();
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UWeaponConfig();
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UWeaponConfig_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UWeaponTemplate();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UWeaponTemplate_NoRegister();
 I_LOVE_VAMPIRES_2_API UEnum* Z_Construct_UEnum_i_love_vampires_2_EAttackType();
 UPackage* Z_Construct_UPackage__Script_i_love_vampires_2();
 // ********** End Cross Module References **********************************************************
-
-// ********** Begin Class UWeaponConfig ************************************************************
-FClassRegistrationInfo Z_Registration_Info_UClass_UWeaponConfig;
-UClass* UWeaponConfig::GetPrivateStaticClass()
-{
-	using TClass = UWeaponConfig;
-	if (!Z_Registration_Info_UClass_UWeaponConfig.InnerSingleton)
-	{
-		GetPrivateStaticClassBody(
-			TClass::StaticPackage(),
-			TEXT("WeaponConfig"),
-			Z_Registration_Info_UClass_UWeaponConfig.InnerSingleton,
-			StaticRegisterNativesUWeaponConfig,
-			sizeof(TClass),
-			alignof(TClass),
-			TClass::StaticClassFlags,
-			TClass::StaticClassCastFlags(),
-			TClass::StaticConfigName(),
-			(UClass::ClassConstructorType)InternalConstructor<TClass>,
-			(UClass::ClassVTableHelperCtorCallerType)InternalVTableHelperCtorCaller<TClass>,
-			UOBJECT_CPPCLASS_STATICFUNCTIONS_FORCLASS(TClass),
-			&TClass::Super::StaticClass,
-			&TClass::WithinClass::StaticClass
-		);
-	}
-	return Z_Registration_Info_UClass_UWeaponConfig.InnerSingleton;
-}
-UClass* Z_Construct_UClass_UWeaponConfig_NoRegister()
-{
-	return UWeaponConfig::GetPrivateStaticClass();
-}
-struct Z_Construct_UClass_UWeaponConfig_Statics
-{
-#if WITH_METADATA
-	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
-		{ "BlueprintType", "true" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "///////////////////////////////////////////////////////////////////////////////\n" },
-#endif
-		{ "IncludePath", "Active.h" },
-		{ "ModuleRelativePath", "Active.h" },
-		{ "ObjectInitializerConstructorDeclared", "" },
-	};
-#endif // WITH_METADATA
-
-// ********** Begin Class UWeaponConfig constinit property declarations ****************************
-// ********** End Class UWeaponConfig constinit property declarations ******************************
-	static UObject* (*const DependentSingletons[])();
-	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
-		TCppClassTypeTraits<UWeaponConfig>::IsAbstract,
-	};
-	static const UECodeGen_Private::FClassParams ClassParams;
-}; // struct Z_Construct_UClass_UWeaponConfig_Statics
-UObject* (*const Z_Construct_UClass_UWeaponConfig_Statics::DependentSingletons[])() = {
-	(UObject* (*)())Z_Construct_UClass_UBaseConfig,
-	(UObject* (*)())Z_Construct_UPackage__Script_i_love_vampires_2,
-};
-static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UWeaponConfig_Statics::DependentSingletons) < 16);
-const UECodeGen_Private::FClassParams Z_Construct_UClass_UWeaponConfig_Statics::ClassParams = {
-	&UWeaponConfig::StaticClass,
-	nullptr,
-	&StaticCppClassTypeInfo,
-	DependentSingletons,
-	nullptr,
-	nullptr,
-	nullptr,
-	UE_ARRAY_COUNT(DependentSingletons),
-	0,
-	0,
-	0,
-	0x001010A0u,
-	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UWeaponConfig_Statics::Class_MetaDataParams), Z_Construct_UClass_UWeaponConfig_Statics::Class_MetaDataParams)
-};
-void UWeaponConfig::StaticRegisterNativesUWeaponConfig()
-{
-}
-UClass* Z_Construct_UClass_UWeaponConfig()
-{
-	if (!Z_Registration_Info_UClass_UWeaponConfig.OuterSingleton)
-	{
-		UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_UWeaponConfig.OuterSingleton, Z_Construct_UClass_UWeaponConfig_Statics::ClassParams);
-	}
-	return Z_Registration_Info_UClass_UWeaponConfig.OuterSingleton;
-}
-DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, UWeaponConfig);
-UWeaponConfig::~UWeaponConfig() {}
-// ********** End Class UWeaponConfig **************************************************************
 
 // ********** Begin Class UWeaponTemplate **********************************************************
 FClassRegistrationInfo Z_Registration_Info_UClass_UWeaponTemplate;
@@ -155,7 +65,13 @@ struct Z_Construct_UClass_UWeaponTemplate_Statics
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__startOnCooldown_MetaData[] = {
 		{ "Category", "WeaponTemplate" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "// cannot really be given a sentinel value\n" },
+#endif
 		{ "ModuleRelativePath", "Active.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "cannot really be given a sentinel value" },
+#endif
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__warmup_MetaData[] = {
 		{ "Category", "WeaponTemplate" },
@@ -257,11 +173,10 @@ UWeaponTemplate::~UWeaponTemplate() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UWeaponConfig, UWeaponConfig::StaticClass, TEXT("UWeaponConfig"), &Z_Registration_Info_UClass_UWeaponConfig, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UWeaponConfig), 169848684U) },
-		{ Z_Construct_UClass_UWeaponTemplate, UWeaponTemplate::StaticClass, TEXT("UWeaponTemplate"), &Z_Registration_Info_UClass_UWeaponTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UWeaponTemplate), 3515688768U) },
+		{ Z_Construct_UClass_UWeaponTemplate, UWeaponTemplate::StaticClass, TEXT("UWeaponTemplate"), &Z_Registration_Info_UClass_UWeaponTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UWeaponTemplate), 1528409631U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h__Script_i_love_vampires_2_3443612258{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h__Script_i_love_vampires_2_3573408800{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

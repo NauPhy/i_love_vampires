@@ -73,45 +73,70 @@ class I_LOVE_VAMPIRES_2_API UCombatantAttributeData : public UBaseAttributeData
 {
 	GENERATED_BODY()
 
+	const static struct defaults {
+		float _maxHP = 100;
+		float _currentHP = 100;
+		float _damageReduction_flat = 0;
+		float _damageReduction_percent = 0;
+		float _healthRegen_flat = 0;
+		float _healthRegen_percent = 0;
+		float _critChance = 0;
+		float _critMultiplier = 0;
+		float _attackSpeed = 1;
+		float _bonusBounces = 0;
+		float _bonusPierce = 0;
+		float _bonusProjectiles = 0;
+		float _projectileSpeed = 1;
+		float _projectileSize = 1;
+		float _movementSpeed = 1;
+		float _range = 1;
+		float _contactDamage = 0;
+		float _selfSize = 1;
+		float _iFrameDuration = 1;
+	};
+
+protected:
+	virtual void replaceOverrides() override;
+
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _maxHP = 1;
+	float _maxHP = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _currentHP = 1;
+	float _currentHP = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _damageReduction_flat = 0;
+	float _damageReduction_flat = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _damageReduction_percent = 0;
+	float _damageReduction_percent = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _healthRegen_flat = 0;
+	float _healthRegen_flat = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _healthRegen_percent = 0;
+	float _healthRegen_percent = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _critChance = 0;
+	float _critChance = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _critMultiplier = 0;
+	float _critMultiplier = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _attackSpeed = 1;
+	float _attackSpeed = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _bonusBounces = 0;
+	float _bonusBounces = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _bonusPierce = 0;
+	float _bonusPierce = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _bonusProjectiles = 0;
+	float _bonusProjectiles = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _projectileSpeed = 1;
+	float _projectileSpeed = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _projectileSize = 1;
+	float _projectileSize = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _movementSpeed = 1;
+	float _movementSpeed = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _range = 1;
+	float _range = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _contactDamage = 0;
+	float _contactDamage = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _selfSize = 1;
+	float _selfSize = -999;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _iFrameDuration = 1;
+	float _iFrameDuration = -999;
 
 	UCombatantAttributeData(const FObjectInitializer& init) : Super(init) {}
 };
@@ -184,17 +209,25 @@ class I_LOVE_VAMPIRES_2_API UCombatantConfig : public UBaseConfig
 {
 	GENERATED_BODY()
 
+	const static struct defaults {
+		FString _name = "Combatant";
+		ESprite _sprite = static_cast<ESprite>(0);
+		TSubclassOf<ACombatant> _combatantClass = ACombatant::StaticClass();
+	};
+
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	FString _name = "Combatant";
+	FString _name = "_invalid_";
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	ESprite _sprite = static_cast<ESprite>(0);
+	ESprite _sprite = static_cast<ESprite>(static_cast<uint8>(255));
+	// No sentinel needed
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	TArray<TObjectPtr<UWeaponTemplate>> _startingWeapons;
+	TArray<TObjectPtr<UWeaponTemplate>> _startingWeapons = {};
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	TSubclassOf<ACombatant> _combatantClass = ACombatant::StaticClass();
+	TSubclassOf<ACombatant> _combatantClass = nullptr;
 
 	UCombatantConfig(const FObjectInitializer& init) : Super(init) {}
+	virtual void replaceOverrides() override;
 };
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -202,6 +235,7 @@ UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UCombatantTemplate : public UBaseTemplate
 {
 	GENERATED_BODY()
+
 public:
 	UPROPERTY(EditAnywhere, Instanced)
 	UCombatantConfig* _config;
@@ -210,6 +244,10 @@ public:
 	UCombatantTemplate(const FObjectInitializer& init) : Super(init) {
 		_config = init.CreateDefaultSubobject<UCombatantConfig>(this, "_config");
 		_attributes = init.CreateDefaultSubobject<UCombatantAttributeData>(this, "_attributes");
+	}
+	virtual void replaceOverrides() override {
+		_config->replaceOverrides();
+		_attributes->replaceOverrides();
 	}
 };
 

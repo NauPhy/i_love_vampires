@@ -3,7 +3,87 @@
     "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
     "runs": [
         {
-            "results": [],
+            "results": [
+                {
+                    "ruleId": "C2664",
+                    "level": "error",
+                    "message": {
+                        "text": "'bool IsValid(const UObject *)': cannot convert argument 1 from 'UDynamicAssetManager *' to 'const UObject *'"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyGameplayStatics.cpp"
+                                },
+                                "region": {
+                                    "startLine": 165,
+                                    "startColumn": 7,
+                                    "snippet": {
+                                        "text": "\tif (!IsValid(ret)) {"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyGameplayStatics.cpp"
+                                },
+                                "region": {
+                                    "startLine": 165,
+                                    "startColumn": 15,
+                                    "snippet": {
+                                        "text": "\tif (!IsValid(ret)) {"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or parenthesized function-style cast"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Program Files/Epic Games/UE_5.7/Engine/Source/Runtime/CoreUObject/Public/UObject/Object.h"
+                                },
+                                "region": {
+                                    "startLine": 1875,
+                                    "startColumn": 26,
+                                    "snippet": {
+                                        "text": "UE_FORCEINLINE_HINT bool IsValid(const UObject *Test)"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'IsValid'"
+                            }
+                        },
+                        {
+                            "id": 2,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/MyGameplayStatics.cpp"
+                                },
+                                "region": {
+                                    "startLine": 165,
+                                    "startColumn": 7,
+                                    "snippet": {
+                                        "text": "\tif (!IsValid(ret)) {"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "while trying to match the argument list '(UDynamicAssetManager *)'"
+                            }
+                        }
+                    ]
+                }
+            ],
             "tool": {
                 "driver": {
                     "name": "MSVC",

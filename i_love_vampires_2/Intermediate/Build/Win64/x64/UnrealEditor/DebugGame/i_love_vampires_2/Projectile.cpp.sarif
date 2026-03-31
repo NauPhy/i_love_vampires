@@ -5,6 +5,96 @@
         {
             "results": [
                 {
+                    "ruleId": "C2248",
+                    "level": "error",
+                    "message": {
+                        "text": "'UCombatantAttributeData::replaceOverrides': cannot access protected member declared in class 'UCombatantAttributeData'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.h"
+                                },
+                                "region": {
+                                    "startLine": 250,
+                                    "startColumn": 16,
+                                    "snippet": {
+                                        "text": "\t\t_attributes->replaceOverrides();"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.h"
+                                },
+                                "region": {
+                                    "startLine": 99,
+                                    "startColumn": 15,
+                                    "snippet": {
+                                        "text": "\tvirtual void replaceOverrides() override;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UCombatantAttributeData::replaceOverrides'"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.h"
+                                },
+                                "region": {
+                                    "startLine": 72,
+                                    "startColumn": 29,
+                                    "snippet": {
+                                        "text": "class I_LOVE_VAMPIRES_2_API UCombatantAttributeData : public UBaseAttributeData"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UCombatantAttributeData'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C4834",
+                    "level": "error",
+                    "message": {
+                        "text": "discarding return value of function with [[nodiscard]] attribute"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/unrealHelpers.h"
+                                },
+                                "region": {
+                                    "startLine": 36,
+                                    "startColumn": 54,
+                                    "snippet": {
+                                        "text": "\tstatic bool isInvalidData(const FString& str) { str == \"_invalid_\"; }"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
                     "ruleId": "C5038",
                     "message": {
                         "text": "data member 'ProjectileFactory::_projectileAttributes' will be initialized after data member 'ProjectileFactory::_directionX'"
@@ -20,6 +110,981 @@
                                     "startColumn": 2,
                                     "snippet": {
                                         "text": "\t_projectileAttributes(std::move(other._projectileAttributes)),"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2672",
+                    "level": "error",
+                    "message": {
+                        "text": "'unrealHelpers::getDynamicTemplate': no matching overloaded function found"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 352,
+                                    "startColumn": 51,
+                                    "snippet": {
+                                        "text": "\tconst UProjectileTemplate* temp = unrealHelpers::getDynamicTemplate<UProjectileTemplate>(this, this);"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/unrealHelpers.h"
+                                },
+                                "region": {
+                                    "startLine": 38,
+                                    "startColumn": 11,
+                                    "snippet": {
+                                        "text": "\tconst T* getDynamicTemplate(UObject* caller, const T* diskTemplate);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "could be 'const T *unrealHelpers::getDynamicTemplate(UObject *,const T *)'"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 352,
+                                    "startColumn": 91,
+                                    "snippet": {
+                                        "text": "\tconst UProjectileTemplate* temp = unrealHelpers::getDynamicTemplate<UProjectileTemplate>(this, this);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "'initializing': cannot convert from 'const UProjectileTemplate *' to 'UObject *'"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        },
+                        {
+                            "id": 2,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 352,
+                                    "startColumn": 91,
+                                    "snippet": {
+                                        "text": "\tconst UProjectileTemplate* temp = unrealHelpers::getDynamicTemplate<UProjectileTemplate>(this, this);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "Conversion loses qualifiers"
+                            },
+                            "properties": {
+                                "nestingLevel": 2
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2597",
+                    "level": "error",
+                    "message": {
+                        "text": "illegal reference to non-static member 'UProjectileConfig::defaults::_shape'"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 368,
+                                    "startColumn": 22,
+                                    "snippet": {
+                                        "text": "\t\t_shape = defaults::_shape;"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 368,
+                                    "startColumn": 22,
+                                    "snippet": {
+                                        "text": "\t\t_shape = defaults::_shape;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UProjectileConfig::defaults::_shape'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3867",
+                    "level": "error",
+                    "message": {
+                        "text": "'UProjectileConfig::defaults::_shape': non-standard syntax; use '&' to create a pointer to member"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 368,
+                                    "startColumn": 22,
+                                    "snippet": {
+                                        "text": "\t\t_shape = defaults::_shape;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2568",
+                    "level": "error",
+                    "message": {
+                        "text": "'=': unable to resolve function overload"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 368,
+                                    "startColumn": 22,
+                                    "snippet": {
+                                        "text": "\t\t_shape = defaults::_shape;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2597",
+                    "level": "error",
+                    "message": {
+                        "text": "illegal reference to non-static member 'UProjectileConfig::defaults::_attackShape'"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 370,
+                                    "startColumn": 28,
+                                    "snippet": {
+                                        "text": "\t\t_attackShape = defaults::_attackShape;"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 370,
+                                    "startColumn": 28,
+                                    "snippet": {
+                                        "text": "\t\t_attackShape = defaults::_attackShape;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UProjectileConfig::defaults::_attackShape'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3867",
+                    "level": "error",
+                    "message": {
+                        "text": "'UProjectileConfig::defaults::_attackShape': non-standard syntax; use '&' to create a pointer to member"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 370,
+                                    "startColumn": 28,
+                                    "snippet": {
+                                        "text": "\t\t_attackShape = defaults::_attackShape;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2568",
+                    "level": "error",
+                    "message": {
+                        "text": "'=': unable to resolve function overload"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 370,
+                                    "startColumn": 28,
+                                    "snippet": {
+                                        "text": "\t\t_attackShape = defaults::_attackShape;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2597",
+                    "level": "error",
+                    "message": {
+                        "text": "illegal reference to non-static member 'UProjectileConfig::defaults::_targeting'"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 372,
+                                    "startColumn": 26,
+                                    "snippet": {
+                                        "text": "\t\t_targeting = defaults::_targeting;"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 372,
+                                    "startColumn": 26,
+                                    "snippet": {
+                                        "text": "\t\t_targeting = defaults::_targeting;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UProjectileConfig::defaults::_targeting'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3867",
+                    "level": "error",
+                    "message": {
+                        "text": "'UProjectileConfig::defaults::_targeting': non-standard syntax; use '&' to create a pointer to member"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 372,
+                                    "startColumn": 26,
+                                    "snippet": {
+                                        "text": "\t\t_targeting = defaults::_targeting;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2568",
+                    "level": "error",
+                    "message": {
+                        "text": "'=': unable to resolve function overload"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 372,
+                                    "startColumn": 26,
+                                    "snippet": {
+                                        "text": "\t\t_targeting = defaults::_targeting;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2597",
+                    "level": "error",
+                    "message": {
+                        "text": "illegal reference to non-static member 'UProjectileAttributeData::defaults::_spread'"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 377,
+                                    "startColumn": 23,
+                                    "snippet": {
+                                        "text": "\t\t_spread = defaults::_spread;"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 377,
+                                    "startColumn": 23,
+                                    "snippet": {
+                                        "text": "\t\t_spread = defaults::_spread;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UProjectileAttributeData::defaults::_spread'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3867",
+                    "level": "error",
+                    "message": {
+                        "text": "'UProjectileAttributeData::defaults::_spread': non-standard syntax; use '&' to create a pointer to member"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 377,
+                                    "startColumn": 23,
+                                    "snippet": {
+                                        "text": "\t\t_spread = defaults::_spread;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2568",
+                    "level": "error",
+                    "message": {
+                        "text": "'=': unable to resolve function overload"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 377,
+                                    "startColumn": 23,
+                                    "snippet": {
+                                        "text": "\t\t_spread = defaults::_spread;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2597",
+                    "level": "error",
+                    "message": {
+                        "text": "illegal reference to non-static member 'UProjectileAttributeData::defaults::_radius'"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 379,
+                                    "startColumn": 23,
+                                    "snippet": {
+                                        "text": "\t\t_radius = defaults::_radius;"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 379,
+                                    "startColumn": 23,
+                                    "snippet": {
+                                        "text": "\t\t_radius = defaults::_radius;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UProjectileAttributeData::defaults::_radius'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3867",
+                    "level": "error",
+                    "message": {
+                        "text": "'UProjectileAttributeData::defaults::_radius': non-standard syntax; use '&' to create a pointer to member"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 379,
+                                    "startColumn": 23,
+                                    "snippet": {
+                                        "text": "\t\t_radius = defaults::_radius;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2568",
+                    "level": "error",
+                    "message": {
+                        "text": "'=': unable to resolve function overload"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 379,
+                                    "startColumn": 23,
+                                    "snippet": {
+                                        "text": "\t\t_radius = defaults::_radius;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2597",
+                    "level": "error",
+                    "message": {
+                        "text": "illegal reference to non-static member 'UProjectileAttributeData::defaults::_speed'"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 381,
+                                    "startColumn": 22,
+                                    "snippet": {
+                                        "text": "\t\t_speed = defaults::_speed;"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 381,
+                                    "startColumn": 22,
+                                    "snippet": {
+                                        "text": "\t\t_speed = defaults::_speed;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UProjectileAttributeData::defaults::_speed'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3867",
+                    "level": "error",
+                    "message": {
+                        "text": "'UProjectileAttributeData::defaults::_speed': non-standard syntax; use '&' to create a pointer to member"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 381,
+                                    "startColumn": 22,
+                                    "snippet": {
+                                        "text": "\t\t_speed = defaults::_speed;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2568",
+                    "level": "error",
+                    "message": {
+                        "text": "'=': unable to resolve function overload"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 381,
+                                    "startColumn": 22,
+                                    "snippet": {
+                                        "text": "\t\t_speed = defaults::_speed;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2597",
+                    "level": "error",
+                    "message": {
+                        "text": "illegal reference to non-static member 'UProjectileAttributeData::defaults::_range'"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 383,
+                                    "startColumn": 22,
+                                    "snippet": {
+                                        "text": "\t\t_range = defaults::_range;"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 383,
+                                    "startColumn": 22,
+                                    "snippet": {
+                                        "text": "\t\t_range = defaults::_range;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UProjectileAttributeData::defaults::_range'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3867",
+                    "level": "error",
+                    "message": {
+                        "text": "'UProjectileAttributeData::defaults::_range': non-standard syntax; use '&' to create a pointer to member"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 383,
+                                    "startColumn": 22,
+                                    "snippet": {
+                                        "text": "\t\t_range = defaults::_range;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2568",
+                    "level": "error",
+                    "message": {
+                        "text": "'=': unable to resolve function overload"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 383,
+                                    "startColumn": 22,
+                                    "snippet": {
+                                        "text": "\t\t_range = defaults::_range;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2597",
+                    "level": "error",
+                    "message": {
+                        "text": "illegal reference to non-static member 'UProjectileAttributeData::defaults::_pierce'"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 385,
+                                    "startColumn": 23,
+                                    "snippet": {
+                                        "text": "\t\t_pierce = defaults::_pierce;"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 385,
+                                    "startColumn": 23,
+                                    "snippet": {
+                                        "text": "\t\t_pierce = defaults::_pierce;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UProjectileAttributeData::defaults::_pierce'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3867",
+                    "level": "error",
+                    "message": {
+                        "text": "'UProjectileAttributeData::defaults::_pierce': non-standard syntax; use '&' to create a pointer to member"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 385,
+                                    "startColumn": 23,
+                                    "snippet": {
+                                        "text": "\t\t_pierce = defaults::_pierce;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2568",
+                    "level": "error",
+                    "message": {
+                        "text": "'=': unable to resolve function overload"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 385,
+                                    "startColumn": 23,
+                                    "snippet": {
+                                        "text": "\t\t_pierce = defaults::_pierce;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2597",
+                    "level": "error",
+                    "message": {
+                        "text": "illegal reference to non-static member 'UProjectileAttributeData::defaults::_bounce'"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 387,
+                                    "startColumn": 23,
+                                    "snippet": {
+                                        "text": "\t\t_bounce = defaults::_bounce;"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 387,
+                                    "startColumn": 23,
+                                    "snippet": {
+                                        "text": "\t\t_bounce = defaults::_bounce;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UProjectileAttributeData::defaults::_bounce'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3867",
+                    "level": "error",
+                    "message": {
+                        "text": "'UProjectileAttributeData::defaults::_bounce': non-standard syntax; use '&' to create a pointer to member"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 387,
+                                    "startColumn": 23,
+                                    "snippet": {
+                                        "text": "\t\t_bounce = defaults::_bounce;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2568",
+                    "level": "error",
+                    "message": {
+                        "text": "'=': unable to resolve function overload"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 387,
+                                    "startColumn": 23,
+                                    "snippet": {
+                                        "text": "\t\t_bounce = defaults::_bounce;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2597",
+                    "level": "error",
+                    "message": {
+                        "text": "illegal reference to non-static member 'UProjectileAttributeData::defaults::_projectileCount'"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 389,
+                                    "startColumn": 32,
+                                    "snippet": {
+                                        "text": "\t\t_projectileCount = defaults::_projectileCount;"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 389,
+                                    "startColumn": 32,
+                                    "snippet": {
+                                        "text": "\t\t_projectileCount = defaults::_projectileCount;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UProjectileAttributeData::defaults::_projectileCount'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3867",
+                    "level": "error",
+                    "message": {
+                        "text": "'UProjectileAttributeData::defaults::_projectileCount': non-standard syntax; use '&' to create a pointer to member"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 389,
+                                    "startColumn": 32,
+                                    "snippet": {
+                                        "text": "\t\t_projectileCount = defaults::_projectileCount;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2568",
+                    "level": "error",
+                    "message": {
+                        "text": "'=': unable to resolve function overload"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
+                                },
+                                "region": {
+                                    "startLine": 389,
+                                    "startColumn": 32,
+                                    "snippet": {
+                                        "text": "\t\t_projectileCount = defaults::_projectileCount;"
                                     }
                                 }
                             }

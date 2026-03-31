@@ -3,7 +3,493 @@
     "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
     "runs": [
         {
-            "results": [],
+            "results": [
+                {
+                    "ruleId": "C2248",
+                    "level": "error",
+                    "message": {
+                        "text": "'UCombatantAttributeData::replaceOverrides': cannot access protected member declared in class 'UCombatantAttributeData'"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Active.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.h"
+                                },
+                                "region": {
+                                    "startLine": 250,
+                                    "startColumn": 16,
+                                    "snippet": {
+                                        "text": "\t\t_attributes->replaceOverrides();"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.h"
+                                },
+                                "region": {
+                                    "startLine": 99,
+                                    "startColumn": 15,
+                                    "snippet": {
+                                        "text": "\tvirtual void replaceOverrides() override;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UCombatantAttributeData::replaceOverrides'"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.h"
+                                },
+                                "region": {
+                                    "startLine": 72,
+                                    "startColumn": 29,
+                                    "snippet": {
+                                        "text": "class I_LOVE_VAMPIRES_2_API UCombatantAttributeData : public UBaseAttributeData"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UCombatantAttributeData'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C4834",
+                    "level": "error",
+                    "message": {
+                        "text": "discarding return value of function with [[nodiscard]] attribute"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Active.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/unrealHelpers.h"
+                                },
+                                "region": {
+                                    "startLine": 36,
+                                    "startColumn": 54,
+                                    "snippet": {
+                                        "text": "\tstatic bool isInvalidData(const FString& str) { str == \"_invalid_\"; }"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2672",
+                    "level": "error",
+                    "message": {
+                        "text": "'unrealHelpers::getDynamicTemplate': no matching overloaded function found"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Active.cpp"
+                                },
+                                "region": {
+                                    "startLine": 55,
+                                    "startColumn": 47,
+                                    "snippet": {
+                                        "text": "\tconst UWeaponTemplate* temp = unrealHelpers::getDynamicTemplate<UWeaponTemplate>(this, rawData);"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/unrealHelpers.h"
+                                },
+                                "region": {
+                                    "startLine": 38,
+                                    "startColumn": 11,
+                                    "snippet": {
+                                        "text": "\tconst T* getDynamicTemplate(UObject* caller, const T* diskTemplate);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "could be 'const T *unrealHelpers::getDynamicTemplate(UObject *,const T *)'"
+                            }
+                        },
+                        {
+                            "id": 1,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Active.cpp"
+                                },
+                                "region": {
+                                    "startLine": 55,
+                                    "startColumn": 83,
+                                    "snippet": {
+                                        "text": "\tconst UWeaponTemplate* temp = unrealHelpers::getDynamicTemplate<UWeaponTemplate>(this, rawData);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "'initializing': cannot convert from 'Active *' to 'UObject *'"
+                            },
+                            "properties": {
+                                "nestingLevel": 1
+                            }
+                        },
+                        {
+                            "id": 2,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Active.cpp"
+                                },
+                                "region": {
+                                    "startLine": 55,
+                                    "startColumn": 83,
+                                    "snippet": {
+                                        "text": "\tconst UWeaponTemplate* temp = unrealHelpers::getDynamicTemplate<UWeaponTemplate>(this, rawData);"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or parenthesized function-style cast"
+                            },
+                            "properties": {
+                                "nestingLevel": 2
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2597",
+                    "level": "error",
+                    "message": {
+                        "text": "illegal reference to non-static member 'UWeaponTemplate::defaults::_name'"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Active.cpp"
+                                },
+                                "region": {
+                                    "startLine": 93,
+                                    "startColumn": 21,
+                                    "snippet": {
+                                        "text": "\t\t_name = defaults::_name;"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Active.h"
+                                },
+                                "region": {
+                                    "startLine": 65,
+                                    "startColumn": 11,
+                                    "snippet": {
+                                        "text": "\t\tFString _name = \"Active\";"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UWeaponTemplate::defaults::_name'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2597",
+                    "level": "error",
+                    "message": {
+                        "text": "illegal reference to non-static member 'UWeaponTemplate::defaults::_startOnCooldown'"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Active.cpp"
+                                },
+                                "region": {
+                                    "startLine": 95,
+                                    "startColumn": 32,
+                                    "snippet": {
+                                        "text": "\t\t_startOnCooldown = defaults::_startOnCooldown;"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Active.cpp"
+                                },
+                                "region": {
+                                    "startLine": 95,
+                                    "startColumn": 32,
+                                    "snippet": {
+                                        "text": "\t\t_startOnCooldown = defaults::_startOnCooldown;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UWeaponTemplate::defaults::_startOnCooldown'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3867",
+                    "level": "error",
+                    "message": {
+                        "text": "'UWeaponTemplate::defaults::_startOnCooldown': non-standard syntax; use '&' to create a pointer to member"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Active.cpp"
+                                },
+                                "region": {
+                                    "startLine": 95,
+                                    "startColumn": 32,
+                                    "snippet": {
+                                        "text": "\t\t_startOnCooldown = defaults::_startOnCooldown;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2568",
+                    "level": "error",
+                    "message": {
+                        "text": "'=': unable to resolve function overload"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Active.cpp"
+                                },
+                                "region": {
+                                    "startLine": 95,
+                                    "startColumn": 32,
+                                    "snippet": {
+                                        "text": "\t\t_startOnCooldown = defaults::_startOnCooldown;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2597",
+                    "level": "error",
+                    "message": {
+                        "text": "illegal reference to non-static member 'UWeaponTemplate::defaults::_warmup'"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Active.cpp"
+                                },
+                                "region": {
+                                    "startLine": 97,
+                                    "startColumn": 23,
+                                    "snippet": {
+                                        "text": "\t\t_warmup = defaults::_warmup;"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Active.cpp"
+                                },
+                                "region": {
+                                    "startLine": 97,
+                                    "startColumn": 23,
+                                    "snippet": {
+                                        "text": "\t\t_warmup = defaults::_warmup;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UWeaponTemplate::defaults::_warmup'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3867",
+                    "level": "error",
+                    "message": {
+                        "text": "'UWeaponTemplate::defaults::_warmup': non-standard syntax; use '&' to create a pointer to member"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Active.cpp"
+                                },
+                                "region": {
+                                    "startLine": 97,
+                                    "startColumn": 23,
+                                    "snippet": {
+                                        "text": "\t\t_warmup = defaults::_warmup;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2568",
+                    "level": "error",
+                    "message": {
+                        "text": "'=': unable to resolve function overload"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Active.cpp"
+                                },
+                                "region": {
+                                    "startLine": 97,
+                                    "startColumn": 23,
+                                    "snippet": {
+                                        "text": "\t\t_warmup = defaults::_warmup;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2597",
+                    "level": "error",
+                    "message": {
+                        "text": "illegal reference to non-static member 'UWeaponTemplate::defaults::_attackType'"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Active.cpp"
+                                },
+                                "region": {
+                                    "startLine": 99,
+                                    "startColumn": 27,
+                                    "snippet": {
+                                        "text": "\t\t_attackType = defaults::_attackType;"
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "relatedLocations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Active.cpp"
+                                },
+                                "region": {
+                                    "startLine": 99,
+                                    "startColumn": 27,
+                                    "snippet": {
+                                        "text": "\t\t_attackType = defaults::_attackType;"
+                                    }
+                                }
+                            },
+                            "message": {
+                                "text": "see declaration of 'UWeaponTemplate::defaults::_attackType'"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C3867",
+                    "level": "error",
+                    "message": {
+                        "text": "'UWeaponTemplate::defaults::_attackType': non-standard syntax; use '&' to create a pointer to member"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Active.cpp"
+                                },
+                                "region": {
+                                    "startLine": 99,
+                                    "startColumn": 27,
+                                    "snippet": {
+                                        "text": "\t\t_attackType = defaults::_attackType;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C2568",
+                    "level": "error",
+                    "message": {
+                        "text": "'=': unable to resolve function overload"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Active.cpp"
+                                },
+                                "region": {
+                                    "startLine": 99,
+                                    "startColumn": 27,
+                                    "snippet": {
+                                        "text": "\t\t_attackType = defaults::_attackType;"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            ],
             "tool": {
                 "driver": {
                     "name": "MSVC",
