@@ -21,6 +21,8 @@ void ACombatGameModeBase::BeginPlay() {
 }
 
 void ACombatGameModeBase::Tick(float delta) {
+	if (!isReady())
+		return;
 	Super::Tick(delta);
 	_enemySpawner->tick(delta);
 	_combatantManager->tick(delta);
@@ -29,4 +31,11 @@ void ACombatGameModeBase::Tick(float delta) {
 void ACombatGameModeBase::setGameReady(bool val) {
 	_combatantManager->setGameReady(val);
 	_enemySpawner->setGameReady(val);
+}
+
+bool ACombatGameModeBase::isReady_Implementation() const {
+	if (!IsValid(_enemySpawner) || !IsValid(_combatantManager)) {
+		return false;
+	}
+	return _enemySpawner->getGameReady() && _combatantManager->getGameReady();
 }

@@ -30,11 +30,11 @@ void AExplosiveProjectile::bulletDeath() {
 	AProjectile::bulletDeath();
 }
 
-void AExplosiveProjectile::handleSweepResults(const TArray<struct FHitResult>& hits) {
-	for (const FHitResult& hit : hits) {
-		handleBouncePierce();
-	}
-}
+//void AExplosiveProjectile::handleSweepResults(const TArray<struct FHitResult>& hits) {
+//	for (const FHitResult& hit : hits) {
+//		handleBouncePierce();
+//	}
+//}
 ///////////////////////////////////////////////////////////////////////////////
 
 ExplosiveProjectileFactory::ExplosiveProjectileFactory(
@@ -122,7 +122,7 @@ ExplosiveProjectileInitStruct ExplosiveProjectileFactory::getExplosiveProjectile
 AOEInitStruct ExplosiveProjectileFactory::getAOEInit() const {
 	AOEAttributes temp = _AOEAttributes.getCore();
 	temp.discretizeFull();
-	AOEInitStruct ret = { AttackFactory::getAttackInit(), _AOEConfig.Get(), temp };
+	AOEInitStruct ret = { AttackFactory::getAttackInit(), _AOEConfig.Get(), temp, true };
 	return ret;
 }
 

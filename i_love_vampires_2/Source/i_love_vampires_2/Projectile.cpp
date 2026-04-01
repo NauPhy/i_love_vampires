@@ -43,7 +43,7 @@ void AProjectile::BeginPlay() {
 bool AProjectile::performSweep(const FVector& startPos, const FVector& endPos, TArray<struct FHitResult>& OutHits) {
 	FCollisionShape collisionShape;
 	if (_projectileConfig->_shape == _CIRCLE) {
-		collisionShape = FCollisionShape::MakeSphere(_projectileAttributes->_radius.getFinal());
+		collisionShape = FCollisionShape::MakeSphere(_projectileAttributes->_radius.getFinal()*_SPRITE_RADIUS);
 	}
 	else {
 		LOGERROR("AProjectile::performSweep - shape not implemented");
@@ -205,15 +205,15 @@ void ProjectileFactory::launchAttack(const FVector& forward) {
 }
 
 FVector ProjectileFactory::launchAttack_fan_getDirection(const FVector& forward, int projectileIndex, int projectileCount) {	
-	float angle = 0;
 	const float tempSpread = _projectileAttributes.getMemberDiscretized(&ProjectileAttributes::_spread);
-	if (angle <= EPSILON)
+	if (tempSpread <= EPSILON)
 		return forward;
+	float angle = 0;
 	if (helpers::nearEq(1, projectileCount)) {
 		angle = FMath::FRandRange(-tempSpread / 2.0, tempSpread / 2.0);
 	}
 	else {
-		float proportion = projectileIndex / (projectileCount - 1);
+		float proportion = projectileIndex / static_cast<float>(projectileCount - 1);
 		angle = proportion * tempSpread - tempSpread / 2.0;
 	}
 	FRotator rot = FRotator(angle, 0, 0);

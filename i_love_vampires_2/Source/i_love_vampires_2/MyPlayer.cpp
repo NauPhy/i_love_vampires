@@ -9,6 +9,11 @@
 #include "MyGameplayStatics.h"
 #include "Camera/CameraComponent.h"
 #include "Definitions.h"
+#include "InputAction.h"
+#include "EnhancedInputComponent.h"
+#include "Engine/World.h"
+#include "Kismet/GameplayStatics.h"
+#include <cmath>
 
 //void AMyPlayer::PostInitializeComponents() {
 //	Super::PostInitializeComponents();
@@ -121,6 +126,28 @@ bool AMyPlayer::addKeyboardContext() {
 	return true;
 }
 
+void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+		UEnhancedInputComponent* enhancedInput = Cast<UEnhancedInputComponent>(PlayerInputComponent);
+	if (!IsValid(enhancedInput)) {
+		LOGERROR("AMyPlayer::SetupPlayerInputComponent - invalid enhancedInput");
+		return;
+	}
+
+	UAssetRefs* assetRefs = nullptr;
+	if (!MyGameplayStatics::getAssetRefs(this, assetRefs)) {
+		return;
+	}
+	const UInputAction* move = assetRefs->getMoveAction();
+	if (!IsValid(move)) {
+		LOGERROR("AMyPlayer::addKeyboardContext - move action not found");
+		return;
+	}
+	enhancedInput->BindAction(move, ETriggerEvent::Triggered, this, &AMyPlayer::handleMovement);
+}
+
 void AMyPlayer::initialise_AMyPlayer(const UCombatantTemplate* data) {
 	initialise_ACombatant(data);
 }
@@ -141,10 +168,11 @@ void AMyPlayer::BeginPlay() {
 }
 
 bool AMyPlayer::isOutOfDeadzone(float x, float z) const {
-	return x >= 0.3 && z >= 0.3;
+	return std::sqrt(std::pow(x, 2) + std::pow(z, 2)) > 0.3;
 }
 
-void AMyPlayer::handleMovement(const FVector2D& input) {
+void AMyPlayer::handleMovement(const FInputActionValue& rawInput) {
+	FVector2D input = rawInput.Get<FVector2D>();
 	if (!isOutOfDeadzone(input.X, input.Y))
 		return;
 	FVector movement = FVector(input.X * _MOVEMENT_SPEED, 0, input.Y * _MOVEMENT_SPEED * ACombatant::getAttributeMember(&CombatantAttributes::_movementSpeed));
@@ -170,4 +198,28 @@ void AMyPlayer::Tick(float delta) {
 	const float directionX = X / static_cast<double>(viewX) - 0.5;
 	const float directionZ = (Y / static_cast<double>(viewY) - 0.5) * -1.0;
 	lookAtDirection(directionX, directionZ);
+}
+
+AMyPlayer* AMyPlayer::spawnAMyActorDeferred(UObject* worldContext, const FTransform& trans, AActor* deferredOwner, APawn* deferredInstigator) {
+	UWorld* world = worldContext->GetWorld();
+	if (!IsValid(world)) {
+		LOGERROR("AMyPlayer::spawnAMyActorDeferred - invalid world");
+		return nullptr;
+	}
+	return world->SpawnActorDeferred<AMyPlayer>(
+		AMyPlayer::StaticClass(),
+		trans,
+		deferredOwner,
+		deferredInstigator,
+		ESpawnActorCollisionHandlingMethod::AlwaysSpawn,
+		ESpawnActorScaleMethod::MultiplyWithRoot
+	);
+}
+
+void AMyPlayer::finishAMyActorDeferredSpawn(AMyPlayer* spawnedActor, const FTransform& trans) {
+	if (!IsValid(spawnedActor)) {
+		LOGERROR("AMyPlayer::finishAMyActorDeferredSpawn - spawnedActor is not valid");
+		return;
+	}
+	UGameplayStatics::FinishSpawningActor(spawnedActor, trans, ESpawnActorScaleMethod::MultiplyWithRoot);
 }

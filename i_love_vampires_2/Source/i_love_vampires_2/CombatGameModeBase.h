@@ -12,6 +12,11 @@ class I_LOVE_VAMPIRES_2_API ACombatGameModeBase : public AGameModeBase {
 	UEnemySpawner* _enemySpawner = nullptr;
 	UPROPERTY()
 	UCombatantManager* _combatantManager = nullptr;
+	bool isReady_Implementation() const;
+
+protected:
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	bool isReady() const;
 
 public:
 	ACombatGameModeBase();

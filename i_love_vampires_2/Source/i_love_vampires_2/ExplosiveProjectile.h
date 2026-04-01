@@ -30,7 +30,7 @@ protected:
 	std::unique_ptr<ExplosiveProjectileAttributes> _explosiveProjectileAttributes = nullptr;
 
 	virtual void bulletDeath() override;
-	virtual void handleSweepResults(const TArray<struct FHitResult>& hits) override;
+	//virtual void handleSweepResults(const TArray<struct FHitResult>& hits) override;
 
 public:
 	AExplosiveProjectile() : AProjectile() {}

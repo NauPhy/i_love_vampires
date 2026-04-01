@@ -32,6 +32,7 @@ public:
 	bool getBurnThisFrame() const { return _burnThisFrame; }
 	virtual void tick(float DeltaTime);
 	void setGameReady(bool val) { _gameReady = val; }
+	bool getGameReady() const { return _gameReady; }
 
 private:
 	void burnAll();

@@ -120,6 +120,82 @@ DEFINE_FUNCTION(ACombatGameModeBase::execgetEnemySpawner)
 }
 // ********** End Class ACombatGameModeBase Function getEnemySpawner *******************************
 
+// ********** Begin Class ACombatGameModeBase Function isReady *************************************
+struct CombatGameModeBase_eventisReady_Parms
+{
+	bool ReturnValue;
+
+	/** Constructor, initializes return property only **/
+	CombatGameModeBase_eventisReady_Parms()
+		: ReturnValue(false)
+	{
+	}
+};
+static FName NAME_ACombatGameModeBase_isReady = FName(TEXT("isReady"));
+bool ACombatGameModeBase::isReady() const
+{
+	UFunction* Func = FindFunctionChecked(NAME_ACombatGameModeBase_isReady);
+	if (!Func->GetOwnerClass()->HasAnyClassFlags(CLASS_Native))
+	{
+		CombatGameModeBase_eventisReady_Parms Parms;
+		const_cast<ACombatGameModeBase*>(this)->ProcessEvent(Func,&Parms);
+		return !!Parms.ReturnValue;
+	}
+	else
+	{
+		return const_cast<ACombatGameModeBase*>(this)->isReady_Implementation();
+	}
+}
+struct Z_Construct_UFunction_ACombatGameModeBase_isReady_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "CombatGameModeBase.h" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Function isReady constinit property declarations *******************************
+	static void NewProp_ReturnValue_SetBit(void* Obj);
+	static const UECodeGen_Private::FBoolPropertyParams NewProp_ReturnValue;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function isReady constinit property declarations *********************************
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+
+// ********** Begin Function isReady Property Definitions ******************************************
+void Z_Construct_UFunction_ACombatGameModeBase_isReady_Statics::NewProp_ReturnValue_SetBit(void* Obj)
+{
+	((CombatGameModeBase_eventisReady_Parms*)Obj)->ReturnValue = 1;
+}
+const UECodeGen_Private::FBoolPropertyParams Z_Construct_UFunction_ACombatGameModeBase_isReady_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(CombatGameModeBase_eventisReady_Parms), &Z_Construct_UFunction_ACombatGameModeBase_isReady_Statics::NewProp_ReturnValue_SetBit, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ACombatGameModeBase_isReady_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ACombatGameModeBase_isReady_Statics::NewProp_ReturnValue,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ACombatGameModeBase_isReady_Statics::PropPointers) < 2048);
+// ********** End Function isReady Property Definitions ********************************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ACombatGameModeBase_isReady_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_ACombatGameModeBase, nullptr, "isReady", 	Z_Construct_UFunction_ACombatGameModeBase_isReady_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_ACombatGameModeBase_isReady_Statics::PropPointers), 
+sizeof(CombatGameModeBase_eventisReady_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x5C080C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ACombatGameModeBase_isReady_Statics::Function_MetaDataParams), Z_Construct_UFunction_ACombatGameModeBase_isReady_Statics::Function_MetaDataParams)},  };
+static_assert(sizeof(CombatGameModeBase_eventisReady_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_ACombatGameModeBase_isReady()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ACombatGameModeBase_isReady_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ACombatGameModeBase::execisReady)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	*(bool*)Z_Param__Result=P_THIS->isReady_Implementation();
+	P_NATIVE_END;
+}
+// ********** End Class ACombatGameModeBase Function isReady ***************************************
+
 // ********** Begin Class ACombatGameModeBase Function setGameReady ********************************
 struct Z_Construct_UFunction_ACombatGameModeBase_setGameReady_Statics
 {
@@ -233,12 +309,14 @@ struct Z_Construct_UClass_ACombatGameModeBase_Statics
 	static constexpr UE::CodeGen::FClassNativeFunction Funcs[] = {
 		{ .NameUTF8 = UTF8TEXT("getCombatantManager"), .Pointer = &ACombatGameModeBase::execgetCombatantManager },
 		{ .NameUTF8 = UTF8TEXT("getEnemySpawner"), .Pointer = &ACombatGameModeBase::execgetEnemySpawner },
+		{ .NameUTF8 = UTF8TEXT("isReady"), .Pointer = &ACombatGameModeBase::execisReady },
 		{ .NameUTF8 = UTF8TEXT("setGameReady"), .Pointer = &ACombatGameModeBase::execsetGameReady },
 	};
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
 		{ &Z_Construct_UFunction_ACombatGameModeBase_getCombatantManager, "getCombatantManager" }, // 786297690
 		{ &Z_Construct_UFunction_ACombatGameModeBase_getEnemySpawner, "getEnemySpawner" }, // 3557539413
+		{ &Z_Construct_UFunction_ACombatGameModeBase_isReady, "isReady" }, // 335285443
 		{ &Z_Construct_UFunction_ACombatGameModeBase_setGameReady, "setGameReady" }, // 3339965129
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
@@ -298,10 +376,10 @@ ACombatGameModeBase::~ACombatGameModeBase() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatGameModeBase_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ACombatGameModeBase, ACombatGameModeBase::StaticClass, TEXT("ACombatGameModeBase"), &Z_Registration_Info_UClass_ACombatGameModeBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ACombatGameModeBase), 2756266149U) },
+		{ Z_Construct_UClass_ACombatGameModeBase, ACombatGameModeBase::StaticClass, TEXT("ACombatGameModeBase"), &Z_Registration_Info_UClass_ACombatGameModeBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ACombatGameModeBase), 3243429761U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatGameModeBase_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatGameModeBase_h__Script_i_love_vampires_2_1448146370{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatGameModeBase_h__Script_i_love_vampires_2_2163234163{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatGameModeBase_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatGameModeBase_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

@@ -7,6 +7,7 @@
 #include "MyPlayer.generated.h"
 class AExperienceShard;
 class AEnemyBase;
+struct FInputActionValue;
 
 UCLASS()
 class I_LOVE_VAMPIRES_2_API AMyPlayer : public ACombatant
@@ -28,7 +29,7 @@ class I_LOVE_VAMPIRES_2_API AMyPlayer : public ACombatant
 	void levelUp();
 	void handleEnemyCollision(AEnemyBase* other);
 	bool isOutOfDeadzone(float, float) const;
-	void handleMovement(const FVector2D&);
+	void handleMovement(const FInputActionValue&);
 	//bool assetRefInitialise();
 
 public:
@@ -41,6 +42,11 @@ public:
 	virtual void BeginPlay() override;
 	virtual void Tick(float delta) override;
 	void handleExperienceShardCollision(AExperienceShard* other);
+	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
+	UFUNCTION(BlueprintCallable)
+	static AMyPlayer* spawnAMyActorDeferred(UObject* worldContext, const FTransform& trans, AActor* deferredOwner = nullptr, APawn* deferredInstigator = nullptr);
+	UFUNCTION(BlueprintCallable)
+	static void finishAMyActorDeferredSpawn(AMyPlayer* deferredObject, const FTransform& trans);
 	// This is the last member function called before BeginPlay()
 	//virtual void PostInitializeComponents() override;
 };	

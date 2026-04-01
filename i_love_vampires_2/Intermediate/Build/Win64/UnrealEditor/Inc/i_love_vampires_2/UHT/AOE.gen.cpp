@@ -224,7 +224,6 @@ UClass* Z_Construct_UClass_AAOE()
 	}
 	return Z_Registration_Info_UClass_AAOE.OuterSingleton;
 }
-AAOE::AAOE() {}
 DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, AAOE);
 AAOE::~AAOE() {}
 // ********** End Class AAOE ***********************************************************************

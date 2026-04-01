@@ -40,6 +40,7 @@ class I_LOVE_VAMPIRES_2_API AAttackActor : public AActor {
 	void initialise_AAttackActor(ACombatant* pawnRef, const UAttackConfig* attackConfig, const AttackAttributes& attackAttributes);
 	
 protected:
+	const static inline float _SPRITE_RADIUS = 8;
 	TWeakObjectPtr<const ACombatant> _pawnRef = nullptr;
 	TArray<TWeakObjectPtr<APawn>> _effectedPawns;
 	std::unique_ptr<const AttackAttributes> _attackAttributes = nullptr;

@@ -37,6 +37,9 @@ private:
 	void initShape();
 
 public:
+	AAOE() : AAttackActor() {
+		PrimaryActorTick.bStartWithTickEnabled = false;
+	}
 	void initialise_AAOE(const AOEInitStruct& temp);
 	void completeDelayedConstruction();
 	//virtual void factoryInitQuery(AAttackFactory* factory) override;

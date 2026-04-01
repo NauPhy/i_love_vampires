@@ -21,13 +21,14 @@ void AAOE::initialise_AAOE(const AOEInitStruct& temp)
 }
 
 void AAOE::BeginPlay() {
+	Super::BeginPlay();
+	if (!IsValid(_AOEConfig.Get()) || _AOEAttributes.get() == nullptr || !IsValid(RootComponent)) {
+		LOGERROR("AAOE::BeginPlay - invalid parameters");
+		return;
+	}
 	if (!_initialisedWithDelay) {
-		if (!IsValid(_AOEConfig.Get()) || _AOEAttributes.get() == nullptr || !IsValid(RootComponent)) {
-			LOGERROR("AAOE::BeginPlay - invalid parameters");
-			return;
-		}
-		Super::BeginPlay();
 		initShape();
+		SetActorTickEnabled(true);
 	}
 }
 
@@ -36,13 +37,18 @@ void AAOE::completeDelayedConstruction() {
 	SetActorEnableCollision(true);
 	SetActorTickEnabled(true);
 	_initialisedWithDelay = false;
-	BeginPlay();
+	initShape();
+	//BeginPlay();
 }
 
 void AAOE::initShape() {
+	const FVector currentScale = GetActorScale3D();
+	SetActorScale3D(currentScale * _AOEAttributes->_radius.getFinal());
 	if (_AOEConfig->_shape == _CIRCLE) {
 		_collider = NewObject<USphereComponent>(this);
-		Cast<USphereComponent>(_collider)->InitSphereRadius(_AOEAttributes->_radius.getFinal());
+		const float currentFactor = GetActorScale3D().X;
+		const float radius = _AOEAttributes->_radius.getFinal() * _SPRITE_RADIUS / currentFactor;
+		Cast<USphereComponent>(_collider)->InitSphereRadius(radius);
 	}
 	else {
 		LOGERROR("AAOE::initShape - shape not implemented");
