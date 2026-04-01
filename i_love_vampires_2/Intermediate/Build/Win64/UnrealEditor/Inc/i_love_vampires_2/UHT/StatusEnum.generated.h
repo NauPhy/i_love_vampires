@@ -25,7 +25,8 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #define FOREACH_ENUM_ESTATUS(op) \
 	op(EStatus::damage) \
 	op(EStatus::bleed) \
-	op(EStatus::burn) 
+	op(EStatus::burn) \
+	op(EStatus::INVALID) 
 
 enum class EStatus : uint8;
 template<> struct TIsUEnumClass<EStatus> { enum { Value = true }; };

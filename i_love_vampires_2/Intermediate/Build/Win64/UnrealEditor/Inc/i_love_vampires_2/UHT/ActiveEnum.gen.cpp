@@ -39,11 +39,14 @@ struct Z_Construct_UEnum_i_love_vampires_2_EAttackType_Statics
 		{ "first.DisplayName", "first" },
 		{ "first.Name", "EAttackType::first" },
 		{ "first.ToolTip", "The most basic attack type; fires the first attack in the list without checking if there are other attacks." },
+		{ "INVALID.DisplayName", "INVALID" },
+		{ "INVALID.Name", "EAttackType::INVALID" },
 		{ "ModuleRelativePath", "ActiveEnum.h" },
 	};
 #endif // WITH_METADATA
 	static constexpr UECodeGen_Private::FEnumeratorParam Enumerators[] = {
 		{ "EAttackType::first", (int64)EAttackType::first },
+		{ "EAttackType::INVALID", (int64)EAttackType::INVALID },
 	};
 	static const UECodeGen_Private::FEnumParams EnumParams;
 }; // struct Z_Construct_UEnum_i_love_vampires_2_EAttackType_Statics 
@@ -73,10 +76,10 @@ UEnum* Z_Construct_UEnum_i_love_vampires_2_EAttackType()
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ActiveEnum_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
-		{ EAttackType_StaticEnum, TEXT("EAttackType"), &Z_Registration_Info_UEnum_EAttackType, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 809871547U) },
+		{ EAttackType_StaticEnum, TEXT("EAttackType"), &Z_Registration_Info_UEnum_EAttackType, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3248013249U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ActiveEnum_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ActiveEnum_h__Script_i_love_vampires_2_52827784{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ActiveEnum_h__Script_i_love_vampires_2_2028003692{
 	TEXT("/Script/i_love_vampires_2"),
 	nullptr, 0,
 	nullptr, 0,

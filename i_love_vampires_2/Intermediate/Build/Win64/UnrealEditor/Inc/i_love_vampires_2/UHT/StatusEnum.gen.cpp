@@ -41,6 +41,8 @@ struct Z_Construct_UEnum_i_love_vampires_2_EStatus_Statics
 		{ "burn.Name", "EStatus::burn" },
 		{ "damage.DisplayName", "damage" },
 		{ "damage.Name", "EStatus::damage" },
+		{ "INVALID.DisplayName", "INVALID" },
+		{ "INVALID.Name", "EStatus::INVALID" },
 		{ "ModuleRelativePath", "StatusEnum.h" },
 	};
 #endif // WITH_METADATA
@@ -48,6 +50,7 @@ struct Z_Construct_UEnum_i_love_vampires_2_EStatus_Statics
 		{ "EStatus::damage", (int64)EStatus::damage },
 		{ "EStatus::bleed", (int64)EStatus::bleed },
 		{ "EStatus::burn", (int64)EStatus::burn },
+		{ "EStatus::INVALID", (int64)EStatus::INVALID },
 	};
 	static const UECodeGen_Private::FEnumParams EnumParams;
 }; // struct Z_Construct_UEnum_i_love_vampires_2_EStatus_Statics 
@@ -77,10 +80,10 @@ UEnum* Z_Construct_UEnum_i_love_vampires_2_EStatus()
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_StatusEnum_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
-		{ EStatus_StaticEnum, TEXT("EStatus"), &Z_Registration_Info_UEnum_EStatus, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 1380553772U) },
+		{ EStatus_StaticEnum, TEXT("EStatus"), &Z_Registration_Info_UEnum_EStatus, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 1901352319U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_StatusEnum_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_StatusEnum_h__Script_i_love_vampires_2_607418744{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_StatusEnum_h__Script_i_love_vampires_2_3067126271{
 	TEXT("/Script/i_love_vampires_2"),
 	nullptr, 0,
 	nullptr, 0,

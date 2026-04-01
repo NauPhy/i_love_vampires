@@ -189,7 +189,7 @@ AOEFactory::AOEFactory(AOEFactory&& other) :
 //}
 
 std::unique_ptr<AttackFactory> UAOETemplate::createFactory(ACombatant* owner) const {
-	const UAOETemplate* temp = unrealHelpers::getDynamicTemplate<UAOETemplate>(this, this);
+	const UAOETemplate* temp = unrealHelpers::getDynamicTemplate<UAOETemplate>(owner, this);
 	if (!IsValid(temp)) {
 		LOGERROR("UAOEFactory::createFactory - failed to get template");
 		return nullptr;
@@ -204,13 +204,13 @@ std::unique_ptr<AttackFactory> UAOETemplate::createFactory(ACombatant* owner) co
 }
 
 void UAOEConfig::replaceOverrides() {
-	if (unrealHelpers::isInvalidData(static_cast<uint8>(_shape)))
-		_shape = defaults::_shape;
+	if (unrealHelpers::isInvalidData(_shape))
+		_shape = _defaults._shape;
 }
 
 void UAOEAttributeData::replaceOverrides() {
 	if (helpers::isInvalidData(_radius))
-		_radius = defaults::_radius;
+		_radius = _defaults._radius;
 	if (helpers::isInvalidData(_duration))
-		_duration = defaults::_duration;
+		_duration = _defaults._duration;
 }

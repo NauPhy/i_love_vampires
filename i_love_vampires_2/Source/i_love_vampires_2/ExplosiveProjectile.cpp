@@ -175,7 +175,7 @@ ExplosiveProjectileFactory::ExplosiveProjectileFactory(ExplosiveProjectileFactor
 //}
 
 std::unique_ptr<AttackFactory> UExplosiveProjectileTemplate::createFactory(ACombatant* owner) const {
-	const UExplosiveProjectileTemplate* temp = unrealHelpers::getDynamicTemplate<UExplosiveProjectileTemplate>(this, this);
+	const UExplosiveProjectileTemplate* temp = unrealHelpers::getDynamicTemplate<UExplosiveProjectileTemplate>(owner, this);
 	if (!IsValid(temp)) {
 		LOGERROR("UExplosiveProjectileTemplate::createFactory - failed to get template");
 		return nullptr;

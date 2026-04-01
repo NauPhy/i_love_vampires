@@ -5,5 +5,6 @@
 UENUM(BlueprintType)
 enum class EAOEShape : uint8
 {
-	circle UMETA(DisplayName = "circle")
+	circle UMETA(DisplayName = "circle"),
+	INVALID = 255 UMETA(DisplayName = "INVALID")
 };

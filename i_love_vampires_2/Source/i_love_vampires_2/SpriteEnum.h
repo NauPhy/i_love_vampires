@@ -13,7 +13,8 @@ enum class ESprite : uint8
 	//Projectiles
 	testBullet UMETA(DisplayName = "testBullet"),
 	//Other
-	testShard UMETA(DisplayName = "testShard")
+	testShard UMETA(DisplayName = "testShard"),
+	INVALID = 255 UMETA(DisplayName = "INVALID")
 };
 // Dependencies (C++)
 // testShard

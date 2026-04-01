@@ -33,7 +33,7 @@ class I_LOVE_VAMPIRES_2_API ACombatant : public APawn
 {
 	GENERATED_BODY()
 
-	const static EStatus _DAMAGE = EStatus::damage;
+	const static inline EStatus _DAMAGE = EStatus::damage;
 
 	FVector _myForwardVector;
 	std::vector<Active> _activeAbilities;
@@ -73,9 +73,9 @@ class I_LOVE_VAMPIRES_2_API UCombatantAttributeData : public UBaseAttributeData
 {
 	GENERATED_BODY()
 
-	const static struct defaults {
-		float _maxHP = 100;
-		float _currentHP = 100;
+	struct defaults {
+		float _maxHP = 60;
+		float _currentHP = 60;
 		float _damageReduction_flat = 0;
 		float _damageReduction_percent = 0;
 		float _healthRegen_flat = 0;
@@ -94,9 +94,7 @@ class I_LOVE_VAMPIRES_2_API UCombatantAttributeData : public UBaseAttributeData
 		float _selfSize = 1;
 		float _iFrameDuration = 1;
 	};
-
-protected:
-	virtual void replaceOverrides() override;
+	const static inline defaults _defaults;
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
@@ -139,14 +137,15 @@ public:
 	float _iFrameDuration = -999;
 
 	UCombatantAttributeData(const FObjectInitializer& init) : Super(init) {}
+	virtual void replaceOverrides() override;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
 
 class CombatantAttributes : public BaseAttributes {
-	const static EStatus _DAMAGE = EStatus::damage;
-	const static EStatus _BLEED = EStatus::bleed;
-	const static EStatus _BURN = EStatus::burn;
+	const static inline EStatus _DAMAGE = EStatus::damage;
+	const static inline EStatus _BLEED = EStatus::bleed;
+	const static inline EStatus _BURN = EStatus::burn;
 
 public:
 	Stat _maxHP;
@@ -209,11 +208,12 @@ class I_LOVE_VAMPIRES_2_API UCombatantConfig : public UBaseConfig
 {
 	GENERATED_BODY()
 
-	const static struct defaults {
+	struct defaults {
 		FString _name = "Combatant";
 		ESprite _sprite = static_cast<ESprite>(0);
 		TSubclassOf<ACombatant> _combatantClass = ACombatant::StaticClass();
 	};
+	const static inline defaults _defaults;
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)

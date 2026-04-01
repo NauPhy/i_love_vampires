@@ -13,7 +13,7 @@ class I_LOVE_VAMPIRES_2_API AMyPlayer : public ACombatant
 {
 	GENERATED_BODY()
 
-	const float _MOVEMENT_SPEED = 3;
+	const static inline float _MOVEMENT_SPEED = 3;
 
 	float _experience = 0;
 	float _maxExperience = 1;

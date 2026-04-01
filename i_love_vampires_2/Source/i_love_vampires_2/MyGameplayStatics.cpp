@@ -11,7 +11,7 @@
 #include "Engine/LocalPlayer.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "CombatGameModeBase.h"
-
+#include "DynamicAssetManager.h"
 
 
 bool MyGameplayStatics::myGetEnhancedInputLocalPlayerSubsystem(const UObject* caller, UEnhancedInputLocalPlayerSubsystem*& ret) {

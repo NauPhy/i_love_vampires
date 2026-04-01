@@ -23,7 +23,8 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
 // ********** Begin Enum EAttackType ***************************************************************
 #define FOREACH_ENUM_EATTACKTYPE(op) \
-	op(EAttackType::first) 
+	op(EAttackType::first) \
+	op(EAttackType::INVALID) 
 
 enum class EAttackType : uint8;
 template<> struct TIsUEnumClass<EAttackType> { enum { Value = true }; };

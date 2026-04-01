@@ -34,7 +34,7 @@ UCLASS()
 class I_LOVE_VAMPIRES_2_API AAttackActor : public AActor {
 	GENERATED_BODY()
 
-	const EStatus _DAMAGE = EStatus::damage;
+	const static inline EStatus _DAMAGE = EStatus::damage;
 
 	TObjectPtr<const UAttackConfig> _attackConfig = nullptr;
 	void initialise_AAttackActor(ACombatant* pawnRef, const UAttackConfig* attackConfig, const AttackAttributes& attackAttributes);
@@ -62,9 +62,10 @@ class I_LOVE_VAMPIRES_2_API UAttackConfig : public UBaseConfig
 {
 	GENERATED_BODY()
 
-	const static struct defaults {
+	struct defaults {
 		ESprite _sprite = static_cast<ESprite>(0);
 	};
+	const static inline defaults _defaults;
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
@@ -83,11 +84,12 @@ class I_LOVE_VAMPIRES_2_API UAttackAttributeData : public UBaseAttributeData
 {
 	GENERATED_BODY()
 
-	const static struct defaults {
+	struct defaults {
 		float _damage = 0.f;
 		float _critChance = 0.f;
 		float _critMultiplier = 2.f;
 	};
+	const static inline defaults _defaults;
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)

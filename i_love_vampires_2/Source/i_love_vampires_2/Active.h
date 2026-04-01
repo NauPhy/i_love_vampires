@@ -61,13 +61,13 @@ class I_LOVE_VAMPIRES_2_API UWeaponTemplate : public UBaseTemplate
 {
 	GENERATED_BODY()
 
-	static const struct defaults {
+	struct defaults {
 		FString _name = "Active";
-		bool _startOnCooldown = true;
 		float _warmup = 1.f;
 		EAttackType _attackType = static_cast<EAttackType>(0);
 		TArray<UAttackTemplate*> _attackData = {};
 	};
+	const static inline defaults _defaults;
 
 public:
 	UPROPERTY(EditAnywhere)

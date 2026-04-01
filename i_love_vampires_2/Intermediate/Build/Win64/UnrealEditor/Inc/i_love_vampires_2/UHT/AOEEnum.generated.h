@@ -23,7 +23,8 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
 // ********** Begin Enum EAOEShape *****************************************************************
 #define FOREACH_ENUM_EAOESHAPE(op) \
-	op(EAOEShape::circle) 
+	op(EAOEShape::circle) \
+	op(EAOEShape::INVALID) 
 
 enum class EAOEShape : uint8;
 template<> struct TIsUEnumClass<EAOEShape> { enum { Value = true }; };

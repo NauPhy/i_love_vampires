@@ -21,7 +21,7 @@ UCLASS()
 class AAOE : public AAttackActor {
 	GENERATED_BODY()
 
-	const static EAOEShape _CIRCLE = EAOEShape::circle;
+	const static inline EAOEShape _CIRCLE = EAOEShape::circle;
 
 	float _consumedDuration = 0;
 	bool _isAfterimage = false;
@@ -62,9 +62,10 @@ class I_LOVE_VAMPIRES_2_API UAOEConfig : public UBaseConfig
 {
 	GENERATED_BODY()
 
-	const static struct defaults {
+	struct defaults {
 		EAOEShape _shape = static_cast<EAOEShape>(0);
 	};
+	const static inline defaults _defaults;
 
 public:
 	virtual void replaceOverrides() override;
@@ -79,10 +80,11 @@ class I_LOVE_VAMPIRES_2_API UAOEAttributeData : public UBaseAttributeData
 {
 	GENERATED_BODY()
 
-	const static struct defaults {
+	struct defaults {
 		float _radius = 1.f;
 		float _duration = 0.f;
 	};
+	const static inline defaults _defaults;
 
 public:
 	virtual void replaceOverrides() override;

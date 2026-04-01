@@ -20,7 +20,7 @@ UCLASS()
 class AProjectile : public AAttackActor {
 	GENERATED_BODY()
 
-	const EProjectileShape _CIRCLE = EProjectileShape::circle;
+	const static inline EProjectileShape _CIRCLE = EProjectileShape::circle;
 
 protected:
 	float _directionX = 0;
@@ -57,11 +57,12 @@ class I_LOVE_VAMPIRES_2_API UProjectileConfig : public UBaseConfig
 {
 	GENERATED_BODY()
 
-	const static struct defaults {
+	struct defaults {
 		EProjectileShape _shape = static_cast<EProjectileShape>(0);
 		EAttackShape _attackShape = static_cast<EAttackShape>(0);
 		EProjectileTargeting _targeting = static_cast<EProjectileTargeting>(0);
 	};
+	const static inline defaults _defaults;
 
 public:
 	virtual void replaceOverrides() override;
@@ -82,7 +83,7 @@ class I_LOVE_VAMPIRES_2_API UProjectileAttributeData : public UBaseAttributeData
 {
 	GENERATED_BODY()
 
-	const static struct defaults {
+	struct defaults {
 		float _spread = -1.f;
 		float _radius = 1.f;
 		float _speed = 200.f;
@@ -91,6 +92,7 @@ class I_LOVE_VAMPIRES_2_API UProjectileAttributeData : public UBaseAttributeData
 		float _bounce = 0.f;
 		float _projectileCount = 1.f;
 	};
+	const static inline defaults _defaults;
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)

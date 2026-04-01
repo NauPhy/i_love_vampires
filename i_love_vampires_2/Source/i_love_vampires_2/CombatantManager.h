@@ -12,7 +12,7 @@ class I_LOVE_VAMPIRES_2_API UCombatantManager : public UObject
 {
 	GENERATED_BODY()
 
-	const float _BURN_PERIOD = 1.f;
+	const static inline float _BURN_PERIOD = 1.f;
 
 	int _nextKey = 0;
 	bool _burnThisFrame = false;

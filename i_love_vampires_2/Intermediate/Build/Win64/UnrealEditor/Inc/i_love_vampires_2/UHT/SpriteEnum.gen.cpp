@@ -35,6 +35,8 @@ struct Z_Construct_UEnum_i_love_vampires_2_ESprite_Statics
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
 		{ "BlueprintType", "true" },
+		{ "INVALID.DisplayName", "INVALID" },
+		{ "INVALID.Name", "ESprite::INVALID" },
 		{ "ModuleRelativePath", "SpriteEnum.h" },
 		{ "testBullet.Comment", "//Projectiles\n" },
 		{ "testBullet.DisplayName", "testBullet" },
@@ -59,6 +61,7 @@ struct Z_Construct_UEnum_i_love_vampires_2_ESprite_Statics
 		{ "ESprite::testEnemy", (int64)ESprite::testEnemy },
 		{ "ESprite::testBullet", (int64)ESprite::testBullet },
 		{ "ESprite::testShard", (int64)ESprite::testShard },
+		{ "ESprite::INVALID", (int64)ESprite::INVALID },
 	};
 	static const UECodeGen_Private::FEnumParams EnumParams;
 }; // struct Z_Construct_UEnum_i_love_vampires_2_ESprite_Statics 
@@ -88,10 +91,10 @@ UEnum* Z_Construct_UEnum_i_love_vampires_2_ESprite()
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_SpriteEnum_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
-		{ ESprite_StaticEnum, TEXT("ESprite"), &Z_Registration_Info_UEnum_ESprite, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3639681666U) },
+		{ ESprite_StaticEnum, TEXT("ESprite"), &Z_Registration_Info_UEnum_ESprite, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 4039318976U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_SpriteEnum_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_SpriteEnum_h__Script_i_love_vampires_2_2447002681{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_SpriteEnum_h__Script_i_love_vampires_2_3473858410{
 	TEXT("/Script/i_love_vampires_2"),
 	nullptr, 0,
 	nullptr, 0,

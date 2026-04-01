@@ -5,17 +5,20 @@
 UENUM(BlueprintType)
 enum class EProjectileShape : uint8
 {
-	circle UMETA(DisplayName = "circle")
+	circle UMETA(DisplayName = "circle"),
+	INVALID = 255 UMETA(DisplayName = "INVALID")
 };
 UENUM(BlueprintType)
 enum class EAttackShape : uint8
 {
-	fan UMETA(DisplayName = "fan")
+	fan UMETA(DisplayName = "fan"),
+	INVALID = 255 UMETA(DisplayName = "INVALID")
 };
 UENUM(BlueprintType)
 enum class EProjectileTargeting : uint8
 {
 	skillshot      UMETA(DisplayName = "skillshot"),
 	closest		   UMETA(DisplayName = "closest"),
-	random		   UMETA(DisplayName = "random")
+	random		   UMETA(DisplayName = "random"),
+	INVALID = 255 UMETA(DisplayName = "INVALID")
 };

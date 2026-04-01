@@ -35,7 +35,7 @@ void ACombatant::initialise_ACombatant(const UCombatantTemplate* diskVal) {
 		LOGERROR("ACombatant::initialise_ACombatant - parameter not valid");
 		return;
 	}
-	const UCombatantTemplate* temp = unrealHelpers::getDynamicTemplate<UCombatantTemplate>(this, diskVal)
+	const UCombatantTemplate* temp = unrealHelpers::getDynamicTemplate<UCombatantTemplate>(this, diskVal);
 	if (!IsValid(temp)) {
 		LOGERROR("ACombatant::initialise_ACombatant - failed to get dynamic template");
 		return;
@@ -273,52 +273,52 @@ CombatantAttributeSet::CombatantAttributeSet(CombatantAttributeSet&& other) :
 {
 }
 
-void UCombatantAttributeData::replaceOverrides() override {
+void UCombatantAttributeData::replaceOverrides() {
 	if (helpers::isInvalidData(_maxHP))
-		_maxHP = defaults::_maxHP;
+		_maxHP = _defaults._maxHP;
 	if (helpers::isInvalidData(_currentHP))
-		_currentHP = defaults::_currentHP;
+		_currentHP = _defaults._currentHP;
 	if (helpers::isInvalidData(_damageReduction_flat))
-		_damageReduction_flat = defaults::_damageReduction_flat;
+		_damageReduction_flat = _defaults._damageReduction_flat;
 	if (helpers::isInvalidData(_damageReduction_percent))
-		_damageReduction_percent = defaults::_damageReduction_percent;
+		_damageReduction_percent = _defaults._damageReduction_percent;
 	if (helpers::isInvalidData(_healthRegen_flat))
-		_healthRegen_flat = defaults::_healthRegen_flat;
+		_healthRegen_flat = _defaults._healthRegen_flat;
 	if (helpers::isInvalidData(_healthRegen_percent))
-		_healthRegen_percent = defaults::_healthRegen_percent;
+		_healthRegen_percent = _defaults._healthRegen_percent;
 	if (helpers::isInvalidData(_critChance))
-		_critChance = defaults::_critChance;
+		_critChance = _defaults._critChance;
 	if (helpers::isInvalidData(_critMultiplier))
-		_critMultiplier = defaults::_critMultiplier;
+		_critMultiplier = _defaults._critMultiplier;
 	if (helpers::isInvalidData(_attackSpeed))
-		_attackSpeed = defaults::_attackSpeed;
+		_attackSpeed = _defaults._attackSpeed;
 	if (helpers::isInvalidData(_bonusBounces))
-		_bonusBounces = defaults::_bonusBounces;
+		_bonusBounces = _defaults._bonusBounces;
 	if (helpers::isInvalidData(_bonusPierce))
-		_bonusPierce = defaults::_bonusPierce;
+		_bonusPierce = _defaults._bonusPierce;
 	if (helpers::isInvalidData(_bonusProjectiles))
-		_bonusProjectiles = defaults::_bonusProjectiles;
+		_bonusProjectiles = _defaults._bonusProjectiles;
 	if (helpers::isInvalidData(_projectileSpeed))
-		_projectileSpeed = defaults::_projectileSpeed;
+		_projectileSpeed = _defaults._projectileSpeed;
 	if (helpers::isInvalidData(_projectileSize))
-		_projectileSize = defaults::_projectileSize;
+		_projectileSize = _defaults._projectileSize;
 	if (helpers::isInvalidData(_movementSpeed))
-		_movementSpeed = defaults::_movementSpeed;
+		_movementSpeed = _defaults._movementSpeed;
 	if (helpers::isInvalidData(_range))
-		_range = defaults::_range;
+		_range = _defaults._range;
 	if (helpers::isInvalidData(_contactDamage))
-		_contactDamage = defaults::_contactDamage;
+		_contactDamage = _defaults._contactDamage;
 	if (helpers::isInvalidData(_selfSize))
-		_selfSize = defaults::_selfSize;
+		_selfSize = _defaults._selfSize;
 	if (helpers::isInvalidData(_iFrameDuration))
-		_iFrameDuration = defaults::_iFrameDuration;
+		_iFrameDuration = _defaults._iFrameDuration;
 };
 
 void UCombatantConfig::replaceOverrides() {
 	if (unrealHelpers::isInvalidData(_name))
-		_name = defaults::_name;
+		_name = _defaults._name;
 	if (unrealHelpers::isInvalidData(_sprite))
-		_sprite = defaults::_sprite;
+		_sprite = _defaults._sprite;
 	if (unrealHelpers::isInvalidData<ACombatant>(_combatantClass))
-		_combatantClass = defaults::_combatantClass;
+		_combatantClass = _defaults._combatantClass;
 }

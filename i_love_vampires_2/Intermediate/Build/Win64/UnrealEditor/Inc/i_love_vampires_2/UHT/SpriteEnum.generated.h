@@ -26,7 +26,8 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 	op(ESprite::testPlayer) \
 	op(ESprite::testEnemy) \
 	op(ESprite::testBullet) \
-	op(ESprite::testShard) 
+	op(ESprite::testShard) \
+	op(ESprite::INVALID) 
 
 enum class ESprite : uint8;
 template<> struct TIsUEnumClass<ESprite> { enum { Value = true }; };

@@ -4,6 +4,7 @@
 #include "Combatant.h"
 #include "GameFramework/Pawn.h"
 #include "unrealHelpers.h"
+#include "helpers.h"
 
 void Active::tick(float delta, const FVector& forwardVector) {
 	if (!_owner.IsValid()) {
@@ -52,7 +53,7 @@ Active::Active(ACombatant* owner, const UWeaponTemplate* rawData) : _owner(owner
 		LOGERROR("Active::Active - invalid parameters");
 		return;
 	}
-	const UWeaponTemplate* temp = unrealHelpers::getDynamicTemplate<UWeaponTemplate>(this, rawData);
+	const UWeaponTemplate* temp = unrealHelpers::getDynamicTemplate<UWeaponTemplate>(_owner.Get(), rawData);
 	if (!IsValid(temp)) {
 		LOGERROR("Active::Active - failed to get dynamic template");
 		return;
@@ -61,8 +62,8 @@ Active::Active(ACombatant* owner, const UWeaponTemplate* rawData) : _owner(owner
 		_factories.push_back(std::move(data->createFactory(_owner.Get())));
 	}
 	//warmup
-	_chargeRatio = _weaponTemplate->_startOnCooldown ? 0 : 1;
 	_weaponTemplate = temp;
+	_chargeRatio = _weaponTemplate->_startOnCooldown ? 0 : 1;
 }
 
 //template stuff
@@ -90,11 +91,9 @@ Active& Active::operator=(Active&& other) {
 
 void UWeaponTemplate::replaceOverrides() {
 	if (unrealHelpers::isInvalidData(_name))
-		_name = defaults::_name;
-	if (unrealHelpers::isInvalidData(_startOnCooldown))
-		_startOnCooldown = defaults::_startOnCooldown;
-	if (unrealHelpers::isInvalidData(_warmup))
-		_warmup = defaults::_warmup;
+		_name = _defaults._name;
+	if (helpers::isInvalidData(_warmup))
+		_warmup = _defaults._warmup;
 	if (unrealHelpers::isInvalidData<EAttackType>(_attackType))
-		_attackType = defaults::_attackType;
+		_attackType = _defaults._attackType;
 }

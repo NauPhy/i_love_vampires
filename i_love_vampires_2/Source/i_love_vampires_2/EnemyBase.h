@@ -10,7 +10,7 @@ class I_LOVE_VAMPIRES_2_API AEnemyBase : public ACombatant
 {
 	GENERATED_BODY()
 
-	const float _MOVEMENT_SPEED = 1;
+	const static inline float _MOVEMENT_SPEED = 1;
 
 	int _registerKey = -1;
 	const float _experienceValue = 1;

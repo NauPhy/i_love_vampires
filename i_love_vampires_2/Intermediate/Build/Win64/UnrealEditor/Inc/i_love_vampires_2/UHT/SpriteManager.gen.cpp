@@ -80,8 +80,8 @@ struct Z_Construct_UClass_USpriteManager_Statics
 // ********** Begin Class USpriteManager Property Definitions **************************************
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_USpriteManager_Statics::NewProp__sprites_ValueProp = { "_sprites", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 1, Z_Construct_UClass_UPaperFlipbook_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_USpriteManager_Statics::NewProp__sprites_Key_KeyProp_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_USpriteManager_Statics::NewProp__sprites_Key_KeyProp = { "_sprites_Key", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UEnum_i_love_vampires_2_ESprite, METADATA_PARAMS(0, nullptr) }; // 3639681666
-const UECodeGen_Private::FMapPropertyParams Z_Construct_UClass_USpriteManager_Statics::NewProp__sprites = { "_sprites", nullptr, (EPropertyFlags)0x0040000000000000, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USpriteManager, _sprites), EMapPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__sprites_MetaData), NewProp__sprites_MetaData) }; // 3639681666
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_USpriteManager_Statics::NewProp__sprites_Key_KeyProp = { "_sprites_Key", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UEnum_i_love_vampires_2_ESprite, METADATA_PARAMS(0, nullptr) }; // 4039318976
+const UECodeGen_Private::FMapPropertyParams Z_Construct_UClass_USpriteManager_Statics::NewProp__sprites = { "_sprites", nullptr, (EPropertyFlags)0x0040000000000000, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(USpriteManager, _sprites), EMapPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__sprites_MetaData), NewProp__sprites_MetaData) }; // 4039318976
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_USpriteManager_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USpriteManager_Statics::NewProp__sprites_ValueProp,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_USpriteManager_Statics::NewProp__sprites_Key_KeyProp_Underlying,
@@ -129,10 +129,10 @@ USpriteManager::~USpriteManager() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_SpriteManager_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_USpriteManager, USpriteManager::StaticClass, TEXT("USpriteManager"), &Z_Registration_Info_UClass_USpriteManager, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USpriteManager), 2404973802U) },
+		{ Z_Construct_UClass_USpriteManager, USpriteManager::StaticClass, TEXT("USpriteManager"), &Z_Registration_Info_UClass_USpriteManager, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(USpriteManager), 2220310513U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_SpriteManager_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_SpriteManager_h__Script_i_love_vampires_2_2955123925{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_SpriteManager_h__Script_i_love_vampires_2_3493270334{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_SpriteManager_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_SpriteManager_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

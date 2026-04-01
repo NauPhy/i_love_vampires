@@ -23,7 +23,8 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
 // ********** Begin Enum EProjectileShape **********************************************************
 #define FOREACH_ENUM_EPROJECTILESHAPE(op) \
-	op(EProjectileShape::circle) 
+	op(EProjectileShape::circle) \
+	op(EProjectileShape::INVALID) 
 
 enum class EProjectileShape : uint8;
 template<> struct TIsUEnumClass<EProjectileShape> { enum { Value = true }; };
@@ -32,7 +33,8 @@ template<> I_LOVE_VAMPIRES_2_NON_ATTRIBUTED_API UEnum* StaticEnum<EProjectileSha
 
 // ********** Begin Enum EAttackShape **************************************************************
 #define FOREACH_ENUM_EATTACKSHAPE(op) \
-	op(EAttackShape::fan) 
+	op(EAttackShape::fan) \
+	op(EAttackShape::INVALID) 
 
 enum class EAttackShape : uint8;
 template<> struct TIsUEnumClass<EAttackShape> { enum { Value = true }; };
@@ -43,7 +45,8 @@ template<> I_LOVE_VAMPIRES_2_NON_ATTRIBUTED_API UEnum* StaticEnum<EAttackShape>(
 #define FOREACH_ENUM_EPROJECTILETARGETING(op) \
 	op(EProjectileTargeting::skillshot) \
 	op(EProjectileTargeting::closest) \
-	op(EProjectileTargeting::random) 
+	op(EProjectileTargeting::random) \
+	op(EProjectileTargeting::INVALID) 
 
 enum class EProjectileTargeting : uint8;
 template<> struct TIsUEnumClass<EProjectileTargeting> { enum { Value = true }; };

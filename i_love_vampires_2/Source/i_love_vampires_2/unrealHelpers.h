@@ -11,6 +11,7 @@
 #include "MyGameplayStatics.h"
 #include "DynamicAssetManager.h"
 #include "UObject/Class.h"
+#include "BaseTemplate.h"
 class UPaperFlipbookComponent;
 class USceneComponent;
 
@@ -33,9 +34,9 @@ public:
 	static bool isInvalidData(const T& e);
 	template <typename T>
 	static bool isInvalidData(const TSubclassOf<T> val) { return val == nullptr; }
-	static bool isInvalidData(const FString& str) { str == "_invalid_"; }
+	static bool isInvalidData(const FString& str) { return str == "_invalid_"; }
 	template <typename T>
-	const T* getDynamicTemplate(UObject* caller, const T* diskTemplate);
+	static const T* getDynamicTemplate(const UObject* caller, const T* diskTemplate);
 };
 
 template <typename T>
@@ -46,7 +47,7 @@ bool unrealHelpers::isInvalidData(const T& e) {
 }
 
 template <typename T>
-const T* unrealHelpers::getDynamicTemplate(UObject* caller, const T* diskTemplate) {
+const T* unrealHelpers::getDynamicTemplate(const UObject* caller, const T* diskTemplate) {
 	static_assert(std::is_base_of_v<UBaseTemplate, T>, "T must be a subclass of UBaseTemplate");
 
 	UDynamicAssetManager* assetManager = nullptr;

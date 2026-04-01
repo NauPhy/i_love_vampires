@@ -24,7 +24,8 @@ AExperienceShard::AExperienceShard() {
 			LOGERROR("AExperienceShard::AExperienceShard - failed to construct flipbook");
 			return;
 		}
-		SetActorScale3D(FVector(_SIZE_MULTIPLIER, _SIZE_MULTIPLIER, _SIZE_MULTIPLIER));
+		const FVector currentScale = GetActorScale3D();
+		SetActorScale3D(currentScale*_SIZE_MULTIPLIER);
 		_flipbook->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 		_flipbook->SetCollisionResponseToChannel(ECollisionChannel::ECC_Pawn, ECollisionResponse::ECR_Overlap);
 		//Initialise flipbook as disabled

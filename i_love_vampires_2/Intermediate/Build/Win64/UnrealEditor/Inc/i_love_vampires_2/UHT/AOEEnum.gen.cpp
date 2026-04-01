@@ -37,11 +37,14 @@ struct Z_Construct_UEnum_i_love_vampires_2_EAOEShape_Statics
 		{ "BlueprintType", "true" },
 		{ "circle.DisplayName", "circle" },
 		{ "circle.Name", "EAOEShape::circle" },
+		{ "INVALID.DisplayName", "INVALID" },
+		{ "INVALID.Name", "EAOEShape::INVALID" },
 		{ "ModuleRelativePath", "AOEEnum.h" },
 	};
 #endif // WITH_METADATA
 	static constexpr UECodeGen_Private::FEnumeratorParam Enumerators[] = {
 		{ "EAOEShape::circle", (int64)EAOEShape::circle },
+		{ "EAOEShape::INVALID", (int64)EAOEShape::INVALID },
 	};
 	static const UECodeGen_Private::FEnumParams EnumParams;
 }; // struct Z_Construct_UEnum_i_love_vampires_2_EAOEShape_Statics 
@@ -71,10 +74,10 @@ UEnum* Z_Construct_UEnum_i_love_vampires_2_EAOEShape()
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOEEnum_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
-		{ EAOEShape_StaticEnum, TEXT("EAOEShape"), &Z_Registration_Info_UEnum_EAOEShape, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2987453624U) },
+		{ EAOEShape_StaticEnum, TEXT("EAOEShape"), &Z_Registration_Info_UEnum_EAOEShape, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3835588796U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOEEnum_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOEEnum_h__Script_i_love_vampires_2_360906396{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOEEnum_h__Script_i_love_vampires_2_3316410338{
 	TEXT("/Script/i_love_vampires_2"),
 	nullptr, 0,
 	nullptr, 0,

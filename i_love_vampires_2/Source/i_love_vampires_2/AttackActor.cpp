@@ -195,7 +195,7 @@ AttackFactory::AttackFactory(AttackFactory&& other) :
 //
 
 std::unique_ptr<AttackFactory> UAttackTemplate::createFactory(ACombatant* owner) const {
-	const UAttackTemplate* temp = unrealHelpers::getDynamicTemplate<UAttackTemplate>(this, GetOuter());
+	const UAttackTemplate* temp = unrealHelpers::getDynamicTemplate<UAttackTemplate>(owner, this);
 	if (!IsValid(temp)) {
 		LOGERROR("UAttackTemplate::createFactory - failed to get template");
 		return nullptr;
@@ -205,14 +205,14 @@ std::unique_ptr<AttackFactory> UAttackTemplate::createFactory(ACombatant* owner)
 
 void UAttackConfig::replaceOverrides() {
 	if (unrealHelpers::isInvalidData(_sprite))
-		_sprite = defaults::_sprite;
+		_sprite = _defaults._sprite;
 }
 
 void UAttackAttributeData::replaceOverrides() {
 	if (helpers::isInvalidData(_damage))
-		_damage = defaults::_damage;
+		_damage = _defaults._damage;
 	if (helpers::isInvalidData(_critChance))
-		_critChance = defaults::_critChance;
+		_critChance = _defaults._critChance;
 	if (helpers::isInvalidData(_critMultiplier))
-		_critMultiplier = defaults::_critMultiplier;
+		_critMultiplier = _defaults._critMultiplier;
 }
