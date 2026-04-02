@@ -3,6 +3,7 @@
 #include "AOE.h"
 #include "Combatant.h"
 #include "unrealHelpers.h"
+#include "PaperFlipbook.h"
 
 void AExplosiveProjectile::initialise_AExplosiveProjectile(const ExplosiveProjectileInitStruct& temp) {
 	AProjectile::initialise_AProjectile(temp._projectile);
@@ -46,14 +47,19 @@ ExplosiveProjectileFactory::ExplosiveProjectileFactory(
 	const UExplosiveProjectileConfig* explosiveProjectileConfig,
 	const UExplosiveProjectileAttributeData* explosiveProjectileAttributes,
 	const UAOEConfig* aoeConfig,
-	const UAOEAttributeData* aoeAttributes) :
+	const UAOEAttributeData* aoeAttributes,
+	const UAttackConfig* aoeConfig_attack,
+	const UAttackAttributeData* aoeAttributes_attack
+	) :
 	ProjectileFactory(pawn, attackConfig, attackAttributes, projectileConfig, projectileAttributes),
 	_explosiveProjectileConfig(explosiveProjectileConfig),
 	_explosiveProjectileAttributes(pawn, explosiveProjectileAttributes),
 	_AOEConfig(aoeConfig),
-	_AOEAttributes(pawn, aoeAttributes)
+	_AOEAttributes(pawn, aoeAttributes),
+	_AOEConfig_attack(aoeConfig_attack),
+	_AOEAttributes_attack(pawn, aoeAttributes_attack)
 {
-	if (!IsValid(_explosiveProjectileConfig.Get()) || !(_AOEConfig.Get())) {
+	if (!IsValid(_explosiveProjectileConfig.Get()) || !(_AOEConfig.Get()) || !(_AOEConfig_attack.Get())) {
 		LOGERROR("AExplosiveProjectileFactory::AExplosiveProjectileFactory - invalid explosive projectile config or aoe config");
 		return;
 	}
@@ -120,9 +126,12 @@ ExplosiveProjectileInitStruct ExplosiveProjectileFactory::getExplosiveProjectile
 }
 
 AOEInitStruct ExplosiveProjectileFactory::getAOEInit() const {
-	AOEAttributes temp = _AOEAttributes.getCore();
-	temp.discretizeFull();
-	AOEInitStruct ret = { AttackFactory::getAttackInit(), _AOEConfig.Get(), temp, true };
+	AttackAttributes tempAttackAttr = _AOEAttributes_attack.getCore();
+	tempAttackAttr.discretizeFull();
+	AttackInitStruct AOEAttackInit = { _owner.Get(), _AOEConfig_attack.Get(), tempAttackAttr };
+	AOEAttributes tempAOEAttr = _AOEAttributes.getCore();
+	tempAOEAttr.discretizeFull();
+	AOEInitStruct ret = { AOEAttackInit, _AOEConfig.Get(), tempAOEAttr, true };
 	return ret;
 }
 
@@ -153,6 +162,8 @@ ExplosiveProjectileFactory::ExplosiveProjectileFactory(ExplosiveProjectileFactor
 	_explosiveProjectileAttributes(std::move(other._explosiveProjectileAttributes)),
 	_AOEConfig(other._AOEConfig),
 	_AOEAttributes(std::move(other._AOEAttributes)),
+	_AOEConfig_attack(other._AOEConfig_attack),
+	_AOEAttributes_attack(std::move(other._AOEAttributes_attack)),
 	_tempAOE(other._tempAOE)
 {
 	//other._AOEConfig = nullptr;
@@ -189,6 +200,8 @@ std::unique_ptr<AttackFactory> UExplosiveProjectileTemplate::createFactory(AComb
 		temp->_explosiveProjectileConfig,
 		temp->_explosiveProjectileAttributes,
 		temp->_AOEConfig,
-		temp->_AOEAttributes
+		temp->_AOEAttributes,
+		temp->_AOEConfig_attack,
+		temp->_AOEAttributes_attack
 	);
 }

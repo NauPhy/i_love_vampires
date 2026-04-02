@@ -6,6 +6,7 @@
 class UInputMappingContext;
 class UCombatantTemplate;
 class UInputAction;
+class UPaperFlipbook;
 
 UCLASS()
 class I_LOVE_VAMPIRES_2_API UAssetRefs : public UGameInstanceSubsystem
@@ -19,9 +20,12 @@ public:
 	UCombatantTemplate* _basePlayerTemplate = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UInputAction* _moveAction = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPaperFlipbook* _experienceSprite = nullptr;
 
 	UAssetRefs() = default;
 	const UInputMappingContext* getKeyboardContext() const;
 	const UCombatantTemplate* getBasePlayerTemplate() const;
 	const UInputAction* getMoveAction() const;
+	UPaperFlipbook* getExperienceSprite() const { return _experienceSprite; }
 };

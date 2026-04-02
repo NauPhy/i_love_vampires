@@ -1,0 +1,74 @@
+Since I've gotten the vertical slice working again and I'm feeling overwhelmed by all the stuff I have to do, it's time to choose a new subproject.
+
+I'm going to start with a small overhaul to the sprite system since it's pretty awful to work with currently, which should only take about 2 days hopefully.
+
+After that, I could build more foundational systems to support assets I'll create in the future (e.g. chain lightning), but I don't want to overreach. Let's get some asset work done first. I had a lot of trouble with creativity on demand in my last game, so this time I'm going to brainstorm a bunch of random bullshit and organize it. It's a lot easier to make iterative improvements to a large body of random data than it is to create a large body of perfect data.
+
+Now, the sprite system. I'm currently way too dependent on flipbooks to throw those out, so let's work with that as a requirement/axiom.
+
+C++ classes that use sprites include experience shard, attacks, and combatants. The experience shard is just one sprite, maybe with some palette swaps, so I can just discard that as trivial. 
+
+Flipbooks ultimately derive from .png images (ASK CHATGPT IF THERE IS ANOTHER WAY WITH LESS STEPS).
+
+Sprites and their users are pretty much 1-to-1. Close enough that I'd rather duplicate data than use the same sprite for two objects.
+
+The existing system requires the following files for each object
+1. a GIMP file
+2. a .png file
+3. a sprite file
+4. a flipbook file
+5. a template file (e.g. UWeaponTemplate)
+
+Since these are all pretty much one to one, I could just put all 5 of them in a folder, and have a folder for each object, which is usable, but a bit of a pain.
+
+There would then be no informational reason to keep a global register of all the different types of objects, since it already exists in the form of the filesystem.
+
+I could place tags on them so that external workers can sort by certain criteria, like a "Player" tag or an "attack" tag.
+
+So the instruction flow for spawning a new object that has a sprite would be:
+0. Come to the conclusion that the AActor corresponding to a specific BaseTemplate "Template" should be spawned at position X
+1. Construct AActor of type Template._actorType at position X
+2. Pass Template to new AActor via initialise function
+	2a. Store template as TObjectPtr<const UBaseTemplate>
+3. AActor::BeginPlay runs
+	3a. Check validity of initialisation data
+	3b. Extract raw fields from template and into other member variables
+	3c. Extract data asset references from template and load them, then either store them or use their data for initialisation
+
+So for example:
+0. ProjectileFactory::Activate runs and it has a reference to a UAttackTemplate* for arrow
+1. Construct AProjectile
+2. Call AProjectile::initialise_AProjectile with transient attributes and direction as well as a reference to Template or Template._config
+	2. Store a reference to _config
+3. AProjectile::BeginPlay
+	3a. Check validity of Super, _config, attributes, and direction
+	3b. Initialise via attributes
+	3c. Call AAttackActor::BeginPlay
+	3d. Use flipbook referenced in _attackConfig to initialise sprite  
+
+This differs from the existing system in the following ways:
+1. Instead of storing a sprite Enum, store a reference to a sprite flipbook- no downsides, just cutting out the middle man
+....and that's pretty much it.
+
+Note that this is not 1 to 1 and allows for reuse, but I don't see any other way to do it since I don't want to embed the flipbooks. 
+Tags can be in the form of an Enum, then just give each template a TArray<ETag>. 
+This one change does entirely remove the need to recompile for new assets, however. (Assuming you have the right ETags already). 
+
+I'll need to ask ChatGPT once I have wifi if there's a better way to make flipbooks than the sequence of 4 files with the same steps every time. 
+
+ALSO
+So far sprites use a mix of physics collision and sprite collision, which is unideal. I want player collision to be pixel perfect for sure. 
+Since 
+1. The only two types of sprites in the game (ignoring exp) are combatants and attacks
+2. attacks move faster than combatants on average
+3. combatants must be pixel perfect
+4. there are more attacks than combatants
+
+I should make attacks use ONLY physics and combatants use ONLY overlap. That way I can avoid shrink wrapping every single sprite, which speeds up the process a good bit. It does mean that quickly moving/low fps combatants can then teleport through each other without interacting, but it's hard to think of a situation where that would happen.
+
+So, summary of sprite overhaul:
+1. Place a reference to the flipbook asset in the UBaseConfig subclass (1 in UCombatantConfig and 1 in UAttackConfig is fine)
+2. Reprogram ACombatant and AAttackActor to set flipbook from that reference
+3. Remove USpriteManager and SpriteEnum to their own non-compiled folder
+4. Remove shrink wrap on attack sprites
+5. Ask ChatGPT if it can streamline the flipbook creation process.

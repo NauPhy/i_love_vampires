@@ -11,10 +11,11 @@
 #include "helpers.h"
 #include "unrealHelpers.h"
 #include "PaperFlipbookComponent.h"
+#include <cmath>
 
 namespace {
 	float dist(float x, float y) {
-		return sqrt(pow(x, 2.0) + pow(y, 2.0));
+		return std::sqrt(std::pow(x, 2.0) + std::pow(y, 2.0));
 	}
 }
 
@@ -87,11 +88,13 @@ bool AProjectile::performSweep(const FVector& startPos, const FVector& endPos, T
 	//}
 }
 
-void AProjectile::handleSweepResults(const TArray<struct FHitResult>& hits) {
+bool AProjectile::handleSweepResults(const TArray<struct FHitResult>& hits) {
 	for (const FHitResult& hit : hits) {
 		AActor* hitActor = hit.GetActor();
 		//hitActor is in the middle of construction or destruction
 		if (!IsValid(hitActor))
+			continue;
+		if (_effectedPawns.Contains(hitActor))
 			continue;
 		ACombatant* combatantActor = Cast<ACombatant>(hitActor);
 		if (!IsValid(combatantActor)) {
@@ -99,55 +102,55 @@ void AProjectile::handleSweepResults(const TArray<struct FHitResult>& hits) {
 			continue;
 		}
 		applyEffect(combatantActor);
-		handleBouncePierce();
+		if (handleBouncePierce(combatantActor))
+			return true;
 	}
+	return false;
 }
 
-void AProjectile::handleBouncePierce() {
+// returns true iff bulletDeath was called
+bool AProjectile::handleBouncePierce(const ACombatant* comb) {
 	if (_pierce == 0) {
 		if (_bounce == 0) {
 			bulletDeath();
-			return;
+			return true;
 		}
 		else {
-			executeBounce();
+			executeBounce(comb);
 			_bounce -= 1;
 		}
 	}
 	else {
 		_pierce -= 1;
 	}
+	return false;
 }
 
-void AProjectile::executeBounce() {
+void AProjectile::executeBounce(const ACombatant* comb) {
 	UCombatantManager* manager;
 	if (!MyGameplayStatics::getCombatantManager(this, manager))
 		return;
-	// It's possible that combatantManager will return a reference to a combatant that is in the middle of construction or destruction.
-	// If this happens 10 times in a row, there is likely a bug.
 	TWeakObjectPtr<ACombatant> newTarget = nullptr;
-	for (int i = 0; i < 10; i++) {
-		if (newTarget.IsValid())
-			break;
-		if (!manager->getRandomEnemyPtr(newTarget)) {
-			bulletDeath();
-			return;
-		}
+	if (!manager->getRandomEnemyPtr(newTarget, comb)) {
+		bulletDeath();
+		return;
 	}
 	if (!newTarget.IsValid()) {
-		LOGERROR("AProjectile::executeBounce - bullet could not find new target to bounce to");
+		LOGERROR("AProjectile::executeBounce - get random actor malfunction");
 		bulletDeath();
 		return;
 	}
 	FVector myLocation = GetActorLocation();
 	FVector targetLocation = newTarget->GetActorLocation();
 	FVector difference = targetLocation - myLocation;
-	FVector norm = difference / dist(difference.X, difference.Y);
+	FVector norm = difference / dist(difference.X, difference.Z);
 	_directionX = norm.X;
-	_directionZ = norm.Y;
+	_directionZ = norm.Z;
 }
 
 void AProjectile::Tick(float delta) {
+	FRotator currentRotation = GetActorRotation();
+
 	AAttackActor::Tick(delta);
 	if (_distanceTravelled >= _projectileAttributes->_range.getFinal()) {
 		bulletDeath();
@@ -158,11 +161,17 @@ void AProjectile::Tick(float delta) {
 	TArray<struct FHitResult> OutHits;
 	if (!performSweep(start, end, OutHits))
 		return;
-	handleSweepResults(OutHits);
+	// returns true iff bulletDeath was called
+	if (handleSweepResults(OutHits))
+		return;
 
 	FHitResult* throwaway = nullptr;
 	AddActorWorldOffset((end - start), false, throwaway, ETeleportType::TeleportPhysics);
 	_distanceTravelled += _projectileAttributes->_speed.getFinal() * delta;
+
+	FRotator newRotation = FVector(_directionX, 0, _directionZ).GetSafeNormal().Rotation();
+	if (!helpers::nearEq(currentRotation.Pitch, newRotation.Pitch) || !helpers::nearEq(currentRotation.Roll, newRotation.Roll) || !helpers::nearEq(currentRotation.Yaw, newRotation.Yaw))
+		SetActorRotation(newRotation, ETeleportType::TeleportPhysics);
 }
 ///////////////////////////////////////////////////////////////////////////////
 

@@ -28,7 +28,7 @@ public:
 	int registerEnemy(ACombatant* enemy);
 	void removeFromRegister(int key);
 	int getEnemyCount() { return _enemyReferences.Num(); }
-	bool getRandomEnemyPtr(TWeakObjectPtr<ACombatant>& ret);
+	bool getRandomEnemyPtr(TWeakObjectPtr<ACombatant>& ret, const ACombatant* excluded);
 	bool getBurnThisFrame() const { return _burnThisFrame; }
 	virtual void tick(float DeltaTime);
 	void setGameReady(bool val) { _gameReady = val; }

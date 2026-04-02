@@ -4,6 +4,8 @@
 #include "MyPlayer.h"
 #include "Components/SphereComponent.h"
 #include "Definitions.h"
+#include "AssetRefs.h"
+#include "PaperFlipbook.h"
 
 void AExperienceShard::suicide() {
 	Destroy();
@@ -57,10 +59,24 @@ void AExperienceShard::BeginPlay() {
 		LOGERROR("AExperienceShard::BeginPlay - invalid experienceValue");
 		end();
 	}
-	if (!unrealHelpers::initFlipbook(this, _DEFAULT_SPRITE, _flipbook)) {
-		LOGERROR("AExperienceShard::BeginPlay - failed to initialise flipbook");
-		end();
+	{
+		UAssetRefs* refs = nullptr;
+		if (!MyGameplayStatics::getAssetRefs(this, refs)) {
+			LOGERROR("AExperienceShard::AExperienceShard - invalid UAssetRefs");
+			end();
+		}
+		UPaperFlipbook* sprite = refs->getExperienceSprite();
+		if (!IsValid(sprite)) {
+			LOGERROR("AExperienceShard::AExperienceShard - invalid flipbook");
+			end();
+		}
+		if (!unrealHelpers::initFlipbook(this, sprite, _flipbook))
+			end();
 	}
+	//if (!unrealHelpers::initFlipbook(this, _DEFAULT_SPRITE, _flipbook)) {
+	//	LOGERROR("AExperienceShard::BeginPlay - failed to initialise flipbook");
+	//	end();
+	//}
 	end();
 }
 

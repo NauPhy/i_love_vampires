@@ -3,7 +3,7 @@
 #include "MyGameplayStatics.h"
 #include "PaperFlipbookComponent.h"
 #include "Active.h"
-#include "SpriteManager.h"
+//#include "SpriteManager.h"
 #include "AssetRefs.h"
 #include "Definitions.h"
 #include "Engine/AssetManager.h"
@@ -54,7 +54,7 @@ void ACombatant::BeginPlay() {
 	for (const auto& data : _config->_startingWeapons) {
 		_activeAbilities.push_back(Active(this, data));
 	}
-	unrealHelpers::initFlipbook(this, _config->_sprite, _combatantFlipbook);
+	unrealHelpers::initFlipbook(this, _config->_sprite.Get(), _combatantFlipbook);
 	_myForwardVector = GetActorForwardVector();
 }
 
@@ -317,8 +317,6 @@ void UCombatantAttributeData::replaceOverrides() {
 void UCombatantConfig::replaceOverrides() {
 	if (unrealHelpers::isInvalidData(_name))
 		_name = _defaults._name;
-	if (unrealHelpers::isInvalidData(_sprite))
-		_sprite = _defaults._sprite;
 	if (unrealHelpers::isInvalidData<ACombatant>(_combatantClass))
 		_combatantClass = _defaults._combatantClass;
 }

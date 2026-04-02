@@ -31,21 +31,24 @@ void UCombatantManager::removeFromRegister(int key) {
 	_enemyReferences.Remove(key);
 }
 
-bool UCombatantManager::getRandomEnemyPtr(TWeakObjectPtr<ACombatant>& ret) {
-	if (_enemyReferences.Num() == 0) {
+bool UCombatantManager::getRandomEnemyPtr(TWeakObjectPtr<ACombatant>& ret, const ACombatant* excluded) {
+	if (_enemyReferences.Num() <= 1) {
 		return false;
 	}
-	const int roll = FMath::RandRange(static_cast<int>(0), static_cast<int>(_enemyReferences.Num() - 1));
+	int roll = FMath::RandRange(static_cast<int>(0), static_cast<int>(_enemyReferences.Num() - 1));
 	// pair is TPair
 	int count = 0;
 	for (const auto& pair : _enemyReferences) {
 		if (count == roll) {
-			ret = pair.Value;
-			return true;
+			if (pair.Value.IsValid() && pair.Value.Get() != excluded) {
+				ret = pair.Value;
+				return true;
+			}
+			roll++;
 		}
 		count++;
 	}
-	LOGERROR("UCombatantManager::getRandomEnemyPtr - failed to get random enemy reference");
+	// If all combatants are in the middle of construction or destruction, it could be valid for this function to fail without error
 	return false;
 }
 

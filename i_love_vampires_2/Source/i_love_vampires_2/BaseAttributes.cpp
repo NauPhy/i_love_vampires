@@ -12,7 +12,7 @@ void Stat::discretize() {
 void Stat::modify(float newVal) {
 	if (!_softReset)
 		LOGERROR("Stat::modify - modifying a stat that hasn't been soft reset this frame");
-	_final = newVal;
+	_modifier = newVal;
 	_softReset = false;
 }
 
@@ -20,9 +20,10 @@ void Stat::softReset(Stat& stat) {
 	stat._prebonus = 0;
 	stat._postbonus = 0;
 	stat._multiplier = 0;
+	stat._final = 0;
 	// The starting value of a Stat each frame is set by ModifyAttributes. Setting _final=_base is
-	// just default behaviour for subclasses that implement ModifyAttributes as noop.
-	stat._final = stat._base;
+// just default behaviour for subclasses that implement ModifyAttributes as noop.
+	stat._modifier = stat._base;
 	stat._softReset = true;
 }
 

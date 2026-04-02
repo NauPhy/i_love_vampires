@@ -42,7 +42,8 @@ void AAttackActor::BeginPlay() {
 		LOGERROR("AAttackActor::BeginPlay - _attackConfig is not valid");
 		return;
 	}
-	if (!unrealHelpers::initFlipbook(this, _attackConfig->_sprite, _flipbook))
+	
+	if (!unrealHelpers::initFlipbook(this, _attackConfig->_sprite.Get(), _flipbook))
 		return;
 }
 
@@ -72,7 +73,7 @@ void AAttackActor::applyEffect(ACombatant* target) {
 		float damage = _attackAttributes->_damage.getFinal();
 		float critChance = _attackAttributes->_critChance.getFinal();
 		if (FMath::FRand() < critChance) {
-			damage *= _attackAttributes->_critMultiplier.getFinal();
+			damage *= (1 + _attackAttributes->_critMultiplier.getFinal());
 		}
 		FEffectStruct temp = FEffectStruct(_DAMAGE, damage, 0, 1);
 		target->inflictStatus(temp);
@@ -203,10 +204,10 @@ std::unique_ptr<AttackFactory> UAttackTemplate::createFactory(ACombatant* owner)
 	return std::make_unique<AttackFactory>(owner, temp->_attackConfig, temp->_attackAttributes);
 }
 
-void UAttackConfig::replaceOverrides() {
-	if (unrealHelpers::isInvalidData(_sprite))
-		_sprite = _defaults._sprite;
-}
+//void UAttackConfig::replaceOverrides() {
+//	if (unrealHelpers::isInvalidData(_sprite))
+//		_sprite = _defaults._sprite;
+//}
 
 void UAttackAttributeData::replaceOverrides() {
 	if (helpers::isInvalidData(_damage))

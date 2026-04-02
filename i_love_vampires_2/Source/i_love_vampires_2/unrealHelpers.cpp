@@ -1,29 +1,23 @@
 #include "unrealHelpers.h"
 #include "PaperFlipbookComponent.h"
 #include "MyGameplayStatics.h"
-#include "SpriteManager.h"
+//#include "SpriteManager.h"
 #include "GameFramework/Actor.h"
 #include "Definitions.h"
 #include "Components/SceneComponent.h"
 #include "GameFramework/Pawn.h"
+#include "PaperFlipbook.h"
 
-bool unrealHelpers::initFlipbook(AActor* caller, ESprite sprite, UPaperFlipbookComponent*& flipbook) {
+bool unrealHelpers::initFlipbook(AActor* caller, UPaperFlipbook* sprite, UPaperFlipbookComponent*& flipbook) {
 	if (!IsValid(caller) || !IsValid(flipbook)) {
 		LOGERROR("unrealHelpers::initFlipbook - parameter is not valid");
 		return false;
 	}
-	USpriteManager* spriteManager = nullptr;
-	if (!MyGameplayStatics::getSpriteManager(caller, spriteManager)) {
+	if (!IsValid(sprite)) {
+		LOGERROR("unrealHelpers::initFlipbook - sprite is invalid");
 		return false;
 	}
-	UPaperFlipbook* tempSprite = nullptr;
-	if (!spriteManager->getSprite(sprite, tempSprite))
-		return false;
-	if (tempSprite == nullptr) {
-		LOGERROR("unrealHelpers::initFlipbook - sprite is null");
-		return false;
-	}
-	flipbook->SetFlipbook(tempSprite);
+	flipbook->SetFlipbook(sprite);
 	return true;
 }
 
@@ -39,7 +33,7 @@ bool unrealHelpers::constructFlipbook(AActor* caller, USceneComponent* rootComp,
 	// subset of my sprites (or even all of my sprites). So I just used the default for all sprites. That can be rectified at runtime, preferrably in constructors,
 	// such as here.
 	FVector currentScale = caller->GetActorScale3D();
-	caller->SetActorScale3D(currentScale*2.56);
+	caller->SetActorScale3D(currentScale*1.00);
 	return true;
 }
 

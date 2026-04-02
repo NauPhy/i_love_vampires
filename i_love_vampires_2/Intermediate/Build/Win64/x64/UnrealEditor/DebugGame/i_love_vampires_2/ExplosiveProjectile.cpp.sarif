@@ -7,7 +7,7 @@
                 {
                     "ruleId": "C5038",
                     "message": {
-                        "text": "data member 'ExplosiveProjectileFactory::_AOEAttributes' will be initialized after data member 'ExplosiveProjectileFactory::_tempAOE'"
+                        "text": "data member 'ExplosiveProjectileFactory::_AOEAttributes_attack' will be initialized after data member 'ExplosiveProjectileFactory::_tempAOE'"
                     },
                     "locations": [
                         {
@@ -16,10 +16,10 @@
                                     "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/ExplosiveProjectile.cpp"
                                 },
                                 "region": {
-                                    "startLine": 155,
+                                    "startLine": 166,
                                     "startColumn": 2,
                                     "snippet": {
-                                        "text": "\t_AOEAttributes(std::move(other._AOEAttributes)),"
+                                        "text": "\t_AOEAttributes_attack(std::move(other._AOEAttributes_attack)),"
                                     }
                                 }
                             }

@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "SpriteEnum.h"
+//#include "SpriteEnum.h"
 #include "ExperienceShard.generated.h"
 class UPaperFlipbookComponent;
 class AMyPlayer;
@@ -13,7 +13,7 @@ class I_LOVE_VAMPIRES_2_API AExperienceShard : public AActor
 {
 	GENERATED_BODY()
 
-	const static inline ESprite _DEFAULT_SPRITE = ESprite::testShard;
+	//const static inline ESprite _DEFAULT_SPRITE = ESprite::testShard;
 	const static inline float _MAGNETISM_RADIUS = 500;
 	const static inline float _STARTING_SPEED = -500;
 	const static inline float _ACCELERATION = 2500;

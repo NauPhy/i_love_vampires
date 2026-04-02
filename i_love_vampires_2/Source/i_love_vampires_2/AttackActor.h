@@ -6,9 +6,10 @@
 #include "StatusEnum.h"
 #include "GameFramework/Pawn.h"
 // UAttackConfig
-#include "SpriteEnum.h"
+//#include "SpriteEnum.h"
 #include "BaseConfig.h"
 #include "EffectStruct.h"
+#include "PaperFlipbook.h"
 // UAttackAttributeData
 #include "BaseAttributeData.h"
 // AttackAttributes
@@ -63,18 +64,14 @@ class I_LOVE_VAMPIRES_2_API UAttackConfig : public UBaseConfig
 {
 	GENERATED_BODY()
 
-	struct defaults {
-		ESprite _sprite = static_cast<ESprite>(0);
-	};
-	const static inline defaults _defaults;
-
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TArray<FEffectStruct> _statusEffects = {};
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	ESprite _sprite = static_cast<ESprite>(static_cast<uint8>(255));
+	TObjectPtr<UPaperFlipbook> _sprite;
+
 	UAttackConfig(const FObjectInitializer& init) : Super(init) {}
-	virtual void replaceOverrides() override;
+	virtual void replaceOverrides() override {}
 };
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -88,7 +85,7 @@ class I_LOVE_VAMPIRES_2_API UAttackAttributeData : public UBaseAttributeData
 	struct defaults {
 		float _damage = 0.f;
 		float _critChance = 0.f;
-		float _critMultiplier = 2.f;
+		float _critMultiplier = 1.f;
 	};
 	const static inline defaults _defaults;
 

@@ -21,6 +21,4 @@
 #include "C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/UnrealEditor/Inc/i_love_vampires_2/UHT/MyPlayer.gen.cpp"
 #include "C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/UnrealEditor/Inc/i_love_vampires_2/UHT/Projectile.gen.cpp"
 #include "C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/UnrealEditor/Inc/i_love_vampires_2/UHT/ProjectileEnum.gen.cpp"
-#include "C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/UnrealEditor/Inc/i_love_vampires_2/UHT/SpriteEnum.gen.cpp"
-#include "C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/UnrealEditor/Inc/i_love_vampires_2/UHT/SpriteManager.gen.cpp"
 #include "C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/UnrealEditor/Inc/i_love_vampires_2/UHT/StatusEnum.gen.cpp"

@@ -5,7 +5,7 @@
 #include "Engine/GameInstance.h"
 #include "AssetRefs.h"
 #include "CombatantManager.h"
-#include "SpriteManager.h"
+//#include "SpriteManager.h"
 #include "Definitions.h"
 #include "Engine/World.h"
 #include "Engine/LocalPlayer.h"
@@ -123,28 +123,28 @@ bool MyGameplayStatics::getCombatGameMode(const UObject* caller, ACombatGameMode
 	return true;
 }
 
-bool MyGameplayStatics::getSpriteManager(const UObject* caller, USpriteManager*& ret) {
-	if (!IsValid(caller)) {
-		LOGERROR("MyGameplayStatics::getSpriteManager - caller is not valid");
-		return false;
-	}
-	UWorld* world = caller->GetWorld();
-	if (!IsValid(world)) {
-		LOGERROR("ACombatant::initialiseFromTemplate - world is invalid");
-		return false;
-	}
-	UGameInstance* gameInstance = world->GetGameInstance();
-	if (!IsValid(gameInstance)) {
-		LOGERROR("ACombatant::initialiseFromTemplate - game instance invalid");
-		return false;
-	}
-	ret = gameInstance->GetSubsystem<USpriteManager>();
-	if (!IsValid(ret)) {
-		LOGERROR("ACombatant::initialiseFromTemplate - ret is invalid");
-		return false;
-	}
-	return true;
-}
+//bool MyGameplayStatics::getSpriteManager(const UObject* caller, USpriteManager*& ret) {
+//	if (!IsValid(caller)) {
+//		LOGERROR("MyGameplayStatics::getSpriteManager - caller is not valid");
+//		return false;
+//	}
+//	UWorld* world = caller->GetWorld();
+//	if (!IsValid(world)) {
+//		LOGERROR("ACombatant::initialiseFromTemplate - world is invalid");
+//		return false;
+//	}
+//	UGameInstance* gameInstance = world->GetGameInstance();
+//	if (!IsValid(gameInstance)) {
+//		LOGERROR("ACombatant::initialiseFromTemplate - game instance invalid");
+//		return false;
+//	}
+//	ret = gameInstance->GetSubsystem<USpriteManager>();
+//	if (!IsValid(ret)) {
+//		LOGERROR("ACombatant::initialiseFromTemplate - ret is invalid");
+//		return false;
+//	}
+//	return true;
+//}
 
 bool MyGameplayStatics::getDynamicAssetManager(const UObject* caller, UDynamicAssetManager*& ret) {
 	if (!IsValid(caller)) {

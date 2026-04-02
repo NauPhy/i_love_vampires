@@ -218,9 +218,6 @@
     <ClCompile Include="..\..\Source\i_love_vampires_2\ExperienceShard.cpp">
       <Filter>Source\i_love_vampires_2\Arena</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\i_love_vampires_2\SpriteManager.cpp">
-      <Filter>Source\i_love_vampires_2\GameInstanceSubsystems</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\MyGameplayStatics.cpp">
       <Filter>Source\i_love_vampires_2\Admin</Filter>
     </ClCompile>
@@ -304,14 +301,8 @@
     <ClInclude Include="..\..\Source\i_love_vampires_2\MyPlayer.h">
       <Filter>Source\i_love_vampires_2\NewGAS\Combatants\Inherited</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\SpriteManager.h">
-      <Filter>Source\i_love_vampires_2\GameInstanceSubsystems</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\MyGameplayStatics.h">
       <Filter>Source\i_love_vampires_2\Admin</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\SpriteEnum.h">
-      <Filter>Source\i_love_vampires_2\GameInstanceSubsystems</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\i_love_vampires_2\Active.h">
       <Filter>Source\i_love_vampires_2\NewGAS\Items\Active</Filter>

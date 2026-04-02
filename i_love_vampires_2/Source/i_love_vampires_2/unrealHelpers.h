@@ -2,7 +2,7 @@
 
 #pragma once
 #include "CoreMinimal.h"
-#include "SpriteEnum.h"
+//#include "SpriteEnum.h"
 #include "GameFramework/Actor.h"
 #include "Engine/World.h"
 #include "Definitions.h"
@@ -13,6 +13,7 @@
 #include "UObject/Class.h"
 #include "BaseTemplate.h"
 class UPaperFlipbookComponent;
+class UPaperFlipbook;
 class USceneComponent;
 
 class unrealHelpers {
@@ -20,7 +21,7 @@ class unrealHelpers {
 
 public:
 	unrealHelpers() = delete;
-	static bool initFlipbook(AActor* caller, ESprite sprite, UPaperFlipbookComponent*& flipbook);
+	static bool initFlipbook(AActor* caller, UPaperFlipbook* sprite, UPaperFlipbookComponent*& flipbook);
 	static bool constructFlipbook(AActor* caller, USceneComponent* rootComp, UPaperFlipbookComponent*& flipbook);
 	template<typename T>
 	static bool spawnActorOnTopOfMe(AActor* caller, T*& ret);

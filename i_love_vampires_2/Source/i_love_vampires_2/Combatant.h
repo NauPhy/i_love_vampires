@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 // ACombatant
 #include "GameFramework/Pawn.h"
-#include "SpriteEnum.h"
+//#include "SpriteEnum.h"
 #include "Engine/DataAsset.h"
 #include "EffectStruct.h"
 #include <memory>
@@ -16,6 +16,7 @@
 #include "BaseAttributeWrapper.h"
 // UCombatantConfig
 #include "BaseConfig.h"
+#include "PaperFlipbook.h"
 // UCombatantTemplate
 #include "BaseTemplate.h"
 //
@@ -210,7 +211,6 @@ class I_LOVE_VAMPIRES_2_API UCombatantConfig : public UBaseConfig
 
 	struct defaults {
 		FString _name = "Combatant";
-		ESprite _sprite = static_cast<ESprite>(0);
 		TSubclassOf<ACombatant> _combatantClass = ACombatant::StaticClass();
 	};
 	const static inline defaults _defaults;
@@ -218,13 +218,13 @@ class I_LOVE_VAMPIRES_2_API UCombatantConfig : public UBaseConfig
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FString _name = "_invalid_";
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	ESprite _sprite = static_cast<ESprite>(static_cast<uint8>(255));
 	// No sentinel needed
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TArray<TObjectPtr<UWeaponTemplate>> _startingWeapons = {};
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TSubclassOf<ACombatant> _combatantClass = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TObjectPtr<UPaperFlipbook> _sprite = nullptr;
 
 	UCombatantConfig(const FObjectInitializer& init) : Super(init) {}
 	virtual void replaceOverrides() override;

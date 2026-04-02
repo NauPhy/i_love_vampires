@@ -34,12 +34,14 @@ protected:
 
 private:
 	bool performSweep(const FVector&, const FVector&, TArray<struct FHitResult>&);
-	void executeBounce();
+	void executeBounce(const ACombatant*);
 
 protected:
 	virtual void bulletDeath() { Destroy(); }
-	virtual void handleSweepResults(const TArray<struct FHitResult>& hits);
-	void handleBouncePierce();
+	// returns true iff bulletDeath was called
+	virtual bool handleSweepResults(const TArray<struct FHitResult>& hits);
+	// returns true iff bulletDeath was called
+	bool handleBouncePierce(const ACombatant*);
 
 public:
 	AProjectile() : AAttackActor() {}

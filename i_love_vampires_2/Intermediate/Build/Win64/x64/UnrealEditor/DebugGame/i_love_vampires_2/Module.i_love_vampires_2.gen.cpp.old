@@ -11,6 +11,7 @@
 #include "C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/UnrealEditor/Inc/i_love_vampires_2/UHT/Combatant.gen.cpp"
 #include "C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/UnrealEditor/Inc/i_love_vampires_2/UHT/CombatantManager.gen.cpp"
 #include "C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/UnrealEditor/Inc/i_love_vampires_2/UHT/CombatGameModeBase.gen.cpp"
+#include "C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/UnrealEditor/Inc/i_love_vampires_2/UHT/DynamicAssetManager.gen.cpp"
 #include "C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/UnrealEditor/Inc/i_love_vampires_2/UHT/EffectStruct.gen.cpp"
 #include "C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/UnrealEditor/Inc/i_love_vampires_2/UHT/EnemyBase.gen.cpp"
 #include "C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/UnrealEditor/Inc/i_love_vampires_2/UHT/EnemySpawner.gen.cpp"

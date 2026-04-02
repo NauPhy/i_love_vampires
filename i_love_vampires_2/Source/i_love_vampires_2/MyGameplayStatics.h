@@ -6,7 +6,7 @@ class APlayerController;
 class UGameInstance;
 class UAssetRefs;
 class UCombatantManager;
-class USpriteManager;
+//class USpriteManager;
 class ACombatGameModeBase;
 class UDynamicAssetManager;
 
@@ -20,6 +20,6 @@ public:
 	static bool myGetGameInstance(const UObject* caller, UGameInstance*&);
 	static bool getAssetRefs(const UObject* caller, UAssetRefs*&);
 	static bool getCombatantManager(const UObject* caller, UCombatantManager*&);
-	static bool getSpriteManager(const UObject* caller, USpriteManager*&);
+	//static bool getSpriteManager(const UObject* caller, USpriteManager*&);
 	static bool getDynamicAssetManager(const UObject* caller, UDynamicAssetManager*&);
 };

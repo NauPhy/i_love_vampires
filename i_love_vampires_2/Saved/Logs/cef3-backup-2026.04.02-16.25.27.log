@@ -1,0 +1,18 @@
+[5380:32664:0402/112443.558:WARNING:chrome_main_delegate.cc(745)] This is Chrome version 128.0.6613.138 (not a warning)
+[5380:2908:0402/112443.622:WARNING:dns_config_service_win.cc(605)] Failed to read DnsConfig.
+[5380:25864:0402/112443.623:ERROR:google_update_settings.cc(265)] Failed opening key Software\Chromium to set usagestats; result: 5
+[5380:32664:0402/112443.640:WARNING:account_consistency_mode_manager.cc(77)] Desktop Identity Consistency cannot be enabled as no OAuth client ID and client secret have been configured.
+[16364:4876:0402/112443.689:WARNING:dns_config_service_win.cc(605)] Failed to read DnsConfig.
+[5380:32664:0402/112445.628:WARNING:external_registry_loader_win.cc(232)] Error observing HKLM: 5
+[31816:12800:0402/112447.421:WARNING:frame_impl.cc(430)] virtual CefFrameImpl::SendProcessMessage sent to detached frame 5-4BE85A07F8A337D3F174A39954D0210C will be ignored
+[22260:5104:0402/112448.419:WARNING:frame_impl.cc(430)] virtual CefFrameImpl::SendProcessMessage sent to detached frame 6-706B143CA235545E6D92AD23CF2EBCD1 will be ignored
+[5380:25864:0402/112448.625:WARNING:dns_config_service_win.cc(605)] Failed to read DnsConfig.
+[16364:4876:0402/112448.699:WARNING:dns_config_service_win.cc(605)] Failed to read DnsConfig.
+[5380:30432:0402/112452.902:WARNING:dns_config_service_win.cc(605)] Failed to read DnsConfig.
+[16364:4876:0402/112452.909:WARNING:dns_config_service_win.cc(605)] Failed to read DnsConfig.
+[5380:30432:0402/112457.904:WARNING:dns_config_service_win.cc(605)] Failed to read DnsConfig.
+[16364:4876:0402/112457.923:WARNING:dns_config_service_win.cc(605)] Failed to read DnsConfig.
+[5380:30432:0402/112507.907:WARNING:dns_config_service_win.cc(605)] Failed to read DnsConfig.
+[16364:4876:0402/112507.932:WARNING:dns_config_service_win.cc(605)] Failed to read DnsConfig.
+[5380:30432:0402/112527.912:WARNING:dns_config_service_win.cc(605)] Failed to read DnsConfig.
+[16364:4876:0402/112527.943:WARNING:dns_config_service_win.cc(605)] Failed to read DnsConfig.
