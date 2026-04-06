@@ -1,0 +1,288 @@
+So far I've created items in list, spreadsheet, and template format. Spreadsheet is good for balancing and template is good for communicating with
+others but I think list is best for brainstorming. 
+
+In fact, I think it would be beneficial to leave out most of the details of an item on the first pass, just have a really dense list. So imma do that. Gonna steal a bunch of content and stuff too. I expect to take out a lot of this so.
+
+For reference, vampire survivors has 41 weapons in the base game. Soulstone survivors has 
+~30 weapons per set with a lot of overlap between sets. Maybe 180 weapons total?
+
+Introduction: Gun vs sword and mundane weapons
+Most playable characters in the game start with 1 gun and 1 sword. By themselves they do nothing. Each one has 3 weapon slots, one of which will contain a mundane weapon at start (depending on the character). 
+
+When you level up, if you aren't full on weapons, some of your level up options are likely to be known or unknown mundane weapons. When you acquire a mundane weapon, you can choose to slot it in either your gun or your sword. It will take a different form depending on which it's slotted into. For example, Mundane1 will be a musket in a gun slot and a sword in a sword slot.
+
+Once you've upgraded a mundane weapon a couple of times, whenever an upgrade option would appear as a level up reward, it's replaced by an offer to specialize (evolve) the weapon into a specific set, which will not greatly increase its power but will make it cooler and allow further upgrades. Once it is fully upgraded, it can undergo a standard evolution that massively increases its power.
+
+There are a few reasons behind this gameplay mechanic
+1. It's new and interesting
+2. It allows you to get your build started before committing to a weapon
+3. If you get a weapon specialization you don't like, you can get a different level up reward, which is greedy but can pay off.
+4. It lessens the advantage of deciding what you want to build before you start the run
+5. Similar weapons (i.e. fireball and poison bolt) feel justified in their similarity if they evolve out of the same weapon.
+
+Additionally, two of your early level up rewards (at set levels, 5 and 10 maybe) will allow you to swap out your gun or sword for objectively better versions that give bonuses to their slots. For example, instead of [revolver- no bonuses] you could choose between [obsidian dragon- slot 1 - +10% damage, slot 2 - +10% attack speed, slot 3 - +10% crit chance] and 2 other options.
+
+Players can choose their gun/sword replacements based on their early evolution/specializations or vice versa.
+
+If I can group things thematically in the mundane weapons that's nice, but railroading myself will just harm creativity. I officially give myself
+permission to turn a rapier into a carpet bomber
+
+Mundane1{
+//auto targeting long range weapons
+*Musket (gun)
+	bear: Shotgun -> Gungir
+	blast: devastator
+	dark: shadow bolt
+	electric: lightning ball
+	fox: Rubber ball
+	fire: fireball -> extinction event
+	ice: frost bolt
+	Jaguar: Sniper rifle
+	light: chromatic bolt -> rainbow beam
+	poison: poison bolt
+	Shark: Uzi -> Minigun
+
+//slashing melee attacks
+*sword (sword)
+	bear: Greataxe -> Guitar axe
+	blast: Fusion sword
+	dark: Nightfang -> True nightfang -> equilibrium
+	electric: Gungnir
+	fox: Backstab
+	fire:
+	ice: Icicle slash
+	Jaguar: Katana
+	light: Heaven's gate -> True heaven's gate -> equilibrium
+	poison: Vorpal slash
+	Shark: sawblade
+}
+Mundane2{
+// turrets and traps
+*gun turret (gun)
+	bear: bear hug -> suplex
+	blast: missile turret -> swarm missile
+	dark:
+	electric:
+	fox: 
+	fire: flame turret -> Inferno tower
+	ice: freeze turret -> Palace of Ice
+	jaguar: twin daggers
+	light:
+	shark: tornado -> sharknado
+	poison:
+// summons
+*summon sword (sword)
+	bear: summon bear
+	blast: place landmine
+	dark: summon demon
+	electric: call lightning
+	fox: summon fox
+	fire: summon dragonling -> summon dragon
+	ice:
+	jaguar: summon jaguar
+	light: summon angel
+	shark: summon shark -> summon blue whale
+	poison: summon viper
+}
+Mundane3{
+//pseudo-AOEs
+discombobulator (gun)
+	bear: earthquake stomp
+	blast: cannon -> full broadside
+	dark: Corruption
+	electric: chain lightning
+	fox: chaotic inferno
+	fire: flamethrower -> napalm strike
+	ice: icicle shotgun
+	jaguar: double tap
+	light: Consecration
+	shark: hemokinesis
+	poison: poison fog
+
+//throwables, grenades
+Throwing Dagger (sword)
+	bear: Shield bash
+	blast: mortar -> ICBM
+	dark:
+	electric:
+	fox: boomerang (bladed chakram)
+	fire:
+	ice:
+	jaguar: Shuriken
+	light: holy hand grenade (+blast)
+	shark: claws -> onslaught
+	poison: 
+}
+//leftover
+generic
+	spear
+	trident
+	disintegration beam
+bear
+	pommel strike -> uppercut
+blast
+	<ultimate> nuke (+fire, +poison)
+	suction bomb
+dark
+	
+electric
+
+fox
+	<ultimate> summon T-Rex
+fire
+	lava trail -> volcano
+jaguar
+
+light
+	<ultimate> Hell's Artificial Sun (+fire)
+shark
+poison
+
+goal- 6+2
+
+bear 7 - slow, tanky, high raw damage
+blast 7+1 - explosives
+dark 4 - darkness, death
+electric 4 - zap
+fox 5+1 - luck, creativity, summoning
+fire 5 - burn
+ice 4 - slow, icey
+jaguar 6 - fast, precise, crit
+light 5 - blind, healing
+shark 6 - bleed, attack speed, overwhelming
+poison 4 - poisoning
+
+stretch goal- 7+2
+
+<<Passives>>
+Blink
+Crit/bleed synergy
+
+<<statuses>>
+bleed - continuous dot
+burn - %maxHP dot
+poison - ramping DOT
+chill - slow
+stun - disables all
+blind - disables projectiles
+decay - %current HP over time
+root - root
+
+On second thought, the mundane weapon system is pretty much incompatible with the unlock system. I'm gonna leave all that there in case I change my mind but I'm gonna go back to lumping everything in the same pool.
+
+So Imma list everything by class again in this format
+<<Set>>
+*(archetype) Weapon -> Evolution - SHORT description; SHORT evolution description
+
+Each set should have some passives specific to them that do not just statically modify stats. 
+
+
+<<Bear>>
+(gun) Shotgun -> Gungir - Spread shot; unk
+(sword) Greataxe -> Guitar axe - Darius Q; larger with cool sound
+(orbital) Shield orbital -> //// - 
+(CC) Shield bash -> //// - Wide, short range, stuns
+(CC) Bear hug -> suplex - pull tough enemy, damage and root, no contact damage; throw highest max HP enemy behind you and deal aoe damage. stun enemy.
+(CC) Pommel Strike -> Uppercut - damage and stun tough enemy in front; push enemy back, knocking aside and slowing enemies, stun enemy
+(Summon) Bear -> bearzilla - slow and tanky; bamf
+(AOE) Earthquake stomp -> Cataclysm - Damage and stun nearby; screen nuke, higher damage closer
+
+<<Blast>>
+(AOE) Mortar -> ICBM - Epic Fetus
+(Gun) Devastator -> //// - Stinger
+(Turret/Summon) Missile Turret -> Missile swarm -
+(Summon/Trap) Landmine -> ////
+(Fireball) Cannon -> full broadside - ; AOE
+(ULTIMATE) Nuke - damage, burn, poison
+(Passive) Shell shock - Blast weapons microstun
+
+<<Dark>>
+(Fireball) Shadow bolt -> //// - inflicts blind, high damage
+(Sword) Nightfang -> True Nightfang -> Equilibrium - Katana, execute; fires projectiles; greatsword, higher damage, heals on hit
+(AOE) Corruption -> //// - Large AOE that deals %missing HP damage
+(Passive) Cheap shot - blind enemies take +damage
+
+<<Electric>>
+(fireball) Lightning ball -> //// - shoots mini-chain lightnings from impact instead of exploding
+(Sword) Gungnir -> //// - Lightning spear
+(AOE) Call lightning -> //// - Lightning bolt
+(Chain) Chain lightning -> ////
+
+<<Fox>>
+(misc) Rubber ball -> //// - high bounce, low damage
+(sword) Backstab -> //// - Double damage from behind (mostly for use against elites and bosses)
+(Summon) Fox -> Ninetails - Increases luck, shoots magic; duplicates your attacks with reduced power
+(misc) Chaotic Inferno -> //// - Flamethrower with random damage and status effects
+(throwing) Boomerang -> //// - Bladed chakram
+(ULTIMATE) Summon T-Rex - Bites, stomps, shoots lasers
+
+<<Fire>>
+(fireball) Fireball -> Extinction event - ; meteor- random AOE damage
+(turret/summon) flame turret -> inferno tower - flamethrower; one at map center, high damage and buff in wide area
+(summon) Summon dragonling -> summon dragon - breathe cones of fire; shyvana ultimate, limited to one
+(misc) Flamethrower -> Napalm strike - ; carpet bomb with fire
+(misc) Lava trail -> Volcano - leave fire AOE behind you; spawn volcanos that spew aoes in random locations
+(Passive) //// - Burning enemies explode on death
+
+<<Ice>>
+(fireball) Ice bolt -> //// - inflicts chill
+(gun) Icicle shotgun -> //// - dogma feathers
+(turret/summon) Frost turret -> Palace of Ice - Damages and chills nearby enemies; one at map center, damages and chills enemies in wide area
+(Passive) Shatter - Chilled enemies explode on death
+(Passive) Frostbite - Chilled enemies take +damage
+
+<<Jaguar>>
+(Gun) Assault Carbine -> Sniper Rifle - High single target damage with high accuracy; percent maxHP damage to highest maxHP target
+(Sword) Katana -> /// - High crit
+(Sword) Twin daggers -> /// - Combo attack
+(Summon) Jaguar -> Sabretooth - High crit; more damage, much more HP
+(Gun) Double Tap -> //// - High pierce, execute
+(Misc) Shuriken -> //// - High crit, high bounce
+
+<<Light>>
+(Fireball) Chromatic bolt -> Rainbow Beam - inflicts blind, large radius
+(Sword) Heaven's Gate -> True Heaven's Gate -> Equilibrium - Bastard Sword, heals on hit; twinned swords, shoots waves of fire; greatsword, higher damage, executes
+(AOE) Consecration -> //// - Large AOE that heals and buffs friendlies that stand in it
+(AOE) Holy hand grenade -> //// - High damage in wide radius, long cooldown, counts as blast
+(ULTIMATE) Hell's Artificial Sun
+
+<<Shark>>
+(Sword) Claws -> onslaught - short range, bleed, high attack speed; burst of attacks
+(Gun) Uzi -> minigun - low accuracy, high fire rate
+(orbital) Sawblade -> //// - bleed
+(AOE) tornado -> sharknado - drifting AOE; high damage and bleed
+(chain) Hemokinesis -> //// - self damage, chain lightning
+(summon) shark -> blue whale - flails around and causes bleed at its mouth; SPLATS, dealing high damage, stunning, and inflicting bleed
+(Passive) Bloodlust - inflicting bleed heals you
+(Passive) Tendon Slicer - Bleeding enemies take damage when they move
+
+<<Poison>>
+(Fireball) Poison bolt -> //// - inflicts poison
+(Sword) Vorpal slash -> //// - inflicts poison
+(AOE) Poison fog -> //// - drifts, inflicts poison
+(summon) Viper -> //// - glass cannon + poison
+(Passive) Contagion - poison spreads on death
+
+(Passive) Muscle up - +HP, +damage, +size
+(Passive) Turtle down - +armor, -movement speed
+(Passive) Precision - +crit chance, -attack speed
+(Passive) Brutality - +crit damage
+(Passive) So cute - +summon damage, +summon HP
+(Passive) The big guns - +attack size
+(Passive) Relentless - +attack speed, +movement speed, -armor
+
+(Passive) Masochism - self damage increases movement and attack speed
+(Passive) Sadism - killing increases movement and attack speed
+
+This is enough to go off of for now, I'll try to update it periodically.
+
+Items I can currently implement
+shotgun
+cannon
+rubber ball
+fireball
+Shuriken
+uzi
+minigun
+
+note: most common causes of items not being viable are melee attacks and status effects

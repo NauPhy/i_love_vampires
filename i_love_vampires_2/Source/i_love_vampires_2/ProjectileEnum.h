@@ -14,11 +14,18 @@ enum class EAttackShape : uint8
 	fan UMETA(DisplayName = "fan"),
 	INVALID = 255 UMETA(DisplayName = "INVALID")
 };
+// Dependencies
+// fan - Projectile.h
+
 UENUM(BlueprintType)
 enum class EProjectileTargeting : uint8
 {
 	skillshot      UMETA(DisplayName = "skillshot"),
 	closest		   UMETA(DisplayName = "closest"),
 	random		   UMETA(DisplayName = "random"),
+	randomEnemy	   UMETA(DisplayName = "randomEnemy"),
 	INVALID = 255 UMETA(DisplayName = "INVALID")
 };
+// Dependencies
+// skillshot - Projectile.h
+// random - Projectile.h

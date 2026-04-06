@@ -74,5 +74,5 @@ void UEnemySpawner::tick(float DeltaTime) {
 		return;
 	ACombatant* newEnemy = nullptr;
 	spawnTestEnemy(newEnemy);
-	_nextTick += 5.f;
+	_nextTick += 2.f;
 }

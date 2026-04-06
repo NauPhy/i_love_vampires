@@ -4,6 +4,8 @@
 #include "Definitions.h"
 #include "Engine/World.h"
 #include "CombatGameModeBase.h"
+#include "EnemyBase.h"
+#include "helpers.h"
 
 void UCombatantManager::tick(float delta) {
 	if (!_gameReady)
@@ -20,10 +22,10 @@ void UCombatantManager::burnAll() {
 	_burnTimer = _BURN_PERIOD;
 }
 
-int UCombatantManager::registerEnemy(ACombatant* enemy) {
+int UCombatantManager::registerEnemy(AEnemyBase* enemy) {
 	int key = _nextKey;
 	_nextKey += 1;
-	_enemyReferences.Add(key, TWeakObjectPtr<ACombatant>(enemy));
+	_enemyReferences.Add(key, TWeakObjectPtr<AEnemyBase>(enemy));
 	return key;
 }
 
@@ -31,9 +33,9 @@ void UCombatantManager::removeFromRegister(int key) {
 	_enemyReferences.Remove(key);
 }
 
-bool UCombatantManager::getRandomEnemyPtr(TWeakObjectPtr<ACombatant>& ret, const ACombatant* excluded) {
+AEnemyBase* UCombatantManager::getRandomEnemyPtr(const AEnemyBase* excluded) {
 	if (_enemyReferences.Num() <= 1) {
-		return false;
+		return nullptr;
 	}
 	int roll = FMath::RandRange(static_cast<int>(0), static_cast<int>(_enemyReferences.Num() - 1));
 	// pair is TPair
@@ -41,15 +43,30 @@ bool UCombatantManager::getRandomEnemyPtr(TWeakObjectPtr<ACombatant>& ret, const
 	for (const auto& pair : _enemyReferences) {
 		if (count == roll) {
 			if (pair.Value.IsValid() && pair.Value.Get() != excluded) {
-				ret = pair.Value;
-				return true;
+				return pair.Value.Get();
 			}
 			roll++;
 		}
 		count++;
 	}
 	// If all combatants are in the middle of construction or destruction, it could be valid for this function to fail without error
-	return false;
+	return nullptr;
+}
+
+AEnemyBase* UCombatantManager::getNearestEnemyPtr(const AActor* caller) {
+	AEnemyBase* nearest = nullptr;
+	float nearestDist = -1;
+	for (const auto& pair : _enemyReferences) {
+		if (pair.Value.IsValid()) {
+			AEnemyBase* enemy = pair.Value.Get();
+			float dist = FVector::Dist(caller->GetActorLocation(), enemy->GetActorLocation());
+			if (helpers::nearEq(nearestDist, -1) || dist < nearestDist) {
+				nearestDist = dist;
+				nearest = enemy;
+			}
+		}
+	}
+	return nearest;
 }
 
 void UCombatantManager::setPlayerRef(ACombatant* playerRef) {

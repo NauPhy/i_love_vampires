@@ -65,57 +65,41 @@ ExplosiveProjectileFactory::ExplosiveProjectileFactory(
 	}
 }
 
-void ExplosiveProjectileFactory::launchAttack(const FVector& forward) {
-	EAttackShape type = _projectileConfig->_attackShape;
-	if (type == EAttackShape::fan) {
-		launchAttack_fan(forward);
+AProjectile* ExplosiveProjectileFactory::launchSingleProjectile(const FVector& direction) {
+	if (_tempAOE.IsValid()) {
+		LOGERROR("AExplosiveProjectileFactory::launchAttack - tempAOE is already valid when launching attack");
+		return nullptr;
 	}
-	else {
-		LOGERROR("AExplosiveProjectileFactory::launchAttack - unsupported attack shape");
-		return;
+	setDirectionX(direction.X);
+	setDirectionZ(direction.Z);
+	{
+		AAOE* aoe = nullptr;
+		if (!unrealHelpers::spawnActorOnTopOfMeDeferred<AAOE>(_owner.Get(), aoe)) {
+			LOGERROR("AExplosiveProjectileFactory::launchAttack - failed to spawn aoe");
+			return nullptr;
+		}
+		_tempAOE = TWeakObjectPtr<AAOE>(aoe);
 	}
-}
-
-void ExplosiveProjectileFactory::launchAttack_fan(const FVector& forward) {
-	if (!IsValid(_owner.Get()))
-		return;
-	const int projectileCount = static_cast<int>(_projectileAttributes.getMemberDiscretized(&ProjectileAttributes::_projectileCount));
-	for (int i = 0; i < projectileCount; i++) {
-		if (_tempAOE.IsValid()) {
-			LOGERROR("AExplosiveProjectileFactory::launchAttack - tempAOE is already valid when launching attack");
-			return;
-		}
-		FVector direction = ProjectileFactory::launchAttack_fan_getDirection(forward, i, projectileCount);
-		setDirectionX(direction.X);
-		setDirectionZ(direction.Z);
-		{
-			AAOE* aoe = nullptr;
-			if (!unrealHelpers::spawnActorOnTopOfMeDeferred<AAOE>(_owner.Get(), aoe)){
-				LOGERROR("AExplosiveProjectileFactory::launchAttack_fan - failed to spawn aoe");
-				return;
-			}
-			_tempAOE = TWeakObjectPtr<AAOE>(aoe);
-		}
-		AExplosiveProjectile* newAttack = nullptr;
-		if (!unrealHelpers::spawnActorOnTopOfMeDeferred<AExplosiveProjectile>(_owner.Get(), newAttack)){
-			LOGERROR("AExplosiveProjectileFactory::launchAttack_fan - failed to spawn explosive projectile");
-			// Important! GC will not collect this
-			_tempAOE->Destroy();
-			_tempAOE = nullptr;
-			return;
-		}
-		{
-			AOEInitStruct temp = getAOEInit();
-			_tempAOE->initialise_AAOE(temp);
-		}
-		unrealHelpers::finishDeferredSpawn(_owner.Get(),_tempAOE.Get());
-		{
-			ExplosiveProjectileInitStruct temp = getExplosiveProjectileInit();
-			newAttack->initialise_AExplosiveProjectile(temp);
-		}
+	AExplosiveProjectile* newAttack = nullptr;
+	if (!unrealHelpers::spawnActorOnTopOfMeDeferred<AExplosiveProjectile>(_owner.Get(), newAttack)) {
+		LOGERROR("AExplosiveProjectileFactory::launchAttack - failed to spawn explosive projectile");
+		// Important! GC will not collect this
+		_tempAOE->Destroy();
 		_tempAOE = nullptr;
-		unrealHelpers::finishDeferredSpawn<AExplosiveProjectile>(_owner.Get(), newAttack);
+		return nullptr;
 	}
+	{
+		AOEInitStruct temp = getAOEInit();
+		_tempAOE->initialise_AAOE(temp);
+	}
+	unrealHelpers::finishDeferredSpawn(_owner.Get(), _tempAOE.Get());
+	{
+		ExplosiveProjectileInitStruct temp = getExplosiveProjectileInit();
+		newAttack->initialise_AExplosiveProjectile(temp);
+	}
+	_tempAOE = nullptr;
+	unrealHelpers::finishDeferredSpawn<AExplosiveProjectile>(_owner.Get(), newAttack);
+	return newAttack;
 }
 
 ExplosiveProjectileInitStruct ExplosiveProjectileFactory::getExplosiveProjectileInit() const {

@@ -14,6 +14,7 @@ void EmptyLinkFunctionForGeneratedCodeCombatantManager() {}
 // ********** Begin Cross Module References ********************************************************
 COREUOBJECT_API UClass* Z_Construct_UClass_UObject();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_ACombatant_NoRegister();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AEnemyBase_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UCombatantManager();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UCombatantManager_NoRegister();
 UPackage* Z_Construct_UPackage__Script_i_love_vampires_2();
@@ -80,7 +81,7 @@ struct Z_Construct_UClass_UCombatantManager_Statics
 }; // struct Z_Construct_UClass_UCombatantManager_Statics
 
 // ********** Begin Class UCombatantManager Property Definitions ***********************************
-const UECodeGen_Private::FWeakObjectPropertyParams Z_Construct_UClass_UCombatantManager_Statics::NewProp__enemyReferences_ValueProp = { "_enemyReferences", nullptr, (EPropertyFlags)0x0004000000000000, UECodeGen_Private::EPropertyGenFlags::WeakObject, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 1, Z_Construct_UClass_ACombatant_NoRegister, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FWeakObjectPropertyParams Z_Construct_UClass_UCombatantManager_Statics::NewProp__enemyReferences_ValueProp = { "_enemyReferences", nullptr, (EPropertyFlags)0x0004000000000000, UECodeGen_Private::EPropertyGenFlags::WeakObject, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 1, Z_Construct_UClass_AEnemyBase_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_UCombatantManager_Statics::NewProp__enemyReferences_Key_KeyProp = { "_enemyReferences_Key", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FMapPropertyParams Z_Construct_UClass_UCombatantManager_Statics::NewProp__enemyReferences = { "_enemyReferences", nullptr, (EPropertyFlags)0x0044000000000000, UECodeGen_Private::EPropertyGenFlags::Map, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantManager, _enemyReferences), EMapPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__enemyReferences_MetaData), NewProp__enemyReferences_MetaData) };
 const UECodeGen_Private::FWeakObjectPropertyParams Z_Construct_UClass_UCombatantManager_Statics::NewProp__playerRef = { "_playerRef", nullptr, (EPropertyFlags)0x0044000000000000, UECodeGen_Private::EPropertyGenFlags::WeakObject, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantManager, _playerRef), Z_Construct_UClass_ACombatant_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__playerRef_MetaData), NewProp__playerRef_MetaData) };
@@ -131,10 +132,10 @@ UCombatantManager::~UCombatantManager() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantManager_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UCombatantManager, UCombatantManager::StaticClass, TEXT("UCombatantManager"), &Z_Registration_Info_UClass_UCombatantManager, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCombatantManager), 1266859120U) },
+		{ Z_Construct_UClass_UCombatantManager, UCombatantManager::StaticClass, TEXT("UCombatantManager"), &Z_Registration_Info_UClass_UCombatantManager, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCombatantManager), 3298959485U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantManager_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantManager_h__Script_i_love_vampires_2_2615456186{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantManager_h__Script_i_love_vampires_2_3945567119{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantManager_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatantManager_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

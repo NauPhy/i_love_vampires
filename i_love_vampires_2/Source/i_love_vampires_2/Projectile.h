@@ -15,12 +15,16 @@ class UProjectileConfig;
 class UProjectileAttributeData;
 class ProjectileAttributes;
 struct ProjectileInitStruct;
+class AEnemyBase;
 
 UCLASS()
 class AProjectile : public AAttackActor {
 	GENERATED_BODY()
 
 	const static inline EProjectileShape _CIRCLE = EProjectileShape::circle;
+
+	TWeakObjectPtr<const ACombatant> _targetEnemy = nullptr;
+	void setNewDirection();
 
 protected:
 	float _directionX = 0;
@@ -34,20 +38,25 @@ protected:
 
 private:
 	bool performSweep(const FVector&, const FVector&, TArray<struct FHitResult>&);
-	void executeBounce(const ACombatant*);
+	void executeBounce(AEnemyBase* ineligibleTarget);
 
 protected:
 	virtual void bulletDeath() { Destroy(); }
 	// returns true iff bulletDeath was called
 	virtual bool handleSweepResults(const TArray<struct FHitResult>& hits);
 	// returns true iff bulletDeath was called
-	bool handleBouncePierce(const ACombatant*);
+	bool handleBouncePierce(ACombatant* ineligibleTarget);
 
 public:
 	AProjectile() : AAttackActor() {}
 	virtual void BeginPlay() override;
 	
 	void initialise_AProjectile(const ProjectileInitStruct&);
+	// currently unused, since I realized making all random projectiles homing was stupid
+	void homeToTarget(ACombatant* homingTarget) {
+		_targetEnemy = homingTarget;
+		setNewDirection();
+	}
 	virtual void Tick(float delta) override;
 };
 
@@ -88,8 +97,8 @@ class I_LOVE_VAMPIRES_2_API UProjectileAttributeData : public UBaseAttributeData
 	struct defaults {
 		float _spread = -1.f;
 		float _radius = 1.f;
-		float _speed = 200.f;
-		float _range = 1000.f;
+		float _speed = 1.f;
+		float _range = 1.f;
 		float _pierce = 0.f;
 		float _bounce = 0.f;
 		float _projectileCount = 1.f;
@@ -117,6 +126,9 @@ public:
 };
 ///////////////////////////////////////////////////////////////////////////////
 class ProjectileAttributes : public BaseAttributes {
+	const static inline float _PROJECTILE_SPEED = 200.f;
+	const static inline float _PROJECTILE_RANGE = 500.f;
+
 public:
 	Stat _spread;
 	Stat _radius;
@@ -150,16 +162,27 @@ struct ProjectileInitStruct {
 
 class ProjectileFactory : public AttackFactory
 {
+	const static inline EProjectileTargeting _SKILLSHOT = EProjectileTargeting::skillshot;
+	const static inline EProjectileTargeting _RANDOM = EProjectileTargeting::random;
+	const static inline EProjectileTargeting _RANDOM_ENEMY = EProjectileTargeting::randomEnemy;
+	const static inline EAttackShape _FAN = EAttackShape::fan;
+
 	float _directionX = 0;
 	float _directionZ = 1;
+
+	static FVector getDirection_random();
 
 protected:
 	const TObjectPtr<const UProjectileConfig> _projectileConfig;
 	BaseAttributeWrapper<ProjectileAttributes, UProjectileAttributeData> _projectileAttributes;
+	//Gives a vector depending on the projectile's targeting type
+	FVector getTempForward(const FVector& forward) const;
+	//Uses the vector from the targeting type to create the final direction for all fired projectiles
+	TArray<FVector> getProjectileDirections(const FVector& tempForward);
+	virtual AProjectile* launchSingleProjectile(const FVector& direction);
 
 	virtual void launchAttack(const FVector& forward) override;
-	virtual void launchAttack_fan(const FVector& forward);
-	FVector launchAttack_fan_getDirection(const FVector& forward, int projectileIndex, int projectileCount);
+
 	float getDirectionX() const { return _directionX; }
 	void setDirectionX(float x) { _directionX = x; }
 	float getDirectionZ() const { return _directionZ; }
@@ -167,7 +190,7 @@ protected:
 	ProjectileInitStruct getProjectileInit() const {
 		ProjectileAttributes temp = _projectileAttributes.getCore();
 		temp.discretizeFull();
-		ProjectileInitStruct ret ={ AttackFactory::getAttackInit(), _projectileConfig.Get(), temp, _directionX, _directionZ};
+		ProjectileInitStruct ret = { AttackFactory::getAttackInit(), _projectileConfig.Get(), temp, _directionX, _directionZ};
 		return ret;
 	}
 

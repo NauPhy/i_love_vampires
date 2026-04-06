@@ -46,6 +46,7 @@ template<> I_LOVE_VAMPIRES_2_NON_ATTRIBUTED_API UEnum* StaticEnum<EAttackShape>(
 	op(EProjectileTargeting::skillshot) \
 	op(EProjectileTargeting::closest) \
 	op(EProjectileTargeting::random) \
+	op(EProjectileTargeting::randomEnemy) \
 	op(EProjectileTargeting::INVALID) 
 
 enum class EProjectileTargeting : uint8;

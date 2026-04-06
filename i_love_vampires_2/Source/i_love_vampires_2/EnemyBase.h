@@ -10,7 +10,7 @@ class I_LOVE_VAMPIRES_2_API AEnemyBase : public ACombatant
 {
 	GENERATED_BODY()
 
-	const static inline float _MOVEMENT_SPEED = 1;
+	const static inline float _MOVEMENT_SPEED = 5;
 
 	int _registerKey = -1;
 	const float _experienceValue = 1;
@@ -25,4 +25,6 @@ public:
 	virtual void Tick(float delta) override;
 	void initialise_AEnemyBase(const UCombatantTemplate* temp) { initialise_ACombatant(temp); }
 	virtual void myInitialise(const UCombatantTemplate* temp) override { initialise_AEnemyBase(temp); }
+	virtual FVector getMoveDirection() const;
+	virtual float getMoveSpeed() const;
 };

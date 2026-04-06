@@ -4,6 +4,7 @@
 #include "UObject/Object.h"
 #include "CombatantManager.generated.h"
 class ACombatant;
+class AEnemyBase;
 
 
 
@@ -19,16 +20,17 @@ class I_LOVE_VAMPIRES_2_API UCombatantManager : public UObject
 	float _burnTimer = 0.0f;
 	bool _gameReady = false;
 	UPROPERTY()
-	TMap<int, TWeakObjectPtr<ACombatant>> _enemyReferences;
+	TMap<int, TWeakObjectPtr<AEnemyBase>> _enemyReferences;
 	UPROPERTY()
 	TWeakObjectPtr<ACombatant> _playerRef = nullptr;
 public:
 	UCombatantManager() = default;
 	void setPlayerRef(ACombatant* playerRef);
-	int registerEnemy(ACombatant* enemy);
+	int registerEnemy(AEnemyBase* enemy);
 	void removeFromRegister(int key);
 	int getEnemyCount() { return _enemyReferences.Num(); }
-	bool getRandomEnemyPtr(TWeakObjectPtr<ACombatant>& ret, const ACombatant* excluded);
+	AEnemyBase* getRandomEnemyPtr(const AEnemyBase* excluded);
+	AEnemyBase* getNearestEnemyPtr(const AActor* caller);
 	bool getBurnThisFrame() const { return _burnThisFrame; }
 	virtual void tick(float DeltaTime);
 	void setGameReady(bool val) { _gameReady = val; }

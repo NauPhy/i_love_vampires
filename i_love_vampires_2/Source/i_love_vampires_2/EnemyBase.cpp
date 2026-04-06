@@ -43,18 +43,23 @@ void AEnemyBase::onKilled() {
 }
 
 void AEnemyBase::persuePlayer(float delta) {
+	const FVector direction = getMoveDirection();
+	FHitResult* unused = nullptr;
+	AddActorWorldOffset(direction * delta * getMoveSpeed(), false, unused, ETeleportType::TeleportPhysics);
+}
+
+FVector AEnemyBase::getMoveDirection() const {
 	APawn* player = UGameplayStatics::GetPlayerPawn(this, 0);
 	if (!IsValid(player)) {
 		LOGERROR("AEnemyBase::persuePlayer - player is invalid");
-		return;
+		return FVector(1, 0, 0);
 	}
-	const FVector playerPos = player->K2_GetActorLocation();
-	const FVector myPos = K2_GetActorLocation();
-	const FVector direction = UKismetMathLibrary::Normal(playerPos - myPos, 0.0001);
-	{
-		FHitResult* unused = nullptr;
-		AddActorWorldOffset(direction * delta * _MOVEMENT_SPEED, false, unused, ETeleportType::TeleportPhysics);
-	}
+	const FVector diff = player->GetActorLocation() - GetActorLocation();
+	return diff.GetSafeNormal();
+}
+
+float AEnemyBase::getMoveSpeed() const {
+	return _MOVEMENT_SPEED * getAttributeMember(&CombatantAttributes::_movementSpeed);
 }
 
 void AEnemyBase::Tick(float delta) {

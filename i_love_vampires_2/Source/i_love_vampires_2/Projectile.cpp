@@ -12,10 +12,57 @@
 #include "unrealHelpers.h"
 #include "PaperFlipbookComponent.h"
 #include <cmath>
+#include "EnemyBase.h"
 
 namespace {
 	float dist(float x, float y) {
 		return std::sqrt(std::pow(x, 2.0) + std::pow(y, 2.0));
+	}
+	TArray<FVector> getFanDirections(const FVector& tempForward, int projectileCount, float spread) {
+		TArray<FVector> ret;
+		for (int i = 0; i < projectileCount; i++) {
+			if (spread <= EPSILON) {
+				ret.Add(tempForward);
+				continue;
+			}
+			float angle = 0;
+			if (helpers::nearEq(1, projectileCount)) {
+				angle = FMath::FRandRange(-spread / 2.0, spread / 2.0);
+			}
+			else {
+				float proportion = i / static_cast<float>(projectileCount - 1);
+				angle = proportion * spread - spread / 2.0;
+			}
+			FRotator rot = FRotator(angle, 0, 0);
+			ret.Add(rot.RotateVector(tempForward));
+		}
+		return ret;
+	}
+	// The ineligible target will most likely be an enemy that was bounced off of this frame
+	AEnemyBase* getRandomEnemy(UObject* caller, AEnemyBase* ineligibleTarget) {
+		UCombatantManager* manager;
+		if (!MyGameplayStatics::getCombatantManager(caller, manager)) {
+			LOGERROR("ProjectileFactory::getRandomEnemy - failed to get combatant manager");
+			return nullptr;
+		}
+		AEnemyBase* target = manager->getRandomEnemyPtr(ineligibleTarget);
+		return target;
+	}
+	//Gives the direction that a projectile should be fired in to lead a target
+	FVector getLeadTargetTrajectory(const AActor* caller, const AEnemyBase* target, float projectileSpeed) {
+		if (!IsValid(target) || !IsValid(caller)) {
+			LOGERROR("getLeadTargetTrajectory - invalid parameters");
+			return FVector(1, 0, 0);
+		}
+		const FVector targetVelocity = target->getMoveDirection() * target->getMoveSpeed();
+		const FVector targetLocation = target->GetActorLocation();
+		const FVector myLocation = caller->GetActorLocation();
+
+		const float distanceToTarget = FVector::Dist(myLocation, targetLocation);
+		const float timeToTarget = distanceToTarget / projectileSpeed;
+		const FVector futureTargetLocation = targetLocation + targetVelocity * timeToTarget;
+
+		return (futureTargetLocation - myLocation).GetSafeNormal();
 	}
 }
 
@@ -104,19 +151,27 @@ bool AProjectile::handleSweepResults(const TArray<struct FHitResult>& hits) {
 		applyEffect(combatantActor);
 		if (handleBouncePierce(combatantActor))
 			return true;
+		break;
 	}
 	return false;
 }
 
 // returns true iff bulletDeath was called
-bool AProjectile::handleBouncePierce(const ACombatant* comb) {
+bool AProjectile::handleBouncePierce(ACombatant* hitActor) {
 	if (_pierce == 0) {
 		if (_bounce == 0) {
 			bulletDeath();
 			return true;
 		}
 		else {
-			executeBounce(comb);
+			// If a bullet hitting a non-enemy has bounce, it will be ignored.
+			// you'll need to change this later if you want it to bounce off of trees or something.
+			AEnemyBase* casted = Cast<AEnemyBase>(hitActor);
+			if (!IsValid(casted)) {
+				bulletDeath();
+				return true;
+			}
+			executeBounce(casted);
 			_bounce -= 1;
 		}
 	}
@@ -126,26 +181,24 @@ bool AProjectile::handleBouncePierce(const ACombatant* comb) {
 	return false;
 }
 
-void AProjectile::executeBounce(const ACombatant* comb) {
-	UCombatantManager* manager;
-	if (!MyGameplayStatics::getCombatantManager(this, manager))
+void AProjectile::executeBounce(AEnemyBase* ineligibleTarget) {
+	const AEnemyBase* enemy = getRandomEnemy(this, ineligibleTarget);
+	if (!IsValid(enemy))
 		return;
-	TWeakObjectPtr<ACombatant> newTarget = nullptr;
-	if (!manager->getRandomEnemyPtr(newTarget, comb)) {
-		bulletDeath();
-		return;
+	const FVector newDirection = getLeadTargetTrajectory(this, enemy, _projectileAttributes->_speed.getFinal());
+	_directionX = newDirection.X;
+	_directionZ = newDirection.Z;
+	
+	int foundIndex = -1;
+	for (auto i = 0; i < _effectedPawns.Num(); i++) {
+		if (_effectedPawns[i].Get() == enemy) {
+			foundIndex = i;
+			break;
+		}
 	}
-	if (!newTarget.IsValid()) {
-		LOGERROR("AProjectile::executeBounce - get random actor malfunction");
-		bulletDeath();
-		return;
+	if (foundIndex != -1) {
+		_effectedPawns.RemoveAt(foundIndex);
 	}
-	FVector myLocation = GetActorLocation();
-	FVector targetLocation = newTarget->GetActorLocation();
-	FVector difference = targetLocation - myLocation;
-	FVector norm = difference / dist(difference.X, difference.Z);
-	_directionX = norm.X;
-	_directionZ = norm.Z;
 }
 
 void AProjectile::Tick(float delta) {
@@ -172,6 +225,27 @@ void AProjectile::Tick(float delta) {
 	FRotator newRotation = FVector(_directionX, 0, _directionZ).GetSafeNormal().Rotation();
 	if (!helpers::nearEq(currentRotation.Pitch, newRotation.Pitch) || !helpers::nearEq(currentRotation.Roll, newRotation.Roll) || !helpers::nearEq(currentRotation.Yaw, newRotation.Yaw))
 		SetActorRotation(newRotation, ETeleportType::TeleportPhysics);
+
+	setNewDirection();
+}
+
+void AProjectile::setNewDirection() {
+	if (_projectileConfig->_isHoming) {
+		UCombatantManager* manager;
+		if (!MyGameplayStatics::getCombatantManager(this, manager)) {
+			LOGERROR("AProjectile::setNewDirection - failed to get combatant manager");
+			return;
+		}
+		_targetEnemy = manager->getNearestEnemyPtr(this);
+	}
+	if (_targetEnemy.IsValid()) {
+		const FVector myLocation = GetActorLocation();
+		const FVector targetLocation = _targetEnemy->GetActorLocation();
+		const FVector difference = targetLocation - myLocation;
+		const FVector norm = difference.GetSafeNormal();
+		_directionX = norm.X;
+		_directionZ = norm.Z;
+	}
 }
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -179,10 +253,11 @@ void ProjectileAttributes::modifyAttributes(const CombatantAttributes* combatant
 	if (combatantAttributes == nullptr)
 		return;
 	_radius.modify(_radius._base * combatantAttributes->_projectileSize.getFinal());
-	_speed.modify(_speed._base * combatantAttributes->_projectileSpeed.getFinal());
+	_speed.modify(_speed._base * combatantAttributes->_projectileSpeed.getFinal() * _PROJECTILE_SPEED);
 	_pierce.modify(_pierce._base + combatantAttributes->_bonusPierce.getFinal());
 	_bounce.modify(_bounce._base + combatantAttributes->_bonusBounces.getFinal());
 	_projectileCount.modify(_projectileCount._base + combatantAttributes->_bonusProjectiles.getFinal());
+	_range.modify(_range._base * _PROJECTILE_RANGE);
 }
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -203,54 +278,65 @@ ProjectileFactory::ProjectileFactory(
 }
 
 void ProjectileFactory::launchAttack(const FVector& forward) {
+	const FVector tempForward = getTempForward(forward);
+	const TArray<FVector> projectileDirections = getProjectileDirections(tempForward);
+	for (const auto& direction : projectileDirections) {
+		AProjectile* projectile = launchSingleProjectile(direction);
+		//homing or other postinit here
+	}
+}
+
+FVector ProjectileFactory::getTempForward(const FVector& forwardVector) const {
+	EProjectileTargeting target = _projectileConfig->_targeting;
+	if (target == _SKILLSHOT)
+		return forwardVector;
+	else if (target == _RANDOM)
+		return getDirection_random();
+	else if (target == _RANDOM_ENEMY) {
+		return getLeadTargetTrajectory(
+			_owner.Get(), 
+			getRandomEnemy(_owner.Get(), nullptr),
+			_projectileAttributes.getMember(&ProjectileAttributes::_speed)
+		);
+	}
+	else {
+		LOGERROR("ProjectileFactory::launchAttack - targeting type not implemented ");
+		return FVector(1, 0, 0);
+	}
+}
+
+FVector ProjectileFactory::getDirection_random() {
+	const float angle = FMath::FRandRange(0.0f, 360.0f);
+	const FRotator rot = FRotator(angle, 0, 0);
+	return rot.RotateVector(FVector(1, 0, 0));
+}
+
+TArray<FVector> ProjectileFactory::getProjectileDirections(const FVector& tempForward) {
+	const int projectileCount = static_cast<int>(_projectileAttributes.getMemberDiscretized(&ProjectileAttributes::_projectileCount));
+	const float spread = _projectileAttributes.getMember(&ProjectileAttributes::_spread);
 	EAttackShape type = _projectileConfig->_attackShape;
-	if (type == EAttackShape::fan) {
-		launchAttack_fan(forward);
+	
+	if (type == _FAN) {
+		return getFanDirections(tempForward, projectileCount, spread);
 	}
 	else {
 		LOGERROR("AProjectileFactory::launchAttack - attack shape not implemented");
-		return;
+		return {};
 	}
 }
 
-FVector ProjectileFactory::launchAttack_fan_getDirection(const FVector& forward, int projectileIndex, int projectileCount) {	
-	const float tempSpread = _projectileAttributes.getMemberDiscretized(&ProjectileAttributes::_spread);
-	if (tempSpread <= EPSILON)
-		return forward;
-	float angle = 0;
-	if (helpers::nearEq(1, projectileCount)) {
-		angle = FMath::FRandRange(-tempSpread / 2.0, tempSpread / 2.0);
+AProjectile* ProjectileFactory::launchSingleProjectile(const FVector& direction) {
+	_directionX = direction.X;
+	_directionZ = direction.Z;
+	AProjectile* projectile = nullptr;
+	if (!unrealHelpers::spawnActorOnTopOfMeDeferred<AProjectile>(_owner.Get(), projectile)) {
+		LOGERROR("AProjectileFactory::projectileLaunchInternal - failed to spawn projectile");
+		return nullptr;
 	}
-	else {
-		float proportion = projectileIndex / static_cast<float>(projectileCount - 1);
-		angle = proportion * tempSpread - tempSpread / 2.0;
-	}
-	FRotator rot = FRotator(angle, 0, 0);
-	return rot.RotateVector(forward);
+	projectile->initialise_AProjectile(getProjectileInit());
+	unrealHelpers::finishDeferredSpawn<AProjectile>(_owner.Get(), projectile);
+	return projectile;
 }
-
-void ProjectileFactory::launchAttack_fan(const FVector& forward) {
-	if (!IsValid(_owner.Get()))
-		return;
-	const int projectileCount = static_cast<int>(_projectileAttributes.getMemberDiscretized(&ProjectileAttributes::_projectileCount));
-	for (int i = 0; i < projectileCount; i++) {
-		FVector direction = launchAttack_fan_getDirection(forward, i, projectileCount);
-		_directionX = direction.X;
-		_directionZ = direction.Z;
-
-		AProjectile* projectile = nullptr;
-		if (!unrealHelpers::spawnActorOnTopOfMeDeferred<AProjectile>(_owner.Get(), projectile)){
-			LOGERROR("AProjectileFactory::launchAttack_fan - failed to spawn projectile");
-			continue;
-		}
-		{
-			ProjectileInitStruct temp = getProjectileInit();
-			projectile->initialise_AProjectile(temp);
-		}
-		unrealHelpers::finishDeferredSpawn<AProjectile>(_owner.Get(), projectile);
-	}
-}
-
 
 ///////////////////////////////////////////////////////////////////////////////
 void ProjectileAttributes::applyToAllStats(const std::function<void(Stat&)>& func) {
@@ -296,32 +382,6 @@ ProjectileAttributes::ProjectileAttributes(ProjectileAttributes&& other) :
 	_projectileCount(std::move(other._projectileCount))
 {
 }
-//ProjectileAttributes& ProjectileAttributes::operator=(const ProjectileAttributes& other) {
-//	if (this != &other) {
-//		BaseAttributes::operator=(other);
-//		_spread = other._spread;
-//		_radius = other._radius;
-//		_speed = other._speed;
-//		_range = other._range;
-//		_pierce = other._pierce;
-//		_bounce = other._bounce;
-//		_projectileCount = other._projectileCount;
-//	}
-//	return *this;
-//}
-//ProjectileAttributes& ProjectileAttributes::operator=(ProjectileAttributes&& other) {
-//	if (this != &other) {
-//		BaseAttributes::operator=(std::move(other));
-//		_spread = std::move(other._spread);
-//		_radius = std::move(other._radius);
-//		_speed = std::move(other._speed);
-//		_range = std::move(other._range);
-//		_pierce = std::move(other._pierce);
-//		_bounce = std::move(other._bounce);
-//		_projectileCount = std::move(other._projectileCount);
-//	}
-//	return *this;
-//}
 
 ProjectileAttributes::ProjectileAttributes(const UProjectileAttributeData* attr) :
 	BaseAttributes(),
@@ -345,17 +405,6 @@ ProjectileFactory::ProjectileFactory(ProjectileFactory&& other) :
 {
 	//other._projectileConfig = nullptr;
 }
-//ProjectileFactory& ProjectileFactory::operator=(ProjectileFactory&& other) {
-//	if (this != &other) {
-//		AttackFactory::operator=(std::move(other));
-//		_projectileConfig = other._projectileConfig;
-//		_projectileAttributes = std::move(other._projectileAttributes);
-//		_directionX = other._directionX;
-//		_directionZ = other._directionZ;
-//		other._projectileConfig = nullptr;
-//	}
-//	return *this;
-//}
 
 std::unique_ptr<AttackFactory> UProjectileTemplate::createFactory(ACombatant* owner) const {
 	const UProjectileTemplate* temp = unrealHelpers::getDynamicTemplate<UProjectileTemplate>(owner, this);

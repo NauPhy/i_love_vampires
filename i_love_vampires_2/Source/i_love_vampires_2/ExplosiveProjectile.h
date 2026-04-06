@@ -105,6 +105,8 @@ protected:
 
 	ExplosiveProjectileInitStruct getExplosiveProjectileInit() const;
 	AOEInitStruct getAOEInit() const;
+	virtual AProjectile* launchSingleProjectile(const FVector& direction) override;
+
 public:
 	ExplosiveProjectileFactory() = delete;
 	ExplosiveProjectileFactory(const ExplosiveProjectileFactory& other) = delete;
@@ -125,8 +127,8 @@ public:
 		const UAttackAttributeData*
 		);
 	virtual void tick(float delta) override;
-	virtual void launchAttack(const FVector& forward) override;
-	virtual void launchAttack_fan(const FVector& forward) override;
+	// Uses the same version as ProjectileFactory. LaunchSingleProjectile is overridden.
+	//virtual void launchAttack(const FVector& forward) override;
 };
 ///////////////////////////////////////////////////////////////////////////////
 
