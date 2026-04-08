@@ -16,7 +16,7 @@
                                     "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.cpp"
                                 },
                                 "region": {
-                                    "startLine": 402,
+                                    "startLine": 388,
                                     "startColumn": 2,
                                     "snippet": {
                                         "text": "\t_projectileAttributes(std::move(other._projectileAttributes)),"

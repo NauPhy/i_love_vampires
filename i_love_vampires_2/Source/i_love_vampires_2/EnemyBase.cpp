@@ -7,6 +7,7 @@
 #include "MyGameplayStatics.h"
 #include "ExperienceShard.h"
 #include "unrealHelpers.h"
+#include "SpriteSorter.h"
 
 AEnemyBase::AEnemyBase() : ACombatant() {};
 
@@ -16,6 +17,12 @@ void AEnemyBase::BeginPlay() {
 	if (!MyGameplayStatics::getCombatantManager(this, combatantManager))
 		return;
 	_registerKey = combatantManager->registerEnemy(this);
+	USpriteSorter* sorter = nullptr;
+	if (!MyGameplayStatics::getSpriteSorter(this, sorter)) {
+		LOGERROR("AMyPlayer::AMyPlayer - failed to get sprite sorter");
+		return;
+	}
+	sorter->sortSprite(this);
 }
 
 void AEnemyBase::onKilled() {

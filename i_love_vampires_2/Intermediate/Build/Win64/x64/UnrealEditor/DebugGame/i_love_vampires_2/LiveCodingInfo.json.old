@@ -24,8 +24,6 @@
 			"MyPlayer.gen.cpp.obj",
 			"Projectile.gen.cpp.obj",
 			"ProjectileEnum.gen.cpp.obj",
-			"SpriteEnum.gen.cpp.obj",
-			"SpriteManager.gen.cpp.obj",
 			"StatusEnum.gen.cpp.obj"
 		]
 	}

@@ -37,7 +37,8 @@ AEnemyBase* UCombatantManager::getRandomEnemyPtr(const AEnemyBase* excluded) {
 	if (_enemyReferences.Num() <= 1) {
 		return nullptr;
 	}
-	int roll = FMath::RandRange(static_cast<int>(0), static_cast<int>(_enemyReferences.Num() - 1));
+	int offset = excluded == nullptr ? 0 : 1;
+	int roll = FMath::RandRange(static_cast<int>(0), static_cast<int>(_enemyReferences.Num() - 1 - offset));
 	// pair is TPair
 	int count = 0;
 	for (const auto& pair : _enemyReferences) {

@@ -22,13 +22,15 @@ bool unrealHelpers::initFlipbook(AActor* caller, UPaperFlipbook* sprite, UPaperF
 }
 
 bool unrealHelpers::constructFlipbook(AActor* caller, USceneComponent* rootComp, UPaperFlipbookComponent*& flipbook) {
-	if (!IsValid(caller) || !IsValid(rootComp)) {
+	if (!IsValid(caller)) {
 		LOGERROR("unrealHelpers::constructFlipbook - parameter is not valid");
 		return false;
 	}
 	flipbook = caller->CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("flipbook"));
-	flipbook->SetupAttachment(rootComp);
+	//flipbook->SetupAttachment(rootComp);
 	flipbook->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	flipbook->SetGenerateOverlapEvents(true);
+	//flipbook->UpdateCollisionProfile();
 	// The default flipbook scale is 2.56 pixels per unit, and as I can't use inheritance with sprites or flipbooks, I cannot make a custom default for a
 	// subset of my sprites (or even all of my sprites). So I just used the default for all sprites. That can be rectified at runtime, preferrably in constructors,
 	// such as here.
@@ -63,16 +65,20 @@ bool unrealHelpers::performSweepAtPawn(UObject* caller, const FVector& startPos,
 
 	FCollisionObjectQueryParams params;
 	params.AddObjectTypesToQuery(ECC_Pawn);
+	//params.AddObjectTypesToQuery(ECC_WorldDynamic);
+	//params.AddObjectTypesToQuery(ECC_WorldStatic);
+	FCollisionQueryParams params2;
+	params2.bFindInitialOverlaps = true;
 	{
-		FCollisionQueryParams params2;
 		APawn* tempPawn = Cast<APawn>(caller);
 		if (IsValid(tempPawn))
 			params2.AddIgnoredActor(tempPawn);
 	}
-	FCollisionQueryParams params2;
-	for (const auto& tempPawn : ignoredPawns) {
-		if (IsValid(tempPawn))
-			params2.AddIgnoredActor(tempPawn);
+	{
+		for (const auto& tempPawn : ignoredPawns) {
+			if (IsValid(tempPawn))
+				params2.AddIgnoredActor(tempPawn);
+		}
 	}
 
 	world->SweepMultiByObjectType(OutHits, startPos, endPos, FQuat::Identity, params, shape, params2);

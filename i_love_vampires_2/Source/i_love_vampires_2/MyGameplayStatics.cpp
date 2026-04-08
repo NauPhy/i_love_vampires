@@ -12,6 +12,7 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "CombatGameModeBase.h"
 #include "DynamicAssetManager.h"
+#include "SpriteSorter.h"
 
 
 bool MyGameplayStatics::myGetEnhancedInputLocalPlayerSubsystem(const UObject* caller, UEnhancedInputLocalPlayerSubsystem*& ret) {
@@ -123,28 +124,22 @@ bool MyGameplayStatics::getCombatGameMode(const UObject* caller, ACombatGameMode
 	return true;
 }
 
-//bool MyGameplayStatics::getSpriteManager(const UObject* caller, USpriteManager*& ret) {
-//	if (!IsValid(caller)) {
-//		LOGERROR("MyGameplayStatics::getSpriteManager - caller is not valid");
-//		return false;
-//	}
-//	UWorld* world = caller->GetWorld();
-//	if (!IsValid(world)) {
-//		LOGERROR("ACombatant::initialiseFromTemplate - world is invalid");
-//		return false;
-//	}
-//	UGameInstance* gameInstance = world->GetGameInstance();
-//	if (!IsValid(gameInstance)) {
-//		LOGERROR("ACombatant::initialiseFromTemplate - game instance invalid");
-//		return false;
-//	}
-//	ret = gameInstance->GetSubsystem<USpriteManager>();
-//	if (!IsValid(ret)) {
-//		LOGERROR("ACombatant::initialiseFromTemplate - ret is invalid");
-//		return false;
-//	}
-//	return true;
-//}
+bool MyGameplayStatics::getSpriteSorter(const UObject* caller, USpriteSorter*& ret) {
+	if (!IsValid(caller)) {
+		LOGERROR("MyGameplayStatics::getSpriteSorter - caller is not valid");
+		return false;
+	}
+	ACombatGameModeBase* gameMode = nullptr;
+	if (!getCombatGameMode(caller, gameMode))
+		return false;
+	ret = gameMode->getSpriteSorter();
+	if (!IsValid(ret)) {
+		LOGERROR("MyGameplayStatics::getSpriteSorter - ret is invalid");
+		return false;
+	}
+	return true;
+}
+
 
 bool MyGameplayStatics::getDynamicAssetManager(const UObject* caller, UDynamicAssetManager*& ret) {
 	if (!IsValid(caller)) {

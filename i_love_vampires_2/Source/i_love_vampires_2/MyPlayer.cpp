@@ -13,6 +13,7 @@
 #include "EnhancedInputComponent.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
+#include "SpriteSorter.h"
 #include <cmath>
 
 //void AMyPlayer::PostInitializeComponents() {
@@ -165,6 +166,12 @@ void AMyPlayer::BeginPlay() {
 		return;
 	}
 	combatantManager->setPlayerRef(this);
+	USpriteSorter* sorter = nullptr;
+	if (!MyGameplayStatics::getSpriteSorter(this, sorter)) {
+		LOGERROR("AMyPlayer::AMyPlayer - failed to get sprite sorter");
+		return;
+	}
+	sorter->sortSprite(this);
 }
 
 bool AMyPlayer::isOutOfDeadzone(float x, float z) const {

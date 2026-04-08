@@ -1,11 +1,13 @@
 #include "CombatGameModeBase.h"
 #include "CombatantManager.h"
 #include "EnemySpawner.h"
+#include "SpriteSorter.h"
 #include "Definitions.h"
 
 ACombatGameModeBase::ACombatGameModeBase() : AGameModeBase() {
 	_enemySpawner = CreateDefaultSubobject<UEnemySpawner>(TEXT("EnemySpawner"));
 	_combatantManager = CreateDefaultSubobject<UCombatantManager>(TEXT("CombatantManager"));
+	_spriteSorter = CreateDefaultSubobject<USpriteSorter>(TEXT("SpriteSorter"));
 }
 
 void ACombatGameModeBase::BeginPlay() {
@@ -34,7 +36,7 @@ void ACombatGameModeBase::setGameReady(bool val) {
 }
 
 bool ACombatGameModeBase::isReady_Implementation() const {
-	if (!IsValid(_enemySpawner) || !IsValid(_combatantManager)) {
+	if (!IsValid(_enemySpawner) || !IsValid(_combatantManager) || !IsValid(_spriteSorter)) {
 		return false;
 	}
 	return _enemySpawner->getGameReady() && _combatantManager->getGameReady();

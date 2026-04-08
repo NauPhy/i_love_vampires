@@ -41,7 +41,10 @@ private:
 	void executeBounce(AEnemyBase* ineligibleTarget);
 
 protected:
-	virtual void bulletDeath() { Destroy(); }
+	virtual void bulletDeath() { 
+		_effectedPawns.Empty();
+		Destroy();
+	}
 	// returns true iff bulletDeath was called
 	virtual bool handleSweepResults(const TArray<struct FHitResult>& hits);
 	// returns true iff bulletDeath was called

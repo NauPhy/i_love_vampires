@@ -17,6 +17,7 @@ I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_ACombatGameModeBase();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_ACombatGameModeBase_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UCombatantManager_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UEnemySpawner_NoRegister();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_USpriteSorter_NoRegister();
 UPackage* Z_Construct_UPackage__Script_i_love_vampires_2();
 // ********** End Cross Module References **********************************************************
 
@@ -119,6 +120,56 @@ DEFINE_FUNCTION(ACombatGameModeBase::execgetEnemySpawner)
 	P_NATIVE_END;
 }
 // ********** End Class ACombatGameModeBase Function getEnemySpawner *******************************
+
+// ********** Begin Class ACombatGameModeBase Function getSpriteSorter *****************************
+struct Z_Construct_UFunction_ACombatGameModeBase_getSpriteSorter_Statics
+{
+	struct CombatGameModeBase_eventgetSpriteSorter_Parms
+	{
+		USpriteSorter* ReturnValue;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "CombatGameModeBase.h" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Function getSpriteSorter constinit property declarations ***********************
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_ReturnValue;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function getSpriteSorter constinit property declarations *************************
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+
+// ********** Begin Function getSpriteSorter Property Definitions **********************************
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ACombatGameModeBase_getSpriteSorter_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(CombatGameModeBase_eventgetSpriteSorter_Parms, ReturnValue), Z_Construct_UClass_USpriteSorter_NoRegister, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ACombatGameModeBase_getSpriteSorter_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ACombatGameModeBase_getSpriteSorter_Statics::NewProp_ReturnValue,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ACombatGameModeBase_getSpriteSorter_Statics::PropPointers) < 2048);
+// ********** End Function getSpriteSorter Property Definitions ************************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ACombatGameModeBase_getSpriteSorter_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_ACombatGameModeBase, nullptr, "getSpriteSorter", 	Z_Construct_UFunction_ACombatGameModeBase_getSpriteSorter_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_ACombatGameModeBase_getSpriteSorter_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_ACombatGameModeBase_getSpriteSorter_Statics::CombatGameModeBase_eventgetSpriteSorter_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ACombatGameModeBase_getSpriteSorter_Statics::Function_MetaDataParams), Z_Construct_UFunction_ACombatGameModeBase_getSpriteSorter_Statics::Function_MetaDataParams)},  };
+static_assert(sizeof(Z_Construct_UFunction_ACombatGameModeBase_getSpriteSorter_Statics::CombatGameModeBase_eventgetSpriteSorter_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_ACombatGameModeBase_getSpriteSorter()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ACombatGameModeBase_getSpriteSorter_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ACombatGameModeBase::execgetSpriteSorter)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	*(USpriteSorter**)Z_Param__Result=P_THIS->getSpriteSorter();
+	P_NATIVE_END;
+}
+// ********** End Class ACombatGameModeBase Function getSpriteSorter *******************************
 
 // ********** Begin Class ACombatGameModeBase Function isReady *************************************
 struct CombatGameModeBase_eventisReady_Parms
@@ -299,16 +350,21 @@ struct Z_Construct_UClass_ACombatGameModeBase_Statics
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__combatantManager_MetaData[] = {
 		{ "ModuleRelativePath", "CombatGameModeBase.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__spriteSorter_MetaData[] = {
+		{ "ModuleRelativePath", "CombatGameModeBase.h" },
+	};
 #endif // WITH_METADATA
 
 // ********** Begin Class ACombatGameModeBase constinit property declarations **********************
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__enemySpawner;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__combatantManager;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp__spriteSorter;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class ACombatGameModeBase constinit property declarations ************************
 	static constexpr UE::CodeGen::FClassNativeFunction Funcs[] = {
 		{ .NameUTF8 = UTF8TEXT("getCombatantManager"), .Pointer = &ACombatGameModeBase::execgetCombatantManager },
 		{ .NameUTF8 = UTF8TEXT("getEnemySpawner"), .Pointer = &ACombatGameModeBase::execgetEnemySpawner },
+		{ .NameUTF8 = UTF8TEXT("getSpriteSorter"), .Pointer = &ACombatGameModeBase::execgetSpriteSorter },
 		{ .NameUTF8 = UTF8TEXT("isReady"), .Pointer = &ACombatGameModeBase::execisReady },
 		{ .NameUTF8 = UTF8TEXT("setGameReady"), .Pointer = &ACombatGameModeBase::execsetGameReady },
 	};
@@ -316,6 +372,7 @@ struct Z_Construct_UClass_ACombatGameModeBase_Statics
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
 		{ &Z_Construct_UFunction_ACombatGameModeBase_getCombatantManager, "getCombatantManager" }, // 786297690
 		{ &Z_Construct_UFunction_ACombatGameModeBase_getEnemySpawner, "getEnemySpawner" }, // 3557539413
+		{ &Z_Construct_UFunction_ACombatGameModeBase_getSpriteSorter, "getSpriteSorter" }, // 3637049184
 		{ &Z_Construct_UFunction_ACombatGameModeBase_isReady, "isReady" }, // 335285443
 		{ &Z_Construct_UFunction_ACombatGameModeBase_setGameReady, "setGameReady" }, // 3339965129
 	};
@@ -329,9 +386,11 @@ struct Z_Construct_UClass_ACombatGameModeBase_Statics
 // ********** Begin Class ACombatGameModeBase Property Definitions *********************************
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ACombatGameModeBase_Statics::NewProp__enemySpawner = { "_enemySpawner", nullptr, (EPropertyFlags)0x0040000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACombatGameModeBase, _enemySpawner), Z_Construct_UClass_UEnemySpawner_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__enemySpawner_MetaData), NewProp__enemySpawner_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ACombatGameModeBase_Statics::NewProp__combatantManager = { "_combatantManager", nullptr, (EPropertyFlags)0x0040000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACombatGameModeBase, _combatantManager), Z_Construct_UClass_UCombatantManager_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__combatantManager_MetaData), NewProp__combatantManager_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ACombatGameModeBase_Statics::NewProp__spriteSorter = { "_spriteSorter", nullptr, (EPropertyFlags)0x0040000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACombatGameModeBase, _spriteSorter), Z_Construct_UClass_USpriteSorter_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__spriteSorter_MetaData), NewProp__spriteSorter_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ACombatGameModeBase_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACombatGameModeBase_Statics::NewProp__enemySpawner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACombatGameModeBase_Statics::NewProp__combatantManager,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACombatGameModeBase_Statics::NewProp__spriteSorter,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ACombatGameModeBase_Statics::PropPointers) < 2048);
 // ********** End Class ACombatGameModeBase Property Definitions ***********************************
@@ -376,10 +435,10 @@ ACombatGameModeBase::~ACombatGameModeBase() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatGameModeBase_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ACombatGameModeBase, ACombatGameModeBase::StaticClass, TEXT("ACombatGameModeBase"), &Z_Registration_Info_UClass_ACombatGameModeBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ACombatGameModeBase), 3243429761U) },
+		{ Z_Construct_UClass_ACombatGameModeBase, ACombatGameModeBase::StaticClass, TEXT("ACombatGameModeBase"), &Z_Registration_Info_UClass_ACombatGameModeBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ACombatGameModeBase), 3593228011U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatGameModeBase_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatGameModeBase_h__Script_i_love_vampires_2_2163234163{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatGameModeBase_h__Script_i_love_vampires_2_3336043118{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatGameModeBase_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatGameModeBase_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

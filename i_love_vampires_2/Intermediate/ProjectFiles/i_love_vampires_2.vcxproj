@@ -548,6 +548,7 @@
     <ClCompile Include="..\..\Source\i_love_vampires_2\helpers.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\MyGameplayStatics.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\BaseTemplate.cpp" />
+    <ClCompile Include="..\..\Source\i_love_vampires_2\SpriteSorter.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\unrealHelpers.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\unrealHelpers.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\Active.h" />
@@ -567,6 +568,7 @@
     <ClInclude Include="..\..\Source\i_love_vampires_2\ExperienceShard.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\MyGameplayStatics.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\MyPlayer.h" />
+    <ClInclude Include="..\..\Source\i_love_vampires_2\SpriteSorter.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\StatusEnum.h" />
     <None Include="..\..\.vsconfig" />
     <None Include="..\..\Config\DefaultEditor.ini" />

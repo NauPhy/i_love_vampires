@@ -11,3 +11,4 @@
 //#define PI 3.14159265359f
 
 void LOGERROR(const char* inputString);
+void LOGWARNING(const char* inputString);

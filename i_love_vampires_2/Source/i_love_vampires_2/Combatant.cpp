@@ -20,14 +20,16 @@ const CombatantAttributes& ACombatant::getAttributes() const { return _attribute
 
 ACombatant::ACombatant()
 {
-	if (!RootComponent)
-	{
-		RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
-	}
+	//if (!RootComponent)
+	//{
+	//	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
+	//}
 	PrimaryActorTick.bCanEverTick = true;
 	unrealHelpers::constructFlipbook(this, RootComponent, _combatantFlipbook);
 	_combatantFlipbook->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	_combatantFlipbook->SetCollisionObjectType(ECollisionChannel::ECC_Pawn);
+	//_combatantFlipbook->UpdateCollisionProfile();
+	RootComponent = _combatantFlipbook;
 }
 
 void ACombatant::initialise_ACombatant(const UCombatantTemplate* diskVal) {
@@ -81,6 +83,9 @@ void ACombatant::Tick(float DeltaTime) {
 	}
 	FVector currentScale = GetActorScale3D();
 	SetActorScale3D(currentScale * _attributeSet->getMember(&CombatantAttributes::_selfSize));
+
+	/*UE_LOG(LogTemp, Warning, TEXT("Overlap: %d"), _combatantFlipbook->GetGenerateOverlapEvents());
+	UE_LOG(LogTemp, Warning, TEXT("Collision Enabled: %d"), (int)_combatantFlipbook->GetCollisionEnabled());*/
 }
 
 void ACombatant::lookAtDirection(float X, float Z) {

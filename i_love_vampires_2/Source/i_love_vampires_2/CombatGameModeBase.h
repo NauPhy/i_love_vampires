@@ -3,6 +3,7 @@
 #include "CombatGameModeBase.generated.h"
 class UEnemySpawner;
 class UCombatantManager;
+class USpriteSorter;
 
 UCLASS(Blueprintable)
 class I_LOVE_VAMPIRES_2_API ACombatGameModeBase : public AGameModeBase {
@@ -12,6 +13,9 @@ class I_LOVE_VAMPIRES_2_API ACombatGameModeBase : public AGameModeBase {
 	UEnemySpawner* _enemySpawner = nullptr;
 	UPROPERTY()
 	UCombatantManager* _combatantManager = nullptr;
+	UPROPERTY()
+	USpriteSorter* _spriteSorter = nullptr;
+
 	bool isReady_Implementation() const;
 
 protected:
@@ -26,6 +30,8 @@ public:
 	UEnemySpawner* getEnemySpawner() const { return _enemySpawner; }
 	UFUNCTION(BlueprintCallable)
 	UCombatantManager* getCombatantManager() const { return _combatantManager; }
+	UFUNCTION(BlueprintCallable)
+	USpriteSorter* getSpriteSorter() const { return _spriteSorter; }
 	UFUNCTION(BlueprintCallable)
 	void setGameReady(bool val);
 };

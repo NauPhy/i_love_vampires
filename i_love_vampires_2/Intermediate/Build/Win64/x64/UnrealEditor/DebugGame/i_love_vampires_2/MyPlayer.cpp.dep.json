@@ -1179,7 +1179,9 @@
             "c:\\program files\\epic games\\ue_5.7\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\dialoguetypes.generated.h",
             "c:\\program files\\epic games\\ue_5.7\\engine\\source\\runtime\\engine\\classes\\kismet\\gameplaystaticstypes.h",
             "c:\\program files\\epic games\\ue_5.7\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\gameplaystaticstypes.generated.h",
-            "c:\\program files\\epic games\\ue_5.7\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\gameplaystatics.generated.h"
+            "c:\\program files\\epic games\\ue_5.7\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\gameplaystatics.generated.h",
+            "c:\\users\\byron\\documents\\github\\i_love_vampires\\i_love_vampires_2\\source\\i_love_vampires_2\\spritesorter.h",
+            "c:\\users\\byron\\documents\\github\\i_love_vampires\\i_love_vampires_2\\intermediate\\build\\win64\\unrealeditor\\inc\\i_love_vampires_2\\uht\\spritesorter.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

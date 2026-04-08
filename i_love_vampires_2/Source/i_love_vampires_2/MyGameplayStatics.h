@@ -9,6 +9,7 @@ class UCombatantManager;
 //class USpriteManager;
 class ACombatGameModeBase;
 class UDynamicAssetManager;
+class USpriteSorter;
 
 class MyGameplayStatics {
 
@@ -22,4 +23,5 @@ public:
 	static bool getCombatantManager(const UObject* caller, UCombatantManager*&);
 	//static bool getSpriteManager(const UObject* caller, USpriteManager*&);
 	static bool getDynamicAssetManager(const UObject* caller, UDynamicAssetManager*&);
+	static bool getSpriteSorter(const UObject* caller, USpriteSorter*& ret);
 };

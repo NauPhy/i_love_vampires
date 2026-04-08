@@ -27,4 +27,5 @@ public:
 	virtual void myInitialise(const UCombatantTemplate* temp) override { initialise_AEnemyBase(temp); }
 	virtual FVector getMoveDirection() const;
 	virtual float getMoveSpeed() const;
+	int getKey() const { return _registerKey; }
 };

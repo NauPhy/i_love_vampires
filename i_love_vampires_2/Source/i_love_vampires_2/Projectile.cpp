@@ -62,7 +62,12 @@ namespace {
 		const float timeToTarget = distanceToTarget / projectileSpeed;
 		const FVector futureTargetLocation = targetLocation + targetVelocity * timeToTarget;
 
-		return (futureTargetLocation - myLocation).GetSafeNormal();
+		FVector ret = (futureTargetLocation - myLocation).GetSafeNormal();
+		if (helpers::nearEq(ret.X, 0) && helpers::nearEq(ret.Z, 0)) {
+			LOGWARNING("getLeadTargetTrajectory - bullet is centered on the same point as target. This is extremely unlikely in normal play.");
+			return FVector(1, 0, 0);
+		}
+		return ret;
 	}
 }
 
@@ -110,38 +115,16 @@ bool AProjectile::performSweep(const FVector& startPos, const FVector& endPos, T
 		return false;
 	}
 	return true;
-	//FCollisionObjectQueryParams params;
-	//params.AddObjectTypesToQuery(ECC_Pawn);
-	//FCollisionQueryParams params2;
-	//params2.AddIgnoredActor(this);
-	//if (_pawnRef.IsValid())
-	//	params2.AddIgnoredActor(_pawnRef.Get());
-	//for (const auto& tempPawn : _effectedPawns) {
-	//	if (!tempPawn.IsValid())
-	//		continue;
-	//	if (tempPawn.Get() != nullptr)
-	//		params2.AddIgnoredActor(tempPawn.Get());
-	//}
-	//UWorld* world = GetWorld();
-	//if (!IsValid(world)) {
-	//	LOGERROR("AProjectile::performSweep - world is invalid");
-	//	return;
-	//}
-	//if (_projectileConfig->_shape == _CIRCLE) {
-	//	world->SweepMultiByObjectType(OutHits, startPos, endPos, FQuat::Identity, params, FCollisionShape::MakeSphere(_projectileAttributes->_radius.getFinal()), params2);
-	//}
-	//else {
-	//	LOGERROR("AProjectile::performSweep - shape not implemented");
-	//}
 }
 
 bool AProjectile::handleSweepResults(const TArray<struct FHitResult>& hits) {
+	const float tempX = _directionX;
+	const float tempZ = _directionZ;
+	const bool shouldBounce = helpers::nearEq(_pierce, 0) && !helpers::nearEq(_bounce, 0);
 	for (const FHitResult& hit : hits) {
 		AActor* hitActor = hit.GetActor();
 		//hitActor is in the middle of construction or destruction
 		if (!IsValid(hitActor))
-			continue;
-		if (_effectedPawns.Contains(hitActor))
 			continue;
 		ACombatant* combatantActor = Cast<ACombatant>(hitActor);
 		if (!IsValid(combatantActor)) {
@@ -149,17 +132,15 @@ bool AProjectile::handleSweepResults(const TArray<struct FHitResult>& hits) {
 			continue;
 		}
 		applyEffect(combatantActor);
-		if (handleBouncePierce(combatantActor))
-			return true;
-		break;
+		return handleBouncePierce(combatantActor);
 	}
 	return false;
 }
 
 // returns true iff bulletDeath was called
 bool AProjectile::handleBouncePierce(ACombatant* hitActor) {
-	if (_pierce == 0) {
-		if (_bounce == 0) {
+	if (helpers::nearEq(_pierce, 0)) {
+		if (helpers::nearEq(_bounce, 0)) {
 			bulletDeath();
 			return true;
 		}
@@ -182,23 +163,24 @@ bool AProjectile::handleBouncePierce(ACombatant* hitActor) {
 }
 
 void AProjectile::executeBounce(AEnemyBase* ineligibleTarget) {
-	const AEnemyBase* enemy = getRandomEnemy(this, ineligibleTarget);
-	if (!IsValid(enemy))
+	auto cleanup = [this, ineligibleTarget]() {
+		// After bouncing, a bullet can now contact any enemy except the one it bounced from. This means that if it is overlapping with 2 enemies it will hit the next one next frame,
+		// and a bullet can get "stuck" between two enemies, bouncing between them until bounce expires or one dies. There are 2 main ways to solve this "problem". One is to use small
+		// enemy and bullet hitboxes, and the other is to call it a feature instead of a bug. 
+		_effectedPawns.Empty();
+		APawn* casted = Cast<APawn>(ineligibleTarget);
+		if (IsValid(casted))
+			_effectedPawns.Add(casted);
+		};
+	AEnemyBase* enemy = getRandomEnemy(this, ineligibleTarget);
+	if (!IsValid(enemy)) {
+		cleanup();
 		return;
+	}
 	const FVector newDirection = getLeadTargetTrajectory(this, enemy, _projectileAttributes->_speed.getFinal());
 	_directionX = newDirection.X;
 	_directionZ = newDirection.Z;
-	
-	int foundIndex = -1;
-	for (auto i = 0; i < _effectedPawns.Num(); i++) {
-		if (_effectedPawns[i].Get() == enemy) {
-			foundIndex = i;
-			break;
-		}
-	}
-	if (foundIndex != -1) {
-		_effectedPawns.RemoveAt(foundIndex);
-	}
+	cleanup();
 }
 
 void AProjectile::Tick(float delta) {
@@ -293,9 +275,13 @@ FVector ProjectileFactory::getTempForward(const FVector& forwardVector) const {
 	else if (target == _RANDOM)
 		return getDirection_random();
 	else if (target == _RANDOM_ENEMY) {
+		AEnemyBase* enemy = getRandomEnemy(_owner.Get(), nullptr);
+		// Most likely there are no enemies on screen
+		if (!IsValid(enemy))
+			return getDirection_random();
 		return getLeadTargetTrajectory(
 			_owner.Get(), 
-			getRandomEnemy(_owner.Get(), nullptr),
+			enemy,
 			_projectileAttributes.getMember(&ProjectileAttributes::_speed)
 		);
 	}
