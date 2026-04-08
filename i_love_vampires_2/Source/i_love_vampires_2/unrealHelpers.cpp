@@ -7,6 +7,23 @@
 #include "Components/SceneComponent.h"
 #include "GameFramework/Pawn.h"
 #include "PaperFlipbook.h"
+#include "Components/ActorComponent.h"
+#include "AssetRefs.h"
+#include "Materials/MaterialInterface.h"
+#include <cmath>
+
+bool unrealHelpers::snapSprite(const AActor* caller, const UActorComponent* comp, UPaperFlipbookComponent* flipbook) {
+	if (!IsValid(caller) || !IsValid(comp) || !IsValid(flipbook)) {
+		LOGERROR("unrealHelpers::snapSprite - invalid parameter");
+		return false;
+	}
+	FVector currentPos = caller->GetActorLocation();
+	currentPos.X = std::round(currentPos.X);
+	currentPos.Z = std::round(currentPos.Z);
+	FHitResult* throwaway = nullptr;
+	flipbook->SetWorldLocation(currentPos, false, throwaway, ETeleportType::TeleportPhysics);
+	return true;
+}
 
 bool unrealHelpers::initFlipbook(AActor* caller, UPaperFlipbook* sprite, UPaperFlipbookComponent*& flipbook) {
 	if (!IsValid(caller) || !IsValid(flipbook)) {
@@ -18,6 +35,17 @@ bool unrealHelpers::initFlipbook(AActor* caller, UPaperFlipbook* sprite, UPaperF
 		return false;
 	}
 	flipbook->SetFlipbook(sprite);
+	UAssetRefs* refs = nullptr;
+	if (!MyGameplayStatics::getAssetRefs(caller, refs)) {
+		LOGERROR("unrealHelpers::initFlipbook - AssetRefs is invalid");
+		return false;
+	}
+	UMaterialInterface* mat = refs->getSpriteMaterial();
+	if (!IsValid(mat)) {
+		LOGERROR("unrealHelpers::initFlipbook - mat is invalid");
+		return false;
+	}
+	flipbook->SetMaterial(0, mat);
 	return true;
 }
 
@@ -27,13 +55,10 @@ bool unrealHelpers::constructFlipbook(AActor* caller, USceneComponent* rootComp,
 		return false;
 	}
 	flipbook = caller->CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("flipbook"));
-	//flipbook->SetupAttachment(rootComp);
+	flipbook->SetupAttachment(rootComp);
 	flipbook->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	flipbook->SetGenerateOverlapEvents(true);
 	//flipbook->UpdateCollisionProfile();
-	// The default flipbook scale is 2.56 pixels per unit, and as I can't use inheritance with sprites or flipbooks, I cannot make a custom default for a
-	// subset of my sprites (or even all of my sprites). So I just used the default for all sprites. That can be rectified at runtime, preferrably in constructors,
-	// such as here.
 	FVector currentScale = caller->GetActorScale3D();
 	caller->SetActorScale3D(currentScale*1.00);
 	return true;

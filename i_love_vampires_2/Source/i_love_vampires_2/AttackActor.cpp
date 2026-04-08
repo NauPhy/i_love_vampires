@@ -13,20 +13,21 @@ void AAttackActor::initialise_AAttackActor(const AttackInitStruct& temp) {
 }
 
 AAttackActor::AAttackActor() {
-	//if (!RootComponent)
-	//{
-	//	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
-	//}
+	if (!RootComponent)
+	{
+		RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
+	}
 	PrimaryActorTick.bCanEverTick = true;
 	if (!unrealHelpers::constructFlipbook(this, RootComponent, _flipbook))
 		return;
 	_flipbook->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 	_flipbook->SetCollisionResponseToChannel(ECollisionChannel::ECC_Pawn, ECollisionResponse::ECR_Overlap);
 	_flipbook->SetCollisionObjectType(ECollisionChannel::ECC_WorldDynamic);
-	RootComponent = _flipbook;
 }
 
-void AAttackActor::Tick(float delta) {}
+void AAttackActor::Tick(float delta) {
+	unrealHelpers::snapSprite(this, RootComponent, _flipbook);
+}
 
 void AAttackActor::initialise_AAttackActor(ACombatant* pawnRef, const UAttackConfig* config, const AttackAttributes& attributes) {
 	if (!IsValid(config)) {
@@ -44,6 +45,7 @@ void AAttackActor::BeginPlay() {
 		LOGERROR("AAttackActor::BeginPlay - _attackConfig is not valid");
 		return;
 	}
+
 	if (!unrealHelpers::initFlipbook(this, _attackConfig->_sprite.Get(), _flipbook))
 		return;
 	USpriteSorter* sorter = nullptr;
@@ -51,7 +53,7 @@ void AAttackActor::BeginPlay() {
 		LOGERROR("AMyPlayer::AMyPlayer - failed to get sprite sorter");
 		return;
 	}
-	sorter->sortSprite(this);
+	sorter->sortSprite(this, _flipbook);
 }
 
 void AAttackActor::applyEffect(ACombatant* target) {

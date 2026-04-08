@@ -17,7 +17,7 @@ static_assert(!UE_WITH_CONSTINIT_UOBJECT, "This generated code can only be compi
 			nullptr,
 			0,
 			PKG_CompiledIn | 0x00000000,
-			0x0A5C8FBE,
+			0x583B7974,
 			0xD9F8FEBD,
 			METADATA_PARAMS(0, nullptr)
 		};
@@ -25,5 +25,5 @@ static_assert(!UE_WITH_CONSTINIT_UOBJECT, "This generated code can only be compi
 	}
 	return Z_Registration_Info_UPackage__Script_i_love_vampires_2.OuterSingleton;
 }
-static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_i_love_vampires_2(Z_Construct_UPackage__Script_i_love_vampires_2, TEXT("/Script/i_love_vampires_2"), Z_Registration_Info_UPackage__Script_i_love_vampires_2, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x0A5C8FBE, 0xD9F8FEBD));
+static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_i_love_vampires_2(Z_Construct_UPackage__Script_i_love_vampires_2, TEXT("/Script/i_love_vampires_2"), Z_Registration_Info_UPackage__Script_i_love_vampires_2, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x583B7974, 0xD9F8FEBD));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

@@ -15,6 +15,7 @@
 class UPaperFlipbookComponent;
 class UPaperFlipbook;
 class USceneComponent;
+class UActorComponent;
 
 class unrealHelpers {
 	static bool getActorSpawnTransform(AActor* caller, FTransform& ret);
@@ -38,6 +39,7 @@ public:
 	static bool isInvalidData(const FString& str) { return str == "_invalid_"; }
 	template <typename T>
 	static const T* getDynamicTemplate(const UObject* caller, const T* diskTemplate);
+	static bool snapSprite(const AActor* caller, const UActorComponent* comp, UPaperFlipbookComponent* flipbook);
 };
 
 template <typename T>

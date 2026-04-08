@@ -20,16 +20,14 @@ const CombatantAttributes& ACombatant::getAttributes() const { return _attribute
 
 ACombatant::ACombatant()
 {
-	//if (!RootComponent)
-	//{
-	//	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
-	//}
+	if (!RootComponent)
+	{
+		RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
+	}
 	PrimaryActorTick.bCanEverTick = true;
 	unrealHelpers::constructFlipbook(this, RootComponent, _combatantFlipbook);
 	_combatantFlipbook->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	_combatantFlipbook->SetCollisionObjectType(ECollisionChannel::ECC_Pawn);
-	//_combatantFlipbook->UpdateCollisionProfile();
-	RootComponent = _combatantFlipbook;
 }
 
 void ACombatant::initialise_ACombatant(const UCombatantTemplate* diskVal) {
@@ -68,7 +66,9 @@ void ACombatant::onCurrentHPChanged(float oldVal, float newVal)
 {
 	if (newVal <= 0.0f) {
 		onKilled();
+		return true;
 	}
+	return false;
 }
 void ACombatant::Tick(float DeltaTime) {
 	Super::Tick(DeltaTime);
@@ -76,7 +76,8 @@ void ACombatant::Tick(float DeltaTime) {
 	_attributeSet->tick(DeltaTime);
 	float newHP = _attributeSet->getMember(&CombatantAttributes::_currentHP);
 	if (!helpers::nearEq(oldHP, newHP)) {
-		onCurrentHPChanged(oldHP, newHP);
+		if (onCurrentHPChanged(oldHP, newHP))
+			return;
 	}
 	for (auto& active : _activeAbilities) {
 		active.tick(DeltaTime, _myForwardVector);
@@ -84,8 +85,7 @@ void ACombatant::Tick(float DeltaTime) {
 	FVector currentScale = GetActorScale3D();
 	SetActorScale3D(currentScale * _attributeSet->getMember(&CombatantAttributes::_selfSize));
 
-	/*UE_LOG(LogTemp, Warning, TEXT("Overlap: %d"), _combatantFlipbook->GetGenerateOverlapEvents());
-	UE_LOG(LogTemp, Warning, TEXT("Collision Enabled: %d"), (int)_combatantFlipbook->GetCollisionEnabled());*/
+	unrealHelpers::snapSprite(this, RootComponent, _combatantFlipbook);
 }
 
 void ACombatant::lookAtDirection(float X, float Z) {

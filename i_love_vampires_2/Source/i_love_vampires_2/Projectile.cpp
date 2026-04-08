@@ -186,7 +186,6 @@ void AProjectile::executeBounce(AEnemyBase* ineligibleTarget) {
 void AProjectile::Tick(float delta) {
 	FRotator currentRotation = GetActorRotation();
 
-	AAttackActor::Tick(delta);
 	if (_distanceTravelled >= _projectileAttributes->_range.getFinal()) {
 		bulletDeath();
 		return;
@@ -209,6 +208,7 @@ void AProjectile::Tick(float delta) {
 		SetActorRotation(newRotation, ETeleportType::TeleportPhysics);
 
 	setNewDirection();
+	AAttackActor::Tick(delta);
 }
 
 void AProjectile::setNewDirection() {

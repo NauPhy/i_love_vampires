@@ -44,7 +44,8 @@ AMyPlayer::AMyPlayer() : ACombatant() {
 	}
 	_camera->SetupAttachment(RootComponent);
 	_camera->ProjectionMode = ECameraProjectionMode::Orthographic;
-	_camera->OrthoWidth = 300;
+	//10x typical sprite size. Integer multiple may or may not be necessary.
+	_camera->OrthoWidth = 320;
 	{
 		FHitResult* unused = nullptr;
 		_camera->SetWorldRotation(FRotator(0, -90, 0), false, unused, ETeleportType::TeleportPhysics);
@@ -171,7 +172,7 @@ void AMyPlayer::BeginPlay() {
 		LOGERROR("AMyPlayer::AMyPlayer - failed to get sprite sorter");
 		return;
 	}
-	sorter->sortSprite(this);
+	sorter->sortSprite(this, _combatantFlipbook);
 }
 
 bool AMyPlayer::isOutOfDeadzone(float x, float z) const {
@@ -190,7 +191,6 @@ void AMyPlayer::handleMovement(const FInputActionValue& rawInput) {
 }
 
 void AMyPlayer::Tick(float delta) {
-	ACombatant::Tick(delta);
 	APlayerController* controller = nullptr;
 	if (!MyGameplayStatics::myGetPlayerController(this, controller))
 		return;
@@ -205,6 +205,7 @@ void AMyPlayer::Tick(float delta) {
 	const float directionX = X / static_cast<double>(viewX) - 0.5;
 	const float directionZ = (Y / static_cast<double>(viewY) - 0.5) * -1.0;
 	lookAtDirection(directionX, directionZ);
+	ACombatant::Tick(delta);
 }
 
 AMyPlayer* AMyPlayer::spawnAMyActorDeferred(UObject* worldContext, const FTransform& trans, AActor* deferredOwner, APawn* deferredInstigator) {

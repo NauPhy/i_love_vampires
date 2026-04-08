@@ -99,7 +99,6 @@ void AAOE::OnOverlapBegin(
 }
 
 void AAOE::Tick(float delta) {
-	AAttackActor::Tick(delta);
 	if (_AOEAttributes->_duration.getFinal() <= 0) {
 		if (_consumedDuration >= 0.25) {
 			Destroy();
@@ -113,6 +112,7 @@ void AAOE::Tick(float delta) {
 		return;
 	}
 	_consumedDuration += delta;
+	AAttackActor::Tick(delta);
 }
 ///////////////////////////////////////////////////////////////////////////////
 // Since modifyAttributes sets _final = _base, it's actually set twice, which is dodgy but fine

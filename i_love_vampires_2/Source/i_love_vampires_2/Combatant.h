@@ -45,7 +45,8 @@ class I_LOVE_VAMPIRES_2_API ACombatant : public APawn
 
 protected:
 	void lookAtDirection(float x, float y);
-	virtual void onCurrentHPChanged(float oldHP, float newHP);
+	// Returns true iff onKilled() is called
+	virtual bool onCurrentHPChanged(float oldHP, float newHP);
 	static void exchangeContactDamage(ACombatant* left, ACombatant* right);
 	virtual void onKilled() { Destroy(); }
 
