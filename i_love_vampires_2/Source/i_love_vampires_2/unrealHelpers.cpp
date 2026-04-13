@@ -45,7 +45,7 @@ bool unrealHelpers::initFlipbook(AActor* caller, UPaperFlipbook* sprite, UPaperF
 		LOGERROR("unrealHelpers::initFlipbook - mat is invalid");
 		return false;
 	}
-	flipbook->SetMaterial(0, mat);
+	//flipbook->SetMaterial(0, mat);
 	return true;
 }
 
@@ -60,7 +60,7 @@ bool unrealHelpers::constructFlipbook(AActor* caller, USceneComponent* rootComp,
 	flipbook->SetGenerateOverlapEvents(true);
 	//flipbook->UpdateCollisionProfile();
 	FVector currentScale = caller->GetActorScale3D();
-	caller->SetActorScale3D(currentScale*1.00);
+	caller->SetActorScale3D(currentScale*_SPRITE_SCALE);
 	return true;
 }
 

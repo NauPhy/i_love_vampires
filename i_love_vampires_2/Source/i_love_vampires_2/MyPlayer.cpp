@@ -36,20 +36,37 @@
 //}
 
 AMyPlayer::AMyPlayer() : ACombatant() {
-	//AutoPossessPlayer = EAutoReceiveInput::Player0;
+	// Create camera
 	_camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	if (!IsValid(_camera)) {
 		LOGERROR("AMyPlayer::AMyPlayer - _camera creation failed");
 		return;
 	}
+	//basics
 	_camera->SetupAttachment(RootComponent);
 	_camera->ProjectionMode = ECameraProjectionMode::Orthographic;
-	//10x typical sprite size. Integer multiple may or may not be necessary.
-	_camera->OrthoWidth = 320;
+	_camera->OrthoWidth = 270;
+	//aspect ratio
+	_camera->bConstrainAspectRatio = true;
+	_camera->AspectRatio = 1920.0 / 1080.0;
+	//remove filters that can't be removed in settings
+	_camera->PostProcessSettings.bOverride_AutoExposureMethod = true;
+	_camera->PostProcessSettings.AutoExposureMethod = EAutoExposureMethod::AEM_Manual;
+	_camera->PostProcessSettings.bOverride_AutoExposureBias = true;
+	_camera->PostProcessSettings.AutoExposureBias = 0.0;
+	_camera->PostProcessSettings.bOverride_AutoExposureApplyPhysicalCameraExposure = true;
+	_camera->PostProcessSettings.AutoExposureApplyPhysicalCameraExposure = false;
+	_camera->PostProcessSettings.bOverride_AutoExposureLowPercent = true;
+	_camera->PostProcessSettings.AutoExposureLowPercent = 1.0;
+	_camera->PostProcessSettings.bOverride_AutoExposureHighPercent = true;
+	_camera->PostProcessSettings.AutoExposureHighPercent = 1.0;
+	//orientation
 	{
 		FHitResult* unused = nullptr;
 		_camera->SetWorldRotation(FRotator(0, -90, 0), false, unused, ETeleportType::TeleportPhysics);
+		_camera->SetRelativeLocation(FVector(0, 100, 0), false, unused, ETeleportType::TeleportPhysics);
 	}
+
 	OnActorBeginOverlap.AddDynamic(this, &AMyPlayer::onOverlapBegin);
 }
 
@@ -206,6 +223,12 @@ void AMyPlayer::Tick(float delta) {
 	const float directionZ = (Y / static_cast<double>(viewY) - 0.5) * -1.0;
 	lookAtDirection(directionX, directionZ);
 	ACombatant::Tick(delta);
+
+	FVector currentPos = GetActorLocation();
+	currentPos.X = std::round(currentPos.X);
+	currentPos.Z = std::round(currentPos.Z);
+	FHitResult* throwaway = nullptr;
+	_camera->SetWorldLocation(currentPos, false, throwaway, ETeleportType::TeleportPhysics);
 }
 
 AMyPlayer* AMyPlayer::spawnAMyActorDeferred(UObject* worldContext, const FTransform& trans, AActor* deferredOwner, APawn* deferredInstigator) {

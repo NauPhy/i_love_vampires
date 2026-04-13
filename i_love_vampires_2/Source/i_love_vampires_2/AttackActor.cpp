@@ -26,7 +26,7 @@ AAttackActor::AAttackActor() {
 }
 
 void AAttackActor::Tick(float delta) {
-	unrealHelpers::snapSprite(this, RootComponent, _flipbook);
+	//unrealHelpers::snapSprite(this, RootComponent, _flipbook);
 }
 
 void AAttackActor::initialise_AAttackActor(ACombatant* pawnRef, const UAttackConfig* config, const AttackAttributes& attributes) {

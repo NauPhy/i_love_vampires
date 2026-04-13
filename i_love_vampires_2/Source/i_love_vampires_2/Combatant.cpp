@@ -62,7 +62,7 @@ void ACombatant::EndPlay(EEndPlayReason::Type EndPlayReason)
 {
 	Super::EndPlay(EndPlayReason);
 }
-void ACombatant::onCurrentHPChanged(float oldVal, float newVal)
+bool ACombatant::onCurrentHPChanged(float oldVal, float newVal)
 {
 	if (newVal <= 0.0f) {
 		onKilled();
@@ -85,7 +85,7 @@ void ACombatant::Tick(float DeltaTime) {
 	FVector currentScale = GetActorScale3D();
 	SetActorScale3D(currentScale * _attributeSet->getMember(&CombatantAttributes::_selfSize));
 
-	unrealHelpers::snapSprite(this, RootComponent, _combatantFlipbook);
+	//unrealHelpers::snapSprite(this, RootComponent, _combatantFlipbook);
 }
 
 void ACombatant::lookAtDirection(float X, float Z) {

@@ -18,6 +18,8 @@ class USceneComponent;
 class UActorComponent;
 
 class unrealHelpers {
+	static inline float _SPRITE_SCALE = 1.0f;
+
 	static bool getActorSpawnTransform(AActor* caller, FTransform& ret);
 
 public:
