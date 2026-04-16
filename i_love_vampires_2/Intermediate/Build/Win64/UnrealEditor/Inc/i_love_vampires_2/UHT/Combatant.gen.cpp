@@ -31,6 +31,160 @@ PAPER2D_API UClass* Z_Construct_UClass_UPaperFlipbookComponent_NoRegister();
 UPackage* Z_Construct_UPackage__Script_i_love_vampires_2();
 // ********** End Cross Module References **********************************************************
 
+// ********** Begin Class ACombatant Function getHP ************************************************
+struct Z_Construct_UFunction_ACombatant_getHP_Statics
+{
+	struct Combatant_eventgetHP_Parms
+	{
+		float ReturnValue;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Combatant.h" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Function getHP constinit property declarations *********************************
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_ReturnValue;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function getHP constinit property declarations ***********************************
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+
+// ********** Begin Function getHP Property Definitions ********************************************
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ACombatant_getHP_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Combatant_eventgetHP_Parms, ReturnValue), METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ACombatant_getHP_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ACombatant_getHP_Statics::NewProp_ReturnValue,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ACombatant_getHP_Statics::PropPointers) < 2048);
+// ********** End Function getHP Property Definitions **********************************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ACombatant_getHP_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_ACombatant, nullptr, "getHP", 	Z_Construct_UFunction_ACombatant_getHP_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_ACombatant_getHP_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_ACombatant_getHP_Statics::Combatant_eventgetHP_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ACombatant_getHP_Statics::Function_MetaDataParams), Z_Construct_UFunction_ACombatant_getHP_Statics::Function_MetaDataParams)},  };
+static_assert(sizeof(Z_Construct_UFunction_ACombatant_getHP_Statics::Combatant_eventgetHP_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_ACombatant_getHP()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ACombatant_getHP_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ACombatant::execgetHP)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	*(float*)Z_Param__Result=P_THIS->getHP();
+	P_NATIVE_END;
+}
+// ********** End Class ACombatant Function getHP **************************************************
+
+// ********** Begin Class ACombatant Function getMaxHP *********************************************
+struct Z_Construct_UFunction_ACombatant_getMaxHP_Statics
+{
+	struct Combatant_eventgetMaxHP_Parms
+	{
+		float ReturnValue;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Combatant.h" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Function getMaxHP constinit property declarations ******************************
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_ReturnValue;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function getMaxHP constinit property declarations ********************************
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+
+// ********** Begin Function getMaxHP Property Definitions *****************************************
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_ACombatant_getMaxHP_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Combatant_eventgetMaxHP_Parms, ReturnValue), METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ACombatant_getMaxHP_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ACombatant_getMaxHP_Statics::NewProp_ReturnValue,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ACombatant_getMaxHP_Statics::PropPointers) < 2048);
+// ********** End Function getMaxHP Property Definitions *******************************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ACombatant_getMaxHP_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_ACombatant, nullptr, "getMaxHP", 	Z_Construct_UFunction_ACombatant_getMaxHP_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_ACombatant_getMaxHP_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_ACombatant_getMaxHP_Statics::Combatant_eventgetMaxHP_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ACombatant_getMaxHP_Statics::Function_MetaDataParams), Z_Construct_UFunction_ACombatant_getMaxHP_Statics::Function_MetaDataParams)},  };
+static_assert(sizeof(Z_Construct_UFunction_ACombatant_getMaxHP_Statics::Combatant_eventgetMaxHP_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_ACombatant_getMaxHP()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ACombatant_getMaxHP_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ACombatant::execgetMaxHP)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	*(float*)Z_Param__Result=P_THIS->getMaxHP();
+	P_NATIVE_END;
+}
+// ********** End Class ACombatant Function getMaxHP ***********************************************
+
+// ********** Begin Class ACombatant Function giveWeapon *******************************************
+struct Z_Construct_UFunction_ACombatant_giveWeapon_Statics
+{
+	struct Combatant_eventgiveWeapon_Parms
+	{
+		const UWeaponTemplate* data;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Combatant.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_data_MetaData[] = {
+		{ "NativeConst", "" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Function giveWeapon constinit property declarations ****************************
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_data;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function giveWeapon constinit property declarations ******************************
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+
+// ********** Begin Function giveWeapon Property Definitions ***************************************
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ACombatant_giveWeapon_Statics::NewProp_data = { "data", nullptr, (EPropertyFlags)0x0010000000000082, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Combatant_eventgiveWeapon_Parms, data), Z_Construct_UClass_UWeaponTemplate_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_data_MetaData), NewProp_data_MetaData) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ACombatant_giveWeapon_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ACombatant_giveWeapon_Statics::NewProp_data,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_ACombatant_giveWeapon_Statics::PropPointers) < 2048);
+// ********** End Function giveWeapon Property Definitions *****************************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ACombatant_giveWeapon_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_ACombatant, nullptr, "giveWeapon", 	Z_Construct_UFunction_ACombatant_giveWeapon_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_ACombatant_giveWeapon_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_ACombatant_giveWeapon_Statics::Combatant_eventgiveWeapon_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x04020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ACombatant_giveWeapon_Statics::Function_MetaDataParams), Z_Construct_UFunction_ACombatant_giveWeapon_Statics::Function_MetaDataParams)},  };
+static_assert(sizeof(Z_Construct_UFunction_ACombatant_giveWeapon_Statics::Combatant_eventgiveWeapon_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_ACombatant_giveWeapon()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ACombatant_giveWeapon_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ACombatant::execgiveWeapon)
+{
+	P_GET_OBJECT(UWeaponTemplate,Z_Param_data);
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->giveWeapon(Z_Param_data);
+	P_NATIVE_END;
+}
+// ********** End Class ACombatant Function giveWeapon *********************************************
+
 // ********** Begin Class ACombatant ***************************************************************
 FClassRegistrationInfo Z_Registration_Info_UClass_ACombatant;
 UClass* ACombatant::GetPrivateStaticClass()
@@ -65,6 +219,7 @@ struct Z_Construct_UClass_ACombatant_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
 		{ "HideCategories", "Navigation" },
 		{ "IncludePath", "Combatant.h" },
 		{ "ModuleRelativePath", "Combatant.h" },
@@ -86,7 +241,18 @@ struct Z_Construct_UClass_ACombatant_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__combatantFlipbook;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class ACombatant constinit property declarations *********************************
+	static constexpr UE::CodeGen::FClassNativeFunction Funcs[] = {
+		{ .NameUTF8 = UTF8TEXT("getHP"), .Pointer = &ACombatant::execgetHP },
+		{ .NameUTF8 = UTF8TEXT("getMaxHP"), .Pointer = &ACombatant::execgetMaxHP },
+		{ .NameUTF8 = UTF8TEXT("giveWeapon"), .Pointer = &ACombatant::execgiveWeapon },
+	};
 	static UObject* (*const DependentSingletons[])();
+	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
+		{ &Z_Construct_UFunction_ACombatant_getHP, "getHP" }, // 2627232535
+		{ &Z_Construct_UFunction_ACombatant_getMaxHP, "getMaxHP" }, // 340289618
+		{ &Z_Construct_UFunction_ACombatant_giveWeapon, "giveWeapon" }, // 1815741703
+	};
+	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<ACombatant>::IsAbstract,
 	};
@@ -112,11 +278,11 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_ACombatant_Statics::Cla
 	"Game",
 	&StaticCppClassTypeInfo,
 	DependentSingletons,
-	nullptr,
+	FuncInfo,
 	Z_Construct_UClass_ACombatant_Statics::PropPointers,
 	nullptr,
 	UE_ARRAY_COUNT(DependentSingletons),
-	0,
+	UE_ARRAY_COUNT(FuncInfo),
 	UE_ARRAY_COUNT(Z_Construct_UClass_ACombatant_Statics::PropPointers),
 	0,
 	0x009000A4u,
@@ -124,6 +290,8 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_ACombatant_Statics::Cla
 };
 void ACombatant::StaticRegisterNativesACombatant()
 {
+	UClass* Class = ACombatant::StaticClass();
+	FNativeFunctionRegistrar::RegisterFunctions(Class, MakeConstArrayView(Z_Construct_UClass_ACombatant_Statics::Funcs));
 }
 UClass* Z_Construct_UClass_ACombatant()
 {
@@ -606,13 +774,13 @@ UCombatantTemplate::~UCombatantTemplate() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ACombatant, ACombatant::StaticClass, TEXT("ACombatant"), &Z_Registration_Info_UClass_ACombatant, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ACombatant), 1442568884U) },
+		{ Z_Construct_UClass_ACombatant, ACombatant::StaticClass, TEXT("ACombatant"), &Z_Registration_Info_UClass_ACombatant, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ACombatant), 1864259980U) },
 		{ Z_Construct_UClass_UCombatantAttributeData, UCombatantAttributeData::StaticClass, TEXT("UCombatantAttributeData"), &Z_Registration_Info_UClass_UCombatantAttributeData, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCombatantAttributeData), 2501066282U) },
 		{ Z_Construct_UClass_UCombatantConfig, UCombatantConfig::StaticClass, TEXT("UCombatantConfig"), &Z_Registration_Info_UClass_UCombatantConfig, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCombatantConfig), 360172545U) },
-		{ Z_Construct_UClass_UCombatantTemplate, UCombatantTemplate::StaticClass, TEXT("UCombatantTemplate"), &Z_Registration_Info_UClass_UCombatantTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCombatantTemplate), 3437358041U) },
+		{ Z_Construct_UClass_UCombatantTemplate, UCombatantTemplate::StaticClass, TEXT("UCombatantTemplate"), &Z_Registration_Info_UClass_UCombatantTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCombatantTemplate), 3855182621U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_4287245692{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_2035519307{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

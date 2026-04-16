@@ -13,7 +13,7 @@ class USpriteSorter;
 
 class MyGameplayStatics {
 
-	static bool getCombatGameMode(const UObject* caller, ACombatGameModeBase*& ret);
+	
 public:
 	MyGameplayStatics() = delete;
 	static bool myGetEnhancedInputLocalPlayerSubsystem(const UObject* caller, UEnhancedInputLocalPlayerSubsystem*&);
@@ -24,4 +24,5 @@ public:
 	//static bool getSpriteManager(const UObject* caller, USpriteManager*&);
 	static bool getDynamicAssetManager(const UObject* caller, UDynamicAssetManager*&);
 	static bool getSpriteSorter(const UObject* caller, USpriteSorter*& ret);
+	static bool getCombatGameMode(const UObject* caller, ACombatGameModeBase*& ret);
 };

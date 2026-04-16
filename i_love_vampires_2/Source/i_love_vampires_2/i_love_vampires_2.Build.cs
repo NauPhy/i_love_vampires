@@ -11,7 +11,7 @@ public class i_love_vampires_2 : ModuleRules
         PCHUsage = PCHUsageMode.NoPCHs;  // disable precompiled headers
         bUseUnity = false;                // disable Unity builds
 
-        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "Paper2D", "EnhancedInput"});
+        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "Paper2D", "EnhancedInput", "GameplayTags"});
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

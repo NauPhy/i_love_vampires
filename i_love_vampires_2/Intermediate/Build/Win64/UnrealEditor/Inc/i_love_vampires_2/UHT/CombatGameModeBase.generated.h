@@ -21,6 +21,7 @@ class USpriteSorter;
 
 // ********** Begin Class ACombatGameModeBase ******************************************************
 #define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatGameModeBase_h_10_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execonPlayerDeath); \
 	DECLARE_FUNCTION(execsetGameReady); \
 	DECLARE_FUNCTION(execgetSpriteSorter); \
 	DECLARE_FUNCTION(execgetCombatantManager); \

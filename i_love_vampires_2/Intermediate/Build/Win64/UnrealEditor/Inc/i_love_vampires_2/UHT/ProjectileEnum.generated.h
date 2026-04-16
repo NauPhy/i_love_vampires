@@ -34,6 +34,7 @@ template<> I_LOVE_VAMPIRES_2_NON_ATTRIBUTED_API UEnum* StaticEnum<EProjectileSha
 // ********** Begin Enum EAttackShape **************************************************************
 #define FOREACH_ENUM_EATTACKSHAPE(op) \
 	op(EAttackShape::fan) \
+	op(EAttackShape::random) \
 	op(EAttackShape::INVALID) 
 
 enum class EAttackShape : uint8;

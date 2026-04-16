@@ -5,6 +5,7 @@
 #include "C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/UnrealEditor/Inc/i_love_vampires_2/UHT/AOEEnum.gen.cpp"
 #include "C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/UnrealEditor/Inc/i_love_vampires_2/UHT/AssetRefs.gen.cpp"
 #include "C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/UnrealEditor/Inc/i_love_vampires_2/UHT/AttackActor.gen.cpp"
+#include "C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/UnrealEditor/Inc/i_love_vampires_2/UHT/AutomaticAssetRefs.gen.cpp"
 #include "C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/UnrealEditor/Inc/i_love_vampires_2/UHT/BaseAttributeData.gen.cpp"
 #include "C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/UnrealEditor/Inc/i_love_vampires_2/UHT/BaseConfig.gen.cpp"
 #include "C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/UnrealEditor/Inc/i_love_vampires_2/UHT/BaseTemplate.gen.cpp"

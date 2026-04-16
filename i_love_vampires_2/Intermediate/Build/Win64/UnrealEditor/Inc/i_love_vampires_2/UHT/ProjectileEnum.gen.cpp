@@ -96,10 +96,13 @@ struct Z_Construct_UEnum_i_love_vampires_2_EAttackShape_Statics
 		{ "INVALID.DisplayName", "INVALID" },
 		{ "INVALID.Name", "EAttackShape::INVALID" },
 		{ "ModuleRelativePath", "ProjectileEnum.h" },
+		{ "random.DisplayName", "random" },
+		{ "random.Name", "EAttackShape::random" },
 	};
 #endif // WITH_METADATA
 	static constexpr UECodeGen_Private::FEnumeratorParam Enumerators[] = {
 		{ "EAttackShape::fan", (int64)EAttackShape::fan },
+		{ "EAttackShape::random", (int64)EAttackShape::random },
 		{ "EAttackShape::INVALID", (int64)EAttackShape::INVALID },
 	};
 	static const UECodeGen_Private::FEnumParams EnumParams;
@@ -148,7 +151,7 @@ struct Z_Construct_UEnum_i_love_vampires_2_EProjectileTargeting_Statics
 		{ "closest.DisplayName", "closest" },
 		{ "closest.Name", "EProjectileTargeting::closest" },
 #if !UE_BUILD_SHIPPING
-		{ "Comment", "// Dependencies\n// fan - Projectile.h\n" },
+		{ "Comment", "// Dependencies\n// all - ProjectileFactory\n" },
 #endif
 		{ "INVALID.DisplayName", "INVALID" },
 		{ "INVALID.Name", "EProjectileTargeting::INVALID" },
@@ -160,7 +163,7 @@ struct Z_Construct_UEnum_i_love_vampires_2_EProjectileTargeting_Statics
 		{ "skillshot.DisplayName", "skillshot" },
 		{ "skillshot.Name", "EProjectileTargeting::skillshot" },
 #if !UE_BUILD_SHIPPING
-		{ "ToolTip", "Dependencies\nfan - Projectile.h" },
+		{ "ToolTip", "Dependencies\nall - ProjectileFactory" },
 #endif
 	};
 #endif // WITH_METADATA
@@ -200,11 +203,11 @@ struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_
 {
 	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
 		{ EProjectileShape_StaticEnum, TEXT("EProjectileShape"), &Z_Registration_Info_UEnum_EProjectileShape, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 583555012U) },
-		{ EAttackShape_StaticEnum, TEXT("EAttackShape"), &Z_Registration_Info_UEnum_EAttackShape, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3015255709U) },
-		{ EProjectileTargeting_StaticEnum, TEXT("EProjectileTargeting"), &Z_Registration_Info_UEnum_EProjectileTargeting, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 710180988U) },
+		{ EAttackShape_StaticEnum, TEXT("EAttackShape"), &Z_Registration_Info_UEnum_EAttackShape, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 4031634499U) },
+		{ EProjectileTargeting_StaticEnum, TEXT("EProjectileTargeting"), &Z_Registration_Info_UEnum_EProjectileTargeting, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 409546481U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ProjectileEnum_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ProjectileEnum_h__Script_i_love_vampires_2_763526421{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ProjectileEnum_h__Script_i_love_vampires_2_3419261061{
 	TEXT("/Script/i_love_vampires_2"),
 	nullptr, 0,
 	nullptr, 0,

@@ -36,19 +36,26 @@ class I_LOVE_VAMPIRES_2_API AAttackActor : public AActor {
 	GENERATED_BODY()
 
 	const static inline EStatus _DAMAGE = EStatus::damage;
+	const static inline EStatus _HEAL_INSTIGATOR = EStatus::healInstigator;
+	const static inline EStatus _RANDOM = EStatus::randomNegativePersistent;
+	const static inline EStatus _FRIENDLY_FIRE = EStatus::friendlyFire;
 
 	TObjectPtr<const UAttackConfig> _attackConfig = nullptr;
-	void initialise_AAttackActor(ACombatant* pawnRef, const UAttackConfig* attackConfig, const AttackAttributes& attackAttributes);
 	
 protected:
-	const static inline float _SPRITE_RADIUS = 8;
-	TWeakObjectPtr<const ACombatant> _pawnRef = nullptr;
+	const static inline float _SPRITE_RADIUS = 16;
+	TWeakObjectPtr<ACombatant> _pawnRef = nullptr;
 	TArray<TWeakObjectPtr<APawn>> _effectedPawns;
 	std::unique_ptr<const AttackAttributes> _attackAttributes = nullptr;
 	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = true))
 	UPaperFlipbookComponent* _flipbook = nullptr;
 
+private:
+	void initialise_AAttackActor(ACombatant* pawnRef, const UAttackConfig* attackConfig, const AttackAttributes& attackAttributes);
+
+protected:
 	const UAttackConfig* getAttackConfig() const { return _attackConfig.Get(); }
+	bool canHitInstigator() const;
 
 public:
 	AAttackActor();
@@ -129,6 +136,9 @@ struct AttackInitStruct {
 	ACombatant* _pawnRef;
 	const UAttackConfig* _attackConfig;
 	const AttackAttributes _attackAttributes;
+	AttackInitStruct() = delete;
+	AttackInitStruct(ACombatant* pawn, const UAttackConfig* config, const AttackAttributes& attr) :
+		_pawnRef(pawn), _attackConfig(config), _attackAttributes(attr){}
 };
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -146,7 +156,7 @@ protected:
 	AttackInitStruct getAttackInit() const {
 		AttackAttributes temp = _attackAttributes.getCore();
 		temp.discretizeFull();
-		AttackInitStruct ret = { _owner.Get(), _attackConfig.Get(), temp };
+		AttackInitStruct ret(_owner.Get(), _attackConfig.Get(), temp);
 		return ret;
 	}
 

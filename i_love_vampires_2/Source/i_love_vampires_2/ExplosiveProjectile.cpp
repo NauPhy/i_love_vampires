@@ -105,17 +105,17 @@ AProjectile* ExplosiveProjectileFactory::launchSingleProjectile(const FVector& d
 ExplosiveProjectileInitStruct ExplosiveProjectileFactory::getExplosiveProjectileInit() const {
 	ExplosiveProjectileAttributes temp = _explosiveProjectileAttributes.getCore();
 	temp.discretizeFull();
-	ExplosiveProjectileInitStruct ret = { ProjectileFactory::getProjectileInit(), _tempAOE.Get(), _explosiveProjectileConfig.Get(), temp};
+	ExplosiveProjectileInitStruct ret(ProjectileFactory::getProjectileInit(), _tempAOE.Get(), _explosiveProjectileConfig.Get(), temp);
 	return ret;
 }
 
 AOEInitStruct ExplosiveProjectileFactory::getAOEInit() const {
 	AttackAttributes tempAttackAttr = _AOEAttributes_attack.getCore();
 	tempAttackAttr.discretizeFull();
-	AttackInitStruct AOEAttackInit = { _owner.Get(), _AOEConfig_attack.Get(), tempAttackAttr };
+	AttackInitStruct AOEAttackInit(_owner.Get(), _AOEConfig_attack.Get(), tempAttackAttr);
 	AOEAttributes tempAOEAttr = _AOEAttributes.getCore();
 	tempAOEAttr.discretizeFull();
-	AOEInitStruct ret = { AOEAttackInit, _AOEConfig.Get(), tempAOEAttr, true };
+	AOEInitStruct ret(AOEAttackInit, _AOEConfig.Get(), tempAOEAttr, true, FVector(0,0,0));
 	return ret;
 }
 

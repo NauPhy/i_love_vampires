@@ -112,7 +112,7 @@ struct Z_Construct_UClass_UWeaponTemplate_Statics
 }; // struct Z_Construct_UClass_UWeaponTemplate_Statics
 
 // ********** Begin Class UWeaponTemplate Property Definitions *************************************
-const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_UWeaponTemplate_Statics::NewProp__name = { "_name", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UWeaponTemplate, _name), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__name_MetaData), NewProp__name_MetaData) };
+const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_UWeaponTemplate_Statics::NewProp__name = { "_name", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UWeaponTemplate, _name), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__name_MetaData), NewProp__name_MetaData) };
 void Z_Construct_UClass_UWeaponTemplate_Statics::NewProp__startOnCooldown_SetBit(void* Obj)
 {
 	((UWeaponTemplate*)Obj)->_startOnCooldown = 1;
@@ -173,10 +173,10 @@ UWeaponTemplate::~UWeaponTemplate() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UWeaponTemplate, UWeaponTemplate::StaticClass, TEXT("UWeaponTemplate"), &Z_Registration_Info_UClass_UWeaponTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UWeaponTemplate), 1969891382U) },
+		{ Z_Construct_UClass_UWeaponTemplate, UWeaponTemplate::StaticClass, TEXT("UWeaponTemplate"), &Z_Registration_Info_UClass_UWeaponTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UWeaponTemplate), 2845242777U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h__Script_i_love_vampires_2_408644608{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h__Script_i_love_vampires_2_729410406{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

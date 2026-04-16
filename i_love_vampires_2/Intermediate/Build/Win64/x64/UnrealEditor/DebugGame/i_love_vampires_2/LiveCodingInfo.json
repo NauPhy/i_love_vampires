@@ -8,6 +8,7 @@
 			"AOEEnum.gen.cpp.obj",
 			"AssetRefs.gen.cpp.obj",
 			"AttackActor.gen.cpp.obj",
+			"AutomaticAssetRefs.gen.cpp.obj",
 			"BaseAttributeData.gen.cpp.obj",
 			"BaseConfig.gen.cpp.obj",
 			"BaseTemplate.gen.cpp.obj",

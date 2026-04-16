@@ -24,11 +24,23 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 // ********** Begin Enum EAOEShape *****************************************************************
 #define FOREACH_ENUM_EAOESHAPE(op) \
 	op(EAOEShape::circle) \
+	op(EAOEShape::arc) \
 	op(EAOEShape::INVALID) 
 
 enum class EAOEShape : uint8;
 template<> struct TIsUEnumClass<EAOEShape> { enum { Value = true }; };
 template<> I_LOVE_VAMPIRES_2_NON_ATTRIBUTED_API UEnum* StaticEnum<EAOEShape>();
 // ********** End Enum EAOEShape *******************************************************************
+
+// ********** Begin Enum EAOETargeting *************************************************************
+#define FOREACH_ENUM_EAOETARGETING(op) \
+	op(EAOETargeting::instigator) \
+	op(EAOETargeting::random) \
+	op(EAOETargeting::INVALID) 
+
+enum class EAOETargeting : uint8;
+template<> struct TIsUEnumClass<EAOETargeting> { enum { Value = true }; };
+template<> I_LOVE_VAMPIRES_2_NON_ATTRIBUTED_API UEnum* StaticEnum<EAOETargeting>();
+// ********** End Enum EAOETargeting ***************************************************************
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

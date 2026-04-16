@@ -14,6 +14,8 @@
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
 #include "SpriteSorter.h"
+#include "PaperFlipbookComponent.h"
+#include "CombatGameModeBase.h"
 #include <cmath>
 
 //void AMyPlayer::PostInitializeComponents() {
@@ -45,7 +47,7 @@ AMyPlayer::AMyPlayer() : ACombatant() {
 	//basics
 	_camera->SetupAttachment(RootComponent);
 	_camera->ProjectionMode = ECameraProjectionMode::Orthographic;
-	_camera->OrthoWidth = 270;
+	_camera->OrthoWidth = 480;
 	//aspect ratio
 	_camera->bConstrainAspectRatio = true;
 	_camera->AspectRatio = 1920.0 / 1080.0;
@@ -67,7 +69,8 @@ AMyPlayer::AMyPlayer() : ACombatant() {
 		_camera->SetRelativeLocation(FVector(0, 100, 0), false, unused, ETeleportType::TeleportPhysics);
 	}
 
-	OnActorBeginOverlap.AddDynamic(this, &AMyPlayer::onOverlapBegin);
+	// replaced with a manual call in Tick since this doesn't do repeated checks.
+	//OnActorBeginOverlap.AddDynamic(this, &AMyPlayer::onOverlapBegin);
 }
 
 void AMyPlayer::onOverlapBegin(AActor* me, AActor* other) {
@@ -116,9 +119,9 @@ void AMyPlayer::addExperience(float val) {
 
 void AMyPlayer::levelUp() {
 	_level += 1;
-	_experience -= _maxExperience;
+	_experience = 0;
 	_maxExperience = 999;
-	// implement level up
+	_onLevelUp.Broadcast();
 }
 
 void AMyPlayer::handleEnemyCollision(AEnemyBase* other) {
@@ -209,12 +212,16 @@ void AMyPlayer::handleMovement(const FInputActionValue& rawInput) {
 
 void AMyPlayer::Tick(float delta) {
 	APlayerController* controller = nullptr;
-	if (!MyGameplayStatics::myGetPlayerController(this, controller))
+	if (!MyGameplayStatics::myGetPlayerController(this, controller)) {
+		ACombatant::Tick(delta);
 		return;
+	}
 	double X = 0;
 	double Y = 0;
-	if (!controller->GetMousePosition(X, Y))
+	if (!controller->GetMousePosition(X, Y)) {
+		ACombatant::Tick(delta);
 		return;
+	}
 	int32 viewX = 0;
 	int32 viewY = 0;
 	controller->GetViewportSize(viewX, viewY);
@@ -229,6 +236,12 @@ void AMyPlayer::Tick(float delta) {
 	currentPos.Z = std::round(currentPos.Z);
 	FHitResult* throwaway = nullptr;
 	_camera->SetWorldLocation(currentPos, false, throwaway, ETeleportType::TeleportPhysics);
+
+	TArray<AActor*> overlaps;
+	_combatantFlipbook->GetOverlappingActors(overlaps, AActor::StaticClass());
+	for (auto& actor : overlaps) {
+		onOverlapBegin(this, actor);
+	}
 }
 
 AMyPlayer* AMyPlayer::spawnAMyActorDeferred(UObject* worldContext, const FTransform& trans, AActor* deferredOwner, APawn* deferredInstigator) {
@@ -253,4 +266,12 @@ void AMyPlayer::finishAMyActorDeferredSpawn(AMyPlayer* spawnedActor, const FTran
 		return;
 	}
 	UGameplayStatics::FinishSpawningActor(spawnedActor, trans, ESpawnActorScaleMethod::MultiplyWithRoot);
+}
+
+void AMyPlayer::onKilled() {
+	ACombatGameModeBase* gameMode;
+	if (MyGameplayStatics::getCombatGameMode(this, gameMode)) {
+		gameMode->onPlayerDeath();
+	}
+	Super::onKilled();
 }

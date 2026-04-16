@@ -142,7 +142,7 @@ goal- 6+2
 
 bear 7 - slow, tanky, high raw damage
 blast 7+1 - explosives
-dark 4 - darkness, death
+dark 5 - darkness, death
 electric 4 - zap
 fox 5+1 - luck, creativity, summoning
 fire 5 - burn
@@ -199,6 +199,7 @@ Each set should have some passives specific to them that do not just statically 
 <<Dark>>
 (Fireball) Shadow bolt -> //// - inflicts blind, high damage
 (Sword) Nightfang -> True Nightfang -> Equilibrium - Katana, execute; fires projectiles; greatsword, higher damage, heals on hit
+(Sword) Vorpal Sword -> //// - Small chance to one shot
 (AOE) Corruption -> //// - Large AOE that deals %missing HP damage
 (Passive) Cheap shot - blind enemies take +damage
 
@@ -258,7 +259,7 @@ Each set should have some passives specific to them that do not just statically 
 
 <<Poison>>
 (Fireball) Poison bolt -> //// - inflicts poison
-(Sword) Vorpal slash -> //// - inflicts poison
+(Sword) Venomous slash -> //// - inflicts poison
 (AOE) Poison fog -> //// - drifts, inflicts poison
 (summon) Viper -> //// - glass cannon + poison
 (Passive) Contagion - poison spreads on death
@@ -276,7 +277,7 @@ Each set should have some passives specific to them that do not just statically 
 
 This is enough to go off of for now, I'll try to update it periodically.
 
-Items I can currently implement
+Prototyped item list
 shotgun
 cannon
 rubber ball
@@ -285,4 +286,27 @@ Shuriken
 uzi
 minigun
 
-note: most common causes of items not being viable are melee attacks and status effects
+To prototype list (stuff I have targeting for and can make art for)
+Greataxe
+Guitar Axe
+Nightfang
+Vorpal Sword
+Katana
+Twin Daggers?
+Heaven's Gate
+Venomous Slash
+Shadow Bolt
+Corruption
+Chaotic Inferno
+Boomerang
+Flamethrower
+Ice bolt
+Assault Carbine
+Double Tap
+Chromatic Bolt
+Consecration
+Holy hand grenade
+Poison bolt
+
+after finishing all that, implement random AOE targeting; it's used a lot
+Poison fog

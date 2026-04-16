@@ -27,7 +27,8 @@ namespace {
 			}
 			float angle = 0;
 			if (helpers::nearEq(1, projectileCount)) {
-				angle = FMath::FRandRange(-spread / 2.0, spread / 2.0);
+				ret.Add(tempForward);
+				return ret;
 			}
 			else {
 				float proportion = i / static_cast<float>(projectileCount - 1);
@@ -38,6 +39,16 @@ namespace {
 		}
 		return ret;
 	}
+	TArray<FVector> getRandomShapeDirections(const FVector& tempForward, int projectileCount, float spread) {
+		TArray<FVector> ret;
+		for (int i = 0; i < projectileCount; i++) {
+			float angle = FMath::FRandRange(-spread / 2.0, spread / 2.0);
+			FRotator rot = FRotator(angle, 0, 0);
+			ret.Add(rot.RotateVector(tempForward));
+		}
+		return ret;
+	}
+
 	// The ineligible target will most likely be an enemy that was bounced off of this frame
 	AEnemyBase* getRandomEnemy(UObject* caller, AEnemyBase* ineligibleTarget) {
 		UCombatantManager* manager;
@@ -108,8 +119,6 @@ bool AProjectile::performSweep(const FVector& startPos, const FVector& endPos, T
 			continue;
 		tempArr.Add(tempPawn.Get());
 	}
-	if (_pawnRef.IsValid())
-		tempArr.Add(_pawnRef.Get());
 	if (!unrealHelpers::performSweepAtPawn(this, startPos, endPos, collisionShape, OutHits, tempArr)) {
 		LOGERROR("AProjectile::performSweep - performSweepAtPawn failed");
 		return false;
@@ -118,13 +127,13 @@ bool AProjectile::performSweep(const FVector& startPos, const FVector& endPos, T
 }
 
 bool AProjectile::handleSweepResults(const TArray<struct FHitResult>& hits) {
-	const float tempX = _directionX;
-	const float tempZ = _directionZ;
-	const bool shouldBounce = helpers::nearEq(_pierce, 0) && !helpers::nearEq(_bounce, 0);
 	for (const FHitResult& hit : hits) {
 		AActor* hitActor = hit.GetActor();
 		//hitActor is in the middle of construction or destruction
 		if (!IsValid(hitActor))
+			continue;
+		// Prevents actor from hitting itself with bullet
+		if (_pawnRef.IsValid() && hitActor == _pawnRef.Get() && !canHitInstigator())
 			continue;
 		ACombatant* combatantActor = Cast<ACombatant>(hitActor);
 		if (!IsValid(combatantActor)) {
@@ -185,11 +194,17 @@ void AProjectile::executeBounce(AEnemyBase* ineligibleTarget) {
 
 void AProjectile::Tick(float delta) {
 	FRotator currentRotation = GetActorRotation();
-
 	if (_distanceTravelled >= _projectileAttributes->_range.getFinal()) {
-		bulletDeath();
-		return;
+		if (_projectileConfig->_isBoomerang) {
+			_projectileAttributes->_range._offset += 999;
+			_boomerangActive = true;
+		}
+		else {
+			bulletDeath();
+			return;
+		}
 	}
+
 	FVector start = GetActorLocation();
 	FVector end = start + FVector(_directionX, 0, _directionZ) * _projectileAttributes->_speed.getFinal() * delta;
 	TArray<struct FHitResult> OutHits;
@@ -212,17 +227,26 @@ void AProjectile::Tick(float delta) {
 }
 
 void AProjectile::setNewDirection() {
+	FVector targetLocation(0, -1, 0);
 	if (_projectileConfig->_isHoming) {
 		UCombatantManager* manager;
 		if (!MyGameplayStatics::getCombatantManager(this, manager)) {
 			LOGERROR("AProjectile::setNewDirection - failed to get combatant manager");
 			return;
 		}
-		_targetEnemy = manager->getNearestEnemyPtr(this);
+		AEnemyBase* targetEnemy = manager->getNearestEnemyPtr(this);
+		if (targetEnemy != nullptr)
+			targetLocation = targetEnemy->GetActorLocation();
 	}
-	if (_targetEnemy.IsValid()) {
+	else if (_boomerangActive) {
+		if (!_pawnRef.IsValid()) {
+			bulletDeath();
+			return;
+		}
+		targetLocation = _pawnRef->GetActorLocation();
+	}
+	if (helpers::nearEq(targetLocation.Y, 0)) {
 		const FVector myLocation = GetActorLocation();
-		const FVector targetLocation = _targetEnemy->GetActorLocation();
 		const FVector difference = targetLocation - myLocation;
 		const FVector norm = difference.GetSafeNormal();
 		_directionX = norm.X;
@@ -260,6 +284,9 @@ ProjectileFactory::ProjectileFactory(
 }
 
 void ProjectileFactory::launchAttack(const FVector& forward) {
+	if (getStatusCount(_BLIND) > 0)
+		return;
+
 	const FVector tempForward = getTempForward(forward);
 	const TArray<FVector> projectileDirections = getProjectileDirections(tempForward);
 	for (const auto& direction : projectileDirections) {
@@ -272,7 +299,7 @@ FVector ProjectileFactory::getTempForward(const FVector& forwardVector) const {
 	EProjectileTargeting target = _projectileConfig->_targeting;
 	if (target == _SKILLSHOT)
 		return forwardVector;
-	else if (target == _RANDOM)
+	else if (target == _RANDOM_DIRECTION)
 		return getDirection_random();
 	else if (target == _RANDOM_ENEMY) {
 		AEnemyBase* enemy = getRandomEnemy(_owner.Get(), nullptr);
@@ -304,6 +331,9 @@ TArray<FVector> ProjectileFactory::getProjectileDirections(const FVector& tempFo
 	
 	if (type == _FAN) {
 		return getFanDirections(tempForward, projectileCount, spread);
+	}
+	else if (type == _RANDOM_SHAPE) {
+		return getRandomShapeDirections(tempForward, projectileCount, spread);
 	}
 	else {
 		LOGERROR("AProjectileFactory::launchAttack - attack shape not implemented");

@@ -30,6 +30,7 @@ I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackTemplate();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseAttributeData();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseConfig();
 I_LOVE_VAMPIRES_2_API UEnum* Z_Construct_UEnum_i_love_vampires_2_EAOEShape();
+I_LOVE_VAMPIRES_2_API UEnum* Z_Construct_UEnum_i_love_vampires_2_EAOETargeting();
 UPackage* Z_Construct_UPackage__Script_i_love_vampires_2();
 // ********** End Cross Module References **********************************************************
 
@@ -274,11 +275,17 @@ struct Z_Construct_UClass_UAOEConfig_Statics
 		{ "Category", "AOEConfig" },
 		{ "ModuleRelativePath", "AOE.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__targeting_MetaData[] = {
+		{ "Category", "AOEConfig" },
+		{ "ModuleRelativePath", "AOE.h" },
+	};
 #endif // WITH_METADATA
 
 // ********** Begin Class UAOEConfig constinit property declarations *******************************
 	static const UECodeGen_Private::FBytePropertyParams NewProp__shape_Underlying;
 	static const UECodeGen_Private::FEnumPropertyParams NewProp__shape;
+	static const UECodeGen_Private::FBytePropertyParams NewProp__targeting_Underlying;
+	static const UECodeGen_Private::FEnumPropertyParams NewProp__targeting;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class UAOEConfig constinit property declarations *********************************
 	static UObject* (*const DependentSingletons[])();
@@ -290,10 +297,14 @@ struct Z_Construct_UClass_UAOEConfig_Statics
 
 // ********** Begin Class UAOEConfig Property Definitions ******************************************
 const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_UAOEConfig_Statics::NewProp__shape_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_UAOEConfig_Statics::NewProp__shape = { "_shape", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAOEConfig, _shape), Z_Construct_UEnum_i_love_vampires_2_EAOEShape, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__shape_MetaData), NewProp__shape_MetaData) }; // 3835588796
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_UAOEConfig_Statics::NewProp__shape = { "_shape", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAOEConfig, _shape), Z_Construct_UEnum_i_love_vampires_2_EAOEShape, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__shape_MetaData), NewProp__shape_MetaData) }; // 2715704246
+const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_UAOEConfig_Statics::NewProp__targeting_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_UAOEConfig_Statics::NewProp__targeting = { "_targeting", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAOEConfig, _targeting), Z_Construct_UEnum_i_love_vampires_2_EAOETargeting, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__targeting_MetaData), NewProp__targeting_MetaData) }; // 2041281939
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAOEConfig_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAOEConfig_Statics::NewProp__shape_Underlying,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAOEConfig_Statics::NewProp__shape,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAOEConfig_Statics::NewProp__targeting_Underlying,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAOEConfig_Statics::NewProp__targeting,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAOEConfig_Statics::PropPointers) < 2048);
 // ********** End Class UAOEConfig Property Definitions ********************************************
@@ -381,11 +392,16 @@ struct Z_Construct_UClass_UAOEAttributeData_Statics
 		{ "Category", "AOEAttributeData" },
 		{ "ModuleRelativePath", "AOE.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__arcShape_angle_MetaData[] = {
+		{ "Category", "AOEAttributeData" },
+		{ "ModuleRelativePath", "AOE.h" },
+	};
 #endif // WITH_METADATA
 
 // ********** Begin Class UAOEAttributeData constinit property declarations ************************
 	static const UECodeGen_Private::FFloatPropertyParams NewProp__radius;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp__duration;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp__arcShape_angle;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class UAOEAttributeData constinit property declarations **************************
 	static UObject* (*const DependentSingletons[])();
@@ -398,9 +414,11 @@ struct Z_Construct_UClass_UAOEAttributeData_Statics
 // ********** Begin Class UAOEAttributeData Property Definitions ***********************************
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UAOEAttributeData_Statics::NewProp__radius = { "_radius", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAOEAttributeData, _radius), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__radius_MetaData), NewProp__radius_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UAOEAttributeData_Statics::NewProp__duration = { "_duration", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAOEAttributeData, _duration), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__duration_MetaData), NewProp__duration_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UAOEAttributeData_Statics::NewProp__arcShape_angle = { "_arcShape_angle", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAOEAttributeData, _arcShape_angle), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__arcShape_angle_MetaData), NewProp__arcShape_angle_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAOEAttributeData_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAOEAttributeData_Statics::NewProp__radius,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAOEAttributeData_Statics::NewProp__duration,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAOEAttributeData_Statics::NewProp__arcShape_angle,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAOEAttributeData_Statics::PropPointers) < 2048);
 // ********** End Class UAOEAttributeData Property Definitions *************************************
@@ -555,12 +573,12 @@ struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
 		{ Z_Construct_UClass_AAOE, AAOE::StaticClass, TEXT("AAOE"), &Z_Registration_Info_UClass_AAOE, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AAOE), 846808820U) },
-		{ Z_Construct_UClass_UAOEConfig, UAOEConfig::StaticClass, TEXT("UAOEConfig"), &Z_Registration_Info_UClass_UAOEConfig, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOEConfig), 3347666950U) },
-		{ Z_Construct_UClass_UAOEAttributeData, UAOEAttributeData::StaticClass, TEXT("UAOEAttributeData"), &Z_Registration_Info_UClass_UAOEAttributeData, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOEAttributeData), 2078173091U) },
-		{ Z_Construct_UClass_UAOETemplate, UAOETemplate::StaticClass, TEXT("UAOETemplate"), &Z_Registration_Info_UClass_UAOETemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOETemplate), 2229462848U) },
+		{ Z_Construct_UClass_UAOEConfig, UAOEConfig::StaticClass, TEXT("UAOEConfig"), &Z_Registration_Info_UClass_UAOEConfig, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOEConfig), 3195257304U) },
+		{ Z_Construct_UClass_UAOEAttributeData, UAOEAttributeData::StaticClass, TEXT("UAOEAttributeData"), &Z_Registration_Info_UClass_UAOEAttributeData, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOEAttributeData), 3208941639U) },
+		{ Z_Construct_UClass_UAOETemplate, UAOETemplate::StaticClass, TEXT("UAOETemplate"), &Z_Registration_Info_UClass_UAOETemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOETemplate), 443548299U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_321408018{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_2862609829{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

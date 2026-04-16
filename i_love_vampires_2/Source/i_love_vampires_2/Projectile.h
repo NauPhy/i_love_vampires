@@ -24,7 +24,7 @@ class AProjectile : public AAttackActor {
 	const static inline EProjectileShape _CIRCLE = EProjectileShape::circle;
 
 	TWeakObjectPtr<const ACombatant> _targetEnemy = nullptr;
-	void setNewDirection();
+	bool _boomerangActive = false;
 
 protected:
 	float _directionX = 0;
@@ -39,6 +39,7 @@ protected:
 private:
 	bool performSweep(const FVector&, const FVector&, TArray<struct FHitResult>&);
 	void executeBounce(AEnemyBase* ineligibleTarget);
+	void setNewDirection();
 
 protected:
 	virtual void bulletDeath() { 
@@ -88,6 +89,8 @@ public:
 	EProjectileTargeting _targeting = static_cast<EProjectileTargeting>(static_cast<uint8>(255));
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	bool _isHoming = false;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	bool _isBoomerang = false;
 	UProjectileConfig(const FObjectInitializer& init) : Super(init) {}
 };
 ///////////////////////////////////////////////////////////////////////////////
@@ -160,15 +163,20 @@ struct ProjectileInitStruct {
 	const ProjectileAttributes _projectileAttributes;
 	const float _directionX;
 	const float _directionZ;
+	ProjectileInitStruct() = delete;
+	ProjectileInitStruct(const AttackInitStruct& attack, const UProjectileConfig* config, const ProjectileAttributes& attr, float x, float z) :
+		_attack(attack), _projectileConfig(config), _projectileAttributes(attr), _directionX(x), _directionZ(z){}
 };
 ///////////////////////////////////////////////////////////////////////////////
 
 class ProjectileFactory : public AttackFactory
 {
 	const static inline EProjectileTargeting _SKILLSHOT = EProjectileTargeting::skillshot;
-	const static inline EProjectileTargeting _RANDOM = EProjectileTargeting::random;
+	const static inline EProjectileTargeting _RANDOM_DIRECTION = EProjectileTargeting::random;
 	const static inline EProjectileTargeting _RANDOM_ENEMY = EProjectileTargeting::randomEnemy;
 	const static inline EAttackShape _FAN = EAttackShape::fan;
+	const static inline EAttackShape _RANDOM_SHAPE = EAttackShape::random;
+	const static inline EStatus _BLIND = EStatus::blind;
 
 	float _directionX = 0;
 	float _directionZ = 1;
@@ -193,7 +201,7 @@ protected:
 	ProjectileInitStruct getProjectileInit() const {
 		ProjectileAttributes temp = _projectileAttributes.getCore();
 		temp.discretizeFull();
-		ProjectileInitStruct ret = { AttackFactory::getAttackInit(), _projectileConfig.Get(), temp, _directionX, _directionZ};
+		ProjectileInitStruct ret(AttackFactory::getAttackInit(), _projectileConfig.Get(), temp, _directionX, _directionZ);
 		return ret;
 	}
 

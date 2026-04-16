@@ -26,22 +26,29 @@ public:
 	unrealHelpers() = delete;
 	static bool initFlipbook(AActor* caller, UPaperFlipbook* sprite, UPaperFlipbookComponent*& flipbook);
 	static bool constructFlipbook(AActor* caller, USceneComponent* rootComp, UPaperFlipbookComponent*& flipbook);
+	static bool snapSprite(const AActor* caller, const UActorComponent* comp, UPaperFlipbookComponent* flipbook);
+
+	static float getAngleBetweenVectors(const FVector& from, const FVector& to);
+	static void lookAtDirection(AActor* caller, float X, float Z);
+	static void lookAtDirection(AActor* caller, const FVector& direction) { lookAtDirection(caller, direction.X, direction.Z); }
+	static float getOrthoWidth(UObject* caller);
+
+	template <typename T>
+	static const T* getDynamicTemplate(const UObject* caller, const T* diskTemplate);
 	template<typename T>
 	static bool spawnActorOnTopOfMe(AActor* caller, T*& ret);
 	template <typename T>
 	static bool spawnActorOnTopOfMeDeferred(AActor* caller, T*& ret);
 	template <typename T>
 	static bool finishDeferredSpawn(AActor* caller, T* spawnedActor);
+
 	static bool performSweepAtPawn(UObject* caller, const FVector& startPos, const FVector& endPos, const FCollisionShape& shape, TArray<struct FHitResult>& OutHits, const TArray<const APawn*>& ignoredPawns);
 	static bool isInvalidData(const UObject* obj) { return !IsValid(obj) || obj == nullptr; }
 	template<typename T>
 	static bool isInvalidData(const T& e);
 	template <typename T>
 	static bool isInvalidData(const TSubclassOf<T> val) { return val == nullptr; }
-	static bool isInvalidData(const FString& str) { return str == "_invalid_"; }
-	template <typename T>
-	static const T* getDynamicTemplate(const UObject* caller, const T* diskTemplate);
-	static bool snapSprite(const AActor* caller, const UActorComponent* comp, UPaperFlipbookComponent* flipbook);
+	static bool isInvalidData(const FString& str) { return str == "_invalid_"; }	
 };
 
 template <typename T>

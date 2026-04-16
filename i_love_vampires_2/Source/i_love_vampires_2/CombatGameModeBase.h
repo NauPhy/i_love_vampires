@@ -17,6 +17,7 @@ class I_LOVE_VAMPIRES_2_API ACombatGameModeBase : public AGameModeBase {
 	USpriteSorter* _spriteSorter = nullptr;
 
 	bool isReady_Implementation() const;
+	void onPlayerDeath_Implementation() {}
 
 protected:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
@@ -34,4 +35,6 @@ public:
 	USpriteSorter* getSpriteSorter() const { return _spriteSorter; }
 	UFUNCTION(BlueprintCallable)
 	void setGameReady(bool val);
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void onPlayerDeath();
 };

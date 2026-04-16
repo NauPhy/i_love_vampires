@@ -16,7 +16,7 @@
                                     "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AttackActor.cpp"
                                 },
                                 "region": {
-                                    "startLine": 133,
+                                    "startLine": 160,
                                     "startColumn": 2,
                                     "snippet": {
                                         "text": "\t_owner(owner),"

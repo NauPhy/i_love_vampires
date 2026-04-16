@@ -19,6 +19,25 @@ void Active::tick(float delta, const FVector& forwardVector) {
 		activate(forwardVector);
 		_chargeRatio = 0;
 	}
+
+	// This class does not have a dedicated attribute set because the overhead is too intense, so it's handled here
+	for (int i = 0; i < _statusEffects.Num(); i += 0) {
+		_statusEffects[i]._duration -= delta;
+		if (_statusEffects[i]._duration <= -EPSILON) {
+			_statusEffects.RemoveAt(i);
+		}
+		else {
+			i++;
+		}
+	}
+}
+
+bool Active::hasStatus(EStatus status) const {
+	for (const auto& effect : _statusEffects) {
+		if (effect._type == status)
+			return true;
+	}
+	return false;
 }
 
 void Active::updateWarmup(float delta) {
@@ -26,7 +45,10 @@ void Active::updateWarmup(float delta) {
 		return;
 	const float newAttackSpeed = _owner->getAttributeMember(&CombatantAttributes::_attackSpeed);
 	const float baseWarmup = _weaponTemplate->_warmup;
-	const float newWarmup = baseWarmup * (1.0f / newAttackSpeed);
+	float newWarmup = baseWarmup * (1.0f / newAttackSpeed);
+	if (hasStatus(_CHILL)) {
+		newWarmup *= 1 + _statusEffects[0]._magnitude / 100;
+	}
 	const float timeSinceLastActivation = _chargeRatio * newWarmup + delta;
 	_chargeRatio = timeSinceLastActivation / newWarmup;
 }
@@ -96,4 +118,13 @@ void UWeaponTemplate::replaceOverrides() {
 		_warmup = _defaults._warmup;
 	if (unrealHelpers::isInvalidData<EAttackType>(_attackType))
 		_attackType = _defaults._attackType;
+}
+
+void Active::inflictStatus(const FEffectStruct& status) {
+	if (status._type == _CHILL) {
+		_statusEffects.Add(status);
+	}
+	for (auto& factory : _factories) {
+		factory->inflictStatus(status);
+	}
 }

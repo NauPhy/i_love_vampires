@@ -56,14 +56,30 @@ void AAttackActor::BeginPlay() {
 	sorter->sortSprite(this, _flipbook);
 }
 
+bool AAttackActor::canHitInstigator() const {
+	for (const auto& effect : _attackConfig->_statusEffects) {
+		if (effect._type == _FRIENDLY_FIRE) {
+			return true;
+		}
+	}
+	return false;
+}
+
 void AAttackActor::applyEffect(ACombatant* target) {
 	if (!IsValid(target)) {
 		LOGERROR("AAttackActor::applyEffect - target is not valid");
 		return;
 	}
-	if (_pawnRef.IsValid())
-		if (target == _pawnRef.Get())
+	if (_pawnRef.IsValid()) {
+		if (target == _pawnRef.Get()) {
+			for (const auto& effect : _attackConfig->_statusEffects) {
+				if (effect._type == _FRIENDLY_FIRE) {
+					_pawnRef->inflictStatus(FEffectStruct(_DAMAGE, -effect._magnitude, 0, 1));
+				}
+			}
 			return;
+		}
+	}
 	for (auto i = _effectedPawns.Num() - 1; i > -1; i--)
 	{
 		APawn* tempPawn = _effectedPawns[i].Get();
@@ -90,9 +106,20 @@ void AAttackActor::applyEffect(ACombatant* target) {
 	// Chance is included in the newly created effect, just in case
 	for (const auto& effect : _attackConfig->_statusEffects) {
 		if (FMath::FRand() <= effect._chance) {
-			FEffectStruct temp = effect;
-			temp._chance = 1;
-			target->inflictStatus(temp);
+			if (effect._type == _HEAL_INSTIGATOR) {
+				if (_pawnRef.IsValid()) {
+					FEffectStruct healing(_DAMAGE, -effect._magnitude, 0, 1);
+					_pawnRef->inflictStatus(healing);
+				}
+			}
+			else if (effect._type == _RANDOM) {
+				target->inflictStatus(StatusStatics::getRandomNegativePersistentEffect(effect._magnitude, effect._duration));
+			}
+			else {
+				FEffectStruct temp = effect;
+				temp._chance = 1;
+				target->inflictStatus(temp);
+			}
 		}
 	}
 	{

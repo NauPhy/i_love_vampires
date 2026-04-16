@@ -6,6 +6,7 @@
 #include <memory>
 #include <vector>
 #include "AttackActor.h"
+#include "StatusEnum.h"
 // WeaponTemplate
 #include "ActiveEnum.h"
 #include "BaseTemplate.h"
@@ -18,14 +19,18 @@ class CombatantAttributes;
 class UWeaponTemplate;
 
 class Active {
+	const static inline EStatus _CHILL = EStatus::chill;
+
 	float _chargeRatio = 0;
 	std::vector<std::unique_ptr<AttackFactory>> _factories;
 	TWeakObjectPtr<ACombatant> _owner = nullptr;
 	TObjectPtr<const UWeaponTemplate> _weaponTemplate = nullptr;
+	TArray<FEffectStruct> _statusEffects;
 
 	void updateWarmup(float delta);
 	void activate(const FVector&);
 	void activate_first(const FVector&);
+	bool hasStatus(EStatus status) const;
 
 public:
 	Active() = delete;
@@ -36,6 +41,7 @@ public:
 	Active(ACombatant* owner, const UWeaponTemplate* data);
 
 	void tick(float delta, const FVector& forward);
+	void inflictStatus(const FEffectStruct& status);
 };
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -70,7 +76,7 @@ class I_LOVE_VAMPIRES_2_API UWeaponTemplate : public UBaseTemplate
 	const static inline defaults _defaults;
 
 public:
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FString _name = "_invalid_";
 	// cannot really be given a sentinel value
 	UPROPERTY(EditAnywhere)

@@ -26,10 +26,11 @@ class CombatantAttributes;
 class CombatantAttributeSet;
 class UCombatantConfig;
 class UCombatantTemplate;
+class UWeaponTemplate;
 
 class UPaperFlipbookComponent;
 class Active;
-UCLASS()
+UCLASS(BlueprintType)
 class I_LOVE_VAMPIRES_2_API ACombatant : public APawn
 {
 	GENERATED_BODY()
@@ -48,7 +49,7 @@ protected:
 	// Returns true iff onKilled() is called
 	virtual bool onCurrentHPChanged(float oldHP, float newHP);
 	static void exchangeContactDamage(ACombatant* left, ACombatant* right);
-	virtual void onKilled() { Destroy(); }
+	virtual void onKilled();
 
 	const UCombatantConfig* getConfig() const { return _config.Get(); }
 
@@ -67,6 +68,13 @@ public:
 	void inflictStatus(const FEffectStruct&);
 	const CombatantAttributes& getAttributes() const;
 	float getAttributeMember(Stat CombatantAttributes::* member) const;
+	const FVector& myGetForwardVector() const { return _myForwardVector; }
+	UFUNCTION(BlueprintCallable)
+	void giveWeapon(const UWeaponTemplate* data);
+	UFUNCTION(BlueprintCallable)
+	float getHP() const;
+	UFUNCTION(BlueprintCallable)
+	float getMaxHP() const;
 };
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -148,6 +156,10 @@ class CombatantAttributes : public BaseAttributes {
 	const static inline EStatus _DAMAGE = EStatus::damage;
 	const static inline EStatus _BLEED = EStatus::bleed;
 	const static inline EStatus _BURN = EStatus::burn;
+	const static inline EStatus _POISON = EStatus::poison;
+	const static inline EStatus _EXECUTE = EStatus::execute;
+	const static inline EStatus _CHILL = EStatus::chill;
+	const static inline EStatus _DECAY = EStatus::decay;
 
 public:
 	Stat _maxHP;
@@ -184,6 +196,9 @@ public:
 ///////////////////////////////////////////////////////////////////////////////
 
 class CombatantAttributeSet : public BaseAttributeSet {
+	const static inline EStatus _DAMAGE = EStatus::damage;
+
+	float _iFrameTimeRemaining = 0;
 	BaseAttributeWrapper<CombatantAttributes, UCombatantAttributeData> _attributes;
 public:
 	CombatantAttributeSet() = delete;
@@ -192,10 +207,7 @@ public:
 	CombatantAttributeSet& operator=(const CombatantAttributeSet& other) = delete;
 	CombatantAttributeSet& operator=(CombatantAttributeSet&& other) = delete;
 	CombatantAttributeSet(ACombatant* owner, const UCombatantAttributeData* attr) : _attributes(owner, attr) {}
-	virtual void tick(float delta) override {
-		_attributes.tick(delta, getStatusEffects());
-		BaseAttributeSet::tick(delta);
-	}
+	virtual void tick(float delta) override;
 	float getMember(Stat CombatantAttributes::* member) const {
 		return _attributes.getMember(member);
 	}

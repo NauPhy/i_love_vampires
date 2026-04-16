@@ -52,10 +52,14 @@ void ACombatant::BeginPlay() {
 		return;
 	}
 	for (const auto& data : _config->_startingWeapons) {
-		_activeAbilities.push_back(Active(this, data));
+		giveWeapon(data);
 	}
 	unrealHelpers::initFlipbook(this, _config->_sprite.Get(), _combatantFlipbook);
 	_myForwardVector = GetActorForwardVector();
+}
+
+void ACombatant::giveWeapon(const UWeaponTemplate* temp) {
+	_activeAbilities.push_back(Active(this, temp));
 }
 
 void ACombatant::EndPlay(EEndPlayReason::Type EndPlayReason)
@@ -106,6 +110,9 @@ void ACombatant::exchangeContactDamage(ACombatant* left, ACombatant* right) {
 	right->inflictStatus(leftEffect);
 }
 void ACombatant::inflictStatus(const FEffectStruct& status) {
+	for (auto& active : _activeAbilities) {
+		active.inflictStatus(status);
+	}
 	_attributeSet->inflictStatus(status);
 }
 ///////////////////////////////////////////////////////////////////////////////
@@ -157,12 +164,20 @@ void CombatantAttributes::applyToAllStats(const std::function<void(Stat&)>& func
 
 void CombatantAttributes::applyStatus(UObject* context, const FEffectStruct& status, float delta) {
 	// Require nothing
-	if (status._type == _DAMAGE)
+	if (status._type == _DAMAGE) {
 		_currentHP._offset -= status._magnitude;
+	}
 	else if (status._type == _BLEED)
 		_currentHP._offset -= status._magnitude * delta;
+	else if (status._type == _EXECUTE) {
+		if (_currentHP.getFinal()/_maxHP.getFinal() <= status._magnitude / 100.0f)
+			_currentHP._offset = -_currentHP.getFinal();
+	}
+	else if (status._type == _CHILL) {
+		_movementSpeed._multiplier -= status._magnitude / 100.0f;
+	}
 	// Require combatant manager
-	else if (status._type == _BURN || false) {
+	else if (status._type == _BURN || status._type == _POISON || status._type == _DECAY) {
 		UCombatantManager* manager = nullptr;
 		if (!MyGameplayStatics::getCombatantManager(context, manager)) {
 			LOGERROR("CombatantAttributes::applyStatus - could not get combatant manager for burn damage");
@@ -171,6 +186,13 @@ void CombatantAttributes::applyStatus(UObject* context, const FEffectStruct& sta
 		if (status._type == _BURN)
 			if (manager->getBurnThisFrame())
 				_currentHP._offset -= (status._magnitude / 100.0f) * _currentHP.getFinal();
+		else if (status._type == _POISON)
+			//magnitude multiplier is handled by BaseAttributeSet
+			if (manager->getPoisonThisFrame())
+				_currentHP._offset -= status._magnitude;
+		else if (status._type == _DECAY)
+			if (manager->getBurnThisFrame())
+				_currentHP._offset -= (status._magnitude / 100.0f) * (_maxHP.getFinal() - _currentHP.getFinal());
 	}
 	else
 		return;
@@ -324,4 +346,35 @@ void UCombatantConfig::replaceOverrides() {
 		_name = _defaults._name;
 	if (unrealHelpers::isInvalidData<ACombatant>(_combatantClass))
 		_combatantClass = _defaults._combatantClass;
+}
+
+void CombatantAttributeSet::tick(float delta) {
+	TArray<FEffectStruct> temp = getStatusEffects();
+	// If in iFrames, remove flat damage effects
+	if (_iFrameTimeRemaining > EPSILON) {
+		temp.RemoveAll([](const FEffectStruct& effect) {
+			return effect._type == _DAMAGE;
+		});
+	}
+	// If not in iFrames, begin iFrames if there is at least 1 flat damage effect, then apply all flat damage effects that are queued this frame
+	else {
+		for (const auto& effect : temp) {
+			if (effect._type == _DAMAGE) {
+				_iFrameTimeRemaining = _attributes.getMember(&CombatantAttributes::_iFrameDuration);
+				break;
+			}
+		}
+	}
+	_attributes.tick(delta, temp);
+	if (_iFrameTimeRemaining > -EPSILON)
+		_iFrameTimeRemaining -= delta;
+
+	BaseAttributeSet::tick(delta);
+}
+
+float ACombatant::getHP() const { return getAttributeMember(&CombatantAttributes::_currentHP); }
+float ACombatant::getMaxHP() const { return getAttributeMember(&CombatantAttributes::_maxHP); }
+
+void ACombatant::onKilled() {
+	Destroy();
 }

@@ -50,8 +50,6 @@ class I_LOVE_VAMPIRES_2_API UExplosiveProjectileConfig : public UBaseConfig
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	TObjectPtr<UPaperFlipbook> _AOESprite;
 	virtual void replaceOverrides() override {}
 	UExplosiveProjectileConfig(const FObjectInitializer& init) : Super(init) {}
 };
@@ -88,6 +86,9 @@ struct ExplosiveProjectileInitStruct {
 	AAOE* _AOE;
 	const UExplosiveProjectileConfig* _explosiveProjectileConfig;
 	const ExplosiveProjectileAttributes _explosiveProjectileAttributes;
+	ExplosiveProjectileInitStruct() = delete;
+	ExplosiveProjectileInitStruct(const ProjectileInitStruct& projectile, AAOE* aoe, const UExplosiveProjectileConfig* config, const ExplosiveProjectileAttributes& attr) :
+		_projectile(projectile), _AOE(aoe), _explosiveProjectileConfig(config), _explosiveProjectileAttributes(attr){}
 };
 ///////////////////////////////////////////////////////////////////////////////
 

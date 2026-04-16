@@ -21,8 +21,47 @@ I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_ACombatant();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AMyPlayer();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AMyPlayer_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UCombatantTemplate_NoRegister();
+I_LOVE_VAMPIRES_2_API UFunction* Z_Construct_UDelegateFunction_AMyPlayer_OnPlayerLevelUp__DelegateSignature();
 UPackage* Z_Construct_UPackage__Script_i_love_vampires_2();
 // ********** End Cross Module References **********************************************************
+
+// ********** Begin Delegate FOnPlayerLevelUp ******************************************************
+struct Z_Construct_UDelegateFunction_AMyPlayer_OnPlayerLevelUp__DelegateSignature_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "// This is the last member function called before BeginPlay()\n//virtual void PostInitializeComponents() override;\n" },
+#endif
+		{ "ModuleRelativePath", "MyPlayer.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "This is the last member function called before BeginPlay()\nvirtual void PostInitializeComponents() override;" },
+#endif
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Delegate FOnPlayerLevelUp constinit property declarations **********************
+// ********** End Delegate FOnPlayerLevelUp constinit property declarations ************************
+	static const UECodeGen_Private::FDelegateFunctionParams FuncParams;
+};
+const UECodeGen_Private::FDelegateFunctionParams Z_Construct_UDelegateFunction_AMyPlayer_OnPlayerLevelUp__DelegateSignature_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_AMyPlayer, nullptr, "OnPlayerLevelUp__DelegateSignature", 	nullptr, 
+	0, 
+0,
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00130000, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UDelegateFunction_AMyPlayer_OnPlayerLevelUp__DelegateSignature_Statics::Function_MetaDataParams), Z_Construct_UDelegateFunction_AMyPlayer_OnPlayerLevelUp__DelegateSignature_Statics::Function_MetaDataParams)},  };
+UFunction* Z_Construct_UDelegateFunction_AMyPlayer_OnPlayerLevelUp__DelegateSignature()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUDelegateFunction(&ReturnFunction, Z_Construct_UDelegateFunction_AMyPlayer_OnPlayerLevelUp__DelegateSignature_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+void AMyPlayer::FOnPlayerLevelUp_DelegateWrapper(const FMulticastScriptDelegate& OnPlayerLevelUp)
+{
+	OnPlayerLevelUp.ProcessMulticastDelegate<UObject>(NULL);
+}
+// ********** End Delegate FOnPlayerLevelUp ********************************************************
 
 // ********** Begin Class AMyPlayer Function finishAMyActorDeferredSpawn ***************************
 struct Z_Construct_UFunction_AMyPlayer_finishAMyActorDeferredSpawn_Statics
@@ -311,10 +350,15 @@ struct Z_Construct_UClass_AMyPlayer_Statics
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "MyPlayer.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__onLevelUp_MetaData[] = {
+		{ "Category", "Events" },
+		{ "ModuleRelativePath", "MyPlayer.h" },
+	};
 #endif // WITH_METADATA
 
 // ********** Begin Class AMyPlayer constinit property declarations ********************************
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__camera;
+	static const UECodeGen_Private::FMulticastDelegatePropertyParams NewProp__onLevelUp;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class AMyPlayer constinit property declarations **********************************
 	static constexpr UE::CodeGen::FClassNativeFunction Funcs[] = {
@@ -328,6 +372,7 @@ struct Z_Construct_UClass_AMyPlayer_Statics
 		{ &Z_Construct_UFunction_AMyPlayer_finishAMyActorDeferredSpawn, "finishAMyActorDeferredSpawn" }, // 381760498
 		{ &Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer, "initialise_AMyPlayer" }, // 1096820025
 		{ &Z_Construct_UFunction_AMyPlayer_onOverlapBegin, "onOverlapBegin" }, // 3264895144
+		{ &Z_Construct_UDelegateFunction_AMyPlayer_OnPlayerLevelUp__DelegateSignature, "OnPlayerLevelUp__DelegateSignature" }, // 4077128735
 		{ &Z_Construct_UFunction_AMyPlayer_spawnAMyActorDeferred, "spawnAMyActorDeferred" }, // 678798347
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
@@ -339,8 +384,10 @@ struct Z_Construct_UClass_AMyPlayer_Statics
 
 // ********** Begin Class AMyPlayer Property Definitions *******************************************
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AMyPlayer_Statics::NewProp__camera = { "_camera", nullptr, (EPropertyFlags)0x00400000000a0009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyPlayer, _camera), Z_Construct_UClass_UCameraComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__camera_MetaData), NewProp__camera_MetaData) };
+const UECodeGen_Private::FMulticastDelegatePropertyParams Z_Construct_UClass_AMyPlayer_Statics::NewProp__onLevelUp = { "_onLevelUp", nullptr, (EPropertyFlags)0x0010000010080000, UECodeGen_Private::EPropertyGenFlags::InlineMulticastDelegate, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AMyPlayer, _onLevelUp), Z_Construct_UDelegateFunction_AMyPlayer_OnPlayerLevelUp__DelegateSignature, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__onLevelUp_MetaData), NewProp__onLevelUp_MetaData) }; // 4077128735
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AMyPlayer_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyPlayer_Statics::NewProp__camera,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AMyPlayer_Statics::NewProp__onLevelUp,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AMyPlayer_Statics::PropPointers) < 2048);
 // ********** End Class AMyPlayer Property Definitions *********************************************
@@ -385,10 +432,10 @@ AMyPlayer::~AMyPlayer() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AMyPlayer, AMyPlayer::StaticClass, TEXT("AMyPlayer"), &Z_Registration_Info_UClass_AMyPlayer, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyPlayer), 930008752U) },
+		{ Z_Construct_UClass_AMyPlayer, AMyPlayer::StaticClass, TEXT("AMyPlayer"), &Z_Registration_Info_UClass_AMyPlayer, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyPlayer), 3783675083U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_449597584{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_578714080{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

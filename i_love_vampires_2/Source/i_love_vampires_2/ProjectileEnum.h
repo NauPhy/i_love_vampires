@@ -12,10 +12,11 @@ UENUM(BlueprintType)
 enum class EAttackShape : uint8
 {
 	fan UMETA(DisplayName = "fan"),
+	random UMETA(DisplayName = "random"),
 	INVALID = 255 UMETA(DisplayName = "INVALID")
 };
 // Dependencies
-// fan - Projectile.h
+// all - ProjectileFactory
 
 UENUM(BlueprintType)
 enum class EProjectileTargeting : uint8

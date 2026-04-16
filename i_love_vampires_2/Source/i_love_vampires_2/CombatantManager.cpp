@@ -10,16 +10,18 @@
 void UCombatantManager::tick(float delta) {
 	if (!_gameReady)
 		return;
-	if (_burnTimer <= 0.0f)
-		burnAll();
+	if (_poisonTimer <= 0.0f) {
+		_poisonThisFrame = true;
+		_poisonTimer = _POISON_PERIOD;
+		if (_ignoreNextBurn)
+			_ignoreNextBurn = false;
+		else {
+			_ignoreNextBurn = true;
+			_burnThisFrame = true;
+		}
+	}
 	else
 		_burnThisFrame = false;
-	_burnTimer -= delta;
-}
-
-void UCombatantManager::burnAll() {
-	_burnThisFrame = true;
-	_burnTimer = _BURN_PERIOD;
 }
 
 int UCombatantManager::registerEnemy(AEnemyBase* enemy) {

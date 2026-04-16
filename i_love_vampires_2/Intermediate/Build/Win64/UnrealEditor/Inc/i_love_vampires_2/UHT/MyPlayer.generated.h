@@ -21,6 +21,13 @@ class APawn;
 class UCombatantTemplate;
 class UObject;
 
+// ********** Begin Delegate FOnPlayerLevelUp ******************************************************
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h_55_DELEGATE \
+static void FOnPlayerLevelUp_DelegateWrapper(const FMulticastScriptDelegate& OnPlayerLevelUp);
+
+
+// ********** End Delegate FOnPlayerLevelUp ********************************************************
+
 // ********** Begin Class AMyPlayer ****************************************************************
 #define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
 	DECLARE_FUNCTION(execfinishAMyActorDeferredSpawn); \

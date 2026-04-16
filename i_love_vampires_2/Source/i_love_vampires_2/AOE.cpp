@@ -1,5 +1,6 @@
 #include "AOE.h"
 #include "Definitions.h"
+#include "Kismet/KismetMathLibrary.h"
 
 #include "Components/ShapeComponent.h"
 #include "Components/SphereComponent.h"
@@ -13,6 +14,7 @@ void AAOE::initialise_AAOE(const AOEInitStruct& temp)
 	_AOEConfig = temp._AOEConfig;
 	_AOEAttributes = std::make_unique<AOEAttributes>(temp._AOEAttributes);
 	_initialisedWithDelay = temp._delayFullConstruction;
+	unrealHelpers::lookAtDirection(this, temp._arcShape_forwardVector);
 	if (temp._delayFullConstruction) {
 		SetActorHiddenInGame(true);
 		SetActorEnableCollision(false);
@@ -44,7 +46,7 @@ void AAOE::completeDelayedConstruction() {
 void AAOE::initShape() {
 	const FVector currentScale = GetActorScale3D();
 	SetActorScale3D(currentScale * _AOEAttributes->_radius.getFinal());
-	if (_AOEConfig->_shape == _CIRCLE) {
+	if (_AOEConfig->_shape == _CIRCLE || _AOEConfig->_shape == _ARC) {
 		_collider = NewObject<USphereComponent>(this);
 		const float currentFactor = GetActorScale3D().X;
 		const float radius = _AOEAttributes->_radius.getFinal() * _SPRITE_RADIUS / currentFactor;
@@ -90,6 +92,12 @@ void AAOE::OnOverlapBegin(
 			return;
 		}
 	}
+	if (_AOEConfig->_shape == _ARC) {
+		const FVector forward = GetActorForwardVector();
+		const float angle = unrealHelpers::getAngleBetweenVectors(forward, OtherActor->GetActorLocation() - GetActorLocation());
+		if (angle > _AOEAttributes->_arcShape_angle.getFinal() / 2)
+			return;
+	}
 	ACombatant* combatantActor = Cast<ACombatant>(OtherActor);
 	if (!IsValid(combatantActor)) {
 		LOGERROR("AAOE::OnOverlapBegin - OtherActor is not a combatant");
@@ -99,6 +107,9 @@ void AAOE::OnOverlapBegin(
 }
 
 void AAOE::Tick(float delta) {
+	if (_AOEConfig->_shape == _ARC) {
+		reorientSlash();
+	}
 	if (_AOEAttributes->_duration.getFinal() <= 0) {
 		if (_consumedDuration >= 0.25) {
 			Destroy();
@@ -113,6 +124,20 @@ void AAOE::Tick(float delta) {
 	}
 	_consumedDuration += delta;
 	AAttackActor::Tick(delta);
+}
+
+// For now, slash attacks just have a single instantaneous hitbox, so moving the slash is just cosmetic, unless it's on the very first frame, in which case
+// the hitbox isn't active when the slash is moved.
+void AAOE::reorientSlash() {
+	if (!_pawnRef.IsValid())
+		return;
+	const FVector newLocation = _pawnRef->GetActorLocation();
+	FHitResult* unused = nullptr;
+	SetActorLocation(newLocation, false, unused, ETeleportType::TeleportPhysics);
+	const FVector& newForward = _pawnRef->myGetForwardVector();
+	const FRotator rotation = UKismetMathLibrary::FindLookAtRotation(FVector(0, 0, 0), FVector(newForward.X, 0, newForward.Z));
+
+	SetActorRotation(rotation, ETeleportType::TeleportPhysics);
 }
 ///////////////////////////////////////////////////////////////////////////////
 // Since modifyAttributes sets _final = _base, it's actually set twice, which is dodgy but fine
@@ -133,6 +158,19 @@ void AOEFactory::launchAttack(const FVector& forward) {
 		newAttack->initialise_AAOE(temp);
 	}
 	unrealHelpers::finishDeferredSpawn<AAOE>(_owner.Get(), newAttack);
+
+	FVector newLocation(0, -1, 0);
+	if (_AOEConfig->_targeting == _INSTIGATOR)
+		return;
+	else if (_AOEConfig->_targeting == _RANDOM) {
+		const float orthoWidth = unrealHelpers::getOrthoWidth(_owner.Get());
+		float X = FMath::FRandRange(-orthoWidth, orthoWidth);
+		float Z = FMath::FRandRange(-orthoWidth/DEFAULT_SCREEN_RATIO, orthoWidth/DEFAULT_SCREEN_RATIO);
+		newLocation = FVector(X, 0, Z);
+	}
+	if (helpers::nearEq(newLocation.Y, 0)) {
+		newAttack->SetActorLocation(newLocation, false, nullptr, ETeleportType::TeleportPhysics);
+	}
 }
 
 AOEFactory::AOEFactory(
@@ -150,6 +188,15 @@ AOEFactory::AOEFactory(
 		LOGERROR("AOEFactory::AOEFactory - invalid AOEConfig");
 		return;
 	}
+}
+
+AOEInitStruct AOEFactory::getAOEInit() const {
+	AOEAttributes temp = _AOEAttributes.getCore();
+	temp.discretizeFull();
+	//Owner is guaranteed to be valid
+	FVector forward = _owner->myGetForwardVector();
+	AOEInitStruct ret(AttackFactory::getAttackInit(), _AOEConfig.Get(), temp, false, forward);
+	return ret;
 }
 
 void  AOEFactory::tick(float delta) {

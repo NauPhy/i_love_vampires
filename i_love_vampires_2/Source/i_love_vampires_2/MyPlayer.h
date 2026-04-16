@@ -31,6 +31,8 @@ class I_LOVE_VAMPIRES_2_API AMyPlayer : public ACombatant
 	bool isOutOfDeadzone(float, float) const;
 	void handleMovement(const FInputActionValue&);
 	//bool assetRefInitialise();
+protected:
+	virtual void onKilled() override;
 
 public:
 	AMyPlayer();
@@ -47,6 +49,10 @@ public:
 	static AMyPlayer* spawnAMyActorDeferred(UObject* worldContext, const FTransform& trans, AActor* deferredOwner = nullptr, APawn* deferredInstigator = nullptr);
 	UFUNCTION(BlueprintCallable)
 	static void finishAMyActorDeferredSpawn(AMyPlayer* deferredObject, const FTransform& trans);
+	float getOrthoWidth() const { return _camera->OrthoWidth; }	
 	// This is the last member function called before BeginPlay()
 	//virtual void PostInitializeComponents() override;
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPlayerLevelUp);
+	UPROPERTY(BlueprintAssignable, Category = "Events")
+	FOnPlayerLevelUp _onLevelUp;
 };	

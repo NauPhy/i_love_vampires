@@ -26,6 +26,14 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 	op(EStatus::damage) \
 	op(EStatus::bleed) \
 	op(EStatus::burn) \
+	op(EStatus::poison) \
+	op(EStatus::execute) \
+	op(EStatus::healInstigator) \
+	op(EStatus::friendlyFire) \
+	op(EStatus::blind) \
+	op(EStatus::chill) \
+	op(EStatus::decay) \
+	op(EStatus::randomNegativePersistent) \
 	op(EStatus::INVALID) 
 
 enum class EStatus : uint8;

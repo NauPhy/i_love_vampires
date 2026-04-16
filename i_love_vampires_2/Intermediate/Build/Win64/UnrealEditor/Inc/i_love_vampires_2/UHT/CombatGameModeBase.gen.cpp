@@ -247,6 +247,54 @@ DEFINE_FUNCTION(ACombatGameModeBase::execisReady)
 }
 // ********** End Class ACombatGameModeBase Function isReady ***************************************
 
+// ********** Begin Class ACombatGameModeBase Function onPlayerDeath *******************************
+static FName NAME_ACombatGameModeBase_onPlayerDeath = FName(TEXT("onPlayerDeath"));
+void ACombatGameModeBase::onPlayerDeath()
+{
+	UFunction* Func = FindFunctionChecked(NAME_ACombatGameModeBase_onPlayerDeath);
+	if (!Func->GetOwnerClass()->HasAnyClassFlags(CLASS_Native))
+	{
+	ProcessEvent(Func,NULL);
+	}
+	else
+	{
+		onPlayerDeath_Implementation();
+	}
+}
+struct Z_Construct_UFunction_ACombatGameModeBase_onPlayerDeath_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "CombatGameModeBase.h" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Function onPlayerDeath constinit property declarations *************************
+// ********** End Function onPlayerDeath constinit property declarations ***************************
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ACombatGameModeBase_onPlayerDeath_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_ACombatGameModeBase, nullptr, "onPlayerDeath", 	nullptr, 
+	0, 
+0,
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C020C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ACombatGameModeBase_onPlayerDeath_Statics::Function_MetaDataParams), Z_Construct_UFunction_ACombatGameModeBase_onPlayerDeath_Statics::Function_MetaDataParams)},  };
+UFunction* Z_Construct_UFunction_ACombatGameModeBase_onPlayerDeath()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ACombatGameModeBase_onPlayerDeath_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ACombatGameModeBase::execonPlayerDeath)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->onPlayerDeath_Implementation();
+	P_NATIVE_END;
+}
+// ********** End Class ACombatGameModeBase Function onPlayerDeath *********************************
+
 // ********** Begin Class ACombatGameModeBase Function setGameReady ********************************
 struct Z_Construct_UFunction_ACombatGameModeBase_setGameReady_Statics
 {
@@ -366,6 +414,7 @@ struct Z_Construct_UClass_ACombatGameModeBase_Statics
 		{ .NameUTF8 = UTF8TEXT("getEnemySpawner"), .Pointer = &ACombatGameModeBase::execgetEnemySpawner },
 		{ .NameUTF8 = UTF8TEXT("getSpriteSorter"), .Pointer = &ACombatGameModeBase::execgetSpriteSorter },
 		{ .NameUTF8 = UTF8TEXT("isReady"), .Pointer = &ACombatGameModeBase::execisReady },
+		{ .NameUTF8 = UTF8TEXT("onPlayerDeath"), .Pointer = &ACombatGameModeBase::execonPlayerDeath },
 		{ .NameUTF8 = UTF8TEXT("setGameReady"), .Pointer = &ACombatGameModeBase::execsetGameReady },
 	};
 	static UObject* (*const DependentSingletons[])();
@@ -374,6 +423,7 @@ struct Z_Construct_UClass_ACombatGameModeBase_Statics
 		{ &Z_Construct_UFunction_ACombatGameModeBase_getEnemySpawner, "getEnemySpawner" }, // 3557539413
 		{ &Z_Construct_UFunction_ACombatGameModeBase_getSpriteSorter, "getSpriteSorter" }, // 3637049184
 		{ &Z_Construct_UFunction_ACombatGameModeBase_isReady, "isReady" }, // 335285443
+		{ &Z_Construct_UFunction_ACombatGameModeBase_onPlayerDeath, "onPlayerDeath" }, // 3403477441
 		{ &Z_Construct_UFunction_ACombatGameModeBase_setGameReady, "setGameReady" }, // 3339965129
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
@@ -435,10 +485,10 @@ ACombatGameModeBase::~ACombatGameModeBase() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatGameModeBase_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ACombatGameModeBase, ACombatGameModeBase::StaticClass, TEXT("ACombatGameModeBase"), &Z_Registration_Info_UClass_ACombatGameModeBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ACombatGameModeBase), 3593228011U) },
+		{ Z_Construct_UClass_ACombatGameModeBase, ACombatGameModeBase::StaticClass, TEXT("ACombatGameModeBase"), &Z_Registration_Info_UClass_ACombatGameModeBase, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ACombatGameModeBase), 1425200870U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatGameModeBase_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatGameModeBase_h__Script_i_love_vampires_2_3336043118{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatGameModeBase_h__Script_i_love_vampires_2_2193616792{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatGameModeBase_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_CombatGameModeBase_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

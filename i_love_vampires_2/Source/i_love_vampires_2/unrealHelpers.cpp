@@ -10,7 +10,9 @@
 #include "Components/ActorComponent.h"
 #include "AssetRefs.h"
 #include "Materials/MaterialInterface.h"
+#include "Kismet/KismetMathLibrary.h"
 #include <cmath>
+#include "MyPlayer.h"
 
 bool unrealHelpers::snapSprite(const AActor* caller, const UActorComponent* comp, UPaperFlipbookComponent* flipbook) {
 	if (!IsValid(caller) || !IsValid(comp) || !IsValid(flipbook)) {
@@ -45,7 +47,7 @@ bool unrealHelpers::initFlipbook(AActor* caller, UPaperFlipbook* sprite, UPaperF
 		LOGERROR("unrealHelpers::initFlipbook - mat is invalid");
 		return false;
 	}
-	//flipbook->SetMaterial(0, mat);
+	flipbook->SetMaterial(0, mat);
 	return true;
 }
 
@@ -108,4 +110,29 @@ bool unrealHelpers::performSweepAtPawn(UObject* caller, const FVector& startPos,
 
 	world->SweepMultiByObjectType(OutHits, startPos, endPos, FQuat::Identity, params, shape, params2);
 	return true;
+}
+
+float unrealHelpers::getAngleBetweenVectors(const FVector& from, const FVector& to) {
+	const float num = FVector::DotProduct(from.GetSafeNormal(), to.GetSafeNormal());
+	//const float den = from.Size() * to.Size();
+	return std::acos(num) * (360 / (2 * PI));
+}
+
+void unrealHelpers::lookAtDirection(AActor* caller, float X, float Z) {
+	const FRotator rotation = UKismetMathLibrary::FindLookAtRotation(FVector(0, 0, 0), FVector(X,0,Z));
+	caller->SetActorRotation(rotation, ETeleportType::TeleportPhysics);
+}
+
+float unrealHelpers::getOrthoWidth(UObject* caller) {
+	APawn* player = UGameplayStatics::GetPlayerPawn(caller, 0);
+	if (!IsValid(player)) {
+		LOGERROR("unrealHelpers::getOrthoWidth - failed to get player pawn");
+		return 0;
+	}
+	AMyPlayer* casted = Cast<AMyPlayer>(player);
+	if (!IsValid(casted)) {
+		LOGERROR("unrealHelpers::getOrthoWidth - player pawn is not AMyPlayer");
+		return 0;
+	}
+	return casted->getOrthoWidth();
 }

@@ -7,23 +7,27 @@
 #include "UObject/GeneratedCppIncludes.h"
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 void EmptyLinkFunctionForGeneratedCodei_love_vampires_2_init() {}
-static_assert(!UE_WITH_CONSTINIT_UOBJECT, "This generated code can only be compiled with !UE_WITH_CONSTINIT_OBJECT");	static FPackageRegistrationInfo Z_Registration_Info_UPackage__Script_i_love_vampires_2;
+static_assert(!UE_WITH_CONSTINIT_UOBJECT, "This generated code can only be compiled with !UE_WITH_CONSTINIT_OBJECT");	I_LOVE_VAMPIRES_2_API UFunction* Z_Construct_UDelegateFunction_AMyPlayer_OnPlayerLevelUp__DelegateSignature();
+	static FPackageRegistrationInfo Z_Registration_Info_UPackage__Script_i_love_vampires_2;
 	FORCENOINLINE UPackage* Z_Construct_UPackage__Script_i_love_vampires_2()
 	{
 		if (!Z_Registration_Info_UPackage__Script_i_love_vampires_2.OuterSingleton)
 		{
+		static UObject* (*const SingletonFuncArray[])() = {
+			(UObject* (*)())Z_Construct_UDelegateFunction_AMyPlayer_OnPlayerLevelUp__DelegateSignature,
+		};
 		static const UECodeGen_Private::FPackageParams PackageParams = {
 			"/Script/i_love_vampires_2",
-			nullptr,
-			0,
+			SingletonFuncArray,
+			UE_ARRAY_COUNT(SingletonFuncArray),
 			PKG_CompiledIn | 0x00000000,
-			0x583B7974,
-			0xD9F8FEBD,
+			0xA8AF0D36,
+			0xF42C5EA1,
 			METADATA_PARAMS(0, nullptr)
 		};
 		UECodeGen_Private::ConstructUPackage(Z_Registration_Info_UPackage__Script_i_love_vampires_2.OuterSingleton, PackageParams);
 	}
 	return Z_Registration_Info_UPackage__Script_i_love_vampires_2.OuterSingleton;
 }
-static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_i_love_vampires_2(Z_Construct_UPackage__Script_i_love_vampires_2, TEXT("/Script/i_love_vampires_2"), Z_Registration_Info_UPackage__Script_i_love_vampires_2, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0x583B7974, 0xD9F8FEBD));
+static FRegisterCompiledInInfo Z_CompiledInDeferPackage_UPackage__Script_i_love_vampires_2(Z_Construct_UPackage__Script_i_love_vampires_2, TEXT("/Script/i_love_vampires_2"), Z_Registration_Info_UPackage__Script_i_love_vampires_2, CONSTRUCT_RELOAD_VERSION_INFO(FPackageReloadVersionInfo, 0xA8AF0D36, 0xF42C5EA1));
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

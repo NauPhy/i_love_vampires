@@ -13,11 +13,13 @@ class I_LOVE_VAMPIRES_2_API UCombatantManager : public UObject
 {
 	GENERATED_BODY()
 
-	const static inline float _BURN_PERIOD = 1.f;
+	const static inline float _POISON_PERIOD = 1.0f;
 
 	int _nextKey = 0;
 	bool _burnThisFrame = false;
-	float _burnTimer = 0.0f;
+	bool _ignoreNextBurn = false;
+	bool _poisonThisFrame = false;
+	float _poisonTimer = 0.0f;
 	bool _gameReady = false;
 	UPROPERTY()
 	TMap<int, TWeakObjectPtr<AEnemyBase>> _enemyReferences;
@@ -32,10 +34,8 @@ public:
 	AEnemyBase* getRandomEnemyPtr(const AEnemyBase* excluded);
 	AEnemyBase* getNearestEnemyPtr(const AActor* caller);
 	bool getBurnThisFrame() const { return _burnThisFrame; }
+	bool getPoisonThisFrame() const { return _poisonThisFrame; }
 	virtual void tick(float DeltaTime);
 	void setGameReady(bool val) { _gameReady = val; }
 	bool getGameReady() const { return _gameReady; }
-
-private:
-	void burnAll();
 };
