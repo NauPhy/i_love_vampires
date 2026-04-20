@@ -7,28 +7,36 @@
 #include "AssetRegistry/AssetRegistryModule.h"
 #include "AssetRegistry/AssetData.h"
 #include "GameplayTagContainer.h"
+#include "Definitions.h"
 #include "AutomaticAssetRefs.generated.h"
+
 class UWeaponTemplate;
 class UBaseTemplate;
+class UCombatantPassive;
 
 UCLASS(BlueprintType)
 class I_LOVE_VAMPIRES_2_API UAutomaticAssetRefs : public UGameInstanceSubsystem
 {
 	GENERATED_BODY()
 
-	TArray<const UWeaponTemplate*> _weapons;
+	TArray<UWeaponTemplate*> _weapons;
+	TArray<UCombatantPassive*> _passives;
 
 	template <typename T>
-	void loadAssets(TArray<const T*>& out);
+	void loadAssets(TArray<T*>& out);
+	template <typename T>
+	const T* getRandomAsset(const TArray<T*>& assetArray, const TArray<T*>& ignored);
 
 public:
 	UAutomaticAssetRefs();
 	UFUNCTION(BlueprintCallable)
-	const UWeaponTemplate* getRandomWeapon(TArray<UWeaponTemplate*> ignored) const;
+	const UWeaponTemplate* getRandomWeapon(const TArray<UWeaponTemplate*>& ignored);
+	UFUNCTION(BlueprintCallable)
+	const UCombatantPassive* getRandomPassive(const TArray<UCombatantPassive*>& ignored);
 };
 
 template <typename T>
-void UAutomaticAssetRefs::loadAssets(TArray<const T*>& out) {
+void UAutomaticAssetRefs::loadAssets(TArray<T*>& out) {
 	static_assert(std::is_base_of<UBaseTemplate, T>::value, "T must be a UBaseTemplate or derived from UBaseTemplate");
 
 	out.Empty();
@@ -36,13 +44,51 @@ void UAutomaticAssetRefs::loadAssets(TArray<const T*>& out) {
 	FARFilter Filter;
 	Filter.ClassPaths.Add(FTopLevelAssetPath(T::StaticClass()));
 	Filter.bRecursiveClasses = true;
+	//Filter.bIncludeOnlyOnDiskAssets = true;
 	TArray<FAssetData> AssetList;
 	AssetRegistryModule.Get().GetAssets(Filter, AssetList);
 	for (const FAssetData& Asset : AssetList) {
+		const FString PackageShortName = FPackageName::GetShortName(Asset.PackageName.ToString());
+		const FString AssetName = Asset.AssetName.ToString();
+		if (AssetName != PackageShortName)
+			continue;
+		if (Asset.FindTag("myTest"))
+			continue;
 		TSoftObjectPtr<T> SoftPtr(Asset.ToSoftObjectPath());
-		const T* AssetPtr = SoftPtr.LoadSynchronous();
-		if (AssetPtr && !(AssetPtr->Tags.HasTag(FGameplayTag::RequestGameplayTag(FName("myTest"))))) {
+		T* AssetPtr = SoftPtr.LoadSynchronous();
+		if (IsValid(AssetPtr)) {
 			out.Add(AssetPtr);
 		}
 	}
+}
+
+template<typename T>
+const T* UAutomaticAssetRefs::getRandomAsset(const TArray<T*>& assetArray, const TArray<T*>& ignored) {
+	static_assert(std::is_base_of<UBaseTemplate, T>::value, "T must be a UBaseTemplate or derived from UBaseTemplate");
+
+	if (assetArray.Num() == 0) {
+		LOGERROR("UAutomaticAssetRefs::getRandomAsset - no assets found");
+		return nullptr;
+	}
+	int index = -1;
+	if (ignored.Num() == 0) {
+		index = FMath::RandRange(0, assetArray.Num() - 1);
+	}
+	else {
+		TArray<const T*> temp;
+		for (const auto& asset : assetArray) {
+			if (!ignored.Contains(asset)) {
+				temp.Add(asset);
+			}
+		}
+		if (temp.Num() == 0)
+			index = -1;
+		else
+			index = FMath::RandRange(0, temp.Num() - 1);
+	}
+	if (index == -1) {
+		LOGWARNING("UAutomaticAssetRefs::getRandomAsset - no valid assets");
+		return nullptr;
+	}
+	return assetArray[index];
 }

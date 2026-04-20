@@ -5,6 +5,8 @@
 #include "unrealHelpers.h"
 #include "PaperFlipbook.h"
 
+///////////////////////////////////////////////////////////////////////////////
+// AExplosiveProjectile
 void AExplosiveProjectile::initialise_AExplosiveProjectile(const ExplosiveProjectileInitStruct& temp) {
 	AProjectile::initialise_AProjectile(temp._projectile);
 	_AOE = temp._AOE;
@@ -30,14 +32,8 @@ void AExplosiveProjectile::bulletDeath() {
 	_AOE->completeDelayedConstruction();
 	AProjectile::bulletDeath();
 }
-
-//void AExplosiveProjectile::handleSweepResults(const TArray<struct FHitResult>& hits) {
-//	for (const FHitResult& hit : hits) {
-//		handleBouncePierce();
-//	}
-//}
 ///////////////////////////////////////////////////////////////////////////////
-
+// ExplosiveProjectileFactory
 ExplosiveProjectileFactory::ExplosiveProjectileFactory(
 	ACombatant* pawn,
 	const UAttackConfig* attackConfig,
@@ -53,16 +49,53 @@ ExplosiveProjectileFactory::ExplosiveProjectileFactory(
 	) :
 	ProjectileFactory(pawn, attackConfig, attackAttributes, projectileConfig, projectileAttributes),
 	_explosiveProjectileConfig(explosiveProjectileConfig),
-	_explosiveProjectileAttributes(pawn, explosiveProjectileAttributes),
 	_AOEConfig(aoeConfig),
-	_AOEAttributes(pawn, aoeAttributes),
-	_AOEConfig_attack(aoeConfig_attack),
-	_AOEAttributes_attack(pawn, aoeAttributes_attack)
+	_AOEConfig_attack(aoeConfig_attack)
 {
 	if (!IsValid(_explosiveProjectileConfig.Get()) || !(_AOEConfig.Get()) || !(_AOEConfig_attack.Get())) {
 		LOGERROR("AExplosiveProjectileFactory::AExplosiveProjectileFactory - invalid explosive projectile config or aoe config");
 		return;
 	}
+	{
+		auto temp = std::make_shared<ExplosiveProjectileAttributes>(explosiveProjectileAttributes, pawn->getAttributes());
+		_explosiveProjectileAttributes = std::make_unique<BaseAttributeWrapper<ExplosiveProjectileAttributes>>(pawn, temp);
+	}
+	{
+		auto temp = std::make_shared<AOEAttributes>(aoeAttributes, pawn->getAttributes());
+		_AOEAttributes = std::make_unique<BaseAttributeWrapper<AOEAttributes>>(pawn, temp);
+	}
+	{
+		auto temp = std::make_shared<AttackAttributes>(aoeAttributes_attack, pawn->getAttributes());
+		_AOEAttributes_attack = std::make_unique<BaseAttributeWrapper<AttackAttributes>>(pawn, temp);
+	}
+}
+
+ExplosiveProjectileFactory::ExplosiveProjectileFactory(ExplosiveProjectileFactory&& other) :
+	ProjectileFactory(std::move(other)),
+	_explosiveProjectileConfig(other._explosiveProjectileConfig),
+	_explosiveProjectileAttributes(std::move(other._explosiveProjectileAttributes)),
+	_AOEConfig(other._AOEConfig),
+	_AOEAttributes(std::move(other._AOEAttributes)),
+	_AOEConfig_attack(other._AOEConfig_attack),
+	_AOEAttributes_attack(std::move(other._AOEAttributes_attack)),
+	_tempAOE(other._tempAOE)
+{
+	//other._AOEConfig = nullptr;
+	//other._explosiveProjectileConfig = nullptr;
+	other._tempAOE = nullptr;
+	other._AOEAttributes = nullptr;
+	other._AOEAttributes_attack = nullptr;
+	other._explosiveProjectileAttributes = nullptr;
+}
+
+void ExplosiveProjectileFactory::tick(float delta) {
+	if (!_AOEAttributes || !_explosiveProjectileAttributes) {
+		LOGERROR("AExplosiveProjectileFactory::tick - attributes not initialized");
+		return;
+	}
+	_explosiveProjectileAttributes->tick(delta, getStatusEffects());
+	_AOEAttributes->tick(delta, getStatusEffects());
+	ProjectileFactory::tick(delta);
 }
 
 AProjectile* ExplosiveProjectileFactory::launchSingleProjectile(const FVector& direction) {
@@ -103,72 +136,38 @@ AProjectile* ExplosiveProjectileFactory::launchSingleProjectile(const FVector& d
 }
 
 ExplosiveProjectileInitStruct ExplosiveProjectileFactory::getExplosiveProjectileInit() const {
-	ExplosiveProjectileAttributes temp = _explosiveProjectileAttributes.getCore();
+	ExplosiveProjectileAttributes temp(*(_explosiveProjectileAttributes->getCore()));
 	temp.discretizeFull();
 	ExplosiveProjectileInitStruct ret(ProjectileFactory::getProjectileInit(), _tempAOE.Get(), _explosiveProjectileConfig.Get(), temp);
 	return ret;
 }
 
 AOEInitStruct ExplosiveProjectileFactory::getAOEInit() const {
-	AttackAttributes tempAttackAttr = _AOEAttributes_attack.getCore();
+	AttackAttributes tempAttackAttr(*(_AOEAttributes_attack->getCore()));
 	tempAttackAttr.discretizeFull();
 	AttackInitStruct AOEAttackInit(_owner.Get(), _AOEConfig_attack.Get(), tempAttackAttr);
-	AOEAttributes tempAOEAttr = _AOEAttributes.getCore();
+	AOEAttributes tempAOEAttr(*(_AOEAttributes->getCore()));
 	tempAOEAttr.discretizeFull();
 	AOEInitStruct ret(AOEAttackInit, _AOEConfig.Get(), tempAOEAttr, true, FVector(0,0,0));
 	return ret;
 }
-
-void ExplosiveProjectileFactory::tick(float delta) {
-	const CombatantAttributes& temp = _owner->getAttributes();
-	_explosiveProjectileAttributes.tick(delta, getStatusEffects(), &temp);
-	_AOEAttributes.tick(delta, getStatusEffects(), &temp);
-	ProjectileFactory::tick(delta);
+///////////////////////////////////////////////////////////////////////////////
+// ExplosiveProjectileAttributes
+void ExplosiveProjectileAttributes::tick(UObject* context, float delta, const TArray<FEffectStruct>& statusEffects) {
+	auto temp = _attrRef.lock();
+	if (temp.get() == nullptr)
+		return;
+	softReset();
+	modifyAttributes(temp);
+	tick_internal(context, delta, statusEffects);
 }
 
-///////////////////////////////////////////////////////////////////////////////
-//ExplosiveProjectileAttributes& ExplosiveProjectileAttributes::operator=(const ExplosiveProjectileAttributes& other) {
-//	if (this == &other)
-//		return *this;
-//	BaseAttributes::operator=(other);
-//	return *this;
-//}
-//ExplosiveProjectileAttributes& ExplosiveProjectileAttributes::operator=(ExplosiveProjectileAttributes&& other) {
-//	if (this == &other)
-//		return *this;
-//	BaseAttributes::operator=(std::move(other));
-//	return *this;
-//}
-///////////////////////////////////////////////////////////////////////////////
-ExplosiveProjectileFactory::ExplosiveProjectileFactory(ExplosiveProjectileFactory&& other) :
-	ProjectileFactory(std::move(other)),
-	_explosiveProjectileConfig(other._explosiveProjectileConfig),
-	_explosiveProjectileAttributes(std::move(other._explosiveProjectileAttributes)),
-	_AOEConfig(other._AOEConfig),
-	_AOEAttributes(std::move(other._AOEAttributes)),
-	_AOEConfig_attack(other._AOEConfig_attack),
-	_AOEAttributes_attack(std::move(other._AOEAttributes_attack)),
-	_tempAOE(other._tempAOE)
-{
-	//other._AOEConfig = nullptr;
-	//other._explosiveProjectileConfig = nullptr;
-	other._tempAOE = nullptr;
+void ExplosiveProjectileAttributes::modifyAttributes(const std::shared_ptr<const CombatantAttributes>& attr) {
+	if (attr.get() == nullptr)
+		return;
 }
-//ExplosiveProjectileFactory& ExplosiveProjectileFactory::operator=(ExplosiveProjectileFactory&& other) {
-//	if (this == &other)
-//		return *this;
-//	ProjectileFactory::operator=(std::move(other));
-//	_explosiveProjectileConfig = other._explosiveProjectileConfig;
-//	_explosiveProjectileAttributes = std::move(other._explosiveProjectileAttributes);
-//	_AOEConfig = other._AOEConfig;
-//	_AOEAttributes = std::move(other._AOEAttributes);
-//	_tempAOE = other._tempAOE;
-//	other._AOEConfig = nullptr;
-//	other._explosiveProjectileConfig = nullptr;
-//	other._tempAOE = nullptr;
-//	return *this;
-//}
-
+///////////////////////////////////////////////////////////////////////////////
+// UExplosiveProjectileTemplate
 std::unique_ptr<AttackFactory> UExplosiveProjectileTemplate::createFactory(ACombatant* owner) const {
 	const UExplosiveProjectileTemplate* temp = unrealHelpers::getDynamicTemplate<UExplosiveProjectileTemplate>(owner, this);
 	if (!IsValid(temp)) {

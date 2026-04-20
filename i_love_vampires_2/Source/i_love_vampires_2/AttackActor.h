@@ -12,8 +12,10 @@
 #include "PaperFlipbook.h"
 // UAttackAttributeData
 #include "BaseAttributeData.h"
+#include <unordered_map>
 // AttackAttributes
 #include "BaseAttributes.h"
+#include "Combatant.h"
 // AttackFactory
 #include "BaseAttributeSet.h"
 #include "BaseAttributeWrapper.h"
@@ -81,57 +83,70 @@ public:
 	virtual void replaceOverrides() override {}
 };
 ///////////////////////////////////////////////////////////////////////////////
-
-class UCombatantAttributes;
-
 UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UAttackAttributeData : public UBaseAttributeData
 {
 	GENERATED_BODY()
 
-	struct defaults {
-		float _damage = 0.f;
-		float _critChance = 0.f;
-		float _critMultiplier = 1.f;
-	};
-	const static inline defaults _defaults;
+	using self = UAttackAttributeData;
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _damage = -999;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _critChance = -999;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _critMultiplier = -999;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) float _damage = SENTINEL_FLOAT;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) float _critChance = SENTINEL_FLOAT;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) float _critMultiplier = SENTINEL_FLOAT;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) float _radius = SENTINEL_FLOAT;
 
 	UAttackAttributeData(const FObjectInitializer& init) : Super(init) {}
 	virtual void replaceOverrides() override;
 };
-///////////////////////////////////////////////////////////////////////////////
-class AttackAttributes : public BaseAttributes {
+template<>
+class DefaultProxy<UAttackAttributeData> {
 public:
-	Stat _damage;
-	Stat _critChance;
-	Stat _critMultiplier;
-
-	AttackAttributes() = delete;
-	AttackAttributes(const AttackAttributes& other) : BaseAttributes(other), _damage(other._damage), _critChance(other._critChance), _critMultiplier(other._critMultiplier) {}
-	AttackAttributes(AttackAttributes&& other) : BaseAttributes(std::move(other)), _damage(std::move(other._damage)), _critChance(std::move(other._critChance)), _critMultiplier(std::move(other._critMultiplier)) {}
-	AttackAttributes& operator=(const AttackAttributes& other) = delete;
-	AttackAttributes& operator=(AttackAttributes&& other) = delete;
-	AttackAttributes(const UAttackAttributeData* attr) : BaseAttributes(), _damage(attr->_damage), _critChance(attr->_critChance), _critMultiplier(attr->_critMultiplier) {}
-
-	virtual void modifyAttributes(const CombatantAttributes* modifiers) override;
-	virtual void discretizeFull() override {}
-	virtual void applyStatus(UObject* context, const FEffectStruct& status, float delta) override {}
-	virtual void applyToAllStats(const std::function<void(Stat&)>& func) override {
-		func(_damage);
-		func(_critChance);
-		func(_critMultiplier);
+	using self = UAttackAttributeData;
+	const static std::unordered_map<float(self::*), float, helpers::MemberPtrHash>& get() {
+		const static std::unordered_map<float(self::*), float, helpers::MemberPtrHash> temp = {
+		{ &self::_damage, 0 },
+		{ &self::_critChance, 0 },
+		{ &self::_critMultiplier, 1 },
+		{ &self::_radius, 1 }
+		};
+		return temp;
 	}
 };
 ///////////////////////////////////////////////////////////////////////////////
+#define STAT(X) \
+	X(_damage) \
+	X(_critChance) \
+	X(_critMultiplier) \
+	X(_radius)
 
+class AttackAttributes : public BaseAttributes {
+	std::weak_ptr<const CombatantAttributes> _attrRef;
+
+	void modifyAttributes(const std::shared_ptr<const CombatantAttributes>&);
+
+public:
+	STAT(BASEATTRIBUTES_DECLARE);
+
+	AttackAttributes() = delete;
+	AttackAttributes(const AttackAttributes& other);
+	AttackAttributes(AttackAttributes&& other);
+	AttackAttributes& operator=(const AttackAttributes& other) = delete;
+	AttackAttributes& operator=(AttackAttributes&& other) = delete;
+	AttackAttributes(const UAttackAttributeData* attr, std::shared_ptr<const CombatantAttributes> attrRef);
+
+	virtual void tick(UObject* context, float delta, const TArray<FEffectStruct>& statusEffects) override;
+	virtual void discretizeFull() override {}
+	virtual void applyStatus(UObject* context, const FEffectStruct& status, float delta) override {}
+	virtual void applyToAllStats(const std::function<void(Stat&)>& func) override {
+		STAT(BASEATTRIBUTES_APPLY);
+	}
+	virtual void applyToAllStats(const std::function<void(const Stat&)>& func) const override {
+		STAT(BASEATTRIBUTES_APPLY);
+	}
+};
+#undef STAT
+///////////////////////////////////////////////////////////////////////////////
 struct AttackInitStruct {
 	ACombatant* _pawnRef;
 	const UAttackConfig* _attackConfig;
@@ -149,12 +164,12 @@ class ACombatant;
 
 class AttackFactory : public BaseAttributeSet {
 	const TObjectPtr<const UAttackConfig> _attackConfig = nullptr;
-	BaseAttributeWrapper<AttackAttributes, UAttackAttributeData> _attackAttributes;
+	std::unique_ptr<BaseAttributeWrapper<AttackAttributes>> _attackAttributes = nullptr;
 protected:
 	// Cannot be const as it is used to call CreateObject/SpawnActor
-	const TObjectPtr<ACombatant> _owner = nullptr;
+	const TWeakObjectPtr<ACombatant> _owner = nullptr;
 	AttackInitStruct getAttackInit() const {
-		AttackAttributes temp = _attackAttributes.getCore();
+		AttackAttributes temp(*(_attackAttributes->getCore()));
 		temp.discretizeFull();
 		AttackInitStruct ret(_owner.Get(), _attackConfig.Get(), temp);
 		return ret;
@@ -169,9 +184,13 @@ public:
 	AttackFactory(ACombatant* owner, const UAttackConfig* config, const UAttackAttributeData* data);
 	virtual void tick(float delta) override;
 	float getMember(Stat AttackAttributes::* member) const {
-		return _attackAttributes.getMember(member);
+		if (!_attackAttributes) {
+			LOGERROR("Attempting to access uninitialized AttackFactory attributes");
+			return 0;
+		}
+		return _attackAttributes->getMember(member);
 	}
-	const BaseAttributeWrapper<AttackAttributes, UAttackAttributeData>& getAttackAttributeWrapper() const { return _attackAttributes; }
+	const BaseAttributeWrapper<AttackAttributes>& getAttackAttributeWrapper() const { return *_attackAttributes; }
 	virtual void launchAttack(const FVector& forward);
 };
 ///////////////////////////////////////////////////////////////////////////////

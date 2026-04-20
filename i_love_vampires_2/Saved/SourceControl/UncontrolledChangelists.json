@@ -1,0 +1,24 @@
+{
+	"version": 1,
+	"changelists": [
+		{
+			"guid": "00000000000000000000000000000000",
+			"description": "Default Uncontrolled Changelist",
+			"files": [
+				"C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Content/Data/testingData/testEnemy.uasset",
+				"C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Content/Data/testingData/testSpreadBullet.uasset",
+				"C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Content/Data/testingData/testAOE.uasset",
+				"C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Content/Data/testingData/testBleedBullet.uasset",
+				"C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Content/Data/testingData/testBounceBullet.uasset",
+				"C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Content/Data/testingData/testBullet.uasset",
+				"C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Content/Data/testingData/testBurnBullet.uasset",
+				"C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Content/Data/testingData/testCritBullet.uasset",
+				"C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Content/Data/testingData/testFireball.uasset",
+				"C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Content/Data/testingData/testPierceBullet.uasset",
+				"C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Content/Data/testingData/testSlash.uasset",
+				"C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Content/Data/testingData/testPassive.uasset",
+				"C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Content/Data/testingData/testPlayer.uasset"
+			]
+		}
+	]
+}

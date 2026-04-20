@@ -14,6 +14,7 @@
 #include <cmath>
 #include "EnemyBase.h"
 
+///////////////////////////////////////////////////////////////////////////////
 namespace {
 	float dist(float x, float y) {
 		return std::sqrt(std::pow(x, 2.0) + std::pow(y, 2.0));
@@ -81,6 +82,8 @@ namespace {
 		return ret;
 	}
 }
+///////////////////////////////////////////////////////////////////////////////
+// AProjectile
 
 void AProjectile::initialise_AProjectile(const ProjectileInitStruct& temp)
 {
@@ -93,21 +96,53 @@ void AProjectile::initialise_AProjectile(const ProjectileInitStruct& temp)
 
 void AProjectile::BeginPlay() {
 	if (!IsValid(_projectileConfig.Get()) || _projectileAttributes.get() == nullptr) {
-		LOGERROR("AProjectile::BeginPlay - _projectileConfig is not valid");
+		LOGERROR("AProjectile::BeginPlay - parameter is not valid");
 		return;
 	}
 	Super::BeginPlay();
 	_distanceTravelled = 0;
 	_pierce = _projectileAttributes->_pierce.getFinal();
 	_bounce = _projectileAttributes->_bounce.getFinal();
-	FVector currentScale = GetActorScale3D();
-	SetActorScale3D(currentScale * _projectileAttributes->_radius.getFinal());
+}
+
+void AProjectile::Tick(float delta) {
+	FRotator currentRotation = GetActorRotation();
+	if (_distanceTravelled >= _projectileAttributes->_range.getFinal()) {
+		if (_projectileConfig->_isBoomerang) {
+			_projectileAttributes->_range._offset += 999;
+			_boomerangActive = true;
+		}
+		else {
+			bulletDeath();
+			return;
+		}
+	}
+
+	FVector start = GetActorLocation();
+	FVector end = start + FVector(_directionX, 0, _directionZ) * _projectileAttributes->_speed.getFinal() * delta;
+	TArray<struct FHitResult> OutHits;
+	if (!performSweep(start, end, OutHits))
+		return;
+	// returns true iff bulletDeath was called
+	if (handleSweepResults(OutHits))
+		return;
+
+	FHitResult* throwaway = nullptr;
+	AddActorWorldOffset((end - start), false, throwaway, ETeleportType::TeleportPhysics);
+	_distanceTravelled += _projectileAttributes->_speed.getFinal() * delta;
+
+	FRotator newRotation = FVector(_directionX, 0, _directionZ).GetSafeNormal().Rotation();
+	if (!helpers::nearEq(currentRotation.Pitch, newRotation.Pitch) || !helpers::nearEq(currentRotation.Roll, newRotation.Roll) || !helpers::nearEq(currentRotation.Yaw, newRotation.Yaw))
+		SetActorRotation(newRotation, ETeleportType::TeleportPhysics);
+
+	setNewDirection();
+	AAttackActor::Tick(delta);
 }
 
 bool AProjectile::performSweep(const FVector& startPos, const FVector& endPos, TArray<struct FHitResult>& OutHits) {
 	FCollisionShape collisionShape;
 	if (_projectileConfig->_shape == _CIRCLE) {
-		collisionShape = FCollisionShape::MakeSphere(_projectileAttributes->_radius.getFinal()*_SPRITE_RADIUS);
+		collisionShape = FCollisionShape::MakeSphere(_attackAttributes->_radius.getFinal()*_SPRITE_RADIUS);
 	}
 	else {
 		LOGERROR("AProjectile::performSweep - shape not implemented");
@@ -192,40 +227,6 @@ void AProjectile::executeBounce(AEnemyBase* ineligibleTarget) {
 	cleanup();
 }
 
-void AProjectile::Tick(float delta) {
-	FRotator currentRotation = GetActorRotation();
-	if (_distanceTravelled >= _projectileAttributes->_range.getFinal()) {
-		if (_projectileConfig->_isBoomerang) {
-			_projectileAttributes->_range._offset += 999;
-			_boomerangActive = true;
-		}
-		else {
-			bulletDeath();
-			return;
-		}
-	}
-
-	FVector start = GetActorLocation();
-	FVector end = start + FVector(_directionX, 0, _directionZ) * _projectileAttributes->_speed.getFinal() * delta;
-	TArray<struct FHitResult> OutHits;
-	if (!performSweep(start, end, OutHits))
-		return;
-	// returns true iff bulletDeath was called
-	if (handleSweepResults(OutHits))
-		return;
-
-	FHitResult* throwaway = nullptr;
-	AddActorWorldOffset((end - start), false, throwaway, ETeleportType::TeleportPhysics);
-	_distanceTravelled += _projectileAttributes->_speed.getFinal() * delta;
-
-	FRotator newRotation = FVector(_directionX, 0, _directionZ).GetSafeNormal().Rotation();
-	if (!helpers::nearEq(currentRotation.Pitch, newRotation.Pitch) || !helpers::nearEq(currentRotation.Roll, newRotation.Roll) || !helpers::nearEq(currentRotation.Yaw, newRotation.Yaw))
-		SetActorRotation(newRotation, ETeleportType::TeleportPhysics);
-
-	setNewDirection();
-	AAttackActor::Tick(delta);
-}
-
 void AProjectile::setNewDirection() {
 	FVector targetLocation(0, -1, 0);
 	if (_projectileConfig->_isHoming) {
@@ -254,19 +255,7 @@ void AProjectile::setNewDirection() {
 	}
 }
 ///////////////////////////////////////////////////////////////////////////////
-
-void ProjectileAttributes::modifyAttributes(const CombatantAttributes* combatantAttributes) {
-	if (combatantAttributes == nullptr)
-		return;
-	_radius.modify(_radius._base * combatantAttributes->_projectileSize.getFinal());
-	_speed.modify(_speed._base * combatantAttributes->_projectileSpeed.getFinal() * _PROJECTILE_SPEED);
-	_pierce.modify(_pierce._base + combatantAttributes->_bonusPierce.getFinal());
-	_bounce.modify(_bounce._base + combatantAttributes->_bonusBounces.getFinal());
-	_projectileCount.modify(_projectileCount._base + combatantAttributes->_bonusProjectiles.getFinal());
-	_range.modify(_range._base * _PROJECTILE_RANGE);
-}
-///////////////////////////////////////////////////////////////////////////////
-
+// ProjectileFactory
 ProjectileFactory::ProjectileFactory(
 	ACombatant* pawn,
 	const UAttackConfig* attackConfig,
@@ -274,13 +263,33 @@ ProjectileFactory::ProjectileFactory(
 	const UProjectileConfig* projectileConfig,
 	const UProjectileAttributeData* projectileAttributes) :
 	AttackFactory(pawn, attackConfig, attackAttributes), 
-	_projectileConfig(projectileConfig), 
-	_projectileAttributes(pawn, projectileAttributes)
+	_projectileConfig(projectileConfig)
 {
 	if (!IsValid(_projectileConfig.Get())) {
 		LOGERROR("AProjectileFactory::initialise_AProjectileFactory - invalid projectile config");
 		return;
 	}
+	auto temp = std::make_shared<ProjectileAttributes>(projectileAttributes, pawn->getAttributes());
+	_projectileAttributes = std::make_unique<BaseAttributeWrapper<ProjectileAttributes>>(pawn, temp);
+}
+
+ProjectileFactory::ProjectileFactory(ProjectileFactory&& other) :
+	AttackFactory(std::move(other)),
+	_projectileConfig(other._projectileConfig),
+	_projectileAttributes(std::move(other._projectileAttributes)),
+	_directionX(other._directionX),
+	_directionZ(other._directionZ)
+{
+	other._projectileAttributes = nullptr;
+}
+
+void ProjectileFactory::tick(float delta) {
+	if (!_projectileAttributes) {
+		LOGERROR("AProjectileFactory::tick - _projectileAttributes is not initialized");
+		return;
+	}
+	_projectileAttributes->tick(delta, getStatusEffects());
+	AttackFactory::tick(delta);
 }
 
 void ProjectileFactory::launchAttack(const FVector& forward) {
@@ -309,7 +318,7 @@ FVector ProjectileFactory::getTempForward(const FVector& forwardVector) const {
 		return getLeadTargetTrajectory(
 			_owner.Get(), 
 			enemy,
-			_projectileAttributes.getMember(&ProjectileAttributes::_speed)
+			_projectileAttributes->getMember(&ProjectileAttributes::_speed)
 		);
 	}
 	else {
@@ -325,8 +334,12 @@ FVector ProjectileFactory::getDirection_random() {
 }
 
 TArray<FVector> ProjectileFactory::getProjectileDirections(const FVector& tempForward) {
-	const int projectileCount = static_cast<int>(_projectileAttributes.getMemberDiscretized(&ProjectileAttributes::_projectileCount));
-	const float spread = _projectileAttributes.getMember(&ProjectileAttributes::_spread);
+	if (_projectileAttributes.get() == nullptr) {
+		LOGERROR("AProjectileFactory::getProjectileDirections - _projectileAttributes is not initialized");
+		return {};
+	}
+	const int projectileCount = static_cast<int>(_projectileAttributes->getMemberDiscretized(&ProjectileAttributes::_projectileCount));
+	const float spread = _projectileAttributes->getMember(&ProjectileAttributes::_spread);
 	EAttackShape type = _projectileConfig->_attackShape;
 	
 	if (type == _FAN) {
@@ -355,73 +368,111 @@ AProjectile* ProjectileFactory::launchSingleProjectile(const FVector& direction)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-void ProjectileAttributes::applyToAllStats(const std::function<void(Stat&)>& func) {
-	func(_spread);
-	func(_radius);
-	func(_speed);
-	func(_range);
-	func(_pierce);
-	func(_bounce);
-	func(_projectileCount);
+// UProjectileAttributeData
+//void UProjectileAttributeData::replaceOverrides() {
+//	if (helpers::isInvalidData(_spread))
+//		_spread = _defaults._spread;
+//	if (helpers::isInvalidData(_speed))
+//		_speed = _defaults._speed;
+//	if (helpers::isInvalidData(_range))
+//		_range = _defaults._range;
+//	if (helpers::isInvalidData(_pierce))
+//		_pierce = _defaults._pierce;
+//	if (helpers::isInvalidData(_bounce))
+//		_bounce = _defaults._bounce;
+//	if (helpers::isInvalidData(_projectileCount))
+//		_projectileCount = _defaults._projectileCount;
+//}
+void UProjectileAttributeData::replaceOverrides() {
+	for (const auto& [memberPtr, defaultVal] : DefaultProxy<UProjectileAttributeData>::get())
+		BASEATTRIBUTES_OVERRIDE(memberPtr, defaultVal);
 }
+///////////////////////////////////////////////////////////////////////////////
+// ProjectileAttributes
+ProjectileAttributes::ProjectileAttributes(const ProjectileAttributes& other) :
+	BaseAttributes(other),
+	//_spread(other._spread),
+	//_speed(other._speed),
+	//_range(other._range),
+	//_pierce(other._pierce),
+	//_bounce(other._bounce),
+	//_projectileCount(other._projectileCount),
+	_attrRef(other._attrRef)
+{
+	baseInit(other);
+}
+ProjectileAttributes::ProjectileAttributes(ProjectileAttributes&& other) :
+	BaseAttributes(std::move(other)),
+	//_spread(std::move(other._spread)),
+	//_speed(std::move(other._speed)),
+	//_range(std::move(other._range)),
+	//_pierce(std::move(other._pierce)),
+	//_bounce(std::move(other._bounce)),
+	//_projectileCount(std::move(other._projectileCount)),
+	_attrRef(other._attrRef)
+{
+	baseInit(std::move(other));
+	other._attrRef.reset();
+}
+
+ProjectileAttributes::ProjectileAttributes(const UProjectileAttributeData* attr, std::shared_ptr<const CombatantAttributes> attrRef) :
+	BaseAttributes(attr),
+	//_spread(attr->_spread),
+	//_speed(attr->_speed),
+	//_range(attr->_range),
+	//_pierce(attr->_pierce),
+	//_bounce(attr->_bounce),
+	//_projectileCount(attr->_projectileCount),
+	_attrRef(attrRef)
+{
+	baseInit(attr);
+}
+
+void ProjectileAttributes::tick(UObject* context, float delta, const TArray<FEffectStruct>& statusEffects) {
+	auto temp = _attrRef.lock();
+	if (temp.get() == nullptr)
+		return;
+	softReset();
+	modifyAttributes(temp);
+	tick_internal(context, delta, statusEffects);
+}
+
+//void ProjectileAttributes::applyToAllStats(const std::function<void(Stat&)>& func) {
+//	func(_spread);
+//	func(_speed);
+//	func(_range);
+//	func(_pierce);
+//	func(_bounce);
+//	func(_projectileCount);
+//}
+
 void ProjectileAttributes::discretizeFull() {
 	_pierce.discretize();
 	_bounce.discretize();
 	_projectileCount.discretize();
 }
-///////////////////////////////////////////////////////////////////////////////
-void ProjectileFactory::tick(float delta) {
-	const CombatantAttributes& temp = _owner->getAttributes();
-	_projectileAttributes.tick(delta, getStatusEffects(), &temp);
-	AttackFactory::tick(delta);
-}
-///////////////////////////////////////////////////////////////////////////////
-ProjectileAttributes::ProjectileAttributes(const ProjectileAttributes& other) :
-	BaseAttributes(other),
-	_spread(other._spread),
-	_radius(other._radius),
-	_speed(other._speed),
-	_range(other._range),
-	_pierce(other._pierce),
-	_bounce(other._bounce),
-	_projectileCount(other._projectileCount)
-{
-}
-ProjectileAttributes::ProjectileAttributes(ProjectileAttributes&& other) :
-	BaseAttributes(std::move(other)),
-	_spread(std::move(other._spread)),
-	_radius(std::move(other._radius)),
-	_speed(std::move(other._speed)),
-	_range(std::move(other._range)),
-	_pierce(std::move(other._pierce)),
-	_bounce(std::move(other._bounce)),
-	_projectileCount(std::move(other._projectileCount))
-{
-}
 
-ProjectileAttributes::ProjectileAttributes(const UProjectileAttributeData* attr) :
-	BaseAttributes(),
-	_spread(attr->_spread),
-	_radius(attr->_radius),
-	_speed(attr->_speed),
-	_range(attr->_range),
-	_pierce(attr->_pierce),
-	_bounce(attr->_bounce),
-	_projectileCount(attr->_projectileCount)
-{
+void ProjectileAttributes::modifyAttributes(const std::shared_ptr<const CombatantAttributes>& attr) {
+	if (attr.get() == nullptr)
+		return;
+	_speed.modify(_speed.getBase() * attr->_projectileSpeed.getFinal() * _PROJECTILE_SPEED);
+	_pierce.modify(_pierce.getBase() + attr->_bonusPierce.getFinal());
+	_bounce.modify(_bounce.getBase() + attr->_bonusBounces.getFinal());
+	_projectileCount.modify(_projectileCount.getBase() + attr->_bonusProjectiles.getFinal());
+	_range.modify(_range.getBase() * _PROJECTILE_RANGE);
 }
 ///////////////////////////////////////////////////////////////////////////////
-
-ProjectileFactory::ProjectileFactory(ProjectileFactory&& other) :
-	AttackFactory(std::move(other)),
-	_projectileConfig(other._projectileConfig),
-	_projectileAttributes(std::move(other._projectileAttributes)),
-	_directionX(other._directionX),
-	_directionZ(other._directionZ)
-{
-	//other._projectileConfig = nullptr;
+// ProjectileConfig
+void UProjectileConfig::replaceOverrides() {
+	if (unrealHelpers::isInvalidData(_shape))
+		_shape = _defaults._shape;
+	if (unrealHelpers::isInvalidData(_attackShape))
+		_attackShape = _defaults._attackShape;
+	if (unrealHelpers::isInvalidData(_targeting))
+		_targeting = _defaults._targeting;
 }
-
+///////////////////////////////////////////////////////////////////////////////
+// UProjectileTemplate
 std::unique_ptr<AttackFactory> UProjectileTemplate::createFactory(ACombatant* owner) const {
 	const UProjectileTemplate* temp = unrealHelpers::getDynamicTemplate<UProjectileTemplate>(owner, this);
 	if (!IsValid(temp)) {
@@ -435,30 +486,4 @@ std::unique_ptr<AttackFactory> UProjectileTemplate::createFactory(ACombatant* ow
 		temp->_projectileConfig,
 		temp->_projectileAttributes
 	);
-}
-
-void UProjectileConfig::replaceOverrides() {
-	if (unrealHelpers::isInvalidData(_shape))
-		_shape = _defaults._shape;
-	if (unrealHelpers::isInvalidData(_attackShape))
-		_attackShape = _defaults._attackShape;
-	if (unrealHelpers::isInvalidData(_targeting))
-		_targeting = _defaults._targeting;
-}
-
-void UProjectileAttributeData::replaceOverrides() {
-	if (helpers::isInvalidData(_spread))
-		_spread = _defaults._spread;
-	if (helpers::isInvalidData(_radius))
-		_radius = _defaults._radius;
-	if (helpers::isInvalidData(_speed))
-		_speed = _defaults._speed;
-	if (helpers::isInvalidData(_range))
-		_range = _defaults._range;
-	if (helpers::isInvalidData(_pierce))
-		_pierce = _defaults._pierce;
-	if (helpers::isInvalidData(_bounce))
-		_bounce = _defaults._bounce;
-	if (helpers::isInvalidData(_projectileCount))
-		_projectileCount = _defaults._projectileCount;
 }

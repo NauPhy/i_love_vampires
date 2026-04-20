@@ -11,12 +11,13 @@ class I_LOVE_VAMPIRES_2_API UBaseTemplate : public UPrimaryDataAsset
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-	FGameplayTagContainer Tags;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FGameplayTagContainer _assetTags;
 
-	virtual void replaceOverrides() {
-		LOGERROR("This would be a pure virtual function if Unreal allowed it");
-	}
+	virtual void replaceOverrides()
+		PURE_VIRTUAL(UBaseTemplate::replaceOverrides,
+			LOGERROR("replaceOverrides not implemented in this class"););
+
 	UBaseTemplate(const FObjectInitializer& init) : Super(init) {}
 	virtual FPrimaryAssetId GetPrimaryAssetId() const override {
 		// This is shared by all assets of subclass UBaseTemplate
@@ -25,4 +26,16 @@ public:
 		return FPrimaryAssetId(TypeName, GetFName());
 	}
 	UBaseTemplate* createOverrideCopy() const;
+	virtual void GetAssetRegistryTags(TArray<FAssetRegistryTag>& OutTags) const override
+	{
+		Super::GetAssetRegistryTags(OutTags);
+		for (const FGameplayTag& Tag : _assetTags)
+		{
+			OutTags.Add(FAssetRegistryTag(
+				Tag.GetTagName(),
+				FString("N/A"),
+				FAssetRegistryTag::TT_Alphabetical
+			));
+		}
+	}
 };

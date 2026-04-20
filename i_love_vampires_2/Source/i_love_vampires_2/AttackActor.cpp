@@ -26,7 +26,7 @@ AAttackActor::AAttackActor() {
 }
 
 void AAttackActor::Tick(float delta) {
-	//unrealHelpers::snapSprite(this, RootComponent, _flipbook);
+	SetActorScale3D(FVector(SPRITE_SCALE, SPRITE_SCALE, SPRITE_SCALE) * _attackAttributes->_radius.getFinal());
 }
 
 void AAttackActor::initialise_AAttackActor(ACombatant* pawnRef, const UAttackConfig* config, const AttackAttributes& attributes) {
@@ -133,12 +133,6 @@ void AAttackActor::applyEffect(ACombatant* target) {
 }
 ///////////////////////////////////////////////////////////////////////////////
 
-void AttackAttributes::modifyAttributes(const CombatantAttributes* modifiers) {
-	_critChance.modify(_critChance._base + modifiers->_critChance.getFinal());
-	_critMultiplier.modify(_critMultiplier._base + modifiers->_critMultiplier.getFinal());
-}
-///////////////////////////////////////////////////////////////////////////////
-
 void AttackFactory::launchAttack(const FVector& forward) {
 	AAttackActor* newAttack = nullptr;
 	if (!unrealHelpers::spawnActorOnTopOfMeDeferred<AAttackActor>(_owner.Get(), newAttack)){
@@ -158,57 +152,25 @@ AttackFactory::AttackFactory(
 	const UAttackAttributeData* data) :
 	BaseAttributeSet(),
 	_owner(owner),
-	_attackConfig(config),
-	_attackAttributes(owner, data)
+	_attackConfig(config)
 {
 	if (!IsValid(owner) || !IsValid(_attackConfig.Get())) {
 		LOGERROR("AttackFactory::AttackFactory - invalid parameters");
 		return;
 	}
+	auto temp = std::make_shared<AttackAttributes>(data, owner->getAttributes());
+	_attackAttributes = std::make_unique<BaseAttributeWrapper<AttackAttributes>>(owner, temp);
 }
 
 void AttackFactory::tick(float delta) {
-	const CombatantAttributes& temp = _owner->getAttributes();
-	_attackAttributes.tick(delta, getStatusEffects(), &temp);
+	if (!_attackAttributes) {
+		LOGERROR("AttackFactory::tick - _attackAttributes is not initialized");
+		return;
+	}
+	_attackAttributes->tick(delta, getStatusEffects());
 	BaseAttributeSet::tick(delta);
 }
 
-//AttackFactory::AttackFactory() {
-//	LOGERROR("AttackFactory::AttackFactory - default constructor should not be used");
-//}
-//
-//AttackAttributes::AttackAttributes() {
-//	LOGERROR("AttackAttributes::AttackAttributes - default constructor should not be used");
-//}
-
-//template stuff
-//AttackFactory::AttackFactory(const AttackFactory& other) : 
-//	//shallow copy
-//	_attackConfig(other._attackConfig), 
-//	//normal copy (not ptr)
-//	_attackAttributes(other._attackAttributes),
-//	//shallow copy
-//	_owner(other._owner) {}
-
-//AttackAttributes& AttackAttributes::operator=(const AttackAttributes& other) {
-//	if (this != &other) {
-//		BaseAttributes::operator=(other);
-//		_damage = other._damage;
-//		_critChance = other._critChance;
-//		_critMultiplier = other._critMultiplier;
-//	}
-//	return *this;
-//}
-
-//AttackAttributes& AttackAttributes::operator=(AttackAttributes&& other) {
-//	if (this != &other) {
-//		BaseAttributes::operator=(std::move(other));
-//		_damage = std::move(other._damage);
-//		_critChance = std::move(other._critChance);
-//		_critMultiplier = std::move(other._critMultiplier);
-//	}
-//	return *this;
-//}
 ///////////////////////////////////////////////////////////////////////////////
 
 AttackFactory::AttackFactory(AttackFactory&& other) :
@@ -218,18 +180,6 @@ AttackFactory::AttackFactory(AttackFactory&& other) :
 	_owner(other._owner)
 {
 }
-//AttackFactory& AttackFactory::operator=(AttackFactory&& other) {
-//	if (this != &other) {
-//		BaseAttributeSet::operator=(std::move(other));
-//		_attackConfig = other._attackConfig;
-//		_attackAttributes = std::move(other._attackAttributes);
-//		_owner = other._owner;
-//		other._attackConfig = nullptr;
-//		other._owner = nullptr;
-//	}
-//	return *this;
-//}
-//
 
 std::unique_ptr<AttackFactory> UAttackTemplate::createFactory(ACombatant* owner) const {
 	const UAttackTemplate* temp = unrealHelpers::getDynamicTemplate<UAttackTemplate>(owner, this);
@@ -240,16 +190,69 @@ std::unique_ptr<AttackFactory> UAttackTemplate::createFactory(ACombatant* owner)
 	return std::make_unique<AttackFactory>(owner, temp->_attackConfig, temp->_attackAttributes);
 }
 
-//void UAttackConfig::replaceOverrides() {
-//	if (unrealHelpers::isInvalidData(_sprite))
-//		_sprite = _defaults._sprite;
+
+//void UAttackAttributeData::replaceOverrides() {
+//	if (helpers::isInvalidData(_damage))
+//		_damage = _defaults._damage;
+//	if (helpers::isInvalidData(_critChance))
+//		_critChance = _defaults._critChance;
+//	if (helpers::isInvalidData(_critMultiplier))
+//		_critMultiplier = _defaults._critMultiplier;
+//	if (helpers::isInvalidData(_radius))
+//		_radius = _defaults._radius;
 //}
 
 void UAttackAttributeData::replaceOverrides() {
-	if (helpers::isInvalidData(_damage))
-		_damage = _defaults._damage;
-	if (helpers::isInvalidData(_critChance))
-		_critChance = _defaults._critChance;
-	if (helpers::isInvalidData(_critMultiplier))
-		_critMultiplier = _defaults._critMultiplier;
+	for (const auto& [memberPtr, defaultVal] : DefaultProxy<UAttackAttributeData>::get())
+		BASEATTRIBUTES_OVERRIDE(memberPtr, defaultVal);
+}
+
+
+void AttackAttributes::tick(UObject* context, float delta, const TArray<FEffectStruct>& statusEffects) {
+	auto temp = _attrRef.lock();
+	if (temp.get() == nullptr)
+		return;
+	softReset();
+	modifyAttributes(temp);
+	tick_internal(context, delta, statusEffects);
+}
+
+void AttackAttributes::modifyAttributes(const std::shared_ptr<const CombatantAttributes>& attr) {
+	if (attr.get() == nullptr)
+		return;
+	_critChance.modify(_critChance.getBase() + attr->_critChance.getFinal());
+	_critMultiplier.modify(_critMultiplier.getBase() + attr->_critMultiplier.getFinal());
+	_radius.modify(_radius.getBase() * attr->_projectileSize.getFinal());
+}
+
+AttackAttributes::AttackAttributes(const AttackAttributes& other) : 
+	BaseAttributes(other), 
+	//_damage(other._damage), 
+	//_critChance(other._critChance), 
+	//_critMultiplier(other._critMultiplier),
+	//_radius(other._radius),
+	_attrRef(other._attrRef)
+{
+	baseInit(other);
+}
+AttackAttributes::AttackAttributes(AttackAttributes&& other) : 
+	BaseAttributes(std::move(other)), 
+	//_damage(std::move(other._damage)), 
+	//_critChance(std::move(other._critChance)), 
+	//_critMultiplier(std::move(other._critMultiplier)),
+	//_radius(other._radius),
+	_attrRef(other._attrRef)
+{
+	baseInit(std::move(other));
+	other._attrRef.reset();
+}
+AttackAttributes::AttackAttributes(const UAttackAttributeData* attr, std::shared_ptr<const CombatantAttributes> attrRef) : 
+	BaseAttributes(attr),
+	//_damage(attr->_damage), 
+	//_critChance(attr->_critChance), 
+	//_critMultiplier(attr->_critMultiplier),
+	//_radius(attr->_radius),
+	_attrRef(attrRef)
+{
+	baseInit(attr);
 }

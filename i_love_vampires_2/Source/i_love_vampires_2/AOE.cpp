@@ -7,7 +7,8 @@
 #include "Combatant.h"
 #include "unrealHelpers.h"
 #include "helpers.h"
-
+///////////////////////////////////////////////////////////////////////////////
+// AAOE
 void AAOE::initialise_AAOE(const AOEInitStruct& temp) 
 {
 	AAttackActor::initialise_AAttackActor(temp._attack);
@@ -40,16 +41,33 @@ void AAOE::completeDelayedConstruction() {
 	SetActorTickEnabled(true);
 	_initialisedWithDelay = false;
 	initShape();
-	//BeginPlay();
+}
+
+void AAOE::Tick(float delta) {
+	if (_AOEConfig->_shape == _ARC) {
+		reorientSlash();
+	}
+	if (_AOEAttributes->_duration.getFinal() <= 0) {
+		if (_consumedDuration >= 0.25) {
+			Destroy();
+			return;
+		}
+		if (_consumedDuration > 0)
+			_isAfterimage = true;
+	}
+	else if (_consumedDuration >= _AOEAttributes->_duration.getFinal()) {
+		Destroy();
+		return;
+	}
+	_consumedDuration += delta;
+	AAttackActor::Tick(delta);
 }
 
 void AAOE::initShape() {
 	const FVector currentScale = GetActorScale3D();
-	SetActorScale3D(currentScale * _AOEAttributes->_radius.getFinal());
 	if (_AOEConfig->_shape == _CIRCLE || _AOEConfig->_shape == _ARC) {
 		_collider = NewObject<USphereComponent>(this);
-		const float currentFactor = GetActorScale3D().X;
-		const float radius = _AOEAttributes->_radius.getFinal() * _SPRITE_RADIUS / currentFactor;
+		const float radius = _attackAttributes->_radius.getFinal() * _SPRITE_RADIUS;
 		Cast<USphereComponent>(_collider)->InitSphereRadius(radius);
 	}
 	else {
@@ -106,26 +124,6 @@ void AAOE::OnOverlapBegin(
 	applyEffect(combatantActor);
 }
 
-void AAOE::Tick(float delta) {
-	if (_AOEConfig->_shape == _ARC) {
-		reorientSlash();
-	}
-	if (_AOEAttributes->_duration.getFinal() <= 0) {
-		if (_consumedDuration >= 0.25) {
-			Destroy();
-			return;
-		}
-		if (_consumedDuration > 0)
-			_isAfterimage = true;
-	}
-	else if(_consumedDuration >= _AOEAttributes->_duration.getFinal()) {
-		Destroy();
-		return;
-	}
-	_consumedDuration += delta;
-	AAttackActor::Tick(delta);
-}
-
 // For now, slash attacks just have a single instantaneous hitbox, so moving the slash is just cosmetic, unless it's on the very first frame, in which case
 // the hitbox isn't active when the slash is moved.
 void AAOE::reorientSlash() {
@@ -140,12 +138,41 @@ void AAOE::reorientSlash() {
 	SetActorRotation(rotation, ETeleportType::TeleportPhysics);
 }
 ///////////////////////////////////////////////////////////////////////////////
-// Since modifyAttributes sets _final = _base, it's actually set twice, which is dodgy but fine
-void AOEAttributes::modifyAttributes(const CombatantAttributes* attr) {
-	if (attr != nullptr)
-		_radius.modify(_radius._base * attr->_projectileSize.getFinal());
+// AOEFactory
+AOEFactory::AOEFactory(
+	ACombatant* owner,
+	const UAttackConfig* attackConfig,
+	const UAttackAttributeData* attackAttributes,
+	const UAOEConfig* AOEConfig,
+	const UAOEAttributeData* AOEAttributesParam
+) :
+	AttackFactory(owner, attackConfig, attackAttributes),
+	_AOEConfig(AOEConfig)
+{
+	if (!IsValid(_AOEConfig.Get())) {
+		LOGERROR("AOEFactory::AOEFactory - invalid AOEConfig");
+		return;
+	}
+	auto temp = std::make_shared<AOEAttributes>(AOEAttributesParam, owner->getAttributes());
+	_AOEAttributes = std::make_unique<BaseAttributeWrapper<AOEAttributes>>(owner, temp);
 }
-///////////////////////////////////////////////////////////////////////////////
+
+AOEFactory::AOEFactory(AOEFactory&& other) :
+	AttackFactory(std::move(other)),
+	_AOEConfig(other._AOEConfig),
+	_AOEAttributes(std::move(other._AOEAttributes))
+{
+	other._AOEAttributes = nullptr;
+}
+
+void AOEFactory::tick(float delta) {
+	if (!_AOEAttributes) {
+		LOGERROR("AOEFactory::tick - AOEAttributes not initialized");
+		return;
+	}
+	_AOEAttributes->tick(delta, getStatusEffects());
+	AttackFactory::tick(delta);
+}
 
 void AOEFactory::launchAttack(const FVector& forward) {
 	AAOE* newAttack = nullptr;
@@ -173,74 +200,77 @@ void AOEFactory::launchAttack(const FVector& forward) {
 	}
 }
 
-AOEFactory::AOEFactory(
-	ACombatant* owner,
-	const UAttackConfig* attackConfig,
-	const UAttackAttributeData* attackAttributes,
-	const UAOEConfig* AOEConfig,
-	const UAOEAttributeData* AOEAttributesParam
-) :
-	AttackFactory(owner, attackConfig, attackAttributes),
-	_AOEConfig(AOEConfig),
-	_AOEAttributes(owner, AOEAttributesParam)
-{
-	if (!IsValid(_AOEConfig.Get())) {
-		LOGERROR("AOEFactory::AOEFactory - invalid AOEConfig");
-		return;
-	}
-}
-
 AOEInitStruct AOEFactory::getAOEInit() const {
-	AOEAttributes temp = _AOEAttributes.getCore();
+	AOEAttributes temp(*(_AOEAttributes->getCore()));
 	temp.discretizeFull();
 	//Owner is guaranteed to be valid
 	FVector forward = _owner->myGetForwardVector();
 	AOEInitStruct ret(AttackFactory::getAttackInit(), _AOEConfig.Get(), temp, false, forward);
 	return ret;
 }
-
-void  AOEFactory::tick(float delta) {
-	const CombatantAttributes& temp = _owner->getAttributes();
-	_AOEAttributes.tick(delta, getStatusEffects(), &temp);
-	AttackFactory::tick(delta);
+///////////////////////////////////////////////////////////////////////////////
+// UAOEAttributeData
+//void UAOEAttributeData::replaceOverrides() {
+//	if (helpers::isInvalidData(_duration))
+//		_duration = _defaults._duration;
+//}
+void UAOEAttributeData::replaceOverrides() {
+	for (const auto& [memberPtr, defaultVal] : DefaultProxy<UAOEAttributeData>::get()) {
+		BASEATTRIBUTES_OVERRIDE(memberPtr, defaultVal);
+	}
 }
 ///////////////////////////////////////////////////////////////////////////////
-
-///////////////////////////////////////////////////////////////////////////////
-//AOEAttributes& AOEAttributes::operator=(const AOEAttributes& other) {
-//	if (this == &other)
-//		return *this;
-//	BaseAttributes::operator=(other);
-//	_radius = other._radius;
-//	_duration = other._duration;
-//	return *this;
-//}
-//AOEAttributes& AOEAttributes::operator=(AOEAttributes&& other) {
-//	if (this == &other)
-//		return *this;
-//	BaseAttributes::operator=(std::move(other));
-//	_radius = std::move(other._radius);
-//	_duration = std::move(other._duration);
-//	return *this;
-//}
-///////////////////////////////////////////////////////////////////////////////
-AOEFactory::AOEFactory(AOEFactory&& other) :
-	AttackFactory(std::move(other)),
-	_AOEConfig(other._AOEConfig),
-	_AOEAttributes(std::move(other._AOEAttributes))
+// UAOEAttributes
+AOEAttributes::AOEAttributes(const AOEAttributes& other) : 
+	BaseAttributes(other),  
+	//_duration(other._duration), 
+	//_arcShape_angle(other._arcShape_angle),
+	_attrRef(other._attrRef)
 {
-	//other._AOEConfig = nullptr;
+	baseInit(other);
 }
-//AOEFactory& AOEFactory::operator=(AOEFactory&& other) {
-//	if (this == &other)
-//		return *this;
-//	AttackFactory::operator=(std::move(other));
-//	_AOEConfig = other._AOEConfig;
-//	_AOEAttributes = std::move(other._AOEAttributes);
-//	other._AOEConfig = nullptr;
-//	return *this;
-//}
 
+AOEAttributes::AOEAttributes(AOEAttributes&& other) : 
+	BaseAttributes(std::move(other)),
+	//_duration(std::move(other._duration)), 
+	//_arcShape_angle(std::move(other._arcShape_angle)),
+	_attrRef(other._attrRef)
+{
+	baseInit(other);
+	other._attrRef.reset();
+}
+
+AOEAttributes::AOEAttributes(const UAOEAttributeData* attr, std::shared_ptr<const CombatantAttributes> attrRef) : 
+	BaseAttributes(attr), 
+	//_duration(attr->_duration), 
+	//_arcShape_angle(attr->_arcShape_angle),
+	_attrRef(attrRef)
+{
+	baseInit(attr);
+}
+
+void AOEAttributes::tick(UObject* context, float delta, const TArray<FEffectStruct>& statusEffects) {
+	auto temp = _attrRef.lock();
+	if (temp.get() == nullptr)
+		return;
+	softReset();
+	modifyAttributes(temp);
+	tick_internal(context, delta, statusEffects);
+}
+
+void AOEAttributes::modifyAttributes(const std::shared_ptr<const CombatantAttributes>& attr) {
+	if (attr.get() == nullptr)
+		return;
+}
+///////////////////////////////////////////////////////////////////////////////
+// UAOEConfig
+void UAOEConfig::replaceOverrides() {
+	if (unrealHelpers::isInvalidData(_shape))
+		_shape = _defaults._shape;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// UAOETemplate
 std::unique_ptr<AttackFactory> UAOETemplate::createFactory(ACombatant* owner) const {
 	const UAOETemplate* temp = unrealHelpers::getDynamicTemplate<UAOETemplate>(owner, this);
 	if (!IsValid(temp)) {
@@ -254,16 +284,4 @@ std::unique_ptr<AttackFactory> UAOETemplate::createFactory(ACombatant* owner) co
 		temp->_AOEConfig,
 		temp->_AOEAttributes
 	);
-}
-
-void UAOEConfig::replaceOverrides() {
-	if (unrealHelpers::isInvalidData(_shape))
-		_shape = _defaults._shape;
-}
-
-void UAOEAttributeData::replaceOverrides() {
-	if (helpers::isInvalidData(_radius))
-		_radius = _defaults._radius;
-	if (helpers::isInvalidData(_duration))
-		_duration = _defaults._duration;
 }

@@ -3,6 +3,7 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "Combatant.h"
 #include "Definitions.h"
+#include "BaseAttributeData.h"
 
 void Stat::discretize() {
 	float rng = FMath::FRand();
@@ -27,18 +28,56 @@ void Stat::softReset(Stat& stat) {
 	stat._softReset = true;
 }
 
-void BaseAttributes::tick(UObject* context, float delta, const TArray<FEffectStruct>& statusEffects, const CombatantAttributes* modifiers) {
-	applyToAllStats(Stat::softReset);
-	modifyAttributes(modifiers);
+void BaseAttributes::tick(UObject* context, float delta, const TArray<FEffectStruct>& statusEffects) {
+	softReset();
+	tick_internal(context, delta, statusEffects);
+}
+
+void BaseAttributes::tick_internal(UObject* context, float delta, const TArray<FEffectStruct>& statusEffects) {
 	for (const auto& status : statusEffects) {
 		applyStatus(context, status, delta);
 	}
 	applyToAllStats(Stat::calculateFinal);
 }
-void BaseAttributes::tick(UObject* context, float delta, const TArray<FEffectStruct>& statusEffects) {
+
+void BaseAttributes::softReset() {
 	applyToAllStats(Stat::softReset);
-	for (const auto& status : statusEffects) {
-		applyStatus(context, status, delta);
+}
+
+void BaseAttributes::baseInit(const BaseAttributes& other) {
+	std::vector<const Stat*> otherStats;
+	other.applyToAllStats([&otherStats](const Stat& stat) {
+		otherStats.push_back(&stat);
+		});
+	int i = 0;
+	applyToAllStats([&otherStats, &i](Stat& stat) {
+		stat = *otherStats[i];
+		i++;
+		});
+}
+void BaseAttributes::baseInit (BaseAttributes&& other) {
+	std::vector<const Stat*> otherStats;
+	other.applyToAllStats([&otherStats](const Stat& stat) {
+		otherStats.push_back(&stat);
+		});
+	int i = 0;
+	applyToAllStats([&otherStats, &i](Stat& stat) {
+		stat = std::move(*otherStats[i]);
+		i++;
+		});
+}
+void BaseAttributes::baseInit(const UBaseAttributeData* data) {
+	if (!IsValid(data)) {
+		LOGERROR("BaseAttributes::baseInit - invalid data");
+		return;
 	}
-	applyToAllStats(Stat::calculateFinal);
+	std::vector<float> bases;
+	data->applyToAllStats([&bases](const float& base) {
+		bases.push_back(base);
+		});
+	int i = 0;
+	applyToAllStats([&bases, &i](Stat& stat) {
+		stat = Stat(bases[i]);
+		i++;
+		});
 }

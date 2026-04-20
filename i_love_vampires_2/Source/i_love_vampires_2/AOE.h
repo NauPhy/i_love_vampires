@@ -8,6 +8,7 @@
 #include "BaseAttributeData.h"
 // AOEAttributes
 #include "BaseAttributes.h"
+#include "Combatant.h"
 //
 #include "AOE.generated.h"
 
@@ -82,51 +83,60 @@ public:
 	UAOEConfig(const FObjectInitializer& init) : Super(init) {}
 };
 ///////////////////////////////////////////////////////////////////////////////
-
 UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UAOEAttributeData : public UBaseAttributeData
 {
 	GENERATED_BODY()
 
-	struct defaults {
-		float _radius = 1.f;
-		float _duration = 0.f;
-		float _arcShape_angle = 360.f;
-	};
-	const static inline defaults _defaults;
-
 public:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) float _duration = SENTINEL_FLOAT;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) float _arcShape_angle = SENTINEL_FLOAT;
+
 	virtual void replaceOverrides() override;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _radius = -999;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _duration = -999;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _arcShape_angle = -999;
+};
+
+template<>
+class DefaultProxy<UAOEAttributeData> {
+public:
+	using self = UAOEAttributeData;
+	const static std::unordered_map<float(self::*), float, helpers::MemberPtrHash>& get() {
+		const static std::unordered_map<float(self::*), float, helpers::MemberPtrHash> temp = {
+			{&self::_duration, 0.f},
+			{&self::_arcShape_angle, 360.f}
+		};
+		return temp;
+	}
 };
 ///////////////////////////////////////////////////////////////////////////////
+#define STAT(X) \
+	X(_duration) \
+	X(_arcShape_angle) \
 
 class AOEAttributes : public BaseAttributes {
+	std::weak_ptr<const CombatantAttributes> _attrRef;
+
+	void modifyAttributes(const std::shared_ptr<const CombatantAttributes>&);
+
 public:
-	Stat _radius;
-	Stat _duration;
-	Stat _arcShape_angle;
+	STAT(BASEATTRIBUTES_DECLARE);
 
 	AOEAttributes() = delete;
-	AOEAttributes(const AOEAttributes& other) : BaseAttributes(other), _radius(other._radius), _duration(other._duration), _arcShape_angle(other._arcShape_angle) {}
-	AOEAttributes(AOEAttributes&& other) : BaseAttributes(std::move(other)), _radius(std::move(other._radius)), _duration(std::move(other._duration)), _arcShape_angle(std::move(other._arcShape_angle)) {}
-	AOEAttributes& operator=(const AOEAttributes& other) = delete;
+	AOEAttributes(const AOEAttributes& other);
+	AOEAttributes(AOEAttributes&& other);
 	AOEAttributes& operator=(AOEAttributes&& other) = delete;
-	AOEAttributes(const UAOEAttributeData* attr) : BaseAttributes(), _radius(attr->_radius), _duration(attr->_duration), _arcShape_angle(attr->_arcShape_angle) {}
-	virtual void modifyAttributes(const CombatantAttributes* modifiers) override;
+	AOEAttributes(const UAOEAttributeData* attr, std::shared_ptr<const CombatantAttributes> attrRef);
+
+	virtual void tick(UObject* context, float delta, const TArray<FEffectStruct>& statusEffects) override;
 	virtual void discretizeFull() override {}
 	virtual void applyStatus(UObject* context, const FEffectStruct& status, float delta) override {}
 	virtual void applyToAllStats(const std::function<void(Stat&)>& func) override {
-		func(_radius);
-		func(_duration);
-		func(_arcShape_angle);
+		STAT(BASEATTRIBUTES_APPLY);
+	}
+	virtual void applyToAllStats(const std::function<void(const Stat&)>& func) const override {
+		STAT(BASEATTRIBUTES_APPLY);
 	}
 };
+#undef STAT
 ///////////////////////////////////////////////////////////////////////////////
 
 struct AOEInitStruct {
@@ -147,7 +157,7 @@ class AOEFactory : public AttackFactory
 	const static inline EAOETargeting _RANDOM = EAOETargeting::random;
 
 	const TObjectPtr<const UAOEConfig> _AOEConfig = nullptr;
-	BaseAttributeWrapper<AOEAttributes, UAOEAttributeData> _AOEAttributes;
+	std::unique_ptr<BaseAttributeWrapper<AOEAttributes>> _AOEAttributes = nullptr;
 protected:
 	AOEInitStruct getAOEInit() const;
 

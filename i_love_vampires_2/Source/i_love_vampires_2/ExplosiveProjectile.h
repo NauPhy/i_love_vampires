@@ -9,7 +9,9 @@
 #include "BaseAttributeData.h"
 // ExplosiveProjectileAttributes
 #include "BaseAttributes.h"
+#include "Combatant.h"
 //
+#include <memory>
 #include "ExplosiveProjectile.generated.h"
 class UExplosiveProjectileConfig;
 class UExplosiveProjectileAttributeData;
@@ -67,17 +69,23 @@ public:
 ///////////////////////////////////////////////////////////////////////////////
 
 class ExplosiveProjectileAttributes : public BaseAttributes {
+	std::weak_ptr<const CombatantAttributes> _attrRef;
+
+	void modifyAttributes(const std::shared_ptr<const CombatantAttributes>&);
+
 public:
 	ExplosiveProjectileAttributes() = delete;
-	ExplosiveProjectileAttributes(const ExplosiveProjectileAttributes& other) : BaseAttributes(other) {}
-	ExplosiveProjectileAttributes(ExplosiveProjectileAttributes&& other) : BaseAttributes(std::move(other)) {}
+	ExplosiveProjectileAttributes(const ExplosiveProjectileAttributes& other) : BaseAttributes(other), _attrRef(other._attrRef) { baseInit(other); }
+	ExplosiveProjectileAttributes(ExplosiveProjectileAttributes&& other) : BaseAttributes(std::move(other)), _attrRef(std::move(other._attrRef)) { baseInit(std::move(other)); other._attrRef.reset(); }
 	ExplosiveProjectileAttributes& operator=(const ExplosiveProjectileAttributes& other) = delete;
 	ExplosiveProjectileAttributes& operator=(ExplosiveProjectileAttributes&& other) = delete;
-	ExplosiveProjectileAttributes(const UExplosiveProjectileAttributeData* data) : BaseAttributes() {}
-	virtual void modifyAttributes(const CombatantAttributes* modifiers) override {}
+	ExplosiveProjectileAttributes(const UExplosiveProjectileAttributeData* data, const std::shared_ptr<const CombatantAttributes>& attr) : BaseAttributes(data), _attrRef(attr) { baseInit(data); }
+	virtual void tick(UObject* context, float delta, const TArray<FEffectStruct>& statusEffects) override;
+	
 	virtual void discretizeFull() override {}
 	virtual void applyStatus(UObject* context, const FEffectStruct& status, float delta) override {}
 	virtual void applyToAllStats(const std::function<void(Stat&)>& func) override {}
+	virtual void applyToAllStats(const std::function<void(const Stat&)>& func) const override {}
 };
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -98,11 +106,11 @@ class ExplosiveProjectileFactory : public ProjectileFactory
 
 protected:
 	const TObjectPtr<const UExplosiveProjectileConfig> _explosiveProjectileConfig = nullptr;
-	BaseAttributeWrapper<ExplosiveProjectileAttributes, UExplosiveProjectileAttributeData> _explosiveProjectileAttributes;
+	std::unique_ptr<BaseAttributeWrapper<ExplosiveProjectileAttributes>> _explosiveProjectileAttributes = nullptr;
 	const TObjectPtr<const UAOEConfig> _AOEConfig = nullptr;
-	BaseAttributeWrapper<AOEAttributes, UAOEAttributeData> _AOEAttributes;
+	std::unique_ptr<BaseAttributeWrapper<AOEAttributes>> _AOEAttributes = nullptr;
 	const TObjectPtr<const UAttackConfig> _AOEConfig_attack = nullptr;
-	BaseAttributeWrapper<AttackAttributes, UAttackAttributeData> _AOEAttributes_attack;
+	std::unique_ptr<BaseAttributeWrapper<AttackAttributes>> _AOEAttributes_attack = nullptr;
 
 	ExplosiveProjectileInitStruct getExplosiveProjectileInit() const;
 	AOEInitStruct getAOEInit() const;

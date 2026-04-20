@@ -9,6 +9,7 @@
 #include "BaseAttributeData.h"
 // ProjectileAttributes
 #include "BaseAttributes.h"
+#include "Combatant.h"
 //
 #include "Projectile.generated.h"
 class UProjectileConfig;
@@ -94,67 +95,76 @@ public:
 	UProjectileConfig(const FObjectInitializer& init) : Super(init) {}
 };
 ///////////////////////////////////////////////////////////////////////////////
-
 UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UProjectileAttributeData : public UBaseAttributeData
 {
 	GENERATED_BODY()
 
-	struct defaults {
-		float _spread = -1.f;
-		float _radius = 1.f;
-		float _speed = 1.f;
-		float _range = 1.f;
-		float _pierce = 0.f;
-		float _bounce = 0.f;
-		float _projectileCount = 1.f;
-	};
-	const static inline defaults _defaults;
-
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _spread = -999;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _radius = -999;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _speed = -999;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _range = -999;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _pierce = -999;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _bounce = -999;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	float _projectileCount = -999;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) float _spread = SENTINEL_FLOAT;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) float _speed = SENTINEL_FLOAT;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) float _range = SENTINEL_FLOAT;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) float _pierce = SENTINEL_FLOAT;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) float _bounce = SENTINEL_FLOAT;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) float _projectileCount = SENTINEL_FLOAT;
 
 	UProjectileAttributeData(const FObjectInitializer& init) : Super(init) {}
 	virtual void replaceOverrides() override;
 };
+template<>
+class DefaultProxy<UProjectileAttributeData> {
+public:
+	using self = UProjectileAttributeData;
+	const static std::unordered_map<float(self::*), float, helpers::MemberPtrHash>& get() {
+		const static std::unordered_map<float(self::*), float, helpers::MemberPtrHash> temp = {
+			{&self::_spread, -1.f},
+			{&self::_speed, 1.f},
+			{&self::_range, 1.f},
+			{&self::_pierce, 0.f},
+			{&self::_bounce, 0.f},
+			{&self::_projectileCount, 1.f}
+		};
+		return temp;
+	}
+};
 ///////////////////////////////////////////////////////////////////////////////
+#define STAT(X) \
+	X(_spread) \
+	X(_speed) \
+	X(_range) \
+	X(_pierce) \
+	X(_bounce) \
+	X(_projectileCount)
+
 class ProjectileAttributes : public BaseAttributes {
 	const static inline float _PROJECTILE_SPEED = 200.f;
 	const static inline float _PROJECTILE_RANGE = 500.f;
 
+	std::weak_ptr<const CombatantAttributes> _attrRef;
+
+	void modifyAttributes(const std::shared_ptr<const CombatantAttributes>&);
+
 public:
-	Stat _spread;
-	Stat _radius;
-	Stat _speed;
-	Stat _range;
-	Stat _pierce;
-	Stat _bounce;
-	Stat _projectileCount;
+	STAT(BASEATTRIBUTES_DECLARE);
 
 	ProjectileAttributes() = delete;
 	ProjectileAttributes(const ProjectileAttributes& other);
 	ProjectileAttributes(ProjectileAttributes&& other);
 	ProjectileAttributes& operator=(const ProjectileAttributes& other) = delete;
 	ProjectileAttributes& operator=(ProjectileAttributes&& other) = delete;
-	ProjectileAttributes(const UProjectileAttributeData* attr);
-	virtual void modifyAttributes(const CombatantAttributes* modifiers) override;
+	ProjectileAttributes(const UProjectileAttributeData* attr, std::shared_ptr<const CombatantAttributes> attrRef);
+
+	virtual void tick(UObject* context, float delta, const TArray<FEffectStruct>& statusEffects) override;
 	virtual void discretizeFull() override;
-	virtual void applyToAllStats(const std::function<void(Stat&)>& func);
+	virtual void applyToAllStats(const std::function<void(Stat&)>& func) override {
+		STAT(BASEATTRIBUTES_APPLY);
+	}
+	virtual void applyToAllStats(const std::function<void(const Stat&)>& func) const override {
+		STAT(BASEATTRIBUTES_APPLY);
+	}
 	virtual void applyStatus(UObject* context, const FEffectStruct& status, float delta) override {}
 };
+#undef STAT
 ///////////////////////////////////////////////////////////////////////////////
 
 struct ProjectileInitStruct {
@@ -184,8 +194,8 @@ class ProjectileFactory : public AttackFactory
 	static FVector getDirection_random();
 
 protected:
-	const TObjectPtr<const UProjectileConfig> _projectileConfig;
-	BaseAttributeWrapper<ProjectileAttributes, UProjectileAttributeData> _projectileAttributes;
+	const TObjectPtr<const UProjectileConfig> _projectileConfig = nullptr;
+	std::unique_ptr<BaseAttributeWrapper<ProjectileAttributes>> _projectileAttributes = nullptr;
 	//Gives a vector depending on the projectile's targeting type
 	FVector getTempForward(const FVector& forward) const;
 	//Uses the vector from the targeting type to create the final direction for all fired projectiles
@@ -199,7 +209,7 @@ protected:
 	float getDirectionZ() const { return _directionZ; }
 	void setDirectionZ(float z) { _directionZ = z; }
 	ProjectileInitStruct getProjectileInit() const {
-		ProjectileAttributes temp = _projectileAttributes.getCore();
+		ProjectileAttributes temp(*(_projectileAttributes->getCore()));
 		temp.discretizeFull();
 		ProjectileInitStruct ret(AttackFactory::getAttackInit(), _projectileConfig.Get(), temp, _directionX, _directionZ);
 		return ret;

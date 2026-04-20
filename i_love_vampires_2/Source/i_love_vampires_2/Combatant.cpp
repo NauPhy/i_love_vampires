@@ -12,12 +12,9 @@
 #include "helpers.h"
 #include "CombatantManager.h"
 
-float ACombatant::getAttributeMember(Stat CombatantAttributes::* member) const {
-	return _attributeSet->getMember(member);
-}
-
-const CombatantAttributes& ACombatant::getAttributes() const { return _attributeSet->getAttributeWrapper().getCore(); }
-
+///////////////////////////////////////////////////////////////////////////////
+// ACombatant
+// Lifecycle
 ACombatant::ACombatant()
 {
 	if (!RootComponent)
@@ -28,6 +25,7 @@ ACombatant::ACombatant()
 	unrealHelpers::constructFlipbook(this, RootComponent, _combatantFlipbook);
 	_combatantFlipbook->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	_combatantFlipbook->SetCollisionObjectType(ECollisionChannel::ECC_Pawn);
+	_passiveContainer = CreateDefaultSubobject<UPassiveContainer>(TEXT("PassiveContainer"));
 }
 
 void ACombatant::initialise_ACombatant(const UCombatantTemplate* diskVal) {
@@ -41,7 +39,6 @@ void ACombatant::initialise_ACombatant(const UCombatantTemplate* diskVal) {
 		return;
 	}
 	_config = TObjectPtr<const UCombatantConfig>(temp->_config);
-	CombatantAttributeSet tempSet(this, temp->_attributes);
 	_attributeSet = std::make_unique<CombatantAttributeSet>(this, temp->_attributes);
 }
 
@@ -54,26 +51,13 @@ void ACombatant::BeginPlay() {
 	for (const auto& data : _config->_startingWeapons) {
 		giveWeapon(data);
 	}
+	for (const auto& data : _config->_startingPassives) {
+		givePassive(data);
+	}
 	unrealHelpers::initFlipbook(this, _config->_sprite.Get(), _combatantFlipbook);
 	_myForwardVector = GetActorForwardVector();
 }
 
-void ACombatant::giveWeapon(const UWeaponTemplate* temp) {
-	_activeAbilities.push_back(Active(this, temp));
-}
-
-void ACombatant::EndPlay(EEndPlayReason::Type EndPlayReason)
-{
-	Super::EndPlay(EndPlayReason);
-}
-bool ACombatant::onCurrentHPChanged(float oldVal, float newVal)
-{
-	if (newVal <= 0.0f) {
-		onKilled();
-		return true;
-	}
-	return false;
-}
 void ACombatant::Tick(float DeltaTime) {
 	Super::Tick(DeltaTime);
 	float oldHP = _attributeSet->getMember(&CombatantAttributes::_currentHP);
@@ -86,10 +70,44 @@ void ACombatant::Tick(float DeltaTime) {
 	for (auto& active : _activeAbilities) {
 		active.tick(DeltaTime, _myForwardVector);
 	}
-	FVector currentScale = GetActorScale3D();
-	SetActorScale3D(currentScale * _attributeSet->getMember(&CombatantAttributes::_selfSize));
+	SetActorScale3D(FVector(SPRITE_SCALE,SPRITE_SCALE,SPRITE_SCALE) * _attributeSet->getMember(&CombatantAttributes::_selfSize));
+}
 
-	//unrealHelpers::snapSprite(this, RootComponent, _combatantFlipbook);
+void ACombatant::EndPlay(EEndPlayReason::Type EndPlayReason)
+{
+	Super::EndPlay(EndPlayReason);
+}
+
+// Getters
+float ACombatant::getAttributeMember(Stat CombatantAttributes::* member) const {
+	return _attributeSet->getMember(member);
+}
+std::shared_ptr<const CombatantAttributes> ACombatant::getAttributes() const { return _attributeSet->getAttributeWrapper().getCore(); }
+float ACombatant::getHP() const { return getAttributeMember(&CombatantAttributes::_currentHP); }
+float ACombatant::getMaxHP() const { return getAttributeMember(&CombatantAttributes::_maxHP); }
+
+// Mutators
+void ACombatant::giveWeapon(const UWeaponTemplate* temp) {
+	if (!IsValid(temp)) {
+		LOGERROR("ACombatant::giveWeapon - parameter not valid");
+		return;
+	}
+	_activeAbilities.push_back(Active(this, temp));
+}
+
+void ACombatant::givePassive(const UCombatantPassive* temp) {
+	if (!IsValid(temp)) {
+		LOGERROR("ACombatant::givePassive - parameter not valid");
+		return;
+	}
+	_passiveContainer->_passives.Add(temp);
+}
+
+void ACombatant::inflictStatus(const FEffectStruct& status) {
+	for (auto& active : _activeAbilities) {
+		active.inflictStatus(status);
+	}
+	_attributeSet->inflictStatus(status);
 }
 
 void ACombatant::lookAtDirection(float X, float Z) {
@@ -109,57 +127,146 @@ void ACombatant::exchangeContactDamage(ACombatant* left, ACombatant* right) {
 	left->inflictStatus(rightEffect);
 	right->inflictStatus(leftEffect);
 }
-void ACombatant::inflictStatus(const FEffectStruct& status) {
-	for (auto& active : _activeAbilities) {
-		active.inflictStatus(status);
+
+// Callbacks
+bool ACombatant::onCurrentHPChanged(float oldVal, float newVal)
+{
+	{
+		const Stat& HP = _attributeSet->getMember(&CombatantAttributes::_currentHP);
+		if (!helpers::nearEq(HP._modifier, 0) || !helpers::nearEq(HP._postbonus, 0) || !helpers::nearEq(HP._multiplier, 0)) {
+			LOGERROR("ACombatant::onCurrentHPChanged - for simplicity, all values of currentHP should be 0 except for base and offset- it's essentially a derived stat, exempt from direct effects from status effects and passives. Prebonus is an exception because it is used to track the passive effect on maxHP without drifting.");
+		}
 	}
-	_attributeSet->inflictStatus(status);
+	if (newVal <= 0.0f) {
+		onKilled();
+		return true;
+	}
+	return false;
+}
+
+void ACombatant::onKilled() {
+	Destroy();
 }
 ///////////////////////////////////////////////////////////////////////////////
+// CombatantAttributes
+CombatantAttributes::CombatantAttributes(const UCombatantAttributeData* attr, const UPassiveContainer* passives) :
+	BaseAttributes(attr),
+	//_maxHP(attr->_maxHP),
+	// I recommend setting maxHP and currentHP to the same values for clarity, but it's enforced here just in case
+	_currentHP(attr->_maxHP),
+	//_damageReduction_flat(attr->_damageReduction_flat),
+	//_damageReduction_percent(attr->_damageReduction_percent),
+	//_healthRegen_flat(attr->_healthRegen_flat),
+	//_healthRegen_percent(attr->_healthRegen_percent),
+	//_critChance(attr->_critChance),
+	//_critMultiplier(attr->_critMultiplier),
+	//_attackSpeed(attr->_attackSpeed),
+	//_bonusBounces(attr->_bonusBounces),
+	//_bonusPierce(attr->_bonusPierce),
+	//_bonusProjectiles(attr->_bonusProjectiles),
+	//_projectileSpeed(attr->_projectileSpeed),
+	//_projectileSize(attr->_projectileSize),
+	//_movementSpeed(attr->_movementSpeed),
+	//_range(attr->_range),
+	//_contactDamage(attr->_contactDamage),
+	//_selfSize(attr->_selfSize),
+	//_iFrameDuration(attr->_iFrameDuration),
+	_passiveContainer(passives)
+{
+	baseInit(attr);
+}
 
-//CombatantAttributes::CombatantAttributes(const UCombatantAttributeData* attr) :
-//	_maxHP(attr->_maxHP),
-//	_currentHP(attr->_currentHP),
-//	_damageReduction_flat(attr->_damageReduction_flat),
-//	_damageReduction_percent(attr->_damageReduction_percent),
-//	_healthRegen_flat(attr->_healthRegen_flat),
-//	_healthRegen_percent(attr->_healthRegen_percent),
-//	_critChance(attr->_critChance),
-//	_critMultiplier(attr->_critMultiplier),
-//	_attackSpeed(attr->_attackSpeed),
-//	_bonusBounces(attr->_bonusBounces),
-//	_bonusPierce(attr->_bonusPierce),
-//	_bonusProjectiles(attr->_bonusProjectiles),
-//	_projectileSpeed(attr->_projectileSpeed),
-//	_projectileSize(attr->_projectileSize),
-//	_movementSpeed(attr->_movementSpeed),
-//	_range(attr->_range),
-//	_contactDamage(attr->_contactDamage),
-//	_selfSize(attr->_selfSize),
-//	_iFrameDuration(attr->_iFrameDuration)
-//{
-//}
+CombatantAttributes::CombatantAttributes(const CombatantAttributes& other) :
+	BaseAttributes(other),
+	/*_maxHP(other._maxHP),
+	_currentHP(other._currentHP),
+	_damageReduction_flat(other._damageReduction_flat),
+	_damageReduction_percent(other._damageReduction_percent),
+	_healthRegen_flat(other._healthRegen_flat),
+	_healthRegen_percent(other._healthRegen_percent),
+	_critChance(other._critChance),
+	_critMultiplier(other._critMultiplier),
+	_attackSpeed(other._attackSpeed),
+	_bonusBounces(other._bonusBounces),
+	_bonusPierce(other._bonusPierce),
+	_bonusProjectiles(other._bonusProjectiles),
+	_projectileSpeed(other._projectileSpeed),
+	_projectileSize(other._projectileSize),
+	_movementSpeed(other._movementSpeed),
+	_range(other._range),
+	_contactDamage(other._contactDamage),
+	_selfSize(other._selfSize),
+	_iFrameDuration(other._iFrameDuration),*/
+	_passiveContainer(other._passiveContainer)
+{
+	baseInit(other);
+}
 
-void CombatantAttributes::applyToAllStats(const std::function<void(Stat&)>& func) {
-	func(_maxHP);
-	func(_currentHP);
-	func(_damageReduction_flat);
-	func(_damageReduction_percent);
-	func(_healthRegen_flat);
-	func(_healthRegen_percent);
-	func(_critChance);
-	func(_critMultiplier);
-	func(_attackSpeed);
-	func(_bonusBounces);
-	func(_bonusPierce);
-	func(_bonusProjectiles);
-	func(_projectileSpeed);
-	func(_projectileSize);
-	func(_movementSpeed);
-	func(_range);
-	func(_contactDamage);
-	func(_selfSize);
-	func(_iFrameDuration);
+CombatantAttributes::CombatantAttributes(CombatantAttributes&& other) :
+	BaseAttributes(std::move(other)),
+	//_maxHP(std::move(other._maxHP)),
+	//_currentHP(std::move(other._currentHP)),
+	//_damageReduction_flat(std::move(other._damageReduction_flat)),
+	//_damageReduction_percent(std::move(other._damageReduction_percent)),
+	//_healthRegen_flat(std::move(other._healthRegen_flat)),
+	//_healthRegen_percent(std::move(other._healthRegen_percent)),
+	//_critChance(std::move(other._critChance)),
+	//_critMultiplier(std::move(other._critMultiplier)),
+	//_attackSpeed(std::move(other._attackSpeed)),
+	//_bonusBounces(std::move(other._bonusBounces)),
+	//_bonusPierce(std::move(other._bonusPierce)),
+	//_bonusProjectiles(std::move(other._bonusProjectiles)),
+	//_projectileSpeed(std::move(other._projectileSpeed)),
+	//_projectileSize(std::move(other._projectileSize)),
+	//_movementSpeed(std::move(other._movementSpeed)),
+	//_range(std::move(other._range)),
+	//_contactDamage(std::move(other._contactDamage)),
+	//_selfSize(std::move(other._selfSize)),
+	//_iFrameDuration(std::move(other._iFrameDuration)),
+	_passiveContainer(other._passiveContainer)
+{
+	baseInit(std::move(other));
+	other._passiveContainer.Reset();
+}
+
+void CombatantAttributes::tick(UObject* context, float delta, const TArray<FEffectStruct>& statusEffects) {
+	if (!_passiveContainer.IsValid())
+		return;
+	BaseAttributes::softReset();
+	// So that raw HP is accurate. Uses all stats for forward compatability
+	applyToAllStats([](Stat& stat) { Stat::calculateFinal(stat); });
+	float rawMaxHP = _maxHP.getFinal();
+	for (const auto& passive : _passiveContainer->_passives) {
+		if (!IsValid(passive)) {
+			LOGERROR("CombatantAttributes::tick - invalid passive in array");
+			continue;
+		}
+		CombatantAttributes prebonus = CombatantAttributes(passive->_prebonus, _passiveContainer.Get());
+		prebonusAdd(prebonus);
+		CombatantAttributes postbonus = CombatantAttributes(passive->_postbonus, _passiveContainer.Get());
+		postbonusAdd(postbonus);
+		CombatantAttributes multiplier = CombatantAttributes(passive->_multiplier, _passiveContainer.Get());
+		multiplierAdd(multiplier);
+	}
+	// When you increase your maxHP by any means other than passives, your current HP stays the same. 
+	// When you increase your maxHP by passives, your current HP increases by the same amount.
+	// When you decrease your maxHP by any means, your currentHP stays the same but is capped at maxHP (this is treated as transient damage)
+	// To simplify matters, currentHP should only be changed via base, offset, and prebonus meaning that it's only changed by damage, healing, and right here.
+	
+	// So that passive HP is accurate. Uses all stats for forward compatability
+	applyToAllStats([](Stat& stat) { Stat::calculateFinal(stat); });
+	_currentHP._prebonus = _maxHP.getFinal() - rawMaxHP;
+
+	BaseAttributes::tick_internal(context, delta, statusEffects);
+	if (_currentHP.getFinal() > _maxHP.getFinal()) {
+		_currentHP._offset -= _currentHP.getFinal() - _maxHP.getFinal();
+	}
+}
+
+void CombatantAttributes::discretizeFull() {
+	_bonusBounces.discretize();
+	_bonusPierce.discretize();
+	_bonusProjectiles.discretize();
 }
 
 void CombatantAttributes::applyStatus(UObject* context, const FEffectStruct& status, float delta) {
@@ -198,183 +305,130 @@ void CombatantAttributes::applyStatus(UObject* context, const FEffectStruct& sta
 		return;
 }
 
-void CombatantAttributes::discretizeFull() {
-	_bonusBounces.discretize();
-	_bonusPierce.discretize();
-	_bonusProjectiles.discretize();
+CombatantAttributes& CombatantAttributes::prebonusAdd(CombatantAttributes& other) {
+	std::vector<Stat> otherStats = other.getStatVector();
+	int i = 0;
+	applyToAllStats([&otherStats, &i](Stat& stat) {
+		stat._prebonus += otherStats[i++].getFinal();
+		});
+	return *this;
+}
+CombatantAttributes& CombatantAttributes::postbonusAdd(CombatantAttributes& other) {
+	std::vector<Stat> otherStats = other.getStatVector();
+	int i = 0;
+	applyToAllStats([&otherStats, &i](Stat& stat) {
+		stat._postbonus += otherStats[i++].getFinal();
+		});
+	return *this;
+}
+CombatantAttributes& CombatantAttributes::multiplierAdd(CombatantAttributes& other) {
+	std::vector<Stat> otherStats = other.getStatVector();
+	int i = 0;
+	applyToAllStats([&otherStats, &i](Stat& stat) {
+		stat._multiplier += otherStats[i++].getFinal();
+		});
+	return *this;
+}
+std::vector<Stat> CombatantAttributes::getStatVector() {
+	std::vector<Stat> stats;
+	applyToAllStats([&stats](Stat& stat) {
+		stats.push_back(Stat(stat));
+		});
+	return stats;
+}
+///////////////////////////////////////////////////////////////////////////////
+// CombatantAttributeSet
+CombatantAttributeSet::CombatantAttributeSet(ACombatant* owner, const UCombatantAttributeData* data) {
+	auto temp = std::make_shared<CombatantAttributes>(data, owner->getPassives());
+	_attributes = std::make_unique<BaseAttributeWrapper<CombatantAttributes>>(owner, temp);
 }
 
-//Template stuff
-CombatantAttributes::CombatantAttributes(const UCombatantAttributeData* attr) :
-	_maxHP(attr->_maxHP),
-	_currentHP(attr->_currentHP),
-	_damageReduction_flat(attr->_damageReduction_flat),
-	_damageReduction_percent(attr->_damageReduction_percent),
-	_healthRegen_flat(attr->_healthRegen_flat),
-	_healthRegen_percent(attr->_healthRegen_percent),
-	_critChance(attr->_critChance),
-	_critMultiplier(attr->_critMultiplier),
-	_attackSpeed(attr->_attackSpeed),
-	_bonusBounces(attr->_bonusBounces),
-	_bonusPierce(attr->_bonusPierce),
-	_bonusProjectiles(attr->_bonusProjectiles),
-	_projectileSpeed(attr->_projectileSpeed),
-	_projectileSize(attr->_projectileSize),
-	_movementSpeed(attr->_movementSpeed),
-	_range(attr->_range),
-	_contactDamage(attr->_contactDamage),
-	_selfSize(attr->_selfSize),
-	_iFrameDuration(attr->_iFrameDuration)
-{
-}
-CombatantAttributes::CombatantAttributes(const CombatantAttributes& other) :
-	_maxHP(other._maxHP),
-	_currentHP(other._currentHP),
-	_damageReduction_flat(other._damageReduction_flat),
-	_damageReduction_percent(other._damageReduction_percent),
-	_healthRegen_flat(other._healthRegen_flat),
-	_healthRegen_percent(other._healthRegen_percent),
-	_critChance(other._critChance),
-	_critMultiplier(other._critMultiplier),
-	_attackSpeed(other._attackSpeed),
-	_bonusBounces(other._bonusBounces),
-	_bonusPierce(other._bonusPierce),
-	_bonusProjectiles(other._bonusProjectiles),
-	_projectileSpeed(other._projectileSpeed),
-	_projectileSize(other._projectileSize),
-	_movementSpeed(other._movementSpeed),
-	_range(other._range),
-	_contactDamage(other._contactDamage),
-	_selfSize(other._selfSize),
-	_iFrameDuration(other._iFrameDuration)
-{
-}
-CombatantAttributes::CombatantAttributes(CombatantAttributes&& other) :
-	_maxHP(std::move(other._maxHP)),
-	_currentHP(std::move(other._currentHP)),
-	_damageReduction_flat(std::move(other._damageReduction_flat)),
-	_damageReduction_percent(std::move(other._damageReduction_percent)),
-	_healthRegen_flat(std::move(other._healthRegen_flat)),
-	_healthRegen_percent(std::move(other._healthRegen_percent)),
-	_critChance(std::move(other._critChance)),
-	_critMultiplier(std::move(other._critMultiplier)),
-	_attackSpeed(std::move(other._attackSpeed)),
-	_bonusBounces(std::move(other._bonusBounces)),
-	_bonusPierce(std::move(other._bonusPierce)),
-	_bonusProjectiles(std::move(other._bonusProjectiles)),
-	_projectileSpeed(std::move(other._projectileSpeed)),
-	_projectileSize(std::move(other._projectileSize)),
-	_movementSpeed(std::move(other._movementSpeed)),
-	_range(std::move(other._range)),
-	_contactDamage(std::move(other._contactDamage)),
-	_selfSize(std::move(other._selfSize)),
-	_iFrameDuration(std::move(other._iFrameDuration))
-{
-}
-//CombatantAttributes& CombatantAttributes::operator=(CombatantAttributes&& other) {
-//	if (this != &other) {
-//		_maxHP = std::move(other._maxHP);
-//		_currentHP = std::move(other._currentHP);
-//		_damageReduction_flat = std::move(other._damageReduction_flat);
-//		_damageReduction_percent = std::move(other._damageReduction_percent);
-//		_healthRegen_flat = std::move(other._healthRegen_flat);
-//		_healthRegen_percent = std::move(other._healthRegen_percent);
-//		_critChance = std::move(other._critChance);
-//		_critMultiplier = std::move(other._critMultiplier);
-//		_attackSpeed = std::move(other._attackSpeed);
-//		_bonusBounces = std::move(other._bonusBounces);
-//		_bonusPierce = std::move(other._bonusPierce);
-//		_bonusProjectiles = std::move(other._bonusProjectiles);
-//		_projectileSpeed = std::move(other._projectileSpeed);
-//		_projectileSize = std::move(other._projectileSize);
-//		_movementSpeed = std::move(other._movementSpeed);
-//		_range = std::move(other._range);
-//		_contactDamage = std::move(other._contactDamage);
-//		_selfSize = std::move(other._selfSize);
-//		_iFrameDuration = std::move(other._iFrameDuration);
-//	}
-//	return *this;
-//}
 CombatantAttributeSet::CombatantAttributeSet(CombatantAttributeSet&& other) :
 	_attributes(std::move(other._attributes))
 {
-}
-
-void UCombatantAttributeData::replaceOverrides() {
-	if (helpers::isInvalidData(_maxHP))
-		_maxHP = _defaults._maxHP;
-	if (helpers::isInvalidData(_currentHP))
-		_currentHP = _defaults._currentHP;
-	if (helpers::isInvalidData(_damageReduction_flat))
-		_damageReduction_flat = _defaults._damageReduction_flat;
-	if (helpers::isInvalidData(_damageReduction_percent))
-		_damageReduction_percent = _defaults._damageReduction_percent;
-	if (helpers::isInvalidData(_healthRegen_flat))
-		_healthRegen_flat = _defaults._healthRegen_flat;
-	if (helpers::isInvalidData(_healthRegen_percent))
-		_healthRegen_percent = _defaults._healthRegen_percent;
-	if (helpers::isInvalidData(_critChance))
-		_critChance = _defaults._critChance;
-	if (helpers::isInvalidData(_critMultiplier))
-		_critMultiplier = _defaults._critMultiplier;
-	if (helpers::isInvalidData(_attackSpeed))
-		_attackSpeed = _defaults._attackSpeed;
-	if (helpers::isInvalidData(_bonusBounces))
-		_bonusBounces = _defaults._bonusBounces;
-	if (helpers::isInvalidData(_bonusPierce))
-		_bonusPierce = _defaults._bonusPierce;
-	if (helpers::isInvalidData(_bonusProjectiles))
-		_bonusProjectiles = _defaults._bonusProjectiles;
-	if (helpers::isInvalidData(_projectileSpeed))
-		_projectileSpeed = _defaults._projectileSpeed;
-	if (helpers::isInvalidData(_projectileSize))
-		_projectileSize = _defaults._projectileSize;
-	if (helpers::isInvalidData(_movementSpeed))
-		_movementSpeed = _defaults._movementSpeed;
-	if (helpers::isInvalidData(_range))
-		_range = _defaults._range;
-	if (helpers::isInvalidData(_contactDamage))
-		_contactDamage = _defaults._contactDamage;
-	if (helpers::isInvalidData(_selfSize))
-		_selfSize = _defaults._selfSize;
-	if (helpers::isInvalidData(_iFrameDuration))
-		_iFrameDuration = _defaults._iFrameDuration;
-};
-
-void UCombatantConfig::replaceOverrides() {
-	if (unrealHelpers::isInvalidData(_name))
-		_name = _defaults._name;
-	if (unrealHelpers::isInvalidData<ACombatant>(_combatantClass))
-		_combatantClass = _defaults._combatantClass;
+	other._attributes = nullptr;
 }
 
 void CombatantAttributeSet::tick(float delta) {
+	if (_attributes.get() == nullptr) {
+		LOGERROR("CombatantAttributeSet::tick - attributes not initialized");
+		return;
+	}
 	TArray<FEffectStruct> temp = getStatusEffects();
 	// If in iFrames, remove flat damage effects
 	if (_iFrameTimeRemaining > EPSILON) {
 		temp.RemoveAll([](const FEffectStruct& effect) {
 			return effect._type == _DAMAGE;
-		});
+			});
 	}
 	// If not in iFrames, begin iFrames if there is at least 1 flat damage effect, then apply all flat damage effects that are queued this frame
 	else {
 		for (const auto& effect : temp) {
 			if (effect._type == _DAMAGE) {
-				_iFrameTimeRemaining = _attributes.getMember(&CombatantAttributes::_iFrameDuration);
+				_iFrameTimeRemaining = _attributes->getMember(&CombatantAttributes::_iFrameDuration);
 				break;
 			}
 		}
 	}
-	_attributes.tick(delta, temp);
+	_attributes->tick(delta, temp);
 	if (_iFrameTimeRemaining > -EPSILON)
 		_iFrameTimeRemaining -= delta;
-
-	BaseAttributeSet::tick(delta);
 }
-
-float ACombatant::getHP() const { return getAttributeMember(&CombatantAttributes::_currentHP); }
-float ACombatant::getMaxHP() const { return getAttributeMember(&CombatantAttributes::_maxHP); }
-
-void ACombatant::onKilled() {
-	Destroy();
+///////////////////////////////////////////////////////////////////////
+// UCombatantAttributeData
+//void UCombatantAttributeData::replaceOverrides() {
+//	if (helpers::isInvalidData(_maxHP))
+//		_maxHP = _defaults._maxHP;
+//	if (helpers::isInvalidData(_currentHP))
+//		_currentHP = _defaults._currentHP;
+//	if (helpers::isInvalidData(_damageReduction_flat))
+//		_damageReduction_flat = _defaults._damageReduction_flat;
+//	if (helpers::isInvalidData(_damageReduction_percent))
+//		_damageReduction_percent = _defaults._damageReduction_percent;
+//	if (helpers::isInvalidData(_healthRegen_flat))
+//		_healthRegen_flat = _defaults._healthRegen_flat;
+//	if (helpers::isInvalidData(_healthRegen_percent))
+//		_healthRegen_percent = _defaults._healthRegen_percent;
+//	if (helpers::isInvalidData(_critChance))
+//		_critChance = _defaults._critChance;
+//	if (helpers::isInvalidData(_critMultiplier))
+//		_critMultiplier = _defaults._critMultiplier;
+//	if (helpers::isInvalidData(_attackSpeed))
+//		_attackSpeed = _defaults._attackSpeed;
+//	if (helpers::isInvalidData(_bonusBounces))
+//		_bonusBounces = _defaults._bonusBounces;
+//	if (helpers::isInvalidData(_bonusPierce))
+//		_bonusPierce = _defaults._bonusPierce;
+//	if (helpers::isInvalidData(_bonusProjectiles))
+//		_bonusProjectiles = _defaults._bonusProjectiles;
+//	if (helpers::isInvalidData(_projectileSpeed))
+//		_projectileSpeed = _defaults._projectileSpeed;
+//	if (helpers::isInvalidData(_projectileSize))
+//		_projectileSize = _defaults._projectileSize;
+//	if (helpers::isInvalidData(_movementSpeed))
+//		_movementSpeed = _defaults._movementSpeed;
+//	if (helpers::isInvalidData(_range))
+//		_range = _defaults._range;
+//	if (helpers::isInvalidData(_contactDamage))
+//		_contactDamage = _defaults._contactDamage;
+//	if (helpers::isInvalidData(_selfSize))
+//		_selfSize = _defaults._selfSize;
+//	if (helpers::isInvalidData(_iFrameDuration))
+//		_iFrameDuration = _defaults._iFrameDuration;
+//};
+void UCombatantAttributeData::replaceOverrides() {
+	for (const auto& [memberPtr, defaultVal] : DefaultProxy<UCombatantAttributeData>::get()) {
+		BASEATTRIBUTES_OVERRIDE(memberPtr, defaultVal);
+	}
+	_currentHP = _maxHP;
+}
+///////////////////////////////////////////////////////////////////////////////
+// UCombatantConfig
+void UCombatantConfig::replaceOverrides() {
+	if (unrealHelpers::isInvalidData(_name))
+		_name = _defaults._name;
+	if (unrealHelpers::isInvalidData<ACombatant>(_combatantClass))
+		_combatantClass = _defaults._combatantClass;
+	for (auto& data : _startingPassives)
+		data->replaceOverrides();
 }

@@ -61,8 +61,6 @@ bool unrealHelpers::constructFlipbook(AActor* caller, USceneComponent* rootComp,
 	flipbook->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	flipbook->SetGenerateOverlapEvents(true);
 	//flipbook->UpdateCollisionProfile();
-	FVector currentScale = caller->GetActorScale3D();
-	caller->SetActorScale3D(currentScale*_SPRITE_SCALE);
 	return true;
 }
 
