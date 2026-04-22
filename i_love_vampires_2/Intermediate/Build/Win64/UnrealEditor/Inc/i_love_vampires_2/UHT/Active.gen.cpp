@@ -16,7 +16,6 @@ I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackTemplate_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseTemplate();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UWeaponTemplate();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UWeaponTemplate_NoRegister();
-I_LOVE_VAMPIRES_2_API UEnum* Z_Construct_UEnum_i_love_vampires_2_EAttackType();
 UPackage* Z_Construct_UPackage__Script_i_love_vampires_2();
 // ********** End Cross Module References **********************************************************
 
@@ -77,15 +76,6 @@ struct Z_Construct_UClass_UWeaponTemplate_Statics
 		{ "Category", "WeaponTemplate" },
 		{ "ModuleRelativePath", "Active.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__attackType_MetaData[] = {
-		{ "Category", "WeaponTemplate" },
-		{ "ModuleRelativePath", "Active.h" },
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__attackData_Inner_MetaData[] = {
-		{ "Category", "WeaponTemplate" },
-		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "Active.h" },
-	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__attackData_MetaData[] = {
 		{ "Category", "WeaponTemplate" },
 		{ "EditInline", "true" },
@@ -98,10 +88,7 @@ struct Z_Construct_UClass_UWeaponTemplate_Statics
 	static void NewProp__startOnCooldown_SetBit(void* Obj);
 	static const UECodeGen_Private::FBoolPropertyParams NewProp__startOnCooldown;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp__warmup;
-	static const UECodeGen_Private::FBytePropertyParams NewProp__attackType_Underlying;
-	static const UECodeGen_Private::FEnumPropertyParams NewProp__attackType;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp__attackData_Inner;
-	static const UECodeGen_Private::FArrayPropertyParams NewProp__attackData;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp__attackData;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class UWeaponTemplate constinit property declarations ****************************
 	static UObject* (*const DependentSingletons[])();
@@ -119,17 +106,11 @@ void Z_Construct_UClass_UWeaponTemplate_Statics::NewProp__startOnCooldown_SetBit
 }
 const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_UWeaponTemplate_Statics::NewProp__startOnCooldown = { "_startOnCooldown", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(UWeaponTemplate), &Z_Construct_UClass_UWeaponTemplate_Statics::NewProp__startOnCooldown_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__startOnCooldown_MetaData), NewProp__startOnCooldown_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UWeaponTemplate_Statics::NewProp__warmup = { "_warmup", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UWeaponTemplate, _warmup), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__warmup_MetaData), NewProp__warmup_MetaData) };
-const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_UWeaponTemplate_Statics::NewProp__attackType_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_UWeaponTemplate_Statics::NewProp__attackType = { "_attackType", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UWeaponTemplate, _attackType), Z_Construct_UEnum_i_love_vampires_2_EAttackType, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__attackType_MetaData), NewProp__attackType_MetaData) }; // 3248013249
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UWeaponTemplate_Statics::NewProp__attackData_Inner = { "_attackData", nullptr, (EPropertyFlags)0x0002000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UAttackTemplate_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__attackData_Inner_MetaData), NewProp__attackData_Inner_MetaData) };
-const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UWeaponTemplate_Statics::NewProp__attackData = { "_attackData", nullptr, (EPropertyFlags)0x0010008000000009, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UWeaponTemplate, _attackData), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__attackData_MetaData), NewProp__attackData_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UWeaponTemplate_Statics::NewProp__attackData = { "_attackData", nullptr, (EPropertyFlags)0x0012000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UWeaponTemplate, _attackData), Z_Construct_UClass_UAttackTemplate_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__attackData_MetaData), NewProp__attackData_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UWeaponTemplate_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UWeaponTemplate_Statics::NewProp__name,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UWeaponTemplate_Statics::NewProp__startOnCooldown,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UWeaponTemplate_Statics::NewProp__warmup,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UWeaponTemplate_Statics::NewProp__attackType_Underlying,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UWeaponTemplate_Statics::NewProp__attackType,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UWeaponTemplate_Statics::NewProp__attackData_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UWeaponTemplate_Statics::NewProp__attackData,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UWeaponTemplate_Statics::PropPointers) < 2048);
@@ -173,10 +154,10 @@ UWeaponTemplate::~UWeaponTemplate() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UWeaponTemplate, UWeaponTemplate::StaticClass, TEXT("UWeaponTemplate"), &Z_Registration_Info_UClass_UWeaponTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UWeaponTemplate), 3127877005U) },
+		{ Z_Construct_UClass_UWeaponTemplate, UWeaponTemplate::StaticClass, TEXT("UWeaponTemplate"), &Z_Registration_Info_UClass_UWeaponTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UWeaponTemplate), 1118191282U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h__Script_i_love_vampires_2_1374547811{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h__Script_i_love_vampires_2_2260217474{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Active_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

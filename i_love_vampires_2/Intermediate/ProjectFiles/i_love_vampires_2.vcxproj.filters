@@ -360,5 +360,11 @@
     <ClCompile Include="..\..\Source\i_love_vampires_2\BaseAttributeData.cpp">
       <Filter>Source\i_love_vampires_2\GAS\Base Classes\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseUpgradeContainer.h">
+      <Filter>Source\i_love_vampires_2\GAS\Base Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseUpgradeContainer.cpp">
+      <Filter>Source\i_love_vampires_2\GAS\Base Classes\Source</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

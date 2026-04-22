@@ -18,3 +18,10 @@ void UBaseAttributeData::applyToAllStats(const std::function<void(const float&)>
 		}
 	}
 }
+void UBaseAttributeData::zeroSentinelOverride() {
+	applyToAllStats([](float& stat) {
+		if (stat == SENTINEL_FLOAT) {
+			stat = 0;
+		}
+		});
+}

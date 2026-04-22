@@ -170,7 +170,7 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	enhancedInput->BindAction(move, ETriggerEvent::Triggered, this, &AMyPlayer::handleMovement);
 }
 
-void AMyPlayer::initialise_AMyPlayer(const UCombatantTemplate* data) {
+void AMyPlayer::initialise_AMyPlayer(UCombatantTemplate* data) {
 	initialise_ACombatant(data);
 }
 

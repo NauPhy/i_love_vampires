@@ -44,7 +44,7 @@
                                     "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.h"
                                 },
                                 "region": {
-                                    "startLine": 160,
+                                    "startLine": 175,
                                     "startColumn": 9,
                                     "snippet": {
                                         "text": "#define STAT(X) \\"

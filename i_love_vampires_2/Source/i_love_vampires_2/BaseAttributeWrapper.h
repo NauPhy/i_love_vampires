@@ -6,6 +6,7 @@
 #include <memory>
 #include "Definitions.h"
 #include "helpers.h"
+#include <type_traits>
 
 template<typename attrType>
 class BaseAttributeWrapper {
@@ -43,6 +44,8 @@ public:
 	std::shared_ptr<const attrType> getCore() const;
 	float getMember(Stat attrType::* member) const;
 	float getMemberDiscretized(Stat attrType::* member) const;
+	template<typename dataType>
+	void changeBaseValues(const dataType* newBases);
 };
 
 template <typename attrType>
@@ -77,5 +80,28 @@ BaseAttributeWrapper<attrType>::BaseAttributeWrapper(UObject* context, std::shar
 	_core->applyToAllStats([](Stat& stat) {
 		if (helpers::isInvalidData(stat.getBase()))
 			LOGERROR("Non-transient instance of BaseAttributes (via BaseAttributeWrapper) created with invalid data");
+		});
+}
+template <typename attrType>
+template <typename dataType>
+void BaseAttributeWrapper<attrType>::changeBaseValues(const dataType* newBases) {
+	// I'd like to use the is constructible here but the constructors take extra parameters. I'll add a runtime check below.
+	static_assert(std::is_base_of<UBaseAttributeData, dataType>::value, "dataType must be a subclass of UBaseAttributeData");
+	if (!_core || !IsValid(newBases)) {
+		LOGERROR("Invalid parameter");
+		return;
+	}
+	if (!(_core->isCompatibleWith(newBases))) {
+		LOGERROR("Incompatible parameter");
+		return;
+	}
+	std::vector<float> newBaseVals;
+	newBases->applyToAllStats([&newBaseVals](const Stat& stat) {
+		newBaseVals.push_back(stat.getBase());
+		});
+	int i = 0;
+	_core->applyToAllStats([&newBaseVals, &i](Stat& stat) {
+		stat.setBase(newBaseVals[i]);
+		i++;
 		});
 }

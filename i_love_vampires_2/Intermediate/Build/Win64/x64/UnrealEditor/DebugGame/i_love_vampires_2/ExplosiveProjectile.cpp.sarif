@@ -44,7 +44,7 @@
                                     "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.h"
                                 },
                                 "region": {
-                                    "startLine": 160,
+                                    "startLine": 175,
                                     "startColumn": 9,
                                     "snippet": {
                                         "text": "#define STAT(X) \\"
@@ -89,7 +89,7 @@
                                     "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AttackActor.h"
                                 },
                                 "region": {
-                                    "startLine": 147,
+                                    "startLine": 152,
                                     "startColumn": 1,
                                     "snippet": {
                                         "text": "};"
@@ -114,7 +114,7 @@
                                     "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AOE.h"
                                 },
                                 "region": {
-                                    "startLine": 138,
+                                    "startLine": 139,
                                     "startColumn": 1,
                                     "snippet": {
                                         "text": "};"
@@ -139,7 +139,7 @@
                                     "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Projectile.h"
                                 },
                                 "region": {
-                                    "startLine": 166,
+                                    "startLine": 169,
                                     "startColumn": 1,
                                     "snippet": {
                                         "text": "};"
@@ -164,7 +164,7 @@
                                     "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/ExplosiveProjectile.h"
                                 },
                                 "region": {
-                                    "startLine": 89,
+                                    "startLine": 90,
                                     "startColumn": 1,
                                     "snippet": {
                                         "text": "};"
@@ -186,7 +186,7 @@
                                     "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/ExplosiveProjectile.cpp"
                                 },
                                 "region": {
-                                    "startLine": 80,
+                                    "startLine": 70,
                                     "startColumn": 2,
                                     "snippet": {
                                         "text": "\t_AOEAttributes_attack(std::move(other._AOEAttributes_attack)),"

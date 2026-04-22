@@ -287,26 +287,32 @@ uzi
 minigun
 
 To prototype list (stuff I have targeting for and can make art for)
-Greataxe
-Guitar Axe
 Nightfang
 Vorpal Sword
 Katana
-Twin Daggers?
 Heaven's Gate
 Venomous Slash
+
 Shadow Bolt
-Corruption
-Chaotic Inferno
-Boomerang
-Flamethrower
 Ice bolt
+Chromatic Bolt
+Poison bolt
+
+Boomerang
+
+Flamethrower
+Chaotic Inferno
+
+Corruption
+Consecration
+
 Assault Carbine
 Double Tap
-Chromatic Bolt
-Consecration
-Holy hand grenade
-Poison bolt
+
+7 	
 
 after finishing all that, implement random AOE targeting; it's used a lot
 Poison fog
+
+create a reverse image search which incorporates other reverse image search engines so as to not just be a competitor 
+If you don't sell it no one can copyright strike youS

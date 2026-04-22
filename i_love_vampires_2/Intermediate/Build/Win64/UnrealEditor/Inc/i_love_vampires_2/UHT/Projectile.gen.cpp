@@ -16,6 +16,7 @@ I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AAttackActor();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AProjectile();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AProjectile_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackTemplate();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackUpgrade();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseAttributeData();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseConfig();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UProjectileAttributeData();
@@ -24,6 +25,8 @@ I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UProjectileConfig();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UProjectileConfig_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UProjectileTemplate();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UProjectileTemplate_NoRegister();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UProjectileUpgrade();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UProjectileUpgrade_NoRegister();
 I_LOVE_VAMPIRES_2_API UEnum* Z_Construct_UEnum_i_love_vampires_2_EAttackShape();
 I_LOVE_VAMPIRES_2_API UEnum* Z_Construct_UEnum_i_love_vampires_2_EProjectileShape();
 I_LOVE_VAMPIRES_2_API UEnum* Z_Construct_UEnum_i_love_vampires_2_EProjectileTargeting();
@@ -396,6 +399,108 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, UProjectileAttributeData);
 UProjectileAttributeData::~UProjectileAttributeData() {}
 // ********** End Class UProjectileAttributeData ***************************************************
 
+// ********** Begin Class UProjectileUpgrade *******************************************************
+FClassRegistrationInfo Z_Registration_Info_UClass_UProjectileUpgrade;
+UClass* UProjectileUpgrade::GetPrivateStaticClass()
+{
+	using TClass = UProjectileUpgrade;
+	if (!Z_Registration_Info_UClass_UProjectileUpgrade.InnerSingleton)
+	{
+		GetPrivateStaticClassBody(
+			TClass::StaticPackage(),
+			TEXT("ProjectileUpgrade"),
+			Z_Registration_Info_UClass_UProjectileUpgrade.InnerSingleton,
+			StaticRegisterNativesUProjectileUpgrade,
+			sizeof(TClass),
+			alignof(TClass),
+			TClass::StaticClassFlags,
+			TClass::StaticClassCastFlags(),
+			TClass::StaticConfigName(),
+			(UClass::ClassConstructorType)InternalConstructor<TClass>,
+			(UClass::ClassVTableHelperCtorCallerType)InternalVTableHelperCtorCaller<TClass>,
+			UOBJECT_CPPCLASS_STATICFUNCTIONS_FORCLASS(TClass),
+			&TClass::Super::StaticClass,
+			&TClass::WithinClass::StaticClass
+		);
+	}
+	return Z_Registration_Info_UClass_UProjectileUpgrade.InnerSingleton;
+}
+UClass* Z_Construct_UClass_UProjectileUpgrade_NoRegister()
+{
+	return UProjectileUpgrade::GetPrivateStaticClass();
+}
+struct Z_Construct_UClass_UProjectileUpgrade_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "///////////////////////////////////////////////////////////////////////////////\n" },
+#endif
+		{ "IncludePath", "Projectile.h" },
+		{ "ModuleRelativePath", "Projectile.h" },
+		{ "ObjectInitializerConstructorDeclared", "" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__projectileOffsets_MetaData[] = {
+		{ "Category", "ProjectileUpgrade" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "Projectile.h" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Class UProjectileUpgrade constinit property declarations ***********************
+	static const UECodeGen_Private::FObjectPropertyParams NewProp__projectileOffsets;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Class UProjectileUpgrade constinit property declarations *************************
+	static UObject* (*const DependentSingletons[])();
+	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
+		TCppClassTypeTraits<UProjectileUpgrade>::IsAbstract,
+	};
+	static const UECodeGen_Private::FClassParams ClassParams;
+}; // struct Z_Construct_UClass_UProjectileUpgrade_Statics
+
+// ********** Begin Class UProjectileUpgrade Property Definitions **********************************
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UProjectileUpgrade_Statics::NewProp__projectileOffsets = { "_projectileOffsets", nullptr, (EPropertyFlags)0x0012000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UProjectileUpgrade, _projectileOffsets), Z_Construct_UClass_UProjectileAttributeData_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__projectileOffsets_MetaData), NewProp__projectileOffsets_MetaData) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UProjectileUpgrade_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UProjectileUpgrade_Statics::NewProp__projectileOffsets,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UProjectileUpgrade_Statics::PropPointers) < 2048);
+// ********** End Class UProjectileUpgrade Property Definitions ************************************
+UObject* (*const Z_Construct_UClass_UProjectileUpgrade_Statics::DependentSingletons[])() = {
+	(UObject* (*)())Z_Construct_UClass_UAttackUpgrade,
+	(UObject* (*)())Z_Construct_UPackage__Script_i_love_vampires_2,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UProjectileUpgrade_Statics::DependentSingletons) < 16);
+const UECodeGen_Private::FClassParams Z_Construct_UClass_UProjectileUpgrade_Statics::ClassParams = {
+	&UProjectileUpgrade::StaticClass,
+	nullptr,
+	&StaticCppClassTypeInfo,
+	DependentSingletons,
+	nullptr,
+	Z_Construct_UClass_UProjectileUpgrade_Statics::PropPointers,
+	nullptr,
+	UE_ARRAY_COUNT(DependentSingletons),
+	0,
+	UE_ARRAY_COUNT(Z_Construct_UClass_UProjectileUpgrade_Statics::PropPointers),
+	0,
+	0x009010A0u,
+	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UProjectileUpgrade_Statics::Class_MetaDataParams), Z_Construct_UClass_UProjectileUpgrade_Statics::Class_MetaDataParams)
+};
+void UProjectileUpgrade::StaticRegisterNativesUProjectileUpgrade()
+{
+}
+UClass* Z_Construct_UClass_UProjectileUpgrade()
+{
+	if (!Z_Registration_Info_UClass_UProjectileUpgrade.OuterSingleton)
+	{
+		UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_UProjectileUpgrade.OuterSingleton, Z_Construct_UClass_UProjectileUpgrade_Statics::ClassParams);
+	}
+	return Z_Registration_Info_UClass_UProjectileUpgrade.OuterSingleton;
+}
+DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, UProjectileUpgrade);
+UProjectileUpgrade::~UProjectileUpgrade() {}
+// ********** End Class UProjectileUpgrade *********************************************************
+
 // ********** Begin Class UProjectileTemplate ******************************************************
 FClassRegistrationInfo Z_Registration_Info_UClass_UProjectileTemplate;
 UClass* UProjectileTemplate::GetPrivateStaticClass()
@@ -513,10 +618,11 @@ struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_
 		{ Z_Construct_UClass_AProjectile, AProjectile::StaticClass, TEXT("AProjectile"), &Z_Registration_Info_UClass_AProjectile, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AProjectile), 338003140U) },
 		{ Z_Construct_UClass_UProjectileConfig, UProjectileConfig::StaticClass, TEXT("UProjectileConfig"), &Z_Registration_Info_UClass_UProjectileConfig, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UProjectileConfig), 3116492247U) },
 		{ Z_Construct_UClass_UProjectileAttributeData, UProjectileAttributeData::StaticClass, TEXT("UProjectileAttributeData"), &Z_Registration_Info_UClass_UProjectileAttributeData, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UProjectileAttributeData), 3096532316U) },
-		{ Z_Construct_UClass_UProjectileTemplate, UProjectileTemplate::StaticClass, TEXT("UProjectileTemplate"), &Z_Registration_Info_UClass_UProjectileTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UProjectileTemplate), 117338519U) },
+		{ Z_Construct_UClass_UProjectileUpgrade, UProjectileUpgrade::StaticClass, TEXT("UProjectileUpgrade"), &Z_Registration_Info_UClass_UProjectileUpgrade, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UProjectileUpgrade), 1440343811U) },
+		{ Z_Construct_UClass_UProjectileTemplate, UProjectileTemplate::StaticClass, TEXT("UProjectileTemplate"), &Z_Registration_Info_UClass_UProjectileTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UProjectileTemplate), 830553538U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h__Script_i_love_vampires_2_2137120585{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h__Script_i_love_vampires_2_1870043221{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

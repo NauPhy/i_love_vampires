@@ -35,37 +35,27 @@ void AExplosiveProjectile::bulletDeath() {
 ///////////////////////////////////////////////////////////////////////////////
 // ExplosiveProjectileFactory
 ExplosiveProjectileFactory::ExplosiveProjectileFactory(
-	ACombatant* pawn,
-	const UAttackConfig* attackConfig,
-	const UAttackAttributeData* attackAttributes,
-	const UProjectileConfig* projectileConfig,
-	const UProjectileAttributeData* projectileAttributes,
-	const UExplosiveProjectileConfig* explosiveProjectileConfig,
-	const UExplosiveProjectileAttributeData* explosiveProjectileAttributes,
-	const UAOEConfig* aoeConfig,
-	const UAOEAttributeData* aoeAttributes,
-	const UAttackConfig* aoeConfig_attack,
-	const UAttackAttributeData* aoeAttributes_attack
+	ACombatant* pawn, const UExplosiveProjectileTemplate* myTemplate
 	) :
-	ProjectileFactory(pawn, attackConfig, attackAttributes, projectileConfig, projectileAttributes),
-	_explosiveProjectileConfig(explosiveProjectileConfig),
-	_AOEConfig(aoeConfig),
-	_AOEConfig_attack(aoeConfig_attack)
+	ProjectileFactory(pawn, myTemplate),
+	_explosiveProjectileConfig(myTemplate->_explosiveProjectileConfig),
+	_AOEConfig(myTemplate->_AOEConfig),
+	_AOEConfig_attack(myTemplate->_AOEConfig_attack)
 {
 	if (!IsValid(_explosiveProjectileConfig.Get()) || !(_AOEConfig.Get()) || !(_AOEConfig_attack.Get())) {
 		LOGERROR("AExplosiveProjectileFactory::AExplosiveProjectileFactory - invalid explosive projectile config or aoe config");
 		return;
 	}
 	{
-		auto temp = std::make_shared<ExplosiveProjectileAttributes>(explosiveProjectileAttributes, pawn->getAttributes());
+		auto temp = std::make_shared<ExplosiveProjectileAttributes>(myTemplate->_explosiveProjectileAttributes, pawn->getAttributes());
 		_explosiveProjectileAttributes = std::make_unique<BaseAttributeWrapper<ExplosiveProjectileAttributes>>(pawn, temp);
 	}
 	{
-		auto temp = std::make_shared<AOEAttributes>(aoeAttributes, pawn->getAttributes());
+		auto temp = std::make_shared<AOEAttributes>(myTemplate->_AOEAttributes, pawn->getAttributes());
 		_AOEAttributes = std::make_unique<BaseAttributeWrapper<AOEAttributes>>(pawn, temp);
 	}
 	{
-		auto temp = std::make_shared<AttackAttributes>(aoeAttributes_attack, pawn->getAttributes());
+		auto temp = std::make_shared<AttackAttributes>(myTemplate->_AOEAttributes_attack, pawn->getAttributes());
 		_AOEAttributes_attack = std::make_unique<BaseAttributeWrapper<AttackAttributes>>(pawn, temp);
 	}
 }
@@ -151,6 +141,22 @@ AOEInitStruct ExplosiveProjectileFactory::getAOEInit() const {
 	AOEInitStruct ret(AOEAttackInit, _AOEConfig.Get(), tempAOEAttr, true, FVector(0,0,0));
 	return ret;
 }
+
+void ExplosiveProjectileFactory::upgrade() {
+	if (_explosiveProjectileAttributes.get() == nullptr || _AOEAttributes.get() == nullptr || _AOEAttributes_attack.get() == nullptr) {
+		LOGERROR("ExplosiveProjectileFactory::upgrade - invalid parameter");
+		return;
+	}
+	const UExplosiveProjectileUpgrade* upgrade = Cast<const UExplosiveProjectileUpgrade>(_upgrades[getLevel() - 1].Get());
+	if (!IsValid(upgrade)) {
+		LOGERROR("ExplosiveProjectileFactory::upgrade - invalid upgrade");
+		return;
+	}
+	_explosiveProjectileAttributes->changeBaseValues(upgrade->_explosiveProjectileAttributeOffsets);
+	_AOEAttributes->changeBaseValues(upgrade->_AOEAttributeOffsets);
+	_AOEAttributes_attack->changeBaseValues(upgrade->_AOEAttributeOffsets_attack);
+	ProjectileFactory::upgrade();
+}
 ///////////////////////////////////////////////////////////////////////////////
 // ExplosiveProjectileAttributes
 void ExplosiveProjectileAttributes::tick(UObject* context, float delta, const TArray<FEffectStruct>& statusEffects) {
@@ -169,22 +175,5 @@ void ExplosiveProjectileAttributes::modifyAttributes(const std::shared_ptr<const
 ///////////////////////////////////////////////////////////////////////////////
 // UExplosiveProjectileTemplate
 std::unique_ptr<AttackFactory> UExplosiveProjectileTemplate::createFactory(ACombatant* owner) const {
-	const UExplosiveProjectileTemplate* temp = unrealHelpers::getDynamicTemplate<UExplosiveProjectileTemplate>(owner, this);
-	if (!IsValid(temp)) {
-		LOGERROR("UExplosiveProjectileTemplate::createFactory - failed to get template");
-		return nullptr;
-	}
-	return std::make_unique<ExplosiveProjectileFactory>(
-		owner,
-		temp->_attackConfig,
-		temp->_attackAttributes,
-		temp->_projectileConfig,
-		temp->_projectileAttributes,
-		temp->_explosiveProjectileConfig,
-		temp->_explosiveProjectileAttributes,
-		temp->_AOEConfig,
-		temp->_AOEAttributes,
-		temp->_AOEConfig_attack,
-		temp->_AOEAttributes_attack
-	);
+	return std::make_unique<ExplosiveProjectileFactory>(owner, this);
 }

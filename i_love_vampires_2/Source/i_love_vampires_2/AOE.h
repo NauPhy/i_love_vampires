@@ -135,6 +135,7 @@ public:
 	virtual void applyToAllStats(const std::function<void(const Stat&)>& func) const override {
 		STAT(BASEATTRIBUTES_APPLY);
 	}
+	virtual bool isCompatibleWith(const UBaseAttributeData* data) const override { return dynamic_cast<const UAOEAttributeData*>(data) != nullptr; }
 };
 #undef STAT
 ///////////////////////////////////////////////////////////////////////////////
@@ -167,16 +168,28 @@ public:
 	AOEFactory& operator=(const AOEFactory& other) = delete;
 	AOEFactory(AOEFactory&& other);
 	AOEFactory& operator=(AOEFactory&& other) = delete;
-	AOEFactory(
-		ACombatant* owner,
-		const UAttackConfig* attackConfig,
-		const UAttackAttributeData* attackAttributes,
-		const UAOEConfig* AOEConfig,
-		const UAOEAttributeData* AOEAttributes
-	);
+	AOEFactory(ACombatant* owner, const UAOETemplate* temp);
 	virtual void launchAttack(const FVector& forward) override;
 	virtual void tick(float delta) override;
+	virtual void upgrade() override;
 };
+///////////////////////////////////////////////////////////////////////////////
+UCLASS(BlueprintType, EditInlineNew)
+class I_LOVE_VAMPIRES_2_API UAOEUpgrade : public UAttackUpgrade {
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere, Instanced)
+	UAOEAttributeData* _AOEOffsets;
+
+	virtual void replaceOverrides() override {
+		Super::replaceOverrides();
+		_AOEOffsets->zeroSentinelOverride();
+	}
+	UAOEUpgrade(const FObjectInitializer& init) : Super(init) {
+		_AOEOffsets = init.CreateDefaultSubobject<UAOEAttributeData>(this, "_AOEOffsets");
+	}
+};
+
 ///////////////////////////////////////////////////////////////////////////////
 
 UCLASS(BlueprintType, EditInlineNew)

@@ -25,10 +25,10 @@ ACombatant::ACombatant()
 	unrealHelpers::constructFlipbook(this, RootComponent, _combatantFlipbook);
 	_combatantFlipbook->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	_combatantFlipbook->SetCollisionObjectType(ECollisionChannel::ECC_Pawn);
-	_passiveContainer = CreateDefaultSubobject<UPassiveContainer>(TEXT("PassiveContainer"));
+	//_passiveContainer = CreateDefaultSubobject<UPassiveContainer>(TEXT("PassiveContainer"));
 }
 
-void ACombatant::initialise_ACombatant(const UCombatantTemplate* diskVal) {
+void ACombatant::initialise_ACombatant(UCombatantTemplate* diskVal) {
 	if (!IsValid(diskVal) || !IsValid(diskVal->_config) || !IsValid(diskVal->_attributes)) {
 		LOGERROR("ACombatant::initialise_ACombatant - parameter not valid");
 		return;
@@ -49,10 +49,11 @@ void ACombatant::BeginPlay() {
 		return;
 	}
 	for (const auto& data : _config->_startingWeapons) {
-		giveWeapon(data);
+		if (canGiveWeapon())
+			giveWeapon_internal(data);
 	}
 	for (const auto& data : _config->_startingPassives) {
-		givePassive(data);
+		givePassive_internal(data);
 	}
 	unrealHelpers::initFlipbook(this, _config->_sprite.Get(), _combatantFlipbook);
 	_myForwardVector = GetActorForwardVector();
@@ -85,22 +86,122 @@ float ACombatant::getAttributeMember(Stat CombatantAttributes::* member) const {
 std::shared_ptr<const CombatantAttributes> ACombatant::getAttributes() const { return _attributeSet->getAttributeWrapper().getCore(); }
 float ACombatant::getHP() const { return getAttributeMember(&CombatantAttributes::_currentHP); }
 float ACombatant::getMaxHP() const { return getAttributeMember(&CombatantAttributes::_maxHP); }
+bool ACombatant::canGiveWeapon() const {
+	return _activeAbilities.size() < _MAX_WEAPONS;
+}
+bool ACombatant::canUpgradeWeapon() const {
+	for (const auto& active : _activeAbilities) {
+		if (active.isUpgradable())
+			return true;
+	}
+	return false;
+}
+bool ACombatant::canUpgradePassive() const {
+	//return _passiveContainer->_passives.Num() > 0;
+	for (const auto& passive : _passives) {
+		if (passive.isUpgradable())
+			return true;
+	}
+	return false;
+}
+TArray<UWeaponTemplate*> ACombatant::getUpgradableWeapons() const {
+	TArray<UWeaponTemplate*> result;
+	for (const auto& active : _activeAbilities) {
+		if (active.isUpgradable()) {
+			result.Add(active.getDiskTemplate());
+		}
+	}
+	return result;
+}
 
+TArray<UCombatantPassive*> ACombatant::getUpgradablePassives() const {
+	//return _passiveContainer->getDiskPassives();
+	TArray<UCombatantPassive*> result;
+	for (const auto& passive : _passives) {
+		if (passive.isUpgradable()) {
+			UDynamicAssetManager* manager = nullptr;
+			result.Add(passive.getDiskData());
+		}
+	}
+}
+
+TArray<UCombatantPassive*> UPassiveContainer::getDiskPassives() const {
+	UDynamicAssetManager* manager = nullptr;
+	if (!MyGameplayStatics::getDynamicAssetManager(this, manager)) {
+		LOGERROR("ACombatant::getUpgradablePassives - failed to get dynamic asset manager");
+		return TArray<UCombatantPassive*>();
+	}
+	TArray<UCombatantPassive*> result;
+	for (const auto& passive : _passives) {
+		UCombatantPassive* temp = manager->getKey(passive.Get());
+		if (temp != nullptr)
+			result.Add(temp);
+	}
+	return result;
+}
+
+TArray<UWeaponTemplate*> ACombatant::getMaxedWeapons() const {
+	TArray<UWeaponTemplate*> result;
+	for (const auto& active : _activeAbilities) {
+		if (!active.isUpgradable()) {
+			result.Add(active.getDiskTemplate());
+		}
+	}
+	return result;
+}
+TArray<UWeaponTemplate*> ACombatant::getAllWeapons() const {
+	TArray<UWeaponTemplate*> result;
+	for (const auto& active : _activeAbilities) {
+		result.Add(active.getDiskTemplate());
+	}
+	return result;
+}
+TArray<UCombatantPassive*> ACombatant::getAllPassives() const {
+	//return _passiveContainer->getDiskPassives();
+	TArray<UCombatantPassive*> result;
+	for (const auto& passive : _passives) {
+		result.Add(passive.getDiskData());
+	}
+	return result;
+}
 // Mutators
-void ACombatant::giveWeapon(const UWeaponTemplate* temp) {
+void ACombatant::giveWeapon(UWeaponTemplate* temp) {
+	if (!canGiveWeapon()) {
+		LOGERROR("ACombatant::giveWeapon - cannot give weapon, already at max weapons");
+		return;
+	}
+	const UWeaponTemplate* dynamic = unrealHelpers::getDynamicTemplate<UWeaponTemplate>(this, temp);
+	giveWeapon_internal(dynamic);
+}
+void ACombatant::giveWeapon_internal(const UWeaponTemplate* temp) {
 	if (!IsValid(temp)) {
-		LOGERROR("ACombatant::giveWeapon - parameter not valid");
+		LOGERROR("ACombatant::giveWeapon_internal - parameter not valid");
 		return;
 	}
 	_activeAbilities.push_back(Active(this, temp));
 }
-
-void ACombatant::givePassive(const UCombatantPassive* temp) {
+void ACombatant::upgradeWeapon(UWeaponTemplate* temp) {
 	if (!IsValid(temp)) {
-		LOGERROR("ACombatant::givePassive - parameter not valid");
+		LOGERROR("ACombatant::upgradeWeapon - parameter not valid");
 		return;
 	}
-	_passiveContainer->_passives.Add(temp);
+	for (auto& active : _activeAbilities) {
+		if (active == temp)
+			active.upgrade();
+	}
+	LOGERROR("ACombatant::upgradeWeapon - no active ability upgraded, weapon may not be compatible with any actives");
+}
+
+void ACombatant::givePassive(UCombatantPassiveData* temp) {
+	const UCombatantPassiveData* dynamic = unrealHelpers::getDynamicTemplate<UCombatantPassiveData>(this, temp);
+	givePassive_internal(dynamic);
+}
+void ACombatant::givePassive_internal(const UCombatantPassiveData* temp) {
+	if (!IsValid(temp)) {
+		LOGERROR("ACombatant::givePassive_internal - parameter not valid");
+		return;
+	}
+	_passives.push_back(Passive(temp));
 }
 
 void ACombatant::inflictStatus(const FEffectStruct& status) {
@@ -171,9 +272,14 @@ CombatantAttributes::CombatantAttributes(const UCombatantAttributeData* attr, co
 	//_contactDamage(attr->_contactDamage),
 	//_selfSize(attr->_selfSize),
 	//_iFrameDuration(attr->_iFrameDuration),
-	_passiveContainer(passives)
+	_passives(passives)
 {
 	baseInit(attr);
+}
+
+CombatantAttributes::CombatantAttributes(const UCombatantAttributeData* attr) :
+	CombatantAttributes(attr, nullptr)
+{
 }
 
 CombatantAttributes::CombatantAttributes(const CombatantAttributes& other) :
@@ -431,4 +537,14 @@ void UCombatantConfig::replaceOverrides() {
 		_combatantClass = _defaults._combatantClass;
 	for (auto& data : _startingPassives)
 		data->replaceOverrides();
+}
+///////////////////////////////////////////////////////////////////////////////
+// Passives
+UCombatantPassiveData* Passive::getDiskData() const {
+	UDynamicAssetManager* manager = nullptr;
+	if (!MyGameplayStatics::getDynamicAssetManager(GWorld, manager)) {
+		LOGERROR("Passive::getDiskData - failed to get dynamic asset manager");
+		return nullptr;
+	}
+	return manager->getKey(_data.Get());
 }

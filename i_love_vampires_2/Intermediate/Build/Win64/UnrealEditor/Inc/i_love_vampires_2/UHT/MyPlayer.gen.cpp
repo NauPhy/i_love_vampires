@@ -127,14 +127,11 @@ struct Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer_Statics
 {
 	struct MyPlayer_eventinitialise_AMyPlayer_Parms
 	{
-		const UCombatantTemplate* data;
+		UCombatantTemplate* data;
 	};
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
 		{ "ModuleRelativePath", "MyPlayer.h" },
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_data_MetaData[] = {
-		{ "NativeConst", "" },
 	};
 #endif // WITH_METADATA
 
@@ -146,7 +143,7 @@ struct Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer_Statics
 };
 
 // ********** Begin Function initialise_AMyPlayer Property Definitions *****************************
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer_Statics::NewProp_data = { "data", nullptr, (EPropertyFlags)0x0010000000000082, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(MyPlayer_eventinitialise_AMyPlayer_Parms, data), Z_Construct_UClass_UCombatantTemplate_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_data_MetaData), NewProp_data_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer_Statics::NewProp_data = { "data", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(MyPlayer_eventinitialise_AMyPlayer_Parms, data), Z_Construct_UClass_UCombatantTemplate_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer_Statics::NewProp_data,
 };
@@ -370,7 +367,7 @@ struct Z_Construct_UClass_AMyPlayer_Statics
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
 		{ &Z_Construct_UFunction_AMyPlayer_finishAMyActorDeferredSpawn, "finishAMyActorDeferredSpawn" }, // 381760498
-		{ &Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer, "initialise_AMyPlayer" }, // 1096820025
+		{ &Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer, "initialise_AMyPlayer" }, // 3296155601
 		{ &Z_Construct_UFunction_AMyPlayer_onOverlapBegin, "onOverlapBegin" }, // 3264895144
 		{ &Z_Construct_UDelegateFunction_AMyPlayer_OnPlayerLevelUp__DelegateSignature, "OnPlayerLevelUp__DelegateSignature" }, // 4077128735
 		{ &Z_Construct_UFunction_AMyPlayer_spawnAMyActorDeferred, "spawnAMyActorDeferred" }, // 678798347
@@ -432,10 +429,10 @@ AMyPlayer::~AMyPlayer() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AMyPlayer, AMyPlayer::StaticClass, TEXT("AMyPlayer"), &Z_Registration_Info_UClass_AMyPlayer, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyPlayer), 2047669119U) },
+		{ Z_Construct_UClass_AMyPlayer, AMyPlayer::StaticClass, TEXT("AMyPlayer"), &Z_Registration_Info_UClass_AMyPlayer, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyPlayer), 3646636986U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_1870019386{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_2248158659{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

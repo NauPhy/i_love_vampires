@@ -140,20 +140,16 @@ void AAOE::reorientSlash() {
 ///////////////////////////////////////////////////////////////////////////////
 // AOEFactory
 AOEFactory::AOEFactory(
-	ACombatant* owner,
-	const UAttackConfig* attackConfig,
-	const UAttackAttributeData* attackAttributes,
-	const UAOEConfig* AOEConfig,
-	const UAOEAttributeData* AOEAttributesParam
+	ACombatant* owner, const UAOETemplate* myTemplate
 ) :
-	AttackFactory(owner, attackConfig, attackAttributes),
-	_AOEConfig(AOEConfig)
+	AttackFactory(owner, myTemplate),
+	_AOEConfig(myTemplate->_AOEConfig)
 {
 	if (!IsValid(_AOEConfig.Get())) {
 		LOGERROR("AOEFactory::AOEFactory - invalid AOEConfig");
 		return;
 	}
-	auto temp = std::make_shared<AOEAttributes>(AOEAttributesParam, owner->getAttributes());
+	auto temp = std::make_shared<AOEAttributes>(myTemplate->_AOEAttributes, owner->getAttributes());
 	_AOEAttributes = std::make_unique<BaseAttributeWrapper<AOEAttributes>>(owner, temp);
 }
 
@@ -163,6 +159,20 @@ AOEFactory::AOEFactory(AOEFactory&& other) :
 	_AOEAttributes(std::move(other._AOEAttributes))
 {
 	other._AOEAttributes = nullptr;
+}
+
+void AOEFactory::upgrade() {
+	if (_AOEAttributes.get() == nullptr) {
+		LOGERROR("AOEFactory::upgrade - invalid parameter");
+		return;
+	}
+	const UAOEUpgrade* upgrade = Cast<UAOEUpgrade>(_upgrades[getLevel() - 1].Get());
+	if (!IsValid(upgrade)) {
+		LOGERROR("AOEFactory::upgrade - invalid upgrade");
+		return;
+	}
+	_AOEAttributes->changeBaseValues(upgrade->_AOEOffsets);
+	AttackFactory::upgrade();
 }
 
 void AOEFactory::tick(float delta) {
@@ -272,16 +282,5 @@ void UAOEConfig::replaceOverrides() {
 ///////////////////////////////////////////////////////////////////////////////
 // UAOETemplate
 std::unique_ptr<AttackFactory> UAOETemplate::createFactory(ACombatant* owner) const {
-	const UAOETemplate* temp = unrealHelpers::getDynamicTemplate<UAOETemplate>(owner, this);
-	if (!IsValid(temp)) {
-		LOGERROR("UAOEFactory::createFactory - failed to get template");
-		return nullptr;
-	}
-	return std::make_unique<AOEFactory>(
-		owner,
-		temp->_attackConfig,
-		temp->_attackAttributes,
-		temp->_AOEConfig,
-		temp->_AOEAttributes
-	);
+	return std::make_unique<AOEFactory>(owner, this);
 }

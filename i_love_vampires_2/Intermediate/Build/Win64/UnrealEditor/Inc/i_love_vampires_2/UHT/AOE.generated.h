@@ -143,11 +143,50 @@ class UAOEAttributeData;
 
 // ********** End Class UAOEAttributeData **********************************************************
 
+// ********** Begin Class UAOEUpgrade **************************************************************
+struct Z_Construct_UClass_UAOEUpgrade_Statics;
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAOEUpgrade_NoRegister();
+
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_179_INCLASS_NO_PURE_DECLS \
+private: \
+	static void StaticRegisterNativesUAOEUpgrade(); \
+	friend struct ::Z_Construct_UClass_UAOEUpgrade_Statics; \
+	static UClass* GetPrivateStaticClass(); \
+	friend I_LOVE_VAMPIRES_2_API UClass* ::Z_Construct_UClass_UAOEUpgrade_NoRegister(); \
+public: \
+	DECLARE_CLASS2(UAOEUpgrade, UAttackUpgrade, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_UAOEUpgrade_NoRegister) \
+	DECLARE_SERIALIZER(UAOEUpgrade)
+
+
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_179_ENHANCED_CONSTRUCTORS \
+	/** Deleted move- and copy-constructors, should never be used */ \
+	UAOEUpgrade(UAOEUpgrade&&) = delete; \
+	UAOEUpgrade(const UAOEUpgrade&) = delete; \
+	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UAOEUpgrade); \
+	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UAOEUpgrade); \
+	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UAOEUpgrade) \
+	NO_API virtual ~UAOEUpgrade();
+
+
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_177_PROLOG
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_179_GENERATED_BODY \
+PRAGMA_DISABLE_DEPRECATION_WARNINGS \
+public: \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_179_INCLASS_NO_PURE_DECLS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_179_ENHANCED_CONSTRUCTORS \
+private: \
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+
+
+class UAOEUpgrade;
+
+// ********** End Class UAOEUpgrade ****************************************************************
+
 // ********** Begin Class UAOETemplate *************************************************************
 struct Z_Construct_UClass_UAOETemplate_Statics;
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAOETemplate_NoRegister();
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_184_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_197_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUAOETemplate(); \
 	friend struct ::Z_Construct_UClass_UAOETemplate_Statics; \
@@ -158,7 +197,7 @@ public: \
 	DECLARE_SERIALIZER(UAOETemplate)
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_184_ENHANCED_CONSTRUCTORS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_197_ENHANCED_CONSTRUCTORS \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	UAOETemplate(UAOETemplate&&) = delete; \
 	UAOETemplate(const UAOETemplate&) = delete; \
@@ -168,12 +207,12 @@ public: \
 	NO_API virtual ~UAOETemplate();
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_182_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_184_GENERATED_BODY \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_195_PROLOG
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_197_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_184_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_184_ENHANCED_CONSTRUCTORS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_197_INCLASS_NO_PURE_DECLS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_197_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

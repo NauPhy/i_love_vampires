@@ -106,6 +106,7 @@ void AProjectile::BeginPlay() {
 }
 
 void AProjectile::Tick(float delta) {
+	Super::Tick(delta);
 	FRotator currentRotation = GetActorRotation();
 	if (_distanceTravelled >= _projectileAttributes->_range.getFinal()) {
 		if (_projectileConfig->_isBoomerang) {
@@ -136,7 +137,6 @@ void AProjectile::Tick(float delta) {
 		SetActorRotation(newRotation, ETeleportType::TeleportPhysics);
 
 	setNewDirection();
-	AAttackActor::Tick(delta);
 }
 
 bool AProjectile::performSweep(const FVector& startPos, const FVector& endPos, TArray<struct FHitResult>& OutHits) {
@@ -257,19 +257,15 @@ void AProjectile::setNewDirection() {
 ///////////////////////////////////////////////////////////////////////////////
 // ProjectileFactory
 ProjectileFactory::ProjectileFactory(
-	ACombatant* pawn,
-	const UAttackConfig* attackConfig,
-	const UAttackAttributeData* attackAttributes,
-	const UProjectileConfig* projectileConfig,
-	const UProjectileAttributeData* projectileAttributes) :
-	AttackFactory(pawn, attackConfig, attackAttributes), 
-	_projectileConfig(projectileConfig)
+	ACombatant* pawn, const UProjectileTemplate* projectileTemplate) :
+	AttackFactory(pawn, projectileTemplate), 
+	_projectileConfig(projectileTemplate->_projectileConfig)
 {
 	if (!IsValid(_projectileConfig.Get())) {
 		LOGERROR("AProjectileFactory::initialise_AProjectileFactory - invalid projectile config");
 		return;
 	}
-	auto temp = std::make_shared<ProjectileAttributes>(projectileAttributes, pawn->getAttributes());
+	auto temp = std::make_shared<ProjectileAttributes>(projectileTemplate->_projectileAttributes, pawn->getAttributes());
 	_projectileAttributes = std::make_unique<BaseAttributeWrapper<ProjectileAttributes>>(pawn, temp);
 }
 
@@ -365,6 +361,20 @@ AProjectile* ProjectileFactory::launchSingleProjectile(const FVector& direction)
 	projectile->initialise_AProjectile(getProjectileInit());
 	unrealHelpers::finishDeferredSpawn<AProjectile>(_owner.Get(), projectile);
 	return projectile;
+}
+
+void ProjectileFactory::upgrade() {
+	if (_projectileAttributes.get() == nullptr) {
+		LOGERROR("ProjectileFactory::upgrade - invalid parameter");
+		return;
+	}
+	const UProjectileUpgrade* upgrade = Cast<UProjectileUpgrade>(_upgrades[getLevel() - 1].Get());
+	if (!IsValid(upgrade)) {
+		LOGERROR("ProjectileFactory::upgrade - invalid upgrade");
+		return;
+	}
+	_projectileAttributes->changeBaseValues(upgrade->_projectileOffsets);
+	AttackFactory::upgrade();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -474,16 +484,5 @@ void UProjectileConfig::replaceOverrides() {
 ///////////////////////////////////////////////////////////////////////////////
 // UProjectileTemplate
 std::unique_ptr<AttackFactory> UProjectileTemplate::createFactory(ACombatant* owner) const {
-	const UProjectileTemplate* temp = unrealHelpers::getDynamicTemplate<UProjectileTemplate>(owner, this);
-	if (!IsValid(temp)) {
-		LOGERROR("UAttackTemplate::createFactory - failed to get template");
-		return nullptr;
-	}
-	return std::make_unique<ProjectileFactory>(
-		owner,
-		temp->_attackConfig,
-		temp->_attackAttributes,
-		temp->_projectileConfig,
-		temp->_projectileAttributes
-	);
+	return std::make_unique<ProjectileFactory>(owner, this);
 }

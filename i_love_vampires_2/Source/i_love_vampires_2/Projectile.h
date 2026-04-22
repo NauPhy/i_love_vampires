@@ -163,6 +163,9 @@ public:
 		STAT(BASEATTRIBUTES_APPLY);
 	}
 	virtual void applyStatus(UObject* context, const FEffectStruct& status, float delta) override {}
+	virtual bool isCompatibleWith(const UBaseAttributeData* data) const override {
+		return dynamic_cast<const UProjectileAttributeData*>(data) != nullptr;
+	}
 };
 #undef STAT
 ///////////////////////////////////////////////////////////////////////////////
@@ -221,14 +224,27 @@ public:
 	ProjectileFactory& operator=(const ProjectileFactory& other) = delete;
 	ProjectileFactory(ProjectileFactory&& other);
 	ProjectileFactory& operator=(ProjectileFactory&& other) = delete;
-	ProjectileFactory(
-		ACombatant*,
-		const UAttackConfig*,
-		const UAttackAttributeData*,
-		const UProjectileConfig*,
-		const UProjectileAttributeData*);
+	ProjectileFactory(ACombatant*, const UProjectileTemplate*);
 	virtual void tick(float delta) override;
+	virtual void upgrade() override;
 };
+///////////////////////////////////////////////////////////////////////////////
+UCLASS(BlueprintType, EditInlineNew)
+class I_LOVE_VAMPIRES_2_API UProjectileUpgrade : public UAttackUpgrade {
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, Instanced)
+	UProjectileAttributeData* _projectileOffsets;
+	virtual void replaceOverrides() override {
+		Super::replaceOverrides();
+		_projectileOffsets->zeroSentinelOverride();
+	}
+	UProjectileUpgrade(const FObjectInitializer& init) : Super(init) {
+		_projectileOffsets = init.CreateDefaultSubobject<UProjectileAttributeData>(this, "_projectileOffsets");
+	}
+};
+
 ///////////////////////////////////////////////////////////////////////////////
 
 UCLASS(BlueprintType, EditInlineNew)

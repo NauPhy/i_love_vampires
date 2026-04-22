@@ -17,6 +17,7 @@ public:
 			LOGERROR("replaceOverrides not implemented in this class"););
 	virtual void applyToAllStats(const std::function<void(float&)>& func);
 	virtual void applyToAllStats(const std::function<void(const float&)>& func) const;
+	void zeroSentinelOverride();
 	UBaseAttributeData(const FObjectInitializer& init) : Super(init) {}
 };
 

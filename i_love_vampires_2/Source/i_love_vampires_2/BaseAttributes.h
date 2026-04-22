@@ -22,8 +22,6 @@ protected:
 	void baseInit(const BaseAttributes& other);
 	void baseInit(BaseAttributes&& other);
 
-	virtual void applyToAllStats(const std::function<void(Stat&)>& func) = 0;
-	virtual void applyToAllStats(const std::function<void(const Stat&)>& func) const = 0;
 	void softReset();
 	void tick_internal(UObject* context, float delta, const TArray<FEffectStruct>& statusEffects);
 
@@ -38,6 +36,9 @@ public:
 	virtual void applyStatus(UObject* context, const FEffectStruct& status, float delta) = 0;
 	
 	virtual void tick(UObject* context, float delta, const TArray<FEffectStruct>& statusEffects);
+	virtual void applyToAllStats(const std::function<void(const Stat&)>& func) const = 0;
+	virtual void applyToAllStats(const std::function<void(Stat&)>& func) = 0;
+	virtual bool isCompatibleWith(const UBaseAttributeData* data) const = 0;
 };
 
 class Stat {
@@ -64,6 +65,7 @@ public:
 	}
 	float getFinal() const { return _final; }
 	float getBase() const { return _base; }
+	void setBase(float newBase) { _base = newBase; }
 	static void softReset(Stat& stat);
 	void modify(float newVal);
 };

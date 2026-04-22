@@ -22,14 +22,13 @@ class Active {
 	const static inline EStatus _CHILL = EStatus::chill;
 
 	float _chargeRatio = 0;
-	std::vector<std::unique_ptr<AttackFactory>> _factories;
+	std::unique_ptr<AttackFactory> _factory;
 	TWeakObjectPtr<ACombatant> _owner = nullptr;
 	TObjectPtr<const UWeaponTemplate> _weaponTemplate = nullptr;
 	TArray<FEffectStruct> _statusEffects;
 
 	void updateWarmup(float delta);
 	void activate(const FVector&);
-	void activate_first(const FVector&);
 	bool hasStatus(EStatus status) const;
 
 public:
@@ -42,6 +41,17 @@ public:
 
 	void tick(float delta, const FVector& forward);
 	void inflictStatus(const FEffectStruct& status);
+	bool operator==(UWeaponTemplate* other) const;
+	UFUNCTION(BlueprintCallable)
+	void upgrade() { _factory->upgrade(); }
+	bool isUpgradable() const { 
+		if (_factory.get() == nullptr) {
+			LOGERROR("Active::isUpgradable - uninitialized factory");
+			return false;
+		}
+		return _factory->getLevel() < _factory->getMaxLevel(); 
+	}
+	UWeaponTemplate* getDiskTemplate() const;
 };
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -70,8 +80,6 @@ class I_LOVE_VAMPIRES_2_API UWeaponTemplate : public UBaseTemplate
 	struct defaults {
 		FString _name = "Active";
 		float _warmup = 1.f;
-		EAttackType _attackType = static_cast<EAttackType>(0);
-		TArray<UAttackTemplate*> _attackData = {};
 	};
 	const static inline defaults _defaults;
 
@@ -83,10 +91,8 @@ public:
 	bool _startOnCooldown = true;
 	UPROPERTY(EditAnywhere)
 	float _warmup = -999;
-	UPROPERTY(EditAnywhere)
-	EAttackType _attackType = static_cast<EAttackType>(static_cast<uint8>(255));
 	UPROPERTY(EditAnywhere, Instanced)
-	TArray<UAttackTemplate*> _attackData = {};
+	UAttackTemplate* _attackData;
 	UWeaponTemplate(const FObjectInitializer& init) : Super(init) {}
 	virtual void replaceOverrides() override;
 };

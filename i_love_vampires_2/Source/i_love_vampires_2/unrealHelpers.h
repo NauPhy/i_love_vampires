@@ -34,7 +34,7 @@ public:
 	static float getOrthoWidth(UObject* caller);
 
 	template <typename T>
-	static const T* getDynamicTemplate(const UObject* caller, const T* diskTemplate);
+	static const T* getDynamicTemplate(const UObject* caller, T* diskTemplate);
 	template<typename T>
 	static bool spawnActorOnTopOfMe(AActor* caller, T*& ret);
 	template <typename T>
@@ -59,7 +59,7 @@ bool unrealHelpers::isInvalidData(const T& e) {
 }
 
 template <typename T>
-const T* unrealHelpers::getDynamicTemplate(const UObject* caller, const T* diskTemplate) {
+const T* unrealHelpers::getDynamicTemplate(const UObject* caller, T* diskTemplate) {
 	static_assert(std::is_base_of_v<UBaseTemplate, T>, "T must be a subclass of UBaseTemplate");
 
 	UDynamicAssetManager* assetManager = nullptr;

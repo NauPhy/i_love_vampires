@@ -23,8 +23,9 @@ public:
 	AEnemyBase();
 	virtual void BeginPlay() override;
 	virtual void Tick(float delta) override;
-	void initialise_AEnemyBase(const UCombatantTemplate* temp) { initialise_ACombatant(temp); }
-	virtual void myInitialise(const UCombatantTemplate* temp) override { initialise_AEnemyBase(temp); }
+	UFUNCTION(BlueprintCallable)
+	void initialise_AEnemyBase(UCombatantTemplate* temp) { initialise_ACombatant(temp); }
+	virtual void myInitialise(UCombatantTemplate* temp) override { initialise_AEnemyBase(temp); }
 	virtual FVector getMoveDirection() const;
 	virtual float getMoveSpeed() const;
 	int getKey() const { return _registerKey; }

@@ -28,7 +28,8 @@ bool UEnemySpawner::spawnTestEnemy(ACombatant*& ret) {
 	return spawnEnemy(spawnLocation, _testEnemy, ret);
 }
 
-bool UEnemySpawner::spawnEnemy(const FVector& spawnLocation, const UCombatantTemplate* rawData, ACombatant*& ret) {
+// Combatant creates the dynamic version itself
+bool UEnemySpawner::spawnEnemy(const FVector& spawnLocation, UCombatantTemplate* rawData, ACombatant*& ret) {
 	if (!IsValid(rawData) || !IsValid(rawData->_config)) {
 		LOGERROR("UEnemySpawner::spawnEnemy - invalid rawData");
 		return false;

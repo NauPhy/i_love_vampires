@@ -15,8 +15,13 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
+class UCombatantTemplate;
 
 // ********** Begin Class AEnemyBase ***************************************************************
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemyBase_h_11_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execinitialise_AEnemyBase);
+
+
 struct Z_Construct_UClass_AEnemyBase_Statics;
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_AEnemyBase_NoRegister();
 
@@ -45,6 +50,7 @@ public: \
 #define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemyBase_h_11_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemyBase_h_11_RPC_WRAPPERS_NO_PURE_DECLS \
 	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemyBase_h_11_INCLASS_NO_PURE_DECLS \
 	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EnemyBase_h_11_ENHANCED_CONSTRUCTORS \
 private: \

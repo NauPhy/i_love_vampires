@@ -70,9 +70,8 @@ const T* UAutomaticAssetRefs::getRandomAsset(const TArray<T*>& assetArray, const
 		LOGERROR("UAutomaticAssetRefs::getRandomAsset - no assets found");
 		return nullptr;
 	}
-	int index = -1;
 	if (ignored.Num() == 0) {
-		index = FMath::RandRange(0, assetArray.Num() - 1);
+		return assetArray[FMath::RandRange(0, assetArray.Num() - 1)];
 	}
 	else {
 		TArray<const T*> temp;
@@ -81,14 +80,11 @@ const T* UAutomaticAssetRefs::getRandomAsset(const TArray<T*>& assetArray, const
 				temp.Add(asset);
 			}
 		}
-		if (temp.Num() == 0)
-			index = -1;
+		if (temp.Num() == 0) {
+			LOGWARNING("UAutomaticAssetRefs::getRandomAsset - no valid assets");
+			return nullptr;
+		}
 		else
-			index = FMath::RandRange(0, temp.Num() - 1);
+			return temp[FMath::RandRange(0, temp.Num() - 1)];
 	}
-	if (index == -1) {
-		LOGWARNING("UAutomaticAssetRefs::getRandomAsset - no valid assets");
-		return nullptr;
-	}
-	return assetArray[index];
 }

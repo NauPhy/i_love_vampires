@@ -148,18 +148,33 @@ void AttackFactory::launchAttack(const FVector& forward) {
 
 AttackFactory::AttackFactory(
 	ACombatant* owner,
-	const UAttackConfig* config,
-	const UAttackAttributeData* data) :
+	const UAttackTemplate* myTemplate) :
 	BaseAttributeSet(),
 	_owner(owner),
-	_attackConfig(config)
+	_attackConfig(myTemplate->_attackConfig),
+	_upgrades(myTemplate->_upgrades)
 {
 	if (!IsValid(owner) || !IsValid(_attackConfig.Get())) {
 		LOGERROR("AttackFactory::AttackFactory - invalid parameters");
 		return;
 	}
-	auto temp = std::make_shared<AttackAttributes>(data, owner->getAttributes());
+	for (const auto& upgrade : _upgrades) {
+		if (!IsValid(upgrade)) {
+			LOGERROR("AttackFactory::AttackFactory - invalid upgrade in template");
+			return;
+		}
+	}
+	auto temp = std::make_shared<AttackAttributes>(myTemplate->_attackAttributes, owner->getAttributes());
 	_attackAttributes = std::make_unique<BaseAttributeWrapper<AttackAttributes>>(owner, temp);
+}
+
+AttackFactory::AttackFactory(AttackFactory&& other) :
+	BaseAttributeSet(std::move(other)),
+	_attackConfig(other._attackConfig),
+	_upgrades(other._upgrades),
+	_attackAttributes(std::move(other._attackAttributes)),
+	_owner(other._owner)
+{
 }
 
 void AttackFactory::tick(float delta) {
@@ -171,25 +186,41 @@ void AttackFactory::tick(float delta) {
 	BaseAttributeSet::tick(delta);
 }
 
-///////////////////////////////////////////////////////////////////////////////
-
-AttackFactory::AttackFactory(AttackFactory&& other) :
-	BaseAttributeSet(std::move(other)),
-	_attackConfig(other._attackConfig),
-	_attackAttributes(std::move(other._attackAttributes)),
-	_owner(other._owner)
-{
-}
-
-std::unique_ptr<AttackFactory> UAttackTemplate::createFactory(ACombatant* owner) const {
-	const UAttackTemplate* temp = unrealHelpers::getDynamicTemplate<UAttackTemplate>(owner, this);
-	if (!IsValid(temp)) {
-		LOGERROR("UAttackTemplate::createFactory - failed to get template");
-		return nullptr;
+void AttackFactory::upgrade() {
+	if (_level >= _upgrades.Num() || _attackAttributes.get() == nullptr) {
+		LOGERROR("AttackFactory::upgrade - invalid parameter");
+		return;
 	}
-	return std::make_unique<AttackFactory>(owner, temp->_attackConfig, temp->_attackAttributes);
+	const UAttackUpgrade* upgrade = _upgrades[_level-1].Get();
+	if (!IsValid(upgrade)) {
+		LOGERROR("AttackFactory::upgrade - invalid upgrade");
+		return;
+	}
+	_attackAttributes->changeBaseValues(upgrade->_attackOffsets);
+	_level++;
 }
 
+///////////////////////////////////////////////////////////////////////////////
+std::unique_ptr<AttackFactory> UAttackTemplate::createFactory(ACombatant* owner) const {
+	return std::make_unique<AttackFactory>(owner, this);
+}
+
+void UAttackTemplate::replaceOverrides() {
+	_attackConfig->replaceOverrides();
+	_attackAttributes->replaceOverrides();
+
+	if (_upgrades.Num() > 0) {
+		auto myClass = _upgrades[0]->GetClass();
+		for (const auto& upgrade : _upgrades) {
+			if (upgrade->GetClass() != myClass) {
+				LOGERROR("UAttackTemplate::replaceOverrides - all upgrades must be of the same class");
+				continue;
+			}
+		}
+	}
+	for (auto& upgrade : _upgrades)
+		upgrade->replaceOverrides();
+}
 
 //void UAttackAttributeData::replaceOverrides() {
 //	if (helpers::isInvalidData(_damage))

@@ -17,15 +17,18 @@ class I_LOVE_VAMPIRES_2_API UDynamicAssetManager : public UGameInstanceSubsystem
 
 public:
 	UPROPERTY()
-	TMap<const TObjectPtr<const UBaseTemplate>, UBaseTemplate*> _templateMap;
+	TMap<const TObjectPtr<UBaseTemplate>, UBaseTemplate*> _templateMap;
 
 	UDynamicAssetManager() = default;
 	template <typename T>
-	const T* registerTemplate(const T* diskTemplate);
+	const T* registerTemplate(T* diskTemplate);
+	template <typename T>
+	T* getKey(const T* runtimeTemplate) const;
+
 };
 
 template <typename T>
-const T* UDynamicAssetManager::registerTemplate(const T* diskTemplate) {
+const T* UDynamicAssetManager::registerTemplate(T* diskTemplate) {
 	static_assert(std::is_base_of_v<UBaseTemplate, T>, "T must be a subclass of UBaseTemplate");
 
 	if (!IsValid(diskTemplate)) {
@@ -54,4 +57,25 @@ const T* UDynamicAssetManager::registerTemplate(const T* diskTemplate) {
 		}
 		return ret;
 	}
+}
+
+template<typename T>
+T* UDynamicAssetManager::getKey(const T* runtimeTemplate) const {
+	static_assert(std::is_base_of_v<UBaseTemplate, T>, "T must be a subclass of UBaseTemplate");
+	if (!IsValid(runtimeTemplate)) {
+		LOGERROR("UDynamicAssetManager::getKey: Invalid template provided");
+		return nullptr;
+	}
+	for (const auto& pair : _templateMap) {
+		if (pair.Value == runtimeTemplate) {
+			T* ret = Cast<T>(pair.Key);
+			if (!IsValid(ret)) {
+				LOGERROR("UDynamicAssetManager::getKey: Failed to cast key template to type T");
+				return nullptr;
+			}
+			return ret;
+		}
+	}
+	LOGERROR("UDynamicAssetManager::getKey: No matching key found for provided runtime template");
+	return nullptr;
 }

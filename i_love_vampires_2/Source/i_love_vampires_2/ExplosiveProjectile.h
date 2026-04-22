@@ -76,7 +76,7 @@ class ExplosiveProjectileAttributes : public BaseAttributes {
 public:
 	ExplosiveProjectileAttributes() = delete;
 	ExplosiveProjectileAttributes(const ExplosiveProjectileAttributes& other) : BaseAttributes(other), _attrRef(other._attrRef) { baseInit(other); }
-	ExplosiveProjectileAttributes(ExplosiveProjectileAttributes&& other) : BaseAttributes(std::move(other)), _attrRef(std::move(other._attrRef)) { baseInit(std::move(other)); other._attrRef.reset(); }
+	ExplosiveProjectileAttributes(ExplosiveProjectileAttributes&& other) : BaseAttributes(std::move(other)), _attrRef(other._attrRef) { baseInit(std::move(other)); other._attrRef.reset(); }
 	ExplosiveProjectileAttributes& operator=(const ExplosiveProjectileAttributes& other) = delete;
 	ExplosiveProjectileAttributes& operator=(ExplosiveProjectileAttributes&& other) = delete;
 	ExplosiveProjectileAttributes(const UExplosiveProjectileAttributeData* data, const std::shared_ptr<const CombatantAttributes>& attr) : BaseAttributes(data), _attrRef(attr) { baseInit(data); }
@@ -86,6 +86,7 @@ public:
 	virtual void applyStatus(UObject* context, const FEffectStruct& status, float delta) override {}
 	virtual void applyToAllStats(const std::function<void(Stat&)>& func) override {}
 	virtual void applyToAllStats(const std::function<void(const Stat&)>& func) const override {}
+	virtual bool isCompatibleWith(const UBaseAttributeData* data) const override { return dynamic_cast<const UExplosiveProjectileAttributeData*>(data) != nullptr; }
 };
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -122,23 +123,36 @@ public:
 	ExplosiveProjectileFactory& operator=(const ExplosiveProjectileFactory& other) = delete;
 	ExplosiveProjectileFactory(ExplosiveProjectileFactory&& other);
 	ExplosiveProjectileFactory& operator=(ExplosiveProjectileFactory&& other) = delete;
-	ExplosiveProjectileFactory(
-		ACombatant*,
-		const UAttackConfig*,
-		const UAttackAttributeData*,
-		const UProjectileConfig*,
-		const UProjectileAttributeData*,
-		const UExplosiveProjectileConfig*,
-		const UExplosiveProjectileAttributeData*,
-		const UAOEConfig*,
-		const UAOEAttributeData*,
-		const UAttackConfig*,
-		const UAttackAttributeData*
-		);
+	ExplosiveProjectileFactory(ACombatant*, const UExplosiveProjectileTemplate*);
 	virtual void tick(float delta) override;
+	virtual void upgrade() override;
 	// Uses the same version as ProjectileFactory. LaunchSingleProjectile is overridden.
 	//virtual void launchAttack(const FVector& forward) override;
 };
+///////////////////////////////////////////////////////////////////////////////
+UCLASS(BlueprintType, EditInlineNew)
+class I_LOVE_VAMPIRES_2_API UExplosiveProjectileUpgrade : public UProjectileUpgrade {
+	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere, Instanced)
+	UExplosiveProjectileAttributeData* _explosiveProjectileAttributeOffsets;
+	UPROPERTY(EditAnywhere, Instanced)
+	UAOEAttributeData* _AOEAttributeOffsets;
+	UPROPERTY(EditAnywhere, Instanced)
+	UAttackAttributeData* _AOEAttributeOffsets_attack;
+	virtual void replaceOverrides() override {
+		Super::replaceOverrides();
+		_explosiveProjectileAttributeOffsets->zeroSentinelOverride();
+		_AOEAttributeOffsets->zeroSentinelOverride();
+		_AOEAttributeOffsets_attack->zeroSentinelOverride();
+	}
+	UExplosiveProjectileUpgrade(const FObjectInitializer& init) : Super(init) {
+		_explosiveProjectileAttributeOffsets = init.CreateDefaultSubobject<UExplosiveProjectileAttributeData>(this, "_explosiveProjectileAttributeOffsets");
+		_AOEAttributeOffsets = init.CreateDefaultSubobject<UAOEAttributeData>(this, "_AOEAttributeOffsets");
+		_AOEAttributeOffsets_attack = init.CreateDefaultSubobject<UAttackAttributeData>(this, "_AOEAttributeOffsets_attack");
+	}
+};
+
 ///////////////////////////////////////////////////////////////////////////////
 
 UCLASS(BlueprintType, EditInlineNew)

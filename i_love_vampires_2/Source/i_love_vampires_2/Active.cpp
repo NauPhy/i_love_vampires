@@ -11,9 +11,8 @@ void Active::tick(float delta, const FVector& forwardVector) {
 		return;
 	}
 	//If this is performance intensive I can change the trigger to onAttributeChanged
-	for (const auto& factory : _factories) {
-		factory->tick(delta);
-	}
+	_factory->tick(delta);
+	
 	updateWarmup(delta);
 	if (_chargeRatio >= 1) {
 		activate(forwardVector);
@@ -32,12 +31,25 @@ void Active::tick(float delta, const FVector& forwardVector) {
 	}
 }
 
+UWeaponTemplate* Active::getDiskTemplate() const {
+	UDynamicAssetManager* manager = nullptr;
+	if (!MyGameplayStatics::getDynamicAssetManager(_owner.Get(), manager)) {
+		LOGERROR("Active::getDiskTemplate - failed to get dynamic asset manager");
+		return nullptr;
+	}
+	return manager->getKey(_weaponTemplate.Get());
+}
+
 bool Active::hasStatus(EStatus status) const {
 	for (const auto& effect : _statusEffects) {
 		if (effect._type == status)
 			return true;
 	}
 	return false;
+}
+
+bool Active::operator==(UWeaponTemplate* other) const {
+	return getDiskTemplate() == other;
 }
 
 void Active::updateWarmup(float delta) {
@@ -54,44 +66,24 @@ void Active::updateWarmup(float delta) {
 }
 
 void Active::activate(const FVector& forward) {
-	EAttackType type = _weaponTemplate->_attackType;
-	if (type == EAttackType::first) {
-		activate_first(forward);
-	}
-	else {
-		LOGERROR("UActive::activate - not implemented for this attackType");
-	}
+	_factory->launchAttack(forward);
 }
 
-void Active::activate_first(const FVector& forward) {
-	if (_factories.size() == 0)
-		return;
-	_factories[0]->launchAttack(forward);
-}
-
-Active::Active(ACombatant* owner, const UWeaponTemplate* rawData) : _owner(owner), _weaponTemplate(nullptr)
+Active::Active(ACombatant* owner, const UWeaponTemplate* rawData) : _owner(owner), _weaponTemplate(rawData)
 {
 	if (!IsValid(owner) || !IsValid(rawData)) {
 		LOGERROR("Active::Active - invalid parameters");
 		return;
 	}
-	const UWeaponTemplate* temp = unrealHelpers::getDynamicTemplate<UWeaponTemplate>(_owner.Get(), rawData);
-	if (!IsValid(temp)) {
-		LOGERROR("Active::Active - failed to get dynamic template");
-		return;
-	}
-	for (const auto& data : temp->_attackData) {
-		_factories.push_back(std::move(data->createFactory(_owner.Get())));
-	}
+	_factory = std::move(rawData->_attackData->createFactory(_owner.Get()));
 	//warmup
-	_weaponTemplate = temp;
 	_chargeRatio = _weaponTemplate->_startOnCooldown ? 0 : 1;
 }
 
 //template stuff
 Active::Active(Active&& other) :
 	_chargeRatio(other._chargeRatio),
-	_factories(std::move(other._factories)),
+	_factory(std::move(other._factory)),
 	_owner(other._owner),
 	_weaponTemplate(other._weaponTemplate)
 {
@@ -102,7 +94,7 @@ Active::Active(Active&& other) :
 Active& Active::operator=(Active&& other) {
 	if (this != &other) {
 		_chargeRatio = other._chargeRatio;
-		_factories = std::move(other._factories);
+		_factory = std::move(other._factory);
 		_owner = other._owner;
 		_weaponTemplate = other._weaponTemplate;
 		other._owner = nullptr;
@@ -116,15 +108,11 @@ void UWeaponTemplate::replaceOverrides() {
 		_name = _defaults._name;
 	if (helpers::isInvalidData(_warmup))
 		_warmup = _defaults._warmup;
-	if (unrealHelpers::isInvalidData<EAttackType>(_attackType))
-		_attackType = _defaults._attackType;
 }
 
 void Active::inflictStatus(const FEffectStruct& status) {
 	if (status._type == _CHILL) {
 		_statusEffects.Add(status);
 	}
-	for (auto& factory : _factories) {
-		factory->inflictStatus(status);
-	}
+	_factory->inflictStatus(status);
 }

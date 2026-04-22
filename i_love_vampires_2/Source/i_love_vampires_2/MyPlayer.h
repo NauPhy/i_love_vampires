@@ -37,8 +37,8 @@ protected:
 public:
 	AMyPlayer();
 	UFUNCTION(BlueprintCallable)
-	void initialise_AMyPlayer(const UCombatantTemplate* data);
-	virtual void myInitialise(const UCombatantTemplate* temp) override {
+	void initialise_AMyPlayer(UCombatantTemplate* data);
+	virtual void myInitialise(UCombatantTemplate* temp) override {
 		initialise_AMyPlayer(temp);
 	}
 	virtual void BeginPlay() override;
