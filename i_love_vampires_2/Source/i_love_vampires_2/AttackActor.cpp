@@ -150,28 +150,28 @@ AttackFactory::AttackFactory(
 	ACombatant* owner,
 	const UAttackTemplate* myTemplate) :
 	BaseAttributeSet(),
-	_owner(owner),
-	_attackConfig(myTemplate->_attackConfig),
-	_upgrades(myTemplate->_upgrades)
+	_owner(owner)
 {
-	if (!IsValid(owner) || !IsValid(_attackConfig.Get())) {
+	if (!IsValid(owner) || !IsValid(myTemplate) || !IsValid(myTemplate->_attackConfig) || myTemplate->_levels.Num() - 1 < _level || myTemplate->_levels.Num() == 0 || _level < 0) {
 		LOGERROR("AttackFactory::AttackFactory - invalid parameters");
 		return;
 	}
-	for (const auto& upgrade : _upgrades) {
-		if (!IsValid(upgrade)) {
-			LOGERROR("AttackFactory::AttackFactory - invalid upgrade in template");
-			return;
+	_attackConfig = myTemplate->_attackConfig;
+	for (const auto& level : myTemplate->_levels) {
+		if (!isCompatible(level)) {
+			LOGERROR("AttackFactory::AttackFactory - invalid level in template");
+			continue;
 		}
+		_levels.Add(level);
 	}
-	auto temp = std::make_shared<AttackAttributes>(myTemplate->_attackAttributes, owner->getAttributes());
+	auto temp = std::make_shared<AttackAttributes>(_levels[_level]->_attackOffsets, owner->getAttributes());
 	_attackAttributes = std::make_unique<BaseAttributeWrapper<AttackAttributes>>(owner, temp);
 }
 
 AttackFactory::AttackFactory(AttackFactory&& other) :
 	BaseAttributeSet(std::move(other)),
 	_attackConfig(other._attackConfig),
-	_upgrades(other._upgrades),
+	_levels(std::move(other._levels)),
 	_attackAttributes(std::move(other._attackAttributes)),
 	_owner(other._owner)
 {
@@ -187,17 +187,25 @@ void AttackFactory::tick(float delta) {
 }
 
 void AttackFactory::upgrade() {
-	if (_level >= _upgrades.Num() || _attackAttributes.get() == nullptr) {
+	if ((_level+1) > _levels.Num() - 1 || (_level+1) < 0 || _attackAttributes.get() == nullptr) {
 		LOGERROR("AttackFactory::upgrade - invalid parameter");
 		return;
 	}
-	const UAttackUpgrade* upgrade = _upgrades[_level-1].Get();
-	if (!IsValid(upgrade)) {
+	_level++;
+	const UAttackLevel* upgrade = _levels[_level].Get();
+	if (!isCompatible(upgrade)) {
 		LOGERROR("AttackFactory::upgrade - invalid upgrade");
 		return;
 	}
-	_attackAttributes->changeBaseValues(upgrade->_attackOffsets);
-	_level++;
+	finishUpgrade(upgrade);
+}
+
+void AttackFactory::finishUpgrade(const UAttackLevel* upgrade) {
+	if (!isCompatible(upgrade)) {
+		LOGERROR("AttackFactory::finishUpgrade - invalid upgrade");
+		return;
+	}
+	_attackAttributes->changeBaseValues<UAttackAttributeData>(upgrade->_attackOffsets.Get());
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -207,18 +215,18 @@ std::unique_ptr<AttackFactory> UAttackTemplate::createFactory(ACombatant* owner)
 
 void UAttackTemplate::replaceOverrides() {
 	_attackConfig->replaceOverrides();
-	_attackAttributes->replaceOverrides();
+	//_attackAttributes->replaceOverrides();
 
-	if (_upgrades.Num() > 0) {
-		auto myClass = _upgrades[0]->GetClass();
-		for (const auto& upgrade : _upgrades) {
+	if (_levels.Num() > 0) {
+		auto myClass = _levels[0]->GetClass();
+		for (const auto& upgrade : _levels) {
 			if (upgrade->GetClass() != myClass) {
 				LOGERROR("UAttackTemplate::replaceOverrides - all upgrades must be of the same class");
 				continue;
 			}
 		}
 	}
-	for (auto& upgrade : _upgrades)
+	for (auto& upgrade : _levels)
 		upgrade->replaceOverrides();
 }
 

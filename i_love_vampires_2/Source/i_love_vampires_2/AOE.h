@@ -157,10 +157,12 @@ class AOEFactory : public AttackFactory
 	const static inline EAOETargeting _INSTIGATOR = EAOETargeting::instigator;
 	const static inline EAOETargeting _RANDOM = EAOETargeting::random;
 
-	const TObjectPtr<const UAOEConfig> _AOEConfig = nullptr;
+	TObjectPtr<const UAOEConfig> _AOEConfig = nullptr;
 	std::unique_ptr<BaseAttributeWrapper<AOEAttributes>> _AOEAttributes = nullptr;
 protected:
 	AOEInitStruct getAOEInit() const;
+	virtual bool isCompatible(const UAttackLevel* level) const override { return dynamic_cast<const UAOELevel*>(level) != nullptr; }
+	virtual void finishUpgrade(const UAttackLevel* newLevel) override;
 
 public:
 	AOEFactory() = delete;
@@ -171,21 +173,20 @@ public:
 	AOEFactory(ACombatant* owner, const UAOETemplate* temp);
 	virtual void launchAttack(const FVector& forward) override;
 	virtual void tick(float delta) override;
-	virtual void upgrade() override;
 };
 ///////////////////////////////////////////////////////////////////////////////
 UCLASS(BlueprintType, EditInlineNew)
-class I_LOVE_VAMPIRES_2_API UAOEUpgrade : public UAttackUpgrade {
+class I_LOVE_VAMPIRES_2_API UAOELevel : public UAttackLevel {
 	GENERATED_BODY()
 public:
 	UPROPERTY(EditAnywhere, Instanced)
-	UAOEAttributeData* _AOEOffsets;
+	TObjectPtr<UAOEAttributeData> _AOEOffsets;
 
 	virtual void replaceOverrides() override {
 		Super::replaceOverrides();
-		_AOEOffsets->zeroSentinelOverride();
+		_AOEOffsets->replaceOverrides();
 	}
-	UAOEUpgrade(const FObjectInitializer& init) : Super(init) {
+	UAOELevel(const FObjectInitializer& init) : Super(init) {
 		_AOEOffsets = init.CreateDefaultSubobject<UAOEAttributeData>(this, "_AOEOffsets");
 	}
 };
@@ -200,18 +201,18 @@ protected:
 	virtual void replaceOverrides() override {
 		Super::replaceOverrides();
 		_AOEConfig->replaceOverrides();
-		_AOEAttributes->replaceOverrides();
+		//_AOEAttributes->replaceOverrides();
 	}
 
 public:
 	UPROPERTY(EditAnywhere, Instanced)
-	UAOEConfig* _AOEConfig;
-	UPROPERTY(EditAnywhere, Instanced)
-	UAOEAttributeData* _AOEAttributes;
+	TObjectPtr<UAOEConfig> _AOEConfig;
+	/*UPROPERTY(EditAnywhere, Instanced)
+	TObjectPtr<UAOEAttributeData> _AOEAttributes;*/
 
 	UAOETemplate(const FObjectInitializer& init) : Super(init) {
 		_AOEConfig = init.CreateDefaultSubobject<UAOEConfig>(this, "_AOEConfig");
-		_AOEAttributes = init.CreateDefaultSubobject<UAOEAttributeData>(this, "_AOEAttributes");
+		//_AOEAttributes = init.CreateDefaultSubobject<UAOEAttributeData>(this, "_AOEAttributes");
 	}
 	virtual std::unique_ptr<AttackFactory> createFactory(ACombatant* owner) const override;
 };

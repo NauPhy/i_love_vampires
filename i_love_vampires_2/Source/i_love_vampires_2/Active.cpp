@@ -71,7 +71,7 @@ void Active::activate(const FVector& forward) {
 
 Active::Active(ACombatant* owner, const UWeaponTemplate* rawData) : _owner(owner), _weaponTemplate(rawData)
 {
-	if (!IsValid(owner) || !IsValid(rawData)) {
+	if (!IsValid(owner) || !IsValid(rawData) || !IsValid(rawData->_attackData)) {
 		LOGERROR("Active::Active - invalid parameters");
 		return;
 	}
@@ -108,6 +108,7 @@ void UWeaponTemplate::replaceOverrides() {
 		_name = _defaults._name;
 	if (helpers::isInvalidData(_warmup))
 		_warmup = _defaults._warmup;
+	_attackData->replaceOverrides();
 }
 
 void Active::inflictStatus(const FEffectStruct& status) {

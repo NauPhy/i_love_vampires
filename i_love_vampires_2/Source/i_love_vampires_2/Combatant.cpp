@@ -25,6 +25,7 @@ ACombatant::ACombatant()
 	unrealHelpers::constructFlipbook(this, RootComponent, _combatantFlipbook);
 	_combatantFlipbook->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	_combatantFlipbook->SetCollisionObjectType(ECollisionChannel::ECC_Pawn);
+	_passives = std::make_shared<std::vector<Passive>>();
 	//_passiveContainer = CreateDefaultSubobject<UPassiveContainer>(TEXT("PassiveContainer"));
 }
 
@@ -53,7 +54,8 @@ void ACombatant::BeginPlay() {
 			giveWeapon_internal(data);
 	}
 	for (const auto& data : _config->_startingPassives) {
-		givePassive_internal(data);
+		if (canGivePassive())
+			givePassive_internal(data);
 	}
 	unrealHelpers::initFlipbook(this, _config->_sprite.Get(), _combatantFlipbook);
 	_myForwardVector = GetActorForwardVector();
@@ -98,7 +100,7 @@ bool ACombatant::canUpgradeWeapon() const {
 }
 bool ACombatant::canUpgradePassive() const {
 	//return _passiveContainer->_passives.Num() > 0;
-	for (const auto& passive : _passives) {
+	for (const auto& passive : *_passives) {
 		if (passive.isUpgradable())
 			return true;
 	}
@@ -114,31 +116,31 @@ TArray<UWeaponTemplate*> ACombatant::getUpgradableWeapons() const {
 	return result;
 }
 
-TArray<UCombatantPassive*> ACombatant::getUpgradablePassives() const {
+TArray<UPassiveData*> ACombatant::getUpgradablePassives() const {
 	//return _passiveContainer->getDiskPassives();
-	TArray<UCombatantPassive*> result;
-	for (const auto& passive : _passives) {
+	TArray<UPassiveData*> result;
+	for (const auto& passive : *_passives) {
 		if (passive.isUpgradable()) {
-			UDynamicAssetManager* manager = nullptr;
 			result.Add(passive.getDiskData());
 		}
 	}
-}
-
-TArray<UCombatantPassive*> UPassiveContainer::getDiskPassives() const {
-	UDynamicAssetManager* manager = nullptr;
-	if (!MyGameplayStatics::getDynamicAssetManager(this, manager)) {
-		LOGERROR("ACombatant::getUpgradablePassives - failed to get dynamic asset manager");
-		return TArray<UCombatantPassive*>();
-	}
-	TArray<UCombatantPassive*> result;
-	for (const auto& passive : _passives) {
-		UCombatantPassive* temp = manager->getKey(passive.Get());
-		if (temp != nullptr)
-			result.Add(temp);
-	}
 	return result;
 }
+
+//TArray<UCombatantPassive*> UPassiveContainer::getDiskPassives() const {
+//	UDynamicAssetManager* manager = nullptr;
+//	if (!MyGameplayStatics::getDynamicAssetManager(this, manager)) {
+//		LOGERROR("ACombatant::getUpgradablePassives - failed to get dynamic asset manager");
+//		return TArray<UCombatantPassive*>();
+//	}
+//	TArray<UCombatantPassive*> result;
+//	for (const auto& passive : _passives) {
+//		UCombatantPassive* temp = manager->getKey(passive.Get());
+//		if (temp != nullptr)
+//			result.Add(temp);
+//	}
+//	return result;
+//}
 
 TArray<UWeaponTemplate*> ACombatant::getMaxedWeapons() const {
 	TArray<UWeaponTemplate*> result;
@@ -156,10 +158,10 @@ TArray<UWeaponTemplate*> ACombatant::getAllWeapons() const {
 	}
 	return result;
 }
-TArray<UCombatantPassive*> ACombatant::getAllPassives() const {
+TArray<UPassiveData*> ACombatant::getAllPassives() const {
 	//return _passiveContainer->getDiskPassives();
-	TArray<UCombatantPassive*> result;
-	for (const auto& passive : _passives) {
+	TArray<UPassiveData*> result;
+	for (const auto& passive : *_passives) {
 		result.Add(passive.getDiskData());
 	}
 	return result;
@@ -192,16 +194,16 @@ void ACombatant::upgradeWeapon(UWeaponTemplate* temp) {
 	LOGERROR("ACombatant::upgradeWeapon - no active ability upgraded, weapon may not be compatible with any actives");
 }
 
-void ACombatant::givePassive(UCombatantPassiveData* temp) {
-	const UCombatantPassiveData* dynamic = unrealHelpers::getDynamicTemplate<UCombatantPassiveData>(this, temp);
+void ACombatant::givePassive(UPassiveData* temp) {
+	const UPassiveData* dynamic = unrealHelpers::getDynamicTemplate<UPassiveData>(this, temp);
 	givePassive_internal(dynamic);
 }
-void ACombatant::givePassive_internal(const UCombatantPassiveData* temp) {
+void ACombatant::givePassive_internal(const UPassiveData* temp) {
 	if (!IsValid(temp)) {
 		LOGERROR("ACombatant::givePassive_internal - parameter not valid");
 		return;
 	}
-	_passives.push_back(Passive(temp));
+	_passives->push_back(Passive(temp));
 }
 
 void ACombatant::inflictStatus(const FEffectStruct& status) {
@@ -250,11 +252,9 @@ void ACombatant::onKilled() {
 }
 ///////////////////////////////////////////////////////////////////////////////
 // CombatantAttributes
-CombatantAttributes::CombatantAttributes(const UCombatantAttributeData* attr, const UPassiveContainer* passives) :
+CombatantAttributes::CombatantAttributes(const UCombatantAttributeData* attr, std::shared_ptr<const std::vector<Passive>> passives) :
 	BaseAttributes(attr),
 	//_maxHP(attr->_maxHP),
-	// I recommend setting maxHP and currentHP to the same values for clarity, but it's enforced here just in case
-	_currentHP(attr->_maxHP),
 	//_damageReduction_flat(attr->_damageReduction_flat),
 	//_damageReduction_percent(attr->_damageReduction_percent),
 	//_healthRegen_flat(attr->_healthRegen_flat),
@@ -275,11 +275,17 @@ CombatantAttributes::CombatantAttributes(const UCombatantAttributeData* attr, co
 	_passives(passives)
 {
 	baseInit(attr);
+	// I recommend setting maxHP and currentHP to the same values for clarity, but it's enforced here just in case
+	_currentHP.setBase(_maxHP.getBase());
 }
 
 CombatantAttributes::CombatantAttributes(const UCombatantAttributeData* attr) :
-	CombatantAttributes(attr, nullptr)
+	BaseAttributes(attr),
+	_passives()
 {
+	baseInit(attr);
+	// I recommend setting maxHP and currentHP to the same values for clarity, but it's enforced here just in case
+	_currentHP.setBase(_maxHP.getBase());
 }
 
 CombatantAttributes::CombatantAttributes(const CombatantAttributes& other) :
@@ -303,7 +309,7 @@ CombatantAttributes::CombatantAttributes(const CombatantAttributes& other) :
 	_contactDamage(other._contactDamage),
 	_selfSize(other._selfSize),
 	_iFrameDuration(other._iFrameDuration),*/
-	_passiveContainer(other._passiveContainer)
+	_passives(other._passives)
 {
 	baseInit(other);
 }
@@ -329,29 +335,28 @@ CombatantAttributes::CombatantAttributes(CombatantAttributes&& other) :
 	//_contactDamage(std::move(other._contactDamage)),
 	//_selfSize(std::move(other._selfSize)),
 	//_iFrameDuration(std::move(other._iFrameDuration)),
-	_passiveContainer(other._passiveContainer)
+	_passives(other._passives)
 {
 	baseInit(std::move(other));
-	other._passiveContainer.Reset();
+	other._passives.reset();
 }
 
 void CombatantAttributes::tick(UObject* context, float delta, const TArray<FEffectStruct>& statusEffects) {
-	if (!_passiveContainer.IsValid())
+	auto tempPassives = _passives.lock();
+	if (!tempPassives)
 		return;
 	BaseAttributes::softReset();
 	// So that raw HP is accurate. Uses all stats for forward compatability
 	applyToAllStats([](Stat& stat) { Stat::calculateFinal(stat); });
 	float rawMaxHP = _maxHP.getFinal();
-	for (const auto& passive : _passiveContainer->_passives) {
-		if (!IsValid(passive)) {
-			LOGERROR("CombatantAttributes::tick - invalid passive in array");
+	for (const auto& passive : *tempPassives) {
+		const auto prebonus = passive.getPrebonus();
+		const auto postbonus = passive.getPostbonus();
+		const auto multiplier = passive.getMultiplier();
+		if (!IsValid(prebonus) || !IsValid(postbonus) || !IsValid(multiplier))
 			continue;
-		}
-		CombatantAttributes prebonus = CombatantAttributes(passive->_prebonus, _passiveContainer.Get());
 		prebonusAdd(prebonus);
-		CombatantAttributes postbonus = CombatantAttributes(passive->_postbonus, _passiveContainer.Get());
 		postbonusAdd(postbonus);
-		CombatantAttributes multiplier = CombatantAttributes(passive->_multiplier, _passiveContainer.Get());
 		multiplierAdd(multiplier);
 	}
 	// When you increase your maxHP by any means other than passives, your current HP stays the same. 
@@ -411,34 +416,34 @@ void CombatantAttributes::applyStatus(UObject* context, const FEffectStruct& sta
 		return;
 }
 
-CombatantAttributes& CombatantAttributes::prebonusAdd(CombatantAttributes& other) {
-	std::vector<Stat> otherStats = other.getStatVector();
+CombatantAttributes& CombatantAttributes::prebonusAdd(const UCombatantAttributeData* other) {
+	const std::vector<float> otherStats = other->getStatVector();
 	int i = 0;
 	applyToAllStats([&otherStats, &i](Stat& stat) {
-		stat._prebonus += otherStats[i++].getFinal();
+		stat._prebonus += otherStats[i++];
 		});
 	return *this;
 }
-CombatantAttributes& CombatantAttributes::postbonusAdd(CombatantAttributes& other) {
-	std::vector<Stat> otherStats = other.getStatVector();
+CombatantAttributes& CombatantAttributes::postbonusAdd(const UCombatantAttributeData* other) {
+	const std::vector<float> otherStats = other->getStatVector();
 	int i = 0;
 	applyToAllStats([&otherStats, &i](Stat& stat) {
-		stat._postbonus += otherStats[i++].getFinal();
+		stat._postbonus += otherStats[i++];
 		});
 	return *this;
 }
-CombatantAttributes& CombatantAttributes::multiplierAdd(CombatantAttributes& other) {
-	std::vector<Stat> otherStats = other.getStatVector();
+CombatantAttributes& CombatantAttributes::multiplierAdd(const UCombatantAttributeData* other) {
+	const std::vector<float> otherStats = other->getStatVector();
 	int i = 0;
 	applyToAllStats([&otherStats, &i](Stat& stat) {
-		stat._multiplier += otherStats[i++].getFinal();
+		stat._multiplier += otherStats[i++];
 		});
 	return *this;
 }
-std::vector<Stat> CombatantAttributes::getStatVector() {
-	std::vector<Stat> stats;
-	applyToAllStats([&stats](Stat& stat) {
-		stats.push_back(Stat(stat));
+std::vector<float> UCombatantAttributeData::getStatVector() const {
+	std::vector<float> stats;
+	applyToAllStats([&stats](const float& stat) {
+		stats.push_back(stat);
 		});
 	return stats;
 }
@@ -536,15 +541,56 @@ void UCombatantConfig::replaceOverrides() {
 	if (unrealHelpers::isInvalidData<ACombatant>(_combatantClass))
 		_combatantClass = _defaults._combatantClass;
 	for (auto& data : _startingPassives)
+	{
+		if (!IsValid(data)) {
+			LOGERROR("UCombatantConfig::replaceOverrides - invalid passive in starting passives");
+			continue;
+		}
 		data->replaceOverrides();
+	}
+	for (auto& data : _startingWeapons) {
+		if (!IsValid(data)) {
+			LOGERROR("UCombatantConfig::replaceOverrides - invalid weapon in starting weapons");
+			continue;
+		}
+		data->replaceOverrides();
+	}
 }
 ///////////////////////////////////////////////////////////////////////////////
 // Passives
-UCombatantPassiveData* Passive::getDiskData() const {
+UPassiveData* Passive::getDiskData() const {
 	UDynamicAssetManager* manager = nullptr;
 	if (!MyGameplayStatics::getDynamicAssetManager(GWorld, manager)) {
 		LOGERROR("Passive::getDiskData - failed to get dynamic asset manager");
 		return nullptr;
 	}
 	return manager->getKey(_data.Get());
+}
+void Passive::upgrade() {
+	if (!isUpgradable()) {
+		LOGERROR("Passive::upgrade - passive is not upgradable");
+		return;
+	}
+	_level++;
+}
+const UCombatantAttributeData* Passive::getPrebonus() const {
+	if (_level < 0 || _level > _levels.Num() - 1 || _levels.Num() == 0) {
+		LOGERROR("Passive::getPrebonus - invalid levels");
+		return nullptr;
+	}
+	return _levels[_level]->_prebonus;
+}
+const UCombatantAttributeData* Passive::getPostbonus() const {
+	if (_level < 0 || _level > _levels.Num() - 1 || _levels.Num() == 0) {
+		LOGERROR("Passive::getPostbonus - invalid levels");
+		return nullptr;
+	}
+	return _levels[_level]->_postbonus;
+}
+const UCombatantAttributeData* Passive::getMultiplier() const {
+	if (_level < 0 || _level > _levels.Num() - 1 || _levels.Num() == 0) {
+		LOGERROR("Passive::getMultiplier - invalid levels");
+		return nullptr;
+	}
+	return _levels[_level]->_multiplier;
 }

@@ -44,7 +44,7 @@
                                     "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.h"
                                 },
                                 "region": {
-                                    "startLine": 175,
+                                    "startLine": 178,
                                     "startColumn": 9,
                                     "snippet": {
                                         "text": "#define STAT(X) \\"
@@ -77,6 +77,31 @@
                 {
                     "ruleId": "C4265",
                     "message": {
+                        "text": "'CombatantAttributes': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
+                    },
+                    "analysisTarget": {
+                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Intermediate/Build/Win64/x64/UnrealEditor/DebugGame/i_love_vampires_2/Module.i_love_vampires_2.gen.cpp"
+                    },
+                    "locations": [
+                        {
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.h"
+                                },
+                                "region": {
+                                    "startLine": 235,
+                                    "startColumn": 1,
+                                    "snippet": {
+                                        "text": "};"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "C4265",
+                    "message": {
                         "text": "'AttackAttributes': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
                     },
                     "analysisTarget": {
@@ -89,7 +114,7 @@
                                     "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AttackActor.h"
                                 },
                                 "region": {
-                                    "startLine": 152,
+                                    "startLine": 154,
                                     "startColumn": 1,
                                     "snippet": {
                                         "text": "};"

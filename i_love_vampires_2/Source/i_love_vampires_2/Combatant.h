@@ -4,6 +4,7 @@
 #include "Templates/SharedPointer.h"
 #include <functional>
 #include <unordered_map>
+#include "BaseLevelContainer.h"
 // ACombatant
 #include "GameFramework/Pawn.h"
 //#include "SpriteEnum.h"
@@ -30,7 +31,7 @@ class CombatantAttributeSet;
 class UCombatantConfig;
 class UCombatantTemplate;
 class UWeaponTemplate;
-class UCombatantPassive;
+class Passive;
 
 class UPaperFlipbookComponent;
 class Active;
@@ -49,9 +50,9 @@ class I_LOVE_VAMPIRES_2_API ACombatant : public APawn
 	TObjectPtr<const UCombatantConfig> _config = nullptr;
 	/*UPROPERTY()
 	UPassiveContainer* _passiveContainer = nullptr;*/
-	std::vector<Passive> _passives;
+	std::shared_ptr<std::vector<Passive>> _passives;
 
-	void givePassive_internal(const UCombatantPassive* data);
+	void givePassive_internal(const UPassiveData* data);
 	void giveWeapon_internal(const UWeaponTemplate* data);
 
 
@@ -81,7 +82,7 @@ public:
 	std::shared_ptr<const CombatantAttributes> getAttributes() const;
 	float getAttributeMember(Stat CombatantAttributes::* member) const;
 	const FVector& myGetForwardVector() const { return _myForwardVector; }
-	const UPassiveContainer* getPassives() const { return _passiveContainer; }
+	std::shared_ptr<const std::vector<Passive>> getPassives() const { return _passives; }
 	void inflictStatus(const FEffectStruct&);
 
 	UFUNCTION(BlueprintCallable) float getHP() const;
@@ -91,14 +92,14 @@ public:
 	UFUNCTION(BlueprintCallable) bool canGivePassive() const { return true; }
 	UFUNCTION(BlueprintCallable) bool canUpgradePassive() const;
 	UFUNCTION(BlueprintCallable) TArray<UWeaponTemplate*> getUpgradableWeapons() const;
-	UFUNCTION(BlueprintCallable) TArray<UCombatantPassive*> getUpgradablePassives() const;
+	UFUNCTION(BlueprintCallable) TArray<UPassiveData*> getUpgradablePassives() const;
 	UFUNCTION(BlueprintCallable) TArray<UWeaponTemplate*> getMaxedWeapons() const;
 	UFUNCTION(BlueprintCallable) TArray<UWeaponTemplate*> getAllWeapons() const;
-	UFUNCTION(BlueprintCallable) TArray<UCombatantPassive*> getAllPassives() const;
+	UFUNCTION(BlueprintCallable) TArray<UPassiveData*> getAllPassives() const;
 	UFUNCTION(BlueprintCallable) void giveWeapon(UWeaponTemplate* data);
 	UFUNCTION(BlueprintCallable) void upgradeWeapon(UWeaponTemplate* data);
-	UFUNCTION(BlueprintCallable) void givePassive(UCombatantPassive* data);
-	UFUNCTION(BlueprintCallable) void upgradePassive(UCombatantPassive* data) {}
+	UFUNCTION(BlueprintCallable) void givePassive(UPassiveData* data);
+	UFUNCTION(BlueprintCallable) void upgradePassive(UPassiveData* data) {}
 };
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -140,6 +141,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly) float _iFrameDuration = SENTINEL_FLOAT;
 	UCombatantAttributeData(const FObjectInitializer& init) : Super(init) {}
 	virtual void replaceOverrides() override;
+	std::vector<float> getStatVector() const;
 };
 
 template<>
@@ -203,8 +205,7 @@ class CombatantAttributes : public BaseAttributes {
 	const static inline EStatus _CHILL = EStatus::chill;
 	const static inline EStatus _DECAY = EStatus::decay;
 
-	std::vector<Stat> getStatVector();
-	TWeakObjectPtr<const UPassiveContainer> _passiveContainer = nullptr;
+	std::weak_ptr<const std::vector<Passive>> _passives;
 
 public:
 	STAT(BASEATTRIBUTES_DECLARE);
@@ -214,7 +215,7 @@ public:
 	CombatantAttributes(CombatantAttributes&& other);
 	CombatantAttributes& operator=(const CombatantAttributes& other) = delete;
 	CombatantAttributes& operator=(CombatantAttributes&& other) = delete;
-	CombatantAttributes(const UCombatantAttributeData* attr, const UPassiveContainer* passives);
+	CombatantAttributes(const UCombatantAttributeData* attr, std::shared_ptr<const std::vector<Passive>> passives);
 	CombatantAttributes(const UCombatantAttributeData* attr);
 
 	virtual void discretizeFull() override;
@@ -228,9 +229,9 @@ public:
 		STAT(BASEATTRIBUTES_APPLY);
 	}
 
-	CombatantAttributes& prebonusAdd(CombatantAttributes&);
-	CombatantAttributes& postbonusAdd(CombatantAttributes&);
-	CombatantAttributes& multiplierAdd(CombatantAttributes&);
+	CombatantAttributes& prebonusAdd(const UCombatantAttributeData*);
+	CombatantAttributes& postbonusAdd(const UCombatantAttributeData*);
+	CombatantAttributes& multiplierAdd(const UCombatantAttributeData*);
 };
 #undef STAT
 
@@ -261,6 +262,7 @@ public:
 ///////////////////////////////////////////////////////////////////////////////
 
 class UWeaponTemplate;
+class UPassiveData;
 
 UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UCombatantConfig : public UBaseConfig
@@ -280,7 +282,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TArray<TObjectPtr<UWeaponTemplate>> _startingWeapons = {};
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	TArray<TObjectPtr<UCombatantPassive>> _startingPassives = {};
+	TArray<TObjectPtr<UPassiveData>> _startingPassives = {};
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TSubclassOf<ACombatant> _combatantClass = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
@@ -312,67 +314,70 @@ public:
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-
-USTRUCT()
-struct I_LOVE_VAMPIRES_2_API FPassiveLevelData
+UCLASS(BlueprintType, EditInlineNew)
+class I_LOVE_VAMPIRES_2_API UPassiveLevelData : public UBaseLevelContainer
 {
-	GENERATED_USTRUCT_BODY()
+	GENERATED_BODY()
+	
+public:
+	UPROPERTY(EditAnywhere, Instanced, BlueprintReadOnly)
+	TObjectPtr<UCombatantAttributeData> _prebonus;
+	UPROPERTY(EditAnywhere, Instanced, BlueprintReadOnly)
+	TObjectPtr<UCombatantAttributeData> _postbonus;
+	UPROPERTY(EditAnywhere, Instanced, BlueprintReadOnly)
+	TObjectPtr<UCombatantAttributeData> _multiplier;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	UCombatantAttributeData* _prebonus;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	UCombatantAttributeData* _postbonus;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	UCombatantAttributeData* _multiplier;
+	UPassiveLevelData(const FObjectInitializer& init) : Super(init) {
+		_prebonus = init.CreateDefaultSubobject<UCombatantAttributeData>(this, "_prebonus");
+		_postbonus = init.CreateDefaultSubobject<UCombatantAttributeData>(this, "_postbonus");
+		_multiplier = init.CreateDefaultSubobject<UCombatantAttributeData>(this, "_multiplier");
+	}
+	virtual void replaceOverrides() override {
+		_prebonus->zeroSentinelOverride();
+		_postbonus->zeroSentinelOverride();
+		_multiplier->zeroSentinelOverride();
+	}
+	std::vector<Stat> getStatVector() const;
 };
 
 UCLASS(BlueprintType)
-class I_LOVE_VAMPIRES_2_API UCombatantPassiveData : public UBaseTemplate
+class I_LOVE_VAMPIRES_2_API UPassiveData : public UBaseTemplate
 {
 	GENERATED_BODY()
 
 public:
 	UPROPERTY(EditAnywhere, Instanced, BlueprintReadOnly)
-	TArray<FPassiveLevelData> _levels;
+	TArray<TObjectPtr<UPassiveLevelData>> _levels;
 	virtual void replaceOverrides() override {
 		// The defaults are applied to the base values, these are offsets so the default is 0.
 		for (auto& level : _levels) {
-			level._prebonus->zeroSentinelOverride();
-			level._postbonus->zeroSentinelOverride();
-			level._multiplier->zeroSentinelOverride();
+			level->replaceOverrides();
 		}
 	}
 }; 
-///////////////////////////////////////////////////////////////////////////////
-
-struct PassiveLevel {
-	CombatantAttributes _prebonus;
-	CombatantAttributes _postbonus;
-	CombatantAttributes _multiplier;
-
-	PassiveLevel() = delete;
-	PassiveLevel(const FPassiveLevelData& data) : 
-		_prebonus(data._prebonus), _postbonus(data._postbonus), _multiplier(data._multiplier) {
-	}
-};
-
 class Passive {
-	int _level = 1;
-	TArray<PassiveLevel> _levels;
-	const TObjectPtr<const UCombatantPassiveData> _data = nullptr;
+	int _level = 0;
+	TArray<const TObjectPtr<const UPassiveLevelData>> _levels = {};
+	TObjectPtr<const UPassiveData> _data = nullptr;
 public:
 	Passive() = delete;
-	Passive(const UCombatantPassiveData* data) : _data(data) {
-		for (const auto& levelData : data->_levels) {
-			_levels.Emplace(levelData);
+	Passive(const UPassiveData* data) : _data(data) {
+		if (!IsValid(data)) {
+			LOGERROR("Attempting to construct Passive with invalid data");
+			return;
+		}
+		for (const auto& level : data->_levels) {
+			if (!IsValid(level)) {
+				LOGERROR("Attempting to construct Passive with invalid level data");
+				return;
+			}
+			_levels.Add(level);
 		}
 	}
-	PassiveLevel getCurrentData() const {
-		if (_levels.Num() == 0 || _level <= 0 || _level > _levels.Num()) {
-			LOGERROR("Passive has no levels");
-			return PassiveLevel(FPassiveLevelData());
-		}
-		return _levels[_level - 1];
-	}
-	UCombatantAttributeData* getDiskData() const;
+	UPassiveData* getDiskData() const;
+	bool isUpgradable() const { return (_level + 1) <= _levels.Num() - 1; }
+	void upgrade();
+	const UCombatantAttributeData* getPrebonus() const;
+	const UCombatantAttributeData* getPostbonus() const;
+	const UCombatantAttributeData* getMultiplier() const;
 };

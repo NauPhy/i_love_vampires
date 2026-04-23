@@ -197,7 +197,7 @@ class ProjectileFactory : public AttackFactory
 	static FVector getDirection_random();
 
 protected:
-	const TObjectPtr<const UProjectileConfig> _projectileConfig = nullptr;
+	TObjectPtr<const UProjectileConfig> _projectileConfig = nullptr;
 	std::unique_ptr<BaseAttributeWrapper<ProjectileAttributes>> _projectileAttributes = nullptr;
 	//Gives a vector depending on the projectile's targeting type
 	FVector getTempForward(const FVector& forward) const;
@@ -217,6 +217,8 @@ protected:
 		ProjectileInitStruct ret(AttackFactory::getAttackInit(), _projectileConfig.Get(), temp, _directionX, _directionZ);
 		return ret;
 	}
+	virtual bool isCompatible(const UAttackLevel* level) const override { return Cast<UProjectileLevel>(level) != nullptr; }
+	virtual void finishUpgrade(const UAttackLevel* newLevel) override;
 
 public:
 	ProjectileFactory() = delete;
@@ -226,21 +228,20 @@ public:
 	ProjectileFactory& operator=(ProjectileFactory&& other) = delete;
 	ProjectileFactory(ACombatant*, const UProjectileTemplate*);
 	virtual void tick(float delta) override;
-	virtual void upgrade() override;
 };
 ///////////////////////////////////////////////////////////////////////////////
 UCLASS(BlueprintType, EditInlineNew)
-class I_LOVE_VAMPIRES_2_API UProjectileUpgrade : public UAttackUpgrade {
+class I_LOVE_VAMPIRES_2_API UProjectileLevel : public UAttackLevel {
 	GENERATED_BODY()
 
 public:
 	UPROPERTY(EditAnywhere, Instanced)
-	UProjectileAttributeData* _projectileOffsets;
+	TObjectPtr<UProjectileAttributeData> _projectileOffsets;
 	virtual void replaceOverrides() override {
 		Super::replaceOverrides();
-		_projectileOffsets->zeroSentinelOverride();
+		_projectileOffsets->replaceOverrides();
 	}
-	UProjectileUpgrade(const FObjectInitializer& init) : Super(init) {
+	UProjectileLevel(const FObjectInitializer& init) : Super(init) {
 		_projectileOffsets = init.CreateDefaultSubobject<UProjectileAttributeData>(this, "_projectileOffsets");
 	}
 };
@@ -255,18 +256,18 @@ protected:
 	virtual void replaceOverrides() override {
 		Super::replaceOverrides();
 		_projectileConfig->replaceOverrides();
-		_projectileAttributes->replaceOverrides();
+		//_projectileAttributes->replaceOverrides();
 	}
 
 public:
 	UPROPERTY(EditAnywhere, Instanced)
-	UProjectileConfig* _projectileConfig;
-	UPROPERTY(EditAnywhere, Instanced)
-	UProjectileAttributeData* _projectileAttributes;
+	TObjectPtr<UProjectileConfig> _projectileConfig;
+	//UPROPERTY(EditAnywhere, Instanced)
+	//TObjectPtr<UProjectileAttributeData> _projectileAttributes;
 
 	UProjectileTemplate(const FObjectInitializer& init) : Super(init) {
 		_projectileConfig = init.CreateDefaultSubobject<UProjectileConfig>(this, "_projectileConfig");
-		_projectileAttributes = init.CreateDefaultSubobject<UProjectileAttributeData>(this, "_projectileAttributes");
+		//_projectileAttributes = init.CreateDefaultSubobject<UProjectileAttributeData>(this, "_projectileAttributes");
 	}
 	virtual std::unique_ptr<AttackFactory> createFactory(ACombatant* owner) const override;
 };

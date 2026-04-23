@@ -24,12 +24,12 @@ I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAOEAttributeData();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAOEAttributeData_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAOEConfig();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAOEConfig_NoRegister();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAOELevel();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAOELevel_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAOETemplate();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAOETemplate_NoRegister();
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAOEUpgrade();
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAOEUpgrade_NoRegister();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackLevel();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackTemplate();
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackUpgrade();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseAttributeData();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseConfig();
 I_LOVE_VAMPIRES_2_API UEnum* Z_Construct_UEnum_i_love_vampires_2_EAOEShape();
@@ -454,18 +454,18 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, UAOEAttributeData);
 UAOEAttributeData::~UAOEAttributeData() {}
 // ********** End Class UAOEAttributeData **********************************************************
 
-// ********** Begin Class UAOEUpgrade **************************************************************
-FClassRegistrationInfo Z_Registration_Info_UClass_UAOEUpgrade;
-UClass* UAOEUpgrade::GetPrivateStaticClass()
+// ********** Begin Class UAOELevel ****************************************************************
+FClassRegistrationInfo Z_Registration_Info_UClass_UAOELevel;
+UClass* UAOELevel::GetPrivateStaticClass()
 {
-	using TClass = UAOEUpgrade;
-	if (!Z_Registration_Info_UClass_UAOEUpgrade.InnerSingleton)
+	using TClass = UAOELevel;
+	if (!Z_Registration_Info_UClass_UAOELevel.InnerSingleton)
 	{
 		GetPrivateStaticClassBody(
 			TClass::StaticPackage(),
-			TEXT("AOEUpgrade"),
-			Z_Registration_Info_UClass_UAOEUpgrade.InnerSingleton,
-			StaticRegisterNativesUAOEUpgrade,
+			TEXT("AOELevel"),
+			Z_Registration_Info_UClass_UAOELevel.InnerSingleton,
+			StaticRegisterNativesUAOELevel,
 			sizeof(TClass),
 			alignof(TClass),
 			TClass::StaticClassFlags,
@@ -478,13 +478,13 @@ UClass* UAOEUpgrade::GetPrivateStaticClass()
 			&TClass::WithinClass::StaticClass
 		);
 	}
-	return Z_Registration_Info_UClass_UAOEUpgrade.InnerSingleton;
+	return Z_Registration_Info_UClass_UAOELevel.InnerSingleton;
 }
-UClass* Z_Construct_UClass_UAOEUpgrade_NoRegister()
+UClass* Z_Construct_UClass_UAOELevel_NoRegister()
 {
-	return UAOEUpgrade::GetPrivateStaticClass();
+	return UAOELevel::GetPrivateStaticClass();
 }
-struct Z_Construct_UClass_UAOEUpgrade_Statics
+struct Z_Construct_UClass_UAOELevel_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
@@ -497,64 +497,64 @@ struct Z_Construct_UClass_UAOEUpgrade_Statics
 		{ "ObjectInitializerConstructorDeclared", "" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__AOEOffsets_MetaData[] = {
-		{ "Category", "AOEUpgrade" },
+		{ "Category", "AOELevel" },
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "AOE.h" },
 	};
 #endif // WITH_METADATA
 
-// ********** Begin Class UAOEUpgrade constinit property declarations ******************************
+// ********** Begin Class UAOELevel constinit property declarations ********************************
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__AOEOffsets;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
-// ********** End Class UAOEUpgrade constinit property declarations ********************************
+// ********** End Class UAOELevel constinit property declarations **********************************
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
-		TCppClassTypeTraits<UAOEUpgrade>::IsAbstract,
+		TCppClassTypeTraits<UAOELevel>::IsAbstract,
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
-}; // struct Z_Construct_UClass_UAOEUpgrade_Statics
+}; // struct Z_Construct_UClass_UAOELevel_Statics
 
-// ********** Begin Class UAOEUpgrade Property Definitions *****************************************
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAOEUpgrade_Statics::NewProp__AOEOffsets = { "_AOEOffsets", nullptr, (EPropertyFlags)0x0012000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAOEUpgrade, _AOEOffsets), Z_Construct_UClass_UAOEAttributeData_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__AOEOffsets_MetaData), NewProp__AOEOffsets_MetaData) };
-const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAOEUpgrade_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAOEUpgrade_Statics::NewProp__AOEOffsets,
+// ********** Begin Class UAOELevel Property Definitions *******************************************
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAOELevel_Statics::NewProp__AOEOffsets = { "_AOEOffsets", nullptr, (EPropertyFlags)0x0116000000080009, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAOELevel, _AOEOffsets), Z_Construct_UClass_UAOEAttributeData_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__AOEOffsets_MetaData), NewProp__AOEOffsets_MetaData) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAOELevel_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAOELevel_Statics::NewProp__AOEOffsets,
 };
-static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAOEUpgrade_Statics::PropPointers) < 2048);
-// ********** End Class UAOEUpgrade Property Definitions *******************************************
-UObject* (*const Z_Construct_UClass_UAOEUpgrade_Statics::DependentSingletons[])() = {
-	(UObject* (*)())Z_Construct_UClass_UAttackUpgrade,
+static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAOELevel_Statics::PropPointers) < 2048);
+// ********** End Class UAOELevel Property Definitions *********************************************
+UObject* (*const Z_Construct_UClass_UAOELevel_Statics::DependentSingletons[])() = {
+	(UObject* (*)())Z_Construct_UClass_UAttackLevel,
 	(UObject* (*)())Z_Construct_UPackage__Script_i_love_vampires_2,
 };
-static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAOEUpgrade_Statics::DependentSingletons) < 16);
-const UECodeGen_Private::FClassParams Z_Construct_UClass_UAOEUpgrade_Statics::ClassParams = {
-	&UAOEUpgrade::StaticClass,
+static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAOELevel_Statics::DependentSingletons) < 16);
+const UECodeGen_Private::FClassParams Z_Construct_UClass_UAOELevel_Statics::ClassParams = {
+	&UAOELevel::StaticClass,
 	nullptr,
 	&StaticCppClassTypeInfo,
 	DependentSingletons,
 	nullptr,
-	Z_Construct_UClass_UAOEUpgrade_Statics::PropPointers,
+	Z_Construct_UClass_UAOELevel_Statics::PropPointers,
 	nullptr,
 	UE_ARRAY_COUNT(DependentSingletons),
 	0,
-	UE_ARRAY_COUNT(Z_Construct_UClass_UAOEUpgrade_Statics::PropPointers),
+	UE_ARRAY_COUNT(Z_Construct_UClass_UAOELevel_Statics::PropPointers),
 	0,
 	0x009010A0u,
-	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAOEUpgrade_Statics::Class_MetaDataParams), Z_Construct_UClass_UAOEUpgrade_Statics::Class_MetaDataParams)
+	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAOELevel_Statics::Class_MetaDataParams), Z_Construct_UClass_UAOELevel_Statics::Class_MetaDataParams)
 };
-void UAOEUpgrade::StaticRegisterNativesUAOEUpgrade()
+void UAOELevel::StaticRegisterNativesUAOELevel()
 {
 }
-UClass* Z_Construct_UClass_UAOEUpgrade()
+UClass* Z_Construct_UClass_UAOELevel()
 {
-	if (!Z_Registration_Info_UClass_UAOEUpgrade.OuterSingleton)
+	if (!Z_Registration_Info_UClass_UAOELevel.OuterSingleton)
 	{
-		UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_UAOEUpgrade.OuterSingleton, Z_Construct_UClass_UAOEUpgrade_Statics::ClassParams);
+		UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_UAOELevel.OuterSingleton, Z_Construct_UClass_UAOELevel_Statics::ClassParams);
 	}
-	return Z_Registration_Info_UClass_UAOEUpgrade.OuterSingleton;
+	return Z_Registration_Info_UClass_UAOELevel.OuterSingleton;
 }
-DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, UAOEUpgrade);
-UAOEUpgrade::~UAOEUpgrade() {}
-// ********** End Class UAOEUpgrade ****************************************************************
+DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, UAOELevel);
+UAOELevel::~UAOELevel() {}
+// ********** End Class UAOELevel ******************************************************************
 
 // ********** Begin Class UAOETemplate *************************************************************
 FClassRegistrationInfo Z_Registration_Info_UClass_UAOETemplate;
@@ -603,16 +603,10 @@ struct Z_Construct_UClass_UAOETemplate_Statics
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "AOE.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__AOEAttributes_MetaData[] = {
-		{ "Category", "AOETemplate" },
-		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "AOE.h" },
-	};
 #endif // WITH_METADATA
 
 // ********** Begin Class UAOETemplate constinit property declarations *****************************
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__AOEConfig;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp__AOEAttributes;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class UAOETemplate constinit property declarations *******************************
 	static UObject* (*const DependentSingletons[])();
@@ -623,11 +617,9 @@ struct Z_Construct_UClass_UAOETemplate_Statics
 }; // struct Z_Construct_UClass_UAOETemplate_Statics
 
 // ********** Begin Class UAOETemplate Property Definitions ****************************************
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAOETemplate_Statics::NewProp__AOEConfig = { "_AOEConfig", nullptr, (EPropertyFlags)0x0012000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAOETemplate, _AOEConfig), Z_Construct_UClass_UAOEConfig_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__AOEConfig_MetaData), NewProp__AOEConfig_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAOETemplate_Statics::NewProp__AOEAttributes = { "_AOEAttributes", nullptr, (EPropertyFlags)0x0012000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAOETemplate, _AOEAttributes), Z_Construct_UClass_UAOEAttributeData_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__AOEAttributes_MetaData), NewProp__AOEAttributes_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAOETemplate_Statics::NewProp__AOEConfig = { "_AOEConfig", nullptr, (EPropertyFlags)0x0116000000080009, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAOETemplate, _AOEConfig), Z_Construct_UClass_UAOEConfig_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__AOEConfig_MetaData), NewProp__AOEConfig_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAOETemplate_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAOETemplate_Statics::NewProp__AOEConfig,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAOETemplate_Statics::NewProp__AOEAttributes,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAOETemplate_Statics::PropPointers) < 2048);
 // ********** End Class UAOETemplate Property Definitions ******************************************
@@ -673,11 +665,11 @@ struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_
 		{ Z_Construct_UClass_AAOE, AAOE::StaticClass, TEXT("AAOE"), &Z_Registration_Info_UClass_AAOE, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AAOE), 846808820U) },
 		{ Z_Construct_UClass_UAOEConfig, UAOEConfig::StaticClass, TEXT("UAOEConfig"), &Z_Registration_Info_UClass_UAOEConfig, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOEConfig), 3195257304U) },
 		{ Z_Construct_UClass_UAOEAttributeData, UAOEAttributeData::StaticClass, TEXT("UAOEAttributeData"), &Z_Registration_Info_UClass_UAOEAttributeData, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOEAttributeData), 3321817196U) },
-		{ Z_Construct_UClass_UAOEUpgrade, UAOEUpgrade::StaticClass, TEXT("UAOEUpgrade"), &Z_Registration_Info_UClass_UAOEUpgrade, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOEUpgrade), 3589268436U) },
-		{ Z_Construct_UClass_UAOETemplate, UAOETemplate::StaticClass, TEXT("UAOETemplate"), &Z_Registration_Info_UClass_UAOETemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOETemplate), 4094305950U) },
+		{ Z_Construct_UClass_UAOELevel, UAOELevel::StaticClass, TEXT("UAOELevel"), &Z_Registration_Info_UClass_UAOELevel, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOELevel), 1982988527U) },
+		{ Z_Construct_UClass_UAOETemplate, UAOETemplate::StaticClass, TEXT("UAOETemplate"), &Z_Registration_Info_UClass_UAOETemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOETemplate), 1066219518U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_756797652{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_1818268618{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

@@ -15,7 +15,7 @@
 #include "UObject/ScriptMacros.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
-class UCombatantPassive;
+class UPassiveData;
 class UWeaponTemplate;
 
 // ********** Begin Class UAutomaticAssetRefs ******************************************************

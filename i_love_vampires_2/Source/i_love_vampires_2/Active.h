@@ -92,7 +92,9 @@ public:
 	UPROPERTY(EditAnywhere)
 	float _warmup = -999;
 	UPROPERTY(EditAnywhere, Instanced)
-	UAttackTemplate* _attackData;
-	UWeaponTemplate(const FObjectInitializer& init) : Super(init) {}
+	TObjectPtr<UAttackTemplate> _attackData;
+	UWeaponTemplate(const FObjectInitializer& init) : Super(init) {
+		//No default object to allow for polymorphism
+	}
 	virtual void replaceOverrides() override;
 };

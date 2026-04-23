@@ -22,7 +22,7 @@
 // UAttackTemplate
 #include "BaseTemplate.h"
 // UAttackUpgrade
-#include "BaseUpgradeContainer.h"
+#include "BaseLevelContainer.h"
 //
 #include "AttackActor.generated.h"
 class UAttackConfig;
@@ -81,7 +81,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TObjectPtr<UPaperFlipbook> _sprite;
 
-	UAttackConfig(const FObjectInitializer& init) : Super(init) {}
+	UAttackConfig(const FObjectInitializer& init) : Super(init) {
+		_sprite = init.CreateDefaultSubobject<UPaperFlipbook>(this, "_sprite");
+	}
 	virtual void replaceOverrides() override {}
 };
 ///////////////////////////////////////////////////////////////////////////////
@@ -168,11 +170,11 @@ class AAOE;
 class ACombatant;
 
 class AttackFactory : public BaseAttributeSet {
-	int _level = 1;
-	const TObjectPtr<const UAttackConfig> _attackConfig = nullptr;
+	int _level = 0;
+	TObjectPtr<const UAttackConfig> _attackConfig = nullptr;
 	std::unique_ptr<BaseAttributeWrapper<AttackAttributes>> _attackAttributes = nullptr;
 protected:
-	const TArray<TObjectPtr<const UAttackUpgrade>> _upgrades = {};
+	TArray<const TObjectPtr<const UAttackLevel>> _levels = {};
 	// Cannot be const as it is used to call CreateObject/SpawnActor
 	const TWeakObjectPtr<ACombatant> _owner = nullptr;
 	AttackInitStruct getAttackInit() const {
@@ -181,7 +183,8 @@ protected:
 		AttackInitStruct ret(_owner.Get(), _attackConfig.Get(), temp);
 		return ret;
 	}
-
+	virtual bool isCompatible(const UAttackLevel* level) const { return true; }
+	virtual void finishUpgrade(const UAttackLevel* newLevel);
 public:
 	AttackFactory() = delete;
 	AttackFactory(const AttackFactory& other) = delete;
@@ -200,23 +203,23 @@ public:
 	const BaseAttributeWrapper<AttackAttributes>& getAttackAttributeWrapper() const { return *_attackAttributes; }
 	virtual void launchAttack(const FVector& forward);
 	int getLevel() const { return _level; }
-	int getMaxLevel() const { return _upgrades.Num() + 1; }
-	virtual void upgrade();
+	int getMaxLevel() const { return _levels.Num() - 1; }
+	void upgrade();
 };
 ///////////////////////////////////////////////////////////////////////////////
 UCLASS(BlueprintType, EditInlineNew)
-class I_LOVE_VAMPIRES_2_API UAttackUpgrade : public UBaseUpgradeContainer {
+class I_LOVE_VAMPIRES_2_API UAttackLevel : public UBaseLevelContainer {
 	GENERATED_BODY()
 
 public:
 	UPROPERTY(EditAnywhere, Instanced)
-	UAttackAttributeData* _attackOffsets;
+	TObjectPtr<UAttackAttributeData> _attackOffsets;
 
 	virtual void replaceOverrides() override {
-		_attackOffsets->zeroSentinelOverride();
+		_attackOffsets->replaceOverrides();
 	}
 
-	UAttackUpgrade(const FObjectInitializer& init) : Super(init) {
+	UAttackLevel(const FObjectInitializer& init) : Super(init) {
 		_attackOffsets = init.CreateDefaultSubobject<UAttackAttributeData>(this, "_attackOffsets");
 	}
 };
@@ -227,20 +230,17 @@ UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UAttackTemplate : public UBaseTemplate {
 	GENERATED_BODY()
 
-protected:
-	virtual void replaceOverrides() override;
-
 public:
 	UPROPERTY(EditAnywhere, Instanced)
-	UAttackConfig* _attackConfig;
+	TObjectPtr<UAttackConfig> _attackConfig;
+	//UPROPERTY(EditAnywhere, Instanced)
+	//TObjectPtr<UAttackAttributeData> _attackAttributes;
 	UPROPERTY(EditAnywhere, Instanced)
-	UAttackAttributeData* _attackAttributes;
-	UPROPERTY(EditAnywhere, Instanced)
-	TArray<UAttackUpgrade*> _upgrades = {};
-
+	TArray<TObjectPtr<UAttackLevel>> _levels = {};
 	UAttackTemplate(const FObjectInitializer& init) : Super(init) {
 		_attackConfig = init.CreateDefaultSubobject<UAttackConfig>(this, "_attackConfig");
-		_attackAttributes = init.CreateDefaultSubobject<UAttackAttributeData>(this, "_attackAttributes");
+		//_attackAttributes = init.CreateDefaultSubobject<UAttackAttributeData>(this, "_attackAttributes");
 	}
 	virtual std::unique_ptr<AttackFactory> createFactory(ACombatant* owner) const;
+	virtual void replaceOverrides() override;
 };

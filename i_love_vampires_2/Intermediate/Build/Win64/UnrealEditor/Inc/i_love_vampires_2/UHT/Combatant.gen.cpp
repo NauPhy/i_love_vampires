@@ -13,23 +13,23 @@ void EmptyLinkFunctionForGeneratedCodeCombatant() {}
 
 // ********** Begin Cross Module References ********************************************************
 COREUOBJECT_API UClass* Z_Construct_UClass_UClass_NoRegister();
-COREUOBJECT_API UClass* Z_Construct_UClass_UObject();
 ENGINE_API UClass* Z_Construct_UClass_APawn();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_ACombatant();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_ACombatant_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseAttributeData();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseConfig();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseLevelContainer();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseTemplate();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UCombatantAttributeData();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UCombatantAttributeData_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UCombatantConfig();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UCombatantConfig_NoRegister();
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UCombatantPassive();
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UCombatantPassive_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UCombatantTemplate();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UCombatantTemplate_NoRegister();
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UPassiveContainer();
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UPassiveContainer_NoRegister();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UPassiveData();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UPassiveData_NoRegister();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UPassiveLevelData();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UPassiveLevelData_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UWeaponTemplate_NoRegister();
 PAPER2D_API UClass* Z_Construct_UClass_UPaperFlipbook_NoRegister();
 PAPER2D_API UClass* Z_Construct_UClass_UPaperFlipbookComponent_NoRegister();
@@ -261,7 +261,7 @@ struct Z_Construct_UFunction_ACombatant_getAllPassives_Statics
 {
 	struct Combatant_eventgetAllPassives_Parms
 	{
-		TArray<UCombatantPassive*> ReturnValue;
+		TArray<UPassiveData*> ReturnValue;
 	};
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
@@ -278,7 +278,7 @@ struct Z_Construct_UFunction_ACombatant_getAllPassives_Statics
 };
 
 // ********** Begin Function getAllPassives Property Definitions ***********************************
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ACombatant_getAllPassives_Statics::NewProp_ReturnValue_Inner = { "ReturnValue", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UCombatantPassive_NoRegister, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ACombatant_getAllPassives_Statics::NewProp_ReturnValue_Inner = { "ReturnValue", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UPassiveData_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_ACombatant_getAllPassives_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Combatant_eventgetAllPassives_Parms, ReturnValue), EArrayPropertyFlags::None, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ACombatant_getAllPassives_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ACombatant_getAllPassives_Statics::NewProp_ReturnValue_Inner,
@@ -304,7 +304,7 @@ DEFINE_FUNCTION(ACombatant::execgetAllPassives)
 {
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	*(TArray<UCombatantPassive*>*)Z_Param__Result=P_THIS->getAllPassives();
+	*(TArray<UPassiveData*>*)Z_Param__Result=P_THIS->getAllPassives();
 	P_NATIVE_END;
 }
 // ********** End Class ACombatant Function getAllPassives *****************************************
@@ -520,7 +520,7 @@ struct Z_Construct_UFunction_ACombatant_getUpgradablePassives_Statics
 {
 	struct Combatant_eventgetUpgradablePassives_Parms
 	{
-		TArray<UCombatantPassive*> ReturnValue;
+		TArray<UPassiveData*> ReturnValue;
 	};
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
@@ -537,7 +537,7 @@ struct Z_Construct_UFunction_ACombatant_getUpgradablePassives_Statics
 };
 
 // ********** Begin Function getUpgradablePassives Property Definitions ****************************
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ACombatant_getUpgradablePassives_Statics::NewProp_ReturnValue_Inner = { "ReturnValue", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UCombatantPassive_NoRegister, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ACombatant_getUpgradablePassives_Statics::NewProp_ReturnValue_Inner = { "ReturnValue", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UPassiveData_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_ACombatant_getUpgradablePassives_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Combatant_eventgetUpgradablePassives_Parms, ReturnValue), EArrayPropertyFlags::None, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ACombatant_getUpgradablePassives_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ACombatant_getUpgradablePassives_Statics::NewProp_ReturnValue_Inner,
@@ -563,7 +563,7 @@ DEFINE_FUNCTION(ACombatant::execgetUpgradablePassives)
 {
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	*(TArray<UCombatantPassive*>*)Z_Param__Result=P_THIS->getUpgradablePassives();
+	*(TArray<UPassiveData*>*)Z_Param__Result=P_THIS->getUpgradablePassives();
 	P_NATIVE_END;
 }
 // ********** End Class ACombatant Function getUpgradablePassives **********************************
@@ -626,7 +626,7 @@ struct Z_Construct_UFunction_ACombatant_givePassive_Statics
 {
 	struct Combatant_eventgivePassive_Parms
 	{
-		UCombatantPassive* data;
+		UPassiveData* data;
 	};
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
@@ -642,7 +642,7 @@ struct Z_Construct_UFunction_ACombatant_givePassive_Statics
 };
 
 // ********** Begin Function givePassive Property Definitions **************************************
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ACombatant_givePassive_Statics::NewProp_data = { "data", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Combatant_eventgivePassive_Parms, data), Z_Construct_UClass_UCombatantPassive_NoRegister, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ACombatant_givePassive_Statics::NewProp_data = { "data", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Combatant_eventgivePassive_Parms, data), Z_Construct_UClass_UPassiveData_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ACombatant_givePassive_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ACombatant_givePassive_Statics::NewProp_data,
 };
@@ -664,7 +664,7 @@ UFunction* Z_Construct_UFunction_ACombatant_givePassive()
 }
 DEFINE_FUNCTION(ACombatant::execgivePassive)
 {
-	P_GET_OBJECT(UCombatantPassive,Z_Param_data);
+	P_GET_OBJECT(UPassiveData,Z_Param_data);
 	P_FINISH;
 	P_NATIVE_BEGIN;
 	P_THIS->givePassive(Z_Param_data);
@@ -779,7 +779,7 @@ struct Z_Construct_UFunction_ACombatant_upgradePassive_Statics
 {
 	struct Combatant_eventupgradePassive_Parms
 	{
-		UCombatantPassive* data;
+		UPassiveData* data;
 	};
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
@@ -795,7 +795,7 @@ struct Z_Construct_UFunction_ACombatant_upgradePassive_Statics
 };
 
 // ********** Begin Function upgradePassive Property Definitions ***********************************
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ACombatant_upgradePassive_Statics::NewProp_data = { "data", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Combatant_eventupgradePassive_Parms, data), Z_Construct_UClass_UCombatantPassive_NoRegister, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_ACombatant_upgradePassive_Statics::NewProp_data = { "data", nullptr, (EPropertyFlags)0x0010000000000080, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(Combatant_eventupgradePassive_Parms, data), Z_Construct_UClass_UPassiveData_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_ACombatant_upgradePassive_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_ACombatant_upgradePassive_Statics::NewProp_data,
 };
@@ -817,7 +817,7 @@ UFunction* Z_Construct_UFunction_ACombatant_upgradePassive()
 }
 DEFINE_FUNCTION(ACombatant::execupgradePassive)
 {
-	P_GET_OBJECT(UCombatantPassive,Z_Param_data);
+	P_GET_OBJECT(UPassiveData,Z_Param_data);
 	P_FINISH;
 	P_NATIVE_BEGIN;
 	P_THIS->upgradePassive(Z_Param_data);
@@ -920,9 +920,6 @@ struct Z_Construct_UClass_ACombatant_Statics
 		{ "ModuleRelativePath", "Combatant.h" },
 		{ "NativeConstTemplateArg", "" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__passiveContainer_MetaData[] = {
-		{ "ModuleRelativePath", "Combatant.h" },
-	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__combatantFlipbook_MetaData[] = {
 		{ "Category", "Combatant" },
 		{ "EditInline", "true" },
@@ -932,7 +929,6 @@ struct Z_Construct_UClass_ACombatant_Statics
 
 // ********** Begin Class ACombatant constinit property declarations *******************************
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__config;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp__passiveContainer;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__combatantFlipbook;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class ACombatant constinit property declarations *********************************
@@ -960,17 +956,17 @@ struct Z_Construct_UClass_ACombatant_Statics
 		{ &Z_Construct_UFunction_ACombatant_canGiveWeapon, "canGiveWeapon" }, // 4050103055
 		{ &Z_Construct_UFunction_ACombatant_canUpgradePassive, "canUpgradePassive" }, // 2538354204
 		{ &Z_Construct_UFunction_ACombatant_canUpgradeWeapon, "canUpgradeWeapon" }, // 130459396
-		{ &Z_Construct_UFunction_ACombatant_getAllPassives, "getAllPassives" }, // 1320113203
+		{ &Z_Construct_UFunction_ACombatant_getAllPassives, "getAllPassives" }, // 32231536
 		{ &Z_Construct_UFunction_ACombatant_getAllWeapons, "getAllWeapons" }, // 1514260712
 		{ &Z_Construct_UFunction_ACombatant_getHP, "getHP" }, // 2627232535
 		{ &Z_Construct_UFunction_ACombatant_getMaxedWeapons, "getMaxedWeapons" }, // 140518579
 		{ &Z_Construct_UFunction_ACombatant_getMaxHP, "getMaxHP" }, // 340289618
-		{ &Z_Construct_UFunction_ACombatant_getUpgradablePassives, "getUpgradablePassives" }, // 3733304868
+		{ &Z_Construct_UFunction_ACombatant_getUpgradablePassives, "getUpgradablePassives" }, // 3503449652
 		{ &Z_Construct_UFunction_ACombatant_getUpgradableWeapons, "getUpgradableWeapons" }, // 1472590532
-		{ &Z_Construct_UFunction_ACombatant_givePassive, "givePassive" }, // 2775811153
+		{ &Z_Construct_UFunction_ACombatant_givePassive, "givePassive" }, // 970055194
 		{ &Z_Construct_UFunction_ACombatant_giveWeapon, "giveWeapon" }, // 777464872
 		{ &Z_Construct_UFunction_ACombatant_initialise_ACombatant, "initialise_ACombatant" }, // 2441107260
-		{ &Z_Construct_UFunction_ACombatant_upgradePassive, "upgradePassive" }, // 833931672
+		{ &Z_Construct_UFunction_ACombatant_upgradePassive, "upgradePassive" }, // 3310225065
 		{ &Z_Construct_UFunction_ACombatant_upgradeWeapon, "upgradeWeapon" }, // 3106592682
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
@@ -982,11 +978,9 @@ struct Z_Construct_UClass_ACombatant_Statics
 
 // ********** Begin Class ACombatant Property Definitions ******************************************
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ACombatant_Statics::NewProp__config = { "_config", nullptr, (EPropertyFlags)0x0144000000000001, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACombatant, _config), Z_Construct_UClass_UCombatantConfig_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__config_MetaData), NewProp__config_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ACombatant_Statics::NewProp__passiveContainer = { "_passiveContainer", nullptr, (EPropertyFlags)0x0040000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACombatant, _passiveContainer), Z_Construct_UClass_UPassiveContainer_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__passiveContainer_MetaData), NewProp__passiveContainer_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ACombatant_Statics::NewProp__combatantFlipbook = { "_combatantFlipbook", nullptr, (EPropertyFlags)0x0010000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACombatant, _combatantFlipbook), Z_Construct_UClass_UPaperFlipbookComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__combatantFlipbook_MetaData), NewProp__combatantFlipbook_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ACombatant_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACombatant_Statics::NewProp__config,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACombatant_Statics::NewProp__passiveContainer,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACombatant_Statics::NewProp__combatantFlipbook,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ACombatant_Statics::PropPointers) < 2048);
@@ -1028,108 +1022,6 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, ACombatant);
 ACombatant::~ACombatant() {}
 // ********** End Class ACombatant *****************************************************************
 
-// ********** Begin Class UPassiveContainer ********************************************************
-FClassRegistrationInfo Z_Registration_Info_UClass_UPassiveContainer;
-UClass* UPassiveContainer::GetPrivateStaticClass()
-{
-	using TClass = UPassiveContainer;
-	if (!Z_Registration_Info_UClass_UPassiveContainer.InnerSingleton)
-	{
-		GetPrivateStaticClassBody(
-			TClass::StaticPackage(),
-			TEXT("PassiveContainer"),
-			Z_Registration_Info_UClass_UPassiveContainer.InnerSingleton,
-			StaticRegisterNativesUPassiveContainer,
-			sizeof(TClass),
-			alignof(TClass),
-			TClass::StaticClassFlags,
-			TClass::StaticClassCastFlags(),
-			TClass::StaticConfigName(),
-			(UClass::ClassConstructorType)InternalConstructor<TClass>,
-			(UClass::ClassVTableHelperCtorCallerType)InternalVTableHelperCtorCaller<TClass>,
-			UOBJECT_CPPCLASS_STATICFUNCTIONS_FORCLASS(TClass),
-			&TClass::Super::StaticClass,
-			&TClass::WithinClass::StaticClass
-		);
-	}
-	return Z_Registration_Info_UClass_UPassiveContainer.InnerSingleton;
-}
-UClass* Z_Construct_UClass_UPassiveContainer_NoRegister()
-{
-	return UPassiveContainer::GetPrivateStaticClass();
-}
-struct Z_Construct_UClass_UPassiveContainer_Statics
-{
-#if WITH_METADATA
-	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "///////////////////////////////////////////////////////////////////////////////\n" },
-#endif
-		{ "IncludePath", "Combatant.h" },
-		{ "ModuleRelativePath", "Combatant.h" },
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__passives_MetaData[] = {
-		{ "ModuleRelativePath", "Combatant.h" },
-	};
-#endif // WITH_METADATA
-
-// ********** Begin Class UPassiveContainer constinit property declarations ************************
-	static const UECodeGen_Private::FObjectPropertyParams NewProp__passives_Inner;
-	static const UECodeGen_Private::FArrayPropertyParams NewProp__passives;
-	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
-// ********** End Class UPassiveContainer constinit property declarations **************************
-	static UObject* (*const DependentSingletons[])();
-	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
-		TCppClassTypeTraits<UPassiveContainer>::IsAbstract,
-	};
-	static const UECodeGen_Private::FClassParams ClassParams;
-}; // struct Z_Construct_UClass_UPassiveContainer_Statics
-
-// ********** Begin Class UPassiveContainer Property Definitions ***********************************
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPassiveContainer_Statics::NewProp__passives_Inner = { "_passives", nullptr, (EPropertyFlags)0x0104000000000000, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UCombatantPassive_NoRegister, METADATA_PARAMS(0, nullptr) };
-const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UPassiveContainer_Statics::NewProp__passives = { "_passives", nullptr, (EPropertyFlags)0x0114000000000000, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPassiveContainer, _passives), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__passives_MetaData), NewProp__passives_MetaData) };
-const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UPassiveContainer_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPassiveContainer_Statics::NewProp__passives_Inner,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPassiveContainer_Statics::NewProp__passives,
-};
-static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UPassiveContainer_Statics::PropPointers) < 2048);
-// ********** End Class UPassiveContainer Property Definitions *************************************
-UObject* (*const Z_Construct_UClass_UPassiveContainer_Statics::DependentSingletons[])() = {
-	(UObject* (*)())Z_Construct_UClass_UObject,
-	(UObject* (*)())Z_Construct_UPackage__Script_i_love_vampires_2,
-};
-static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UPassiveContainer_Statics::DependentSingletons) < 16);
-const UECodeGen_Private::FClassParams Z_Construct_UClass_UPassiveContainer_Statics::ClassParams = {
-	&UPassiveContainer::StaticClass,
-	nullptr,
-	&StaticCppClassTypeInfo,
-	DependentSingletons,
-	nullptr,
-	Z_Construct_UClass_UPassiveContainer_Statics::PropPointers,
-	nullptr,
-	UE_ARRAY_COUNT(DependentSingletons),
-	0,
-	UE_ARRAY_COUNT(Z_Construct_UClass_UPassiveContainer_Statics::PropPointers),
-	0,
-	0x000000A0u,
-	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UPassiveContainer_Statics::Class_MetaDataParams), Z_Construct_UClass_UPassiveContainer_Statics::Class_MetaDataParams)
-};
-void UPassiveContainer::StaticRegisterNativesUPassiveContainer()
-{
-}
-UClass* Z_Construct_UClass_UPassiveContainer()
-{
-	if (!Z_Registration_Info_UClass_UPassiveContainer.OuterSingleton)
-	{
-		UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_UPassiveContainer.OuterSingleton, Z_Construct_UClass_UPassiveContainer_Statics::ClassParams);
-	}
-	return Z_Registration_Info_UClass_UPassiveContainer.OuterSingleton;
-}
-UPassiveContainer::UPassiveContainer(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
-DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, UPassiveContainer);
-UPassiveContainer::~UPassiveContainer() {}
-// ********** End Class UPassiveContainer **********************************************************
-
 // ********** Begin Class UCombatantAttributeData **************************************************
 FClassRegistrationInfo Z_Registration_Info_UClass_UCombatantAttributeData;
 UClass* UCombatantAttributeData::GetPrivateStaticClass()
@@ -1165,9 +1057,15 @@ struct Z_Construct_UClass_UCombatantAttributeData_Statics
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
 		{ "BlueprintType", "true" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "//UCLASS()\n//class UPassiveContainer : public UObject\n//{\n//\x09GENERATED_BODY()\n//\n//public:\n//\x09UPROPERTY()\n//\x09TArray<TObjectPtr<const UCombatantPassive>> _passives;\n//\x09TArray<UCombatantPassive*> getDiskPassives() const;\n//};\n" },
+#endif
 		{ "IncludePath", "Combatant.h" },
 		{ "ModuleRelativePath", "Combatant.h" },
 		{ "ObjectInitializerConstructorDeclared", "" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "UCLASS()\nclass UPassiveContainer : public UObject\n{\n       GENERATED_BODY()\n\npublic:\n       UPROPERTY()\n       TArray<TObjectPtr<const UCombatantPassive>> _passives;\n       TArray<UCombatantPassive*> getDiskPassives() const;\n};" },
+#endif
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__maxHP_MetaData[] = {
 		{ "Category", "CombatantAttributeData" },
@@ -1442,7 +1340,7 @@ struct Z_Construct_UClass_UCombatantConfig_Statics
 const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_UCombatantConfig_Statics::NewProp__name = { "_name", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantConfig, _name), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__name_MetaData), NewProp__name_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UCombatantConfig_Statics::NewProp__startingWeapons_Inner = { "_startingWeapons", nullptr, (EPropertyFlags)0x0104000000000000, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UWeaponTemplate_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UCombatantConfig_Statics::NewProp__startingWeapons = { "_startingWeapons", nullptr, (EPropertyFlags)0x0114000000000015, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantConfig, _startingWeapons), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__startingWeapons_MetaData), NewProp__startingWeapons_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UCombatantConfig_Statics::NewProp__startingPassives_Inner = { "_startingPassives", nullptr, (EPropertyFlags)0x0104000000000000, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UCombatantPassive_NoRegister, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UCombatantConfig_Statics::NewProp__startingPassives_Inner = { "_startingPassives", nullptr, (EPropertyFlags)0x0104000000000000, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UPassiveData_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UCombatantConfig_Statics::NewProp__startingPassives = { "_startingPassives", nullptr, (EPropertyFlags)0x0114000000000015, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantConfig, _startingPassives), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__startingPassives_MetaData), NewProp__startingPassives_MetaData) };
 const UECodeGen_Private::FClassPropertyParams Z_Construct_UClass_UCombatantConfig_Statics::NewProp__combatantClass = { "_combatantClass", nullptr, (EPropertyFlags)0x0014000000000015, UECodeGen_Private::EPropertyGenFlags::Class, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantConfig, _combatantClass), Z_Construct_UClass_UClass_NoRegister, Z_Construct_UClass_ACombatant_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__combatantClass_MetaData), NewProp__combatantClass_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UCombatantConfig_Statics::NewProp__sprite = { "_sprite", nullptr, (EPropertyFlags)0x0114000000000015, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantConfig, _sprite), Z_Construct_UClass_UPaperFlipbook_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__sprite_MetaData), NewProp__sprite_MetaData) };
@@ -1602,18 +1500,18 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, UCombatantTemplate);
 UCombatantTemplate::~UCombatantTemplate() {}
 // ********** End Class UCombatantTemplate *********************************************************
 
-// ********** Begin Class UCombatantPassive ********************************************************
-FClassRegistrationInfo Z_Registration_Info_UClass_UCombatantPassive;
-UClass* UCombatantPassive::GetPrivateStaticClass()
+// ********** Begin Class UPassiveLevelData ********************************************************
+FClassRegistrationInfo Z_Registration_Info_UClass_UPassiveLevelData;
+UClass* UPassiveLevelData::GetPrivateStaticClass()
 {
-	using TClass = UCombatantPassive;
-	if (!Z_Registration_Info_UClass_UCombatantPassive.InnerSingleton)
+	using TClass = UPassiveLevelData;
+	if (!Z_Registration_Info_UClass_UPassiveLevelData.InnerSingleton)
 	{
 		GetPrivateStaticClassBody(
 			TClass::StaticPackage(),
-			TEXT("CombatantPassive"),
-			Z_Registration_Info_UClass_UCombatantPassive.InnerSingleton,
-			StaticRegisterNativesUCombatantPassive,
+			TEXT("PassiveLevelData"),
+			Z_Registration_Info_UClass_UPassiveLevelData.InnerSingleton,
+			StaticRegisterNativesUPassiveLevelData,
 			sizeof(TClass),
 			alignof(TClass),
 			TClass::StaticClassFlags,
@@ -1626,13 +1524,13 @@ UClass* UCombatantPassive::GetPrivateStaticClass()
 			&TClass::WithinClass::StaticClass
 		);
 	}
-	return Z_Registration_Info_UClass_UCombatantPassive.InnerSingleton;
+	return Z_Registration_Info_UClass_UPassiveLevelData.InnerSingleton;
 }
-UClass* Z_Construct_UClass_UCombatantPassive_NoRegister()
+UClass* Z_Construct_UClass_UPassiveLevelData_NoRegister()
 {
-	return UCombatantPassive::GetPrivateStaticClass();
+	return UPassiveLevelData::GetPrivateStaticClass();
 }
-struct Z_Construct_UClass_UCombatantPassive_Statics
+struct Z_Construct_UClass_UPassiveLevelData_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
@@ -1645,94 +1543,201 @@ struct Z_Construct_UClass_UCombatantPassive_Statics
 		{ "ObjectInitializerConstructorDeclared", "" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__prebonus_MetaData[] = {
-		{ "Category", "CombatantPassive" },
+		{ "Category", "PassiveLevelData" },
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Combatant.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__postbonus_MetaData[] = {
-		{ "Category", "CombatantPassive" },
+		{ "Category", "PassiveLevelData" },
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Combatant.h" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__multiplier_MetaData[] = {
-		{ "Category", "CombatantPassive" },
+		{ "Category", "PassiveLevelData" },
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Combatant.h" },
 	};
 #endif // WITH_METADATA
 
-// ********** Begin Class UCombatantPassive constinit property declarations ************************
+// ********** Begin Class UPassiveLevelData constinit property declarations ************************
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__prebonus;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__postbonus;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__multiplier;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
-// ********** End Class UCombatantPassive constinit property declarations **************************
+// ********** End Class UPassiveLevelData constinit property declarations **************************
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
-		TCppClassTypeTraits<UCombatantPassive>::IsAbstract,
+		TCppClassTypeTraits<UPassiveLevelData>::IsAbstract,
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
-}; // struct Z_Construct_UClass_UCombatantPassive_Statics
+}; // struct Z_Construct_UClass_UPassiveLevelData_Statics
 
-// ********** Begin Class UCombatantPassive Property Definitions ***********************************
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UCombatantPassive_Statics::NewProp__prebonus = { "_prebonus", nullptr, (EPropertyFlags)0x001200000008001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantPassive, _prebonus), Z_Construct_UClass_UCombatantAttributeData_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__prebonus_MetaData), NewProp__prebonus_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UCombatantPassive_Statics::NewProp__postbonus = { "_postbonus", nullptr, (EPropertyFlags)0x001200000008001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantPassive, _postbonus), Z_Construct_UClass_UCombatantAttributeData_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__postbonus_MetaData), NewProp__postbonus_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UCombatantPassive_Statics::NewProp__multiplier = { "_multiplier", nullptr, (EPropertyFlags)0x001200000008001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UCombatantPassive, _multiplier), Z_Construct_UClass_UCombatantAttributeData_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__multiplier_MetaData), NewProp__multiplier_MetaData) };
-const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UCombatantPassive_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UCombatantPassive_Statics::NewProp__prebonus,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UCombatantPassive_Statics::NewProp__postbonus,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UCombatantPassive_Statics::NewProp__multiplier,
+// ********** Begin Class UPassiveLevelData Property Definitions ***********************************
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPassiveLevelData_Statics::NewProp__prebonus = { "_prebonus", nullptr, (EPropertyFlags)0x011600000008001d, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPassiveLevelData, _prebonus), Z_Construct_UClass_UCombatantAttributeData_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__prebonus_MetaData), NewProp__prebonus_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPassiveLevelData_Statics::NewProp__postbonus = { "_postbonus", nullptr, (EPropertyFlags)0x011600000008001d, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPassiveLevelData, _postbonus), Z_Construct_UClass_UCombatantAttributeData_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__postbonus_MetaData), NewProp__postbonus_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPassiveLevelData_Statics::NewProp__multiplier = { "_multiplier", nullptr, (EPropertyFlags)0x011600000008001d, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPassiveLevelData, _multiplier), Z_Construct_UClass_UCombatantAttributeData_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__multiplier_MetaData), NewProp__multiplier_MetaData) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UPassiveLevelData_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPassiveLevelData_Statics::NewProp__prebonus,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPassiveLevelData_Statics::NewProp__postbonus,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPassiveLevelData_Statics::NewProp__multiplier,
 };
-static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UCombatantPassive_Statics::PropPointers) < 2048);
-// ********** End Class UCombatantPassive Property Definitions *************************************
-UObject* (*const Z_Construct_UClass_UCombatantPassive_Statics::DependentSingletons[])() = {
-	(UObject* (*)())Z_Construct_UClass_UBaseTemplate,
+static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UPassiveLevelData_Statics::PropPointers) < 2048);
+// ********** End Class UPassiveLevelData Property Definitions *************************************
+UObject* (*const Z_Construct_UClass_UPassiveLevelData_Statics::DependentSingletons[])() = {
+	(UObject* (*)())Z_Construct_UClass_UBaseLevelContainer,
 	(UObject* (*)())Z_Construct_UPackage__Script_i_love_vampires_2,
 };
-static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UCombatantPassive_Statics::DependentSingletons) < 16);
-const UECodeGen_Private::FClassParams Z_Construct_UClass_UCombatantPassive_Statics::ClassParams = {
-	&UCombatantPassive::StaticClass,
+static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UPassiveLevelData_Statics::DependentSingletons) < 16);
+const UECodeGen_Private::FClassParams Z_Construct_UClass_UPassiveLevelData_Statics::ClassParams = {
+	&UPassiveLevelData::StaticClass,
 	nullptr,
 	&StaticCppClassTypeInfo,
 	DependentSingletons,
 	nullptr,
-	Z_Construct_UClass_UCombatantPassive_Statics::PropPointers,
+	Z_Construct_UClass_UPassiveLevelData_Statics::PropPointers,
 	nullptr,
 	UE_ARRAY_COUNT(DependentSingletons),
 	0,
-	UE_ARRAY_COUNT(Z_Construct_UClass_UCombatantPassive_Statics::PropPointers),
+	UE_ARRAY_COUNT(Z_Construct_UClass_UPassiveLevelData_Statics::PropPointers),
+	0,
+	0x009010A0u,
+	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UPassiveLevelData_Statics::Class_MetaDataParams), Z_Construct_UClass_UPassiveLevelData_Statics::Class_MetaDataParams)
+};
+void UPassiveLevelData::StaticRegisterNativesUPassiveLevelData()
+{
+}
+UClass* Z_Construct_UClass_UPassiveLevelData()
+{
+	if (!Z_Registration_Info_UClass_UPassiveLevelData.OuterSingleton)
+	{
+		UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_UPassiveLevelData.OuterSingleton, Z_Construct_UClass_UPassiveLevelData_Statics::ClassParams);
+	}
+	return Z_Registration_Info_UClass_UPassiveLevelData.OuterSingleton;
+}
+DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, UPassiveLevelData);
+UPassiveLevelData::~UPassiveLevelData() {}
+// ********** End Class UPassiveLevelData **********************************************************
+
+// ********** Begin Class UPassiveData *************************************************************
+FClassRegistrationInfo Z_Registration_Info_UClass_UPassiveData;
+UClass* UPassiveData::GetPrivateStaticClass()
+{
+	using TClass = UPassiveData;
+	if (!Z_Registration_Info_UClass_UPassiveData.InnerSingleton)
+	{
+		GetPrivateStaticClassBody(
+			TClass::StaticPackage(),
+			TEXT("PassiveData"),
+			Z_Registration_Info_UClass_UPassiveData.InnerSingleton,
+			StaticRegisterNativesUPassiveData,
+			sizeof(TClass),
+			alignof(TClass),
+			TClass::StaticClassFlags,
+			TClass::StaticClassCastFlags(),
+			TClass::StaticConfigName(),
+			(UClass::ClassConstructorType)InternalConstructor<TClass>,
+			(UClass::ClassVTableHelperCtorCallerType)InternalVTableHelperCtorCaller<TClass>,
+			UOBJECT_CPPCLASS_STATICFUNCTIONS_FORCLASS(TClass),
+			&TClass::Super::StaticClass,
+			&TClass::WithinClass::StaticClass
+		);
+	}
+	return Z_Registration_Info_UClass_UPassiveData.InnerSingleton;
+}
+UClass* Z_Construct_UClass_UPassiveData_NoRegister()
+{
+	return UPassiveData::GetPrivateStaticClass();
+}
+struct Z_Construct_UClass_UPassiveData_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
+		{ "BlueprintType", "true" },
+		{ "IncludePath", "Combatant.h" },
+		{ "ModuleRelativePath", "Combatant.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__levels_Inner_MetaData[] = {
+		{ "Category", "PassiveData" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "Combatant.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__levels_MetaData[] = {
+		{ "Category", "PassiveData" },
+		{ "EditInline", "true" },
+		{ "ModuleRelativePath", "Combatant.h" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Class UPassiveData constinit property declarations *****************************
+	static const UECodeGen_Private::FObjectPropertyParams NewProp__levels_Inner;
+	static const UECodeGen_Private::FArrayPropertyParams NewProp__levels;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Class UPassiveData constinit property declarations *******************************
+	static UObject* (*const DependentSingletons[])();
+	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
+		TCppClassTypeTraits<UPassiveData>::IsAbstract,
+	};
+	static const UECodeGen_Private::FClassParams ClassParams;
+}; // struct Z_Construct_UClass_UPassiveData_Statics
+
+// ********** Begin Class UPassiveData Property Definitions ****************************************
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UPassiveData_Statics::NewProp__levels_Inner = { "_levels", nullptr, (EPropertyFlags)0x0106000000080008, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UPassiveLevelData_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__levels_Inner_MetaData), NewProp__levels_Inner_MetaData) };
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UPassiveData_Statics::NewProp__levels = { "_levels", nullptr, (EPropertyFlags)0x011400800000001d, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UPassiveData, _levels), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__levels_MetaData), NewProp__levels_MetaData) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UPassiveData_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPassiveData_Statics::NewProp__levels_Inner,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UPassiveData_Statics::NewProp__levels,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UPassiveData_Statics::PropPointers) < 2048);
+// ********** End Class UPassiveData Property Definitions ******************************************
+UObject* (*const Z_Construct_UClass_UPassiveData_Statics::DependentSingletons[])() = {
+	(UObject* (*)())Z_Construct_UClass_UBaseTemplate,
+	(UObject* (*)())Z_Construct_UPackage__Script_i_love_vampires_2,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UPassiveData_Statics::DependentSingletons) < 16);
+const UECodeGen_Private::FClassParams Z_Construct_UClass_UPassiveData_Statics::ClassParams = {
+	&UPassiveData::StaticClass,
+	nullptr,
+	&StaticCppClassTypeInfo,
+	DependentSingletons,
+	nullptr,
+	Z_Construct_UClass_UPassiveData_Statics::PropPointers,
+	nullptr,
+	UE_ARRAY_COUNT(DependentSingletons),
+	0,
+	UE_ARRAY_COUNT(Z_Construct_UClass_UPassiveData_Statics::PropPointers),
 	0,
 	0x009000A0u,
-	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UCombatantPassive_Statics::Class_MetaDataParams), Z_Construct_UClass_UCombatantPassive_Statics::Class_MetaDataParams)
+	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UPassiveData_Statics::Class_MetaDataParams), Z_Construct_UClass_UPassiveData_Statics::Class_MetaDataParams)
 };
-void UCombatantPassive::StaticRegisterNativesUCombatantPassive()
+void UPassiveData::StaticRegisterNativesUPassiveData()
 {
 }
-UClass* Z_Construct_UClass_UCombatantPassive()
+UClass* Z_Construct_UClass_UPassiveData()
 {
-	if (!Z_Registration_Info_UClass_UCombatantPassive.OuterSingleton)
+	if (!Z_Registration_Info_UClass_UPassiveData.OuterSingleton)
 	{
-		UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_UCombatantPassive.OuterSingleton, Z_Construct_UClass_UCombatantPassive_Statics::ClassParams);
+		UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_UPassiveData.OuterSingleton, Z_Construct_UClass_UPassiveData_Statics::ClassParams);
 	}
-	return Z_Registration_Info_UClass_UCombatantPassive.OuterSingleton;
+	return Z_Registration_Info_UClass_UPassiveData.OuterSingleton;
 }
-DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, UCombatantPassive);
-UCombatantPassive::~UCombatantPassive() {}
-// ********** End Class UCombatantPassive **********************************************************
+UPassiveData::UPassiveData(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
+DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, UPassiveData);
+UPassiveData::~UPassiveData() {}
+// ********** End Class UPassiveData ***************************************************************
 
 // ********** Begin Registration *******************************************************************
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ACombatant, ACombatant::StaticClass, TEXT("ACombatant"), &Z_Registration_Info_UClass_ACombatant, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ACombatant), 4197303343U) },
-		{ Z_Construct_UClass_UPassiveContainer, UPassiveContainer::StaticClass, TEXT("UPassiveContainer"), &Z_Registration_Info_UClass_UPassiveContainer, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UPassiveContainer), 3888053118U) },
-		{ Z_Construct_UClass_UCombatantAttributeData, UCombatantAttributeData::StaticClass, TEXT("UCombatantAttributeData"), &Z_Registration_Info_UClass_UCombatantAttributeData, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCombatantAttributeData), 2343172039U) },
-		{ Z_Construct_UClass_UCombatantConfig, UCombatantConfig::StaticClass, TEXT("UCombatantConfig"), &Z_Registration_Info_UClass_UCombatantConfig, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCombatantConfig), 1016508597U) },
+		{ Z_Construct_UClass_ACombatant, ACombatant::StaticClass, TEXT("ACombatant"), &Z_Registration_Info_UClass_ACombatant, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ACombatant), 1822417395U) },
+		{ Z_Construct_UClass_UCombatantAttributeData, UCombatantAttributeData::StaticClass, TEXT("UCombatantAttributeData"), &Z_Registration_Info_UClass_UCombatantAttributeData, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCombatantAttributeData), 2496146636U) },
+		{ Z_Construct_UClass_UCombatantConfig, UCombatantConfig::StaticClass, TEXT("UCombatantConfig"), &Z_Registration_Info_UClass_UCombatantConfig, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCombatantConfig), 2615846433U) },
 		{ Z_Construct_UClass_UCombatantTemplate, UCombatantTemplate::StaticClass, TEXT("UCombatantTemplate"), &Z_Registration_Info_UClass_UCombatantTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCombatantTemplate), 1700923634U) },
-		{ Z_Construct_UClass_UCombatantPassive, UCombatantPassive::StaticClass, TEXT("UCombatantPassive"), &Z_Registration_Info_UClass_UCombatantPassive, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UCombatantPassive), 193293349U) },
+		{ Z_Construct_UClass_UPassiveLevelData, UPassiveLevelData::StaticClass, TEXT("UPassiveLevelData"), &Z_Registration_Info_UClass_UPassiveLevelData, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UPassiveLevelData), 1497427591U) },
+		{ Z_Construct_UClass_UPassiveData, UPassiveData::StaticClass, TEXT("UPassiveData"), &Z_Registration_Info_UClass_UPassiveData, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UPassiveData), 2137285653U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_1342551582{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_2140220462{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Combatant_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

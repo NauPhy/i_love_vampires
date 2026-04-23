@@ -34,28 +34,36 @@ void AExplosiveProjectile::bulletDeath() {
 }
 ///////////////////////////////////////////////////////////////////////////////
 // ExplosiveProjectileFactory
-ExplosiveProjectileFactory::ExplosiveProjectileFactory(
-	ACombatant* pawn, const UExplosiveProjectileTemplate* myTemplate
-	) :
-	ProjectileFactory(pawn, myTemplate),
-	_explosiveProjectileConfig(myTemplate->_explosiveProjectileConfig),
-	_AOEConfig(myTemplate->_AOEConfig),
-	_AOEConfig_attack(myTemplate->_AOEConfig_attack)
+ExplosiveProjectileFactory::ExplosiveProjectileFactory(ACombatant* pawn, const UExplosiveProjectileTemplate* myTemplate) : ProjectileFactory(pawn, myTemplate)
 {
-	if (!IsValid(_explosiveProjectileConfig.Get()) || !(_AOEConfig.Get()) || !(_AOEConfig_attack.Get())) {
-		LOGERROR("AExplosiveProjectileFactory::AExplosiveProjectileFactory - invalid explosive projectile config or aoe config");
+	if (
+		!IsValid(myTemplate) ||
+		!IsValid(myTemplate->_explosiveProjectileConfig) ||
+		!IsValid(myTemplate->_AOEConfig) ||
+		!IsValid(myTemplate->_AOEConfig_attack) ||
+		_levels.Num() == 0 ||
+		getLevel() < 0 ||
+		getLevel() > _levels.Num() - 1 ||
+		!IsValid(_levels[getLevel()])
+		)
+	{
+		LOGERROR("AExplosiveProjectileFactory::AExplosiveProjectileFactory - invalid parameter");
 		return;
 	}
+	_explosiveProjectileConfig = myTemplate->_explosiveProjectileConfig;
+	_AOEConfig = myTemplate->_AOEConfig;
+	_AOEConfig_attack = myTemplate->_AOEConfig_attack;
+	const auto casted = Cast<UExplosiveProjectileLevel>(_levels[getLevel()]);
 	{
-		auto temp = std::make_shared<ExplosiveProjectileAttributes>(myTemplate->_explosiveProjectileAttributes, pawn->getAttributes());
+		auto temp = std::make_shared<ExplosiveProjectileAttributes>(casted->_explosiveProjectileAttributeOffsets, pawn->getAttributes());
 		_explosiveProjectileAttributes = std::make_unique<BaseAttributeWrapper<ExplosiveProjectileAttributes>>(pawn, temp);
 	}
 	{
-		auto temp = std::make_shared<AOEAttributes>(myTemplate->_AOEAttributes, pawn->getAttributes());
+		auto temp = std::make_shared<AOEAttributes>(casted->_AOEAttributeOffsets, pawn->getAttributes());
 		_AOEAttributes = std::make_unique<BaseAttributeWrapper<AOEAttributes>>(pawn, temp);
 	}
 	{
-		auto temp = std::make_shared<AttackAttributes>(myTemplate->_AOEAttributes_attack, pawn->getAttributes());
+		auto temp = std::make_shared<AttackAttributes>(casted->_AOEAttributeOffsets_attack, pawn->getAttributes());
 		_AOEAttributes_attack = std::make_unique<BaseAttributeWrapper<AttackAttributes>>(pawn, temp);
 	}
 }
@@ -142,19 +150,16 @@ AOEInitStruct ExplosiveProjectileFactory::getAOEInit() const {
 	return ret;
 }
 
-void ExplosiveProjectileFactory::upgrade() {
-	if (_explosiveProjectileAttributes.get() == nullptr || _AOEAttributes.get() == nullptr || _AOEAttributes_attack.get() == nullptr) {
-		LOGERROR("ExplosiveProjectileFactory::upgrade - invalid parameter");
+void ExplosiveProjectileFactory::finishUpgrade(const UAttackLevel* newLevel) {
+	ProjectileFactory::finishUpgrade(newLevel);
+	const auto casted = Cast<UExplosiveProjectileLevel>(newLevel);
+	if (!IsValid(casted)) {
+		LOGERROR("ExplosiveProjectileFactory::finishUpgrade - newLevel is not a UExplosiveProjectileLevel");
 		return;
 	}
-	const UExplosiveProjectileUpgrade* upgrade = Cast<const UExplosiveProjectileUpgrade>(_upgrades[getLevel() - 1].Get());
-	if (!IsValid(upgrade)) {
-		LOGERROR("ExplosiveProjectileFactory::upgrade - invalid upgrade");
-		return;
-	}
-	_explosiveProjectileAttributes->changeBaseValues(upgrade->_explosiveProjectileAttributeOffsets);
-	_AOEAttributes->changeBaseValues(upgrade->_AOEAttributeOffsets);
-	_AOEAttributes_attack->changeBaseValues(upgrade->_AOEAttributeOffsets_attack);
+	_explosiveProjectileAttributes->changeBaseValues<UExplosiveProjectileAttributeData>(casted->_explosiveProjectileAttributeOffsets.Get());
+	_AOEAttributes->changeBaseValues<UAOEAttributeData>(casted->_AOEAttributeOffsets.Get());
+	_AOEAttributes_attack->changeBaseValues<UAttackAttributeData>(casted->_AOEAttributeOffsets_attack.Get());
 	ProjectileFactory::upgrade();
 }
 ///////////////////////////////////////////////////////////////////////////////

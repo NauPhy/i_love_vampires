@@ -20,14 +20,14 @@ I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackAttributeData();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackAttributeData_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackConfig();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackConfig_NoRegister();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackLevel();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackLevel_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackTemplate();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackTemplate_NoRegister();
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackUpgrade();
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAttackUpgrade_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseAttributeData();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseConfig();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseLevelContainer();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseTemplate();
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseUpgradeContainer();
 I_LOVE_VAMPIRES_2_API UScriptStruct* Z_Construct_UScriptStruct_FEffectStruct();
 PAPER2D_API UClass* Z_Construct_UClass_UPaperFlipbook_NoRegister();
 PAPER2D_API UClass* Z_Construct_UClass_UPaperFlipbookComponent_NoRegister();
@@ -365,18 +365,18 @@ DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, UAttackAttributeData);
 UAttackAttributeData::~UAttackAttributeData() {}
 // ********** End Class UAttackAttributeData *******************************************************
 
-// ********** Begin Class UAttackUpgrade ***********************************************************
-FClassRegistrationInfo Z_Registration_Info_UClass_UAttackUpgrade;
-UClass* UAttackUpgrade::GetPrivateStaticClass()
+// ********** Begin Class UAttackLevel *************************************************************
+FClassRegistrationInfo Z_Registration_Info_UClass_UAttackLevel;
+UClass* UAttackLevel::GetPrivateStaticClass()
 {
-	using TClass = UAttackUpgrade;
-	if (!Z_Registration_Info_UClass_UAttackUpgrade.InnerSingleton)
+	using TClass = UAttackLevel;
+	if (!Z_Registration_Info_UClass_UAttackLevel.InnerSingleton)
 	{
 		GetPrivateStaticClassBody(
 			TClass::StaticPackage(),
-			TEXT("AttackUpgrade"),
-			Z_Registration_Info_UClass_UAttackUpgrade.InnerSingleton,
-			StaticRegisterNativesUAttackUpgrade,
+			TEXT("AttackLevel"),
+			Z_Registration_Info_UClass_UAttackLevel.InnerSingleton,
+			StaticRegisterNativesUAttackLevel,
 			sizeof(TClass),
 			alignof(TClass),
 			TClass::StaticClassFlags,
@@ -389,13 +389,13 @@ UClass* UAttackUpgrade::GetPrivateStaticClass()
 			&TClass::WithinClass::StaticClass
 		);
 	}
-	return Z_Registration_Info_UClass_UAttackUpgrade.InnerSingleton;
+	return Z_Registration_Info_UClass_UAttackLevel.InnerSingleton;
 }
-UClass* Z_Construct_UClass_UAttackUpgrade_NoRegister()
+UClass* Z_Construct_UClass_UAttackLevel_NoRegister()
 {
-	return UAttackUpgrade::GetPrivateStaticClass();
+	return UAttackLevel::GetPrivateStaticClass();
 }
-struct Z_Construct_UClass_UAttackUpgrade_Statics
+struct Z_Construct_UClass_UAttackLevel_Statics
 {
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[] = {
@@ -408,64 +408,64 @@ struct Z_Construct_UClass_UAttackUpgrade_Statics
 		{ "ObjectInitializerConstructorDeclared", "" },
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__attackOffsets_MetaData[] = {
-		{ "Category", "AttackUpgrade" },
+		{ "Category", "AttackLevel" },
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "AttackActor.h" },
 	};
 #endif // WITH_METADATA
 
-// ********** Begin Class UAttackUpgrade constinit property declarations ***************************
+// ********** Begin Class UAttackLevel constinit property declarations *****************************
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__attackOffsets;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
-// ********** End Class UAttackUpgrade constinit property declarations *****************************
+// ********** End Class UAttackLevel constinit property declarations *******************************
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
-		TCppClassTypeTraits<UAttackUpgrade>::IsAbstract,
+		TCppClassTypeTraits<UAttackLevel>::IsAbstract,
 	};
 	static const UECodeGen_Private::FClassParams ClassParams;
-}; // struct Z_Construct_UClass_UAttackUpgrade_Statics
+}; // struct Z_Construct_UClass_UAttackLevel_Statics
 
-// ********** Begin Class UAttackUpgrade Property Definitions **************************************
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAttackUpgrade_Statics::NewProp__attackOffsets = { "_attackOffsets", nullptr, (EPropertyFlags)0x0012000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAttackUpgrade, _attackOffsets), Z_Construct_UClass_UAttackAttributeData_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__attackOffsets_MetaData), NewProp__attackOffsets_MetaData) };
-const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAttackUpgrade_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAttackUpgrade_Statics::NewProp__attackOffsets,
+// ********** Begin Class UAttackLevel Property Definitions ****************************************
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAttackLevel_Statics::NewProp__attackOffsets = { "_attackOffsets", nullptr, (EPropertyFlags)0x0116000000080009, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAttackLevel, _attackOffsets), Z_Construct_UClass_UAttackAttributeData_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__attackOffsets_MetaData), NewProp__attackOffsets_MetaData) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAttackLevel_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAttackLevel_Statics::NewProp__attackOffsets,
 };
-static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAttackUpgrade_Statics::PropPointers) < 2048);
-// ********** End Class UAttackUpgrade Property Definitions ****************************************
-UObject* (*const Z_Construct_UClass_UAttackUpgrade_Statics::DependentSingletons[])() = {
-	(UObject* (*)())Z_Construct_UClass_UBaseUpgradeContainer,
+static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAttackLevel_Statics::PropPointers) < 2048);
+// ********** End Class UAttackLevel Property Definitions ******************************************
+UObject* (*const Z_Construct_UClass_UAttackLevel_Statics::DependentSingletons[])() = {
+	(UObject* (*)())Z_Construct_UClass_UBaseLevelContainer,
 	(UObject* (*)())Z_Construct_UPackage__Script_i_love_vampires_2,
 };
-static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAttackUpgrade_Statics::DependentSingletons) < 16);
-const UECodeGen_Private::FClassParams Z_Construct_UClass_UAttackUpgrade_Statics::ClassParams = {
-	&UAttackUpgrade::StaticClass,
+static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAttackLevel_Statics::DependentSingletons) < 16);
+const UECodeGen_Private::FClassParams Z_Construct_UClass_UAttackLevel_Statics::ClassParams = {
+	&UAttackLevel::StaticClass,
 	nullptr,
 	&StaticCppClassTypeInfo,
 	DependentSingletons,
 	nullptr,
-	Z_Construct_UClass_UAttackUpgrade_Statics::PropPointers,
+	Z_Construct_UClass_UAttackLevel_Statics::PropPointers,
 	nullptr,
 	UE_ARRAY_COUNT(DependentSingletons),
 	0,
-	UE_ARRAY_COUNT(Z_Construct_UClass_UAttackUpgrade_Statics::PropPointers),
+	UE_ARRAY_COUNT(Z_Construct_UClass_UAttackLevel_Statics::PropPointers),
 	0,
 	0x009010A0u,
-	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAttackUpgrade_Statics::Class_MetaDataParams), Z_Construct_UClass_UAttackUpgrade_Statics::Class_MetaDataParams)
+	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UAttackLevel_Statics::Class_MetaDataParams), Z_Construct_UClass_UAttackLevel_Statics::Class_MetaDataParams)
 };
-void UAttackUpgrade::StaticRegisterNativesUAttackUpgrade()
+void UAttackLevel::StaticRegisterNativesUAttackLevel()
 {
 }
-UClass* Z_Construct_UClass_UAttackUpgrade()
+UClass* Z_Construct_UClass_UAttackLevel()
 {
-	if (!Z_Registration_Info_UClass_UAttackUpgrade.OuterSingleton)
+	if (!Z_Registration_Info_UClass_UAttackLevel.OuterSingleton)
 	{
-		UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_UAttackUpgrade.OuterSingleton, Z_Construct_UClass_UAttackUpgrade_Statics::ClassParams);
+		UECodeGen_Private::ConstructUClass(Z_Registration_Info_UClass_UAttackLevel.OuterSingleton, Z_Construct_UClass_UAttackLevel_Statics::ClassParams);
 	}
-	return Z_Registration_Info_UClass_UAttackUpgrade.OuterSingleton;
+	return Z_Registration_Info_UClass_UAttackLevel.OuterSingleton;
 }
-DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, UAttackUpgrade);
-UAttackUpgrade::~UAttackUpgrade() {}
-// ********** End Class UAttackUpgrade *************************************************************
+DEFINE_VTABLE_PTR_HELPER_CTOR_NS(, UAttackLevel);
+UAttackLevel::~UAttackLevel() {}
+// ********** End Class UAttackLevel ***************************************************************
 
 // ********** Begin Class UAttackTemplate **********************************************************
 FClassRegistrationInfo Z_Registration_Info_UClass_UAttackTemplate;
@@ -514,28 +514,34 @@ struct Z_Construct_UClass_UAttackTemplate_Statics
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "AttackActor.h" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__attackAttributes_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__levels_Inner_MetaData[] = {
 		{ "Category", "AttackTemplate" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "//UPROPERTY(EditAnywhere, Instanced)\n//TObjectPtr<UAttackAttributeData> _attackAttributes;\n" },
+#endif
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "AttackActor.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "UPROPERTY(EditAnywhere, Instanced)\nTObjectPtr<UAttackAttributeData> _attackAttributes;" },
+#endif
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__upgrades_Inner_MetaData[] = {
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__levels_MetaData[] = {
 		{ "Category", "AttackTemplate" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "//UPROPERTY(EditAnywhere, Instanced)\n//TObjectPtr<UAttackAttributeData> _attackAttributes;\n" },
+#endif
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "AttackActor.h" },
-	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__upgrades_MetaData[] = {
-		{ "Category", "AttackTemplate" },
-		{ "EditInline", "true" },
-		{ "ModuleRelativePath", "AttackActor.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "UPROPERTY(EditAnywhere, Instanced)\nTObjectPtr<UAttackAttributeData> _attackAttributes;" },
+#endif
 	};
 #endif // WITH_METADATA
 
 // ********** Begin Class UAttackTemplate constinit property declarations **************************
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__attackConfig;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp__attackAttributes;
-	static const UECodeGen_Private::FObjectPropertyParams NewProp__upgrades_Inner;
-	static const UECodeGen_Private::FArrayPropertyParams NewProp__upgrades;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp__levels_Inner;
+	static const UECodeGen_Private::FArrayPropertyParams NewProp__levels;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class UAttackTemplate constinit property declarations ****************************
 	static UObject* (*const DependentSingletons[])();
@@ -546,15 +552,13 @@ struct Z_Construct_UClass_UAttackTemplate_Statics
 }; // struct Z_Construct_UClass_UAttackTemplate_Statics
 
 // ********** Begin Class UAttackTemplate Property Definitions *************************************
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAttackTemplate_Statics::NewProp__attackConfig = { "_attackConfig", nullptr, (EPropertyFlags)0x0012000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAttackTemplate, _attackConfig), Z_Construct_UClass_UAttackConfig_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__attackConfig_MetaData), NewProp__attackConfig_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAttackTemplate_Statics::NewProp__attackAttributes = { "_attackAttributes", nullptr, (EPropertyFlags)0x0012000000080009, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAttackTemplate, _attackAttributes), Z_Construct_UClass_UAttackAttributeData_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__attackAttributes_MetaData), NewProp__attackAttributes_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAttackTemplate_Statics::NewProp__upgrades_Inner = { "_upgrades", nullptr, (EPropertyFlags)0x0002000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UAttackUpgrade_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__upgrades_Inner_MetaData), NewProp__upgrades_Inner_MetaData) };
-const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UAttackTemplate_Statics::NewProp__upgrades = { "_upgrades", nullptr, (EPropertyFlags)0x0010008000000009, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAttackTemplate, _upgrades), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__upgrades_MetaData), NewProp__upgrades_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAttackTemplate_Statics::NewProp__attackConfig = { "_attackConfig", nullptr, (EPropertyFlags)0x0116000000080009, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAttackTemplate, _attackConfig), Z_Construct_UClass_UAttackConfig_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__attackConfig_MetaData), NewProp__attackConfig_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAttackTemplate_Statics::NewProp__levels_Inner = { "_levels", nullptr, (EPropertyFlags)0x0106000000080008, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UAttackLevel_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__levels_Inner_MetaData), NewProp__levels_Inner_MetaData) };
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UAttackTemplate_Statics::NewProp__levels = { "_levels", nullptr, (EPropertyFlags)0x0114008000000009, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAttackTemplate, _levels), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__levels_MetaData), NewProp__levels_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAttackTemplate_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAttackTemplate_Statics::NewProp__attackConfig,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAttackTemplate_Statics::NewProp__attackAttributes,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAttackTemplate_Statics::NewProp__upgrades_Inner,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAttackTemplate_Statics::NewProp__upgrades,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAttackTemplate_Statics::NewProp__levels_Inner,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAttackTemplate_Statics::NewProp__levels,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAttackTemplate_Statics::PropPointers) < 2048);
 // ********** End Class UAttackTemplate Property Definitions ***************************************
@@ -600,11 +604,11 @@ struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_
 		{ Z_Construct_UClass_AAttackActor, AAttackActor::StaticClass, TEXT("AAttackActor"), &Z_Registration_Info_UClass_AAttackActor, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AAttackActor), 2812872173U) },
 		{ Z_Construct_UClass_UAttackConfig, UAttackConfig::StaticClass, TEXT("UAttackConfig"), &Z_Registration_Info_UClass_UAttackConfig, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAttackConfig), 1269853889U) },
 		{ Z_Construct_UClass_UAttackAttributeData, UAttackAttributeData::StaticClass, TEXT("UAttackAttributeData"), &Z_Registration_Info_UClass_UAttackAttributeData, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAttackAttributeData), 2499489532U) },
-		{ Z_Construct_UClass_UAttackUpgrade, UAttackUpgrade::StaticClass, TEXT("UAttackUpgrade"), &Z_Registration_Info_UClass_UAttackUpgrade, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAttackUpgrade), 1987365192U) },
-		{ Z_Construct_UClass_UAttackTemplate, UAttackTemplate::StaticClass, TEXT("UAttackTemplate"), &Z_Registration_Info_UClass_UAttackTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAttackTemplate), 362702213U) },
+		{ Z_Construct_UClass_UAttackLevel, UAttackLevel::StaticClass, TEXT("UAttackLevel"), &Z_Registration_Info_UClass_UAttackLevel, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAttackLevel), 2336475787U) },
+		{ Z_Construct_UClass_UAttackTemplate, UAttackTemplate::StaticClass, TEXT("UAttackTemplate"), &Z_Registration_Info_UClass_UAttackTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAttackTemplate), 4072048742U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_165146871{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_2686947508{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

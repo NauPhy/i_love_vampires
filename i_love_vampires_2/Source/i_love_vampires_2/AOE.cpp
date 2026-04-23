@@ -139,17 +139,28 @@ void AAOE::reorientSlash() {
 }
 ///////////////////////////////////////////////////////////////////////////////
 // AOEFactory
-AOEFactory::AOEFactory(
-	ACombatant* owner, const UAOETemplate* myTemplate
-) :
-	AttackFactory(owner, myTemplate),
-	_AOEConfig(myTemplate->_AOEConfig)
+AOEFactory::AOEFactory(ACombatant* owner, const UAOETemplate* myTemplate) :
+	AttackFactory(owner, myTemplate)
 {
-	if (!IsValid(_AOEConfig.Get())) {
-		LOGERROR("AOEFactory::AOEFactory - invalid AOEConfig");
+	if (
+		!IsValid(_AOEConfig.Get()) || 
+		!IsValid(myTemplate->_AOEConfig) || 
+		_levels.Num() == 0 || 
+		getLevel() < 0 || 
+		getLevel() > _levels.Num() - 1 || 
+		!IsValid(_levels[getLevel()])
+		) 
+	{
+		LOGERROR("AOEFactory::AOEFactory - invalid parameter");
 		return;
 	}
-	auto temp = std::make_shared<AOEAttributes>(myTemplate->_AOEAttributes, owner->getAttributes());
+	_AOEConfig = myTemplate->_AOEConfig;
+	const auto casted = Cast<UAOELevel>(_levels[getLevel()]);
+	if (!IsValid(casted)) {
+		LOGERROR("AOEFactory::AOEFactory - attempted to initialize with incompatible level");
+		return;
+	}
+	auto temp = std::make_shared<AOEAttributes>(casted->_AOEOffsets, owner->getAttributes());
 	_AOEAttributes = std::make_unique<BaseAttributeWrapper<AOEAttributes>>(owner, temp);
 }
 
@@ -161,18 +172,14 @@ AOEFactory::AOEFactory(AOEFactory&& other) :
 	other._AOEAttributes = nullptr;
 }
 
-void AOEFactory::upgrade() {
-	if (_AOEAttributes.get() == nullptr) {
-		LOGERROR("AOEFactory::upgrade - invalid parameter");
+void AOEFactory::finishUpgrade(const UAttackLevel* newLevel) {
+	AttackFactory::finishUpgrade(newLevel);
+	const auto casted = Cast<UAOELevel>(newLevel);
+	if (!IsValid(casted)) {
+		LOGERROR("AOEFactory::finishUpgrade - newLevel is not a UAOELevel");
 		return;
 	}
-	const UAOEUpgrade* upgrade = Cast<UAOEUpgrade>(_upgrades[getLevel() - 1].Get());
-	if (!IsValid(upgrade)) {
-		LOGERROR("AOEFactory::upgrade - invalid upgrade");
-		return;
-	}
-	_AOEAttributes->changeBaseValues(upgrade->_AOEOffsets);
-	AttackFactory::upgrade();
+	_AOEAttributes->changeBaseValues<UAOEAttributeData>(casted->_AOEOffsets.Get());
 }
 
 void AOEFactory::tick(float delta) {

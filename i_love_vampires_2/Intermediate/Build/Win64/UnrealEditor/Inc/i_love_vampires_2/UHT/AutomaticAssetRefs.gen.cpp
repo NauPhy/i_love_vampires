@@ -16,7 +16,7 @@ void EmptyLinkFunctionForGeneratedCodeAutomaticAssetRefs() {}
 ENGINE_API UClass* Z_Construct_UClass_UGameInstanceSubsystem();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAutomaticAssetRefs();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAutomaticAssetRefs_NoRegister();
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UCombatantPassive_NoRegister();
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UPassiveData_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UWeaponTemplate_NoRegister();
 UPackage* Z_Construct_UPackage__Script_i_love_vampires_2();
 // ********** End Cross Module References **********************************************************
@@ -26,8 +26,8 @@ struct Z_Construct_UFunction_UAutomaticAssetRefs_getRandomPassive_Statics
 {
 	struct AutomaticAssetRefs_eventgetRandomPassive_Parms
 	{
-		TArray<UCombatantPassive*> ignored;
-		const UCombatantPassive* ReturnValue;
+		TArray<UPassiveData*> ignored;
+		const UPassiveData* ReturnValue;
 	};
 #if WITH_METADATA
 	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
@@ -51,9 +51,9 @@ struct Z_Construct_UFunction_UAutomaticAssetRefs_getRandomPassive_Statics
 };
 
 // ********** Begin Function getRandomPassive Property Definitions *********************************
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UAutomaticAssetRefs_getRandomPassive_Statics::NewProp_ignored_Inner = { "ignored", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UCombatantPassive_NoRegister, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UAutomaticAssetRefs_getRandomPassive_Statics::NewProp_ignored_Inner = { "ignored", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UClass_UPassiveData_NoRegister, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FArrayPropertyParams Z_Construct_UFunction_UAutomaticAssetRefs_getRandomPassive_Statics::NewProp_ignored = { "ignored", nullptr, (EPropertyFlags)0x0010000008000182, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AutomaticAssetRefs_eventgetRandomPassive_Parms, ignored), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ignored_MetaData), NewProp_ignored_MetaData) };
-const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UAutomaticAssetRefs_getRandomPassive_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000582, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AutomaticAssetRefs_eventgetRandomPassive_Parms, ReturnValue), Z_Construct_UClass_UCombatantPassive_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ReturnValue_MetaData), NewProp_ReturnValue_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UFunction_UAutomaticAssetRefs_getRandomPassive_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000582, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AutomaticAssetRefs_eventgetRandomPassive_Parms, ReturnValue), Z_Construct_UClass_UPassiveData_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_ReturnValue_MetaData), NewProp_ReturnValue_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_UAutomaticAssetRefs_getRandomPassive_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UAutomaticAssetRefs_getRandomPassive_Statics::NewProp_ignored_Inner,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_UAutomaticAssetRefs_getRandomPassive_Statics::NewProp_ignored,
@@ -77,10 +77,10 @@ UFunction* Z_Construct_UFunction_UAutomaticAssetRefs_getRandomPassive()
 }
 DEFINE_FUNCTION(UAutomaticAssetRefs::execgetRandomPassive)
 {
-	P_GET_TARRAY_REF(UCombatantPassive*,Z_Param_Out_ignored);
+	P_GET_TARRAY_REF(UPassiveData*,Z_Param_Out_ignored);
 	P_FINISH;
 	P_NATIVE_BEGIN;
-	*(const UCombatantPassive**)Z_Param__Result=P_THIS->getRandomPassive(Z_Param_Out_ignored);
+	*(const UPassiveData**)Z_Param__Result=P_THIS->getRandomPassive(Z_Param_Out_ignored);
 	P_NATIVE_END;
 }
 // ********** End Class UAutomaticAssetRefs Function getRandomPassive ******************************
@@ -197,7 +197,7 @@ struct Z_Construct_UClass_UAutomaticAssetRefs_Statics
 	};
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
-		{ &Z_Construct_UFunction_UAutomaticAssetRefs_getRandomPassive, "getRandomPassive" }, // 817453248
+		{ &Z_Construct_UFunction_UAutomaticAssetRefs_getRandomPassive, "getRandomPassive" }, // 776066870
 		{ &Z_Construct_UFunction_UAutomaticAssetRefs_getRandomWeapon, "getRandomWeapon" }, // 2594310812
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
@@ -247,10 +247,10 @@ UAutomaticAssetRefs::~UAutomaticAssetRefs() {}
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AutomaticAssetRefs_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UAutomaticAssetRefs, UAutomaticAssetRefs::StaticClass, TEXT("UAutomaticAssetRefs"), &Z_Registration_Info_UClass_UAutomaticAssetRefs, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAutomaticAssetRefs), 2658973231U) },
+		{ Z_Construct_UClass_UAutomaticAssetRefs, UAutomaticAssetRefs::StaticClass, TEXT("UAutomaticAssetRefs"), &Z_Registration_Info_UClass_UAutomaticAssetRefs, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAutomaticAssetRefs), 623002700U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AutomaticAssetRefs_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AutomaticAssetRefs_h__Script_i_love_vampires_2_3810255109{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AutomaticAssetRefs_h__Script_i_love_vampires_2_1341579263{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AutomaticAssetRefs_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AutomaticAssetRefs_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

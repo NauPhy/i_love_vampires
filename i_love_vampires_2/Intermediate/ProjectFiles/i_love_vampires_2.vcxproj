@@ -654,8 +654,8 @@
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles_2)</ForcedIncludeFiles>
     </ClCompile>
     <ClInclude Include="..\..\Source\i_love_vampires_2\BaseTemplate.h" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseUpgradeContainer.cpp" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseUpgradeContainer.h" />
+    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseLevelContainer.cpp" />
+    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseLevelContainer.h" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\Combatant.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories_2)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles_2)</ForcedIncludeFiles>

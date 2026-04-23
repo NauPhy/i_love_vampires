@@ -20,7 +20,7 @@ class I_LOVE_VAMPIRES_2_API UAutomaticAssetRefs : public UGameInstanceSubsystem
 	GENERATED_BODY()
 
 	TArray<UWeaponTemplate*> _weapons;
-	TArray<UCombatantPassive*> _passives;
+	TArray<UPassiveData*> _passives;
 
 	template <typename T>
 	void loadAssets(TArray<T*>& out);
@@ -32,7 +32,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	const UWeaponTemplate* getRandomWeapon(const TArray<UWeaponTemplate*>& ignored);
 	UFUNCTION(BlueprintCallable)
-	const UCombatantPassive* getRandomPassive(const TArray<UCombatantPassive*>& ignored);
+	const UPassiveData* getRandomPassive(const TArray<UPassiveData*>& ignored);
 };
 
 template <typename T>

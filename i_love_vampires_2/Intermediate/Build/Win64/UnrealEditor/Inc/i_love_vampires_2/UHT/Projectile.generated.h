@@ -133,50 +133,50 @@ class UProjectileAttributeData;
 
 // ********** End Class UProjectileAttributeData ***************************************************
 
-// ********** Begin Class UProjectileUpgrade *******************************************************
-struct Z_Construct_UClass_UProjectileUpgrade_Statics;
-I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UProjectileUpgrade_NoRegister();
+// ********** Begin Class UProjectileLevel *********************************************************
+struct Z_Construct_UClass_UProjectileLevel_Statics;
+I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UProjectileLevel_NoRegister();
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_234_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_235_INCLASS_NO_PURE_DECLS \
 private: \
-	static void StaticRegisterNativesUProjectileUpgrade(); \
-	friend struct ::Z_Construct_UClass_UProjectileUpgrade_Statics; \
+	static void StaticRegisterNativesUProjectileLevel(); \
+	friend struct ::Z_Construct_UClass_UProjectileLevel_Statics; \
 	static UClass* GetPrivateStaticClass(); \
-	friend I_LOVE_VAMPIRES_2_API UClass* ::Z_Construct_UClass_UProjectileUpgrade_NoRegister(); \
+	friend I_LOVE_VAMPIRES_2_API UClass* ::Z_Construct_UClass_UProjectileLevel_NoRegister(); \
 public: \
-	DECLARE_CLASS2(UProjectileUpgrade, UAttackUpgrade, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_UProjectileUpgrade_NoRegister) \
-	DECLARE_SERIALIZER(UProjectileUpgrade)
+	DECLARE_CLASS2(UProjectileLevel, UAttackLevel, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/i_love_vampires_2"), Z_Construct_UClass_UProjectileLevel_NoRegister) \
+	DECLARE_SERIALIZER(UProjectileLevel)
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_234_ENHANCED_CONSTRUCTORS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_235_ENHANCED_CONSTRUCTORS \
 	/** Deleted move- and copy-constructors, should never be used */ \
-	UProjectileUpgrade(UProjectileUpgrade&&) = delete; \
-	UProjectileUpgrade(const UProjectileUpgrade&) = delete; \
-	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UProjectileUpgrade); \
-	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UProjectileUpgrade); \
-	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UProjectileUpgrade) \
-	NO_API virtual ~UProjectileUpgrade();
+	UProjectileLevel(UProjectileLevel&&) = delete; \
+	UProjectileLevel(const UProjectileLevel&) = delete; \
+	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UProjectileLevel); \
+	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UProjectileLevel); \
+	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UProjectileLevel) \
+	NO_API virtual ~UProjectileLevel();
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_232_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_234_GENERATED_BODY \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_233_PROLOG
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_235_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_234_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_234_ENHANCED_CONSTRUCTORS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_235_INCLASS_NO_PURE_DECLS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_235_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
 
-class UProjectileUpgrade;
+class UProjectileLevel;
 
-// ********** End Class UProjectileUpgrade *********************************************************
+// ********** End Class UProjectileLevel ***********************************************************
 
 // ********** Begin Class UProjectileTemplate ******************************************************
 struct Z_Construct_UClass_UProjectileTemplate_Statics;
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UProjectileTemplate_NoRegister();
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_252_INCLASS_NO_PURE_DECLS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_253_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUProjectileTemplate(); \
 	friend struct ::Z_Construct_UClass_UProjectileTemplate_Statics; \
@@ -187,7 +187,7 @@ public: \
 	DECLARE_SERIALIZER(UProjectileTemplate)
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_252_ENHANCED_CONSTRUCTORS \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_253_ENHANCED_CONSTRUCTORS \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	UProjectileTemplate(UProjectileTemplate&&) = delete; \
 	UProjectileTemplate(const UProjectileTemplate&) = delete; \
@@ -197,12 +197,12 @@ public: \
 	NO_API virtual ~UProjectileTemplate();
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_250_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_252_GENERATED_BODY \
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_251_PROLOG
+#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_253_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_252_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_252_ENHANCED_CONSTRUCTORS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_253_INCLASS_NO_PURE_DECLS \
+	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h_253_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

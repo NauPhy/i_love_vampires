@@ -1,3 +1,5 @@
-2026/04/22-15:20:42.524 57b0 Reusing MANIFEST C:\Users\Byron\Documents\GitHub\i_love_vampires\i_love_vampires_2\Saved\webcache_6613\Default\Local Storage\leveldb/MANIFEST-000001
-2026/04/22-15:20:42.533 57b0 Recovering log #7
-2026/04/22-15:20:42.535 57b0 Reusing old log C:\Users\Byron\Documents\GitHub\i_love_vampires\i_love_vampires_2\Saved\webcache_6613\Default\Local Storage\leveldb/000007.log 
+2026/04/23-16:46:09.441 8ff4 Reusing MANIFEST C:\Users\Byron\Documents\GitHub\i_love_vampires\i_love_vampires_2\Saved\webcache_6613\Default\Local Storage\leveldb/MANIFEST-000001
+2026/04/23-16:46:09.447 8ff4 Recovering log #13
+2026/04/23-16:46:09.447 8ff4 Level-0 table #16: started
+2026/04/23-16:46:09.450 8ff4 Level-0 table #16: 62853 bytes OK
+2026/04/23-16:46:09.452 8ff4 Delete type=0 #13

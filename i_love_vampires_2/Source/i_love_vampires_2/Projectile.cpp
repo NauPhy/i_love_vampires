@@ -258,14 +258,27 @@ void AProjectile::setNewDirection() {
 // ProjectileFactory
 ProjectileFactory::ProjectileFactory(
 	ACombatant* pawn, const UProjectileTemplate* projectileTemplate) :
-	AttackFactory(pawn, projectileTemplate), 
-	_projectileConfig(projectileTemplate->_projectileConfig)
+	AttackFactory(pawn, projectileTemplate)
 {
-	if (!IsValid(_projectileConfig.Get())) {
-		LOGERROR("AProjectileFactory::initialise_AProjectileFactory - invalid projectile config");
+	if (
+		!IsValid(projectileTemplate) || 
+		!IsValid(projectileTemplate->_projectileConfig) || 
+		projectileTemplate->_levels.Num() == 0 || 
+		getLevel() < 0 ||
+		getLevel() > projectileTemplate->_levels.Num() - 1 || 
+		!IsValid(_levels[getLevel()])
+		) 
+	{
+		LOGERROR("AProjectileFactory::initialise_AProjectileFactory - invalid parameter");
 		return;
 	}
-	auto temp = std::make_shared<ProjectileAttributes>(projectileTemplate->_projectileAttributes, pawn->getAttributes());
+	_projectileConfig = projectileTemplate->_projectileConfig;
+	const auto casted = Cast<UProjectileLevel>(projectileTemplate->_levels[getLevel()]);
+	if (!IsValid(casted)) {
+		LOGERROR("AProjectileFactory::initialise_AProjectileFactory - attempted to initialize with incompatible level");
+		return;
+	}
+	auto temp = std::make_shared<ProjectileAttributes>(casted->_projectileOffsets, pawn->getAttributes());
 	_projectileAttributes = std::make_unique<BaseAttributeWrapper<ProjectileAttributes>>(pawn, temp);
 }
 
@@ -363,18 +376,14 @@ AProjectile* ProjectileFactory::launchSingleProjectile(const FVector& direction)
 	return projectile;
 }
 
-void ProjectileFactory::upgrade() {
-	if (_projectileAttributes.get() == nullptr) {
-		LOGERROR("ProjectileFactory::upgrade - invalid parameter");
+void ProjectileFactory::finishUpgrade(const UAttackLevel* upgrade) {
+	AttackFactory::finishUpgrade(upgrade);
+	const auto casted = Cast<UProjectileLevel>(upgrade);
+	if (!IsValid(casted)) {
+		LOGERROR("AProjectileFactory::finishUpgrade - attempted to upgrade with incompatible level");
 		return;
 	}
-	const UProjectileUpgrade* upgrade = Cast<UProjectileUpgrade>(_upgrades[getLevel() - 1].Get());
-	if (!IsValid(upgrade)) {
-		LOGERROR("ProjectileFactory::upgrade - invalid upgrade");
-		return;
-	}
-	_projectileAttributes->changeBaseValues(upgrade->_projectileOffsets);
-	AttackFactory::upgrade();
+	_projectileAttributes->changeBaseValues<UProjectileAttributeData>(casted->_projectileOffsets.Get());
 }
 
 ///////////////////////////////////////////////////////////////////////////////
