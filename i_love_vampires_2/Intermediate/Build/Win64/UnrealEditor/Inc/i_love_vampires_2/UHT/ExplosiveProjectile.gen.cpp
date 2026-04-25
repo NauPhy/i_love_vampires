@@ -6,6 +6,7 @@
 
 #include "UObject/GeneratedCppIncludes.h"
 #include "i_love_vampires_2/ExplosiveProjectile.h"
+#include "i_love_vampires_2/EffectStruct.h"
 
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 static_assert(!UE_WITH_CONSTINIT_UOBJECT, "This generated code can only be compiled with !UE_WITH_CONSTINIT_OBJECT");
@@ -32,6 +33,7 @@ I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UExplosiveProjectileTemplate();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UExplosiveProjectileTemplate_NoRegister();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UProjectileLevel();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UProjectileTemplate();
+I_LOVE_VAMPIRES_2_API UScriptStruct* Z_Construct_UScriptStruct_FEffectStruct();
 UPackage* Z_Construct_UPackage__Script_i_love_vampires_2();
 // ********** End Cross Module References **********************************************************
 
@@ -361,12 +363,18 @@ struct Z_Construct_UClass_UExplosiveProjectileLevel_Statics
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "ExplosiveProjectile.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__AOEStatusEffects_MetaData[] = {
+		{ "Category", "ExplosiveProjectileLevel" },
+		{ "ModuleRelativePath", "ExplosiveProjectile.h" },
+	};
 #endif // WITH_METADATA
 
 // ********** Begin Class UExplosiveProjectileLevel constinit property declarations ****************
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__explosiveProjectileAttributeOffsets;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__AOEAttributeOffsets;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__AOEAttributeOffsets_attack;
+	static const UECodeGen_Private::FStructPropertyParams NewProp__AOEStatusEffects_Inner;
+	static const UECodeGen_Private::FArrayPropertyParams NewProp__AOEStatusEffects;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class UExplosiveProjectileLevel constinit property declarations ******************
 	static UObject* (*const DependentSingletons[])();
@@ -380,10 +388,14 @@ struct Z_Construct_UClass_UExplosiveProjectileLevel_Statics
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UExplosiveProjectileLevel_Statics::NewProp__explosiveProjectileAttributeOffsets = { "_explosiveProjectileAttributeOffsets", nullptr, (EPropertyFlags)0x0116000000080009, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UExplosiveProjectileLevel, _explosiveProjectileAttributeOffsets), Z_Construct_UClass_UExplosiveProjectileAttributeData_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__explosiveProjectileAttributeOffsets_MetaData), NewProp__explosiveProjectileAttributeOffsets_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UExplosiveProjectileLevel_Statics::NewProp__AOEAttributeOffsets = { "_AOEAttributeOffsets", nullptr, (EPropertyFlags)0x0116000000080009, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UExplosiveProjectileLevel, _AOEAttributeOffsets), Z_Construct_UClass_UAOEAttributeData_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__AOEAttributeOffsets_MetaData), NewProp__AOEAttributeOffsets_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UExplosiveProjectileLevel_Statics::NewProp__AOEAttributeOffsets_attack = { "_AOEAttributeOffsets_attack", nullptr, (EPropertyFlags)0x0116000000080009, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UExplosiveProjectileLevel, _AOEAttributeOffsets_attack), Z_Construct_UClass_UAttackAttributeData_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__AOEAttributeOffsets_attack_MetaData), NewProp__AOEAttributeOffsets_attack_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UExplosiveProjectileLevel_Statics::NewProp__AOEStatusEffects_Inner = { "_AOEStatusEffects", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FEffectStruct, METADATA_PARAMS(0, nullptr) }; // 3287375694
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UExplosiveProjectileLevel_Statics::NewProp__AOEStatusEffects = { "_AOEStatusEffects", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UExplosiveProjectileLevel, _AOEStatusEffects), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__AOEStatusEffects_MetaData), NewProp__AOEStatusEffects_MetaData) }; // 3287375694
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UExplosiveProjectileLevel_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UExplosiveProjectileLevel_Statics::NewProp__explosiveProjectileAttributeOffsets,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UExplosiveProjectileLevel_Statics::NewProp__AOEAttributeOffsets,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UExplosiveProjectileLevel_Statics::NewProp__AOEAttributeOffsets_attack,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UExplosiveProjectileLevel_Statics::NewProp__AOEStatusEffects_Inner,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UExplosiveProjectileLevel_Statics::NewProp__AOEStatusEffects,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UExplosiveProjectileLevel_Statics::PropPointers) < 2048);
 // ********** End Class UExplosiveProjectileLevel Property Definitions *****************************
@@ -559,11 +571,11 @@ struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_
 		{ Z_Construct_UClass_AExplosiveProjectile, AExplosiveProjectile::StaticClass, TEXT("AExplosiveProjectile"), &Z_Registration_Info_UClass_AExplosiveProjectile, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AExplosiveProjectile), 1583200939U) },
 		{ Z_Construct_UClass_UExplosiveProjectileConfig, UExplosiveProjectileConfig::StaticClass, TEXT("UExplosiveProjectileConfig"), &Z_Registration_Info_UClass_UExplosiveProjectileConfig, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UExplosiveProjectileConfig), 2639790154U) },
 		{ Z_Construct_UClass_UExplosiveProjectileAttributeData, UExplosiveProjectileAttributeData::StaticClass, TEXT("UExplosiveProjectileAttributeData"), &Z_Registration_Info_UClass_UExplosiveProjectileAttributeData, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UExplosiveProjectileAttributeData), 3455000527U) },
-		{ Z_Construct_UClass_UExplosiveProjectileLevel, UExplosiveProjectileLevel::StaticClass, TEXT("UExplosiveProjectileLevel"), &Z_Registration_Info_UClass_UExplosiveProjectileLevel, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UExplosiveProjectileLevel), 666109615U) },
-		{ Z_Construct_UClass_UExplosiveProjectileTemplate, UExplosiveProjectileTemplate::StaticClass, TEXT("UExplosiveProjectileTemplate"), &Z_Registration_Info_UClass_UExplosiveProjectileTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UExplosiveProjectileTemplate), 1101108366U) },
+		{ Z_Construct_UClass_UExplosiveProjectileLevel, UExplosiveProjectileLevel::StaticClass, TEXT("UExplosiveProjectileLevel"), &Z_Registration_Info_UClass_UExplosiveProjectileLevel, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UExplosiveProjectileLevel), 1985082520U) },
+		{ Z_Construct_UClass_UExplosiveProjectileTemplate, UExplosiveProjectileTemplate::StaticClass, TEXT("UExplosiveProjectileTemplate"), &Z_Registration_Info_UClass_UExplosiveProjectileTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UExplosiveProjectileTemplate), 3311222323U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h__Script_i_love_vampires_2_1244393470{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h__Script_i_love_vampires_2_4189343000{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ExplosiveProjectile_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

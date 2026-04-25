@@ -9,7 +9,7 @@
 #include "SpriteSorter.h"
 
 void AAttackActor::initialise_AAttackActor(const AttackInitStruct& temp) {
-	initialise_AAttackActor(temp._pawnRef, temp._attackConfig, temp._attackAttributes);
+	initialise_AAttackActor(temp._pawnRef, temp._attackConfig, temp._attackAttributes, temp._statusEffects);
 }
 
 AAttackActor::AAttackActor() {
@@ -29,7 +29,7 @@ void AAttackActor::Tick(float delta) {
 	SetActorScale3D(FVector(SPRITE_SCALE, SPRITE_SCALE, SPRITE_SCALE) * _attackAttributes->_radius.getFinal());
 }
 
-void AAttackActor::initialise_AAttackActor(ACombatant* pawnRef, const UAttackConfig* config, const AttackAttributes& attributes) {
+void AAttackActor::initialise_AAttackActor(ACombatant* pawnRef, const UAttackConfig* config, const AttackAttributes& attributes, const TArray<FEffectStruct>& statusEffects) {
 	if (!IsValid(config)) {
 		LOGERROR("AAttackActor::initialise_AAttackActor - parameter not valid");
 		return;
@@ -37,6 +37,7 @@ void AAttackActor::initialise_AAttackActor(ACombatant* pawnRef, const UAttackCon
 	_attackConfig = TObjectPtr<const UAttackConfig>(config);
 	_attackAttributes = std::make_unique<AttackAttributes>(attributes);
 	_pawnRef = TWeakObjectPtr<ACombatant>(pawnRef);
+	_statusEffects = statusEffects;
 }
 
 void AAttackActor::BeginPlay() {
@@ -57,7 +58,7 @@ void AAttackActor::BeginPlay() {
 }
 
 bool AAttackActor::canHitInstigator() const {
-	for (const auto& effect : _attackConfig->_statusEffects) {
+	for (const auto& effect : _statusEffects) {
 		if (effect._type == _FRIENDLY_FIRE) {
 			return true;
 		}
@@ -72,7 +73,7 @@ void AAttackActor::applyEffect(ACombatant* target) {
 	}
 	if (_pawnRef.IsValid()) {
 		if (target == _pawnRef.Get()) {
-			for (const auto& effect : _attackConfig->_statusEffects) {
+			for (const auto& effect : _statusEffects) {
 				if (effect._type == _FRIENDLY_FIRE) {
 					_pawnRef->inflictStatus(FEffectStruct(_DAMAGE, -effect._magnitude, 0, 1));
 				}
@@ -104,7 +105,7 @@ void AAttackActor::applyEffect(ACombatant* target) {
 		target->inflictStatus(temp);
 	}
 	// Chance is included in the newly created effect, just in case
-	for (const auto& effect : _attackConfig->_statusEffects) {
+	for (const auto& effect : _statusEffects) {
 		if (FMath::FRand() <= effect._chance) {
 			if (effect._type == _HEAL_INSTIGATOR) {
 				if (_pawnRef.IsValid()) {
@@ -208,6 +209,21 @@ void AttackFactory::finishUpgrade(const UAttackLevel* upgrade) {
 	_attackAttributes->changeBaseValues<UAttackAttributeData>(upgrade->_attackOffsets.Get());
 }
 
+AttackInitStruct AttackFactory::getAttackInit() const {
+	TArray<FEffectStruct> status;
+	if (_levels.Num() == 0 || _level < 0 || _level > _levels.Num() - 1) {
+		LOGERROR("AttackFactory::getAttackInit - invalid level");
+		status = {};
+	}
+	else {
+		status = _levels[_level]->_statusEffects;
+	}
+	AttackAttributes temp(*(_attackAttributes->getCore()));
+	temp.discretizeFull();
+	AttackInitStruct ret(_owner.Get(), _attackConfig.Get(), temp, status);
+	return ret;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 std::unique_ptr<AttackFactory> UAttackTemplate::createFactory(ACombatant* owner) const {
 	return std::make_unique<AttackFactory>(owner, this);
@@ -294,4 +310,15 @@ AttackAttributes::AttackAttributes(const UAttackAttributeData* attr, std::shared
 	_attrRef(attrRef)
 {
 	baseInit(attr);
+}
+
+void UAttackTemplate::PostEditChangeProperty(FPropertyChangedEvent& event) {
+	Super::PostEditChangeProperty(event);
+	if (_levels.Num() > _previousSize && _levels.Num() >= 2) {
+		_levels.Last() = DuplicateObject(_levels[_levels.Num() - 2], this);
+	}
+	_previousSize = _levels.Num();
+}
+
+void UAttackConfig::replaceOverrides() {
 }

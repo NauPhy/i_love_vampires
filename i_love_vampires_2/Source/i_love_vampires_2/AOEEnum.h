@@ -19,3 +19,13 @@ enum class EAOETargeting : uint8
 };
 // Dependencies
 // all - AOEFactory
+
+UENUM()
+enum class EEffectApplication : uint8
+{
+	once UMETA(DisplayName = "once"),
+	tick UMETA(DisplayName = "tick"),
+	INVALID = 255 UMETA(DisplayName = "INVALID")
+};
+// Dependencies
+// tick, once - AAOE

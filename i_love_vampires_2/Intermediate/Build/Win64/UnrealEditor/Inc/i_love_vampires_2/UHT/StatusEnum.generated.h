@@ -23,16 +23,18 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
 // ********** Begin Enum EStatus *******************************************************************
 #define FOREACH_ENUM_ESTATUS(op) \
-	op(EStatus::damage) \
 	op(EStatus::bleed) \
-	op(EStatus::burn) \
-	op(EStatus::poison) \
-	op(EStatus::execute) \
-	op(EStatus::healInstigator) \
-	op(EStatus::friendlyFire) \
 	op(EStatus::blind) \
+	op(EStatus::burn) \
 	op(EStatus::chill) \
+	op(EStatus::damage) \
 	op(EStatus::decay) \
+	op(EStatus::decay_instant) \
+	op(EStatus::execute) \
+	op(EStatus::friendlyFire) \
+	op(EStatus::healInstigator) \
+	op(EStatus::instantDeath) \
+	op(EStatus::poison) \
 	op(EStatus::randomNegativePersistent) \
 	op(EStatus::INVALID) 
 

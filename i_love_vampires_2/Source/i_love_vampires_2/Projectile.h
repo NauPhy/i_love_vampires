@@ -128,7 +128,7 @@ public:
 	}
 };
 ///////////////////////////////////////////////////////////////////////////////
-#define STAT(X) \
+#define MYSTAT(X) \
 	X(_spread) \
 	X(_speed) \
 	X(_range) \
@@ -145,7 +145,7 @@ class ProjectileAttributes : public BaseAttributes {
 	void modifyAttributes(const std::shared_ptr<const CombatantAttributes>&);
 
 public:
-	STAT(BASEATTRIBUTES_DECLARE);
+	MYSTAT(BASEATTRIBUTES_DECLARE);
 
 	ProjectileAttributes() = delete;
 	ProjectileAttributes(const ProjectileAttributes& other);
@@ -157,17 +157,17 @@ public:
 	virtual void tick(UObject* context, float delta, const TArray<FEffectStruct>& statusEffects) override;
 	virtual void discretizeFull() override;
 	virtual void applyToAllStats(const std::function<void(Stat&)>& func) override {
-		STAT(BASEATTRIBUTES_APPLY);
+		MYSTAT(BASEATTRIBUTES_APPLY);
 	}
 	virtual void applyToAllStats(const std::function<void(const Stat&)>& func) const override {
-		STAT(BASEATTRIBUTES_APPLY);
+		MYSTAT(BASEATTRIBUTES_APPLY);
 	}
 	virtual void applyStatus(UObject* context, const FEffectStruct& status, float delta) override {}
 	virtual bool isCompatibleWith(const UBaseAttributeData* data) const override {
 		return dynamic_cast<const UProjectileAttributeData*>(data) != nullptr;
 	}
 };
-#undef STAT
+#undef MYSTAT
 ///////////////////////////////////////////////////////////////////////////////
 
 struct ProjectileInitStruct {
@@ -252,6 +252,12 @@ UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UProjectileTemplate : public UAttackTemplate {
 	GENERATED_BODY()
 
+public:
+	UPROPERTY(EditAnywhere, Instanced)
+	TObjectPtr<UProjectileConfig> _projectileConfig;
+	//UPROPERTY(EditAnywhere, Instanced)
+	//TObjectPtr<UProjectileAttributeData> _projectileAttributes;
+
 protected:
 	virtual void replaceOverrides() override {
 		Super::replaceOverrides();
@@ -260,10 +266,6 @@ protected:
 	}
 
 public:
-	UPROPERTY(EditAnywhere, Instanced)
-	TObjectPtr<UProjectileConfig> _projectileConfig;
-	//UPROPERTY(EditAnywhere, Instanced)
-	//TObjectPtr<UProjectileAttributeData> _projectileAttributes;
 
 	UProjectileTemplate(const FObjectInitializer& init) : Super(init) {
 		_projectileConfig = init.CreateDefaultSubobject<UProjectileConfig>(this, "_projectileConfig");

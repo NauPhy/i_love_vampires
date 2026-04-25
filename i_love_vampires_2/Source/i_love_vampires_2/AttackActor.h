@@ -45,9 +45,9 @@ class I_LOVE_VAMPIRES_2_API AAttackActor : public AActor {
 	const static inline EStatus _FRIENDLY_FIRE = EStatus::friendlyFire;
 
 	TObjectPtr<const UAttackConfig> _attackConfig = nullptr;
+	TArray<FEffectStruct> _statusEffects;
 	
 protected:
-	const static inline float _SPRITE_RADIUS = 16;
 	TWeakObjectPtr<ACombatant> _pawnRef = nullptr;
 	TArray<TWeakObjectPtr<APawn>> _effectedPawns;
 	std::unique_ptr<const AttackAttributes> _attackAttributes = nullptr;
@@ -55,7 +55,7 @@ protected:
 	UPaperFlipbookComponent* _flipbook = nullptr;
 
 private:
-	void initialise_AAttackActor(ACombatant* pawnRef, const UAttackConfig* attackConfig, const AttackAttributes& attackAttributes);
+	void initialise_AAttackActor(ACombatant* pawnRef, const UAttackConfig* attackConfig, const AttackAttributes& attackAttributes, const TArray<FEffectStruct>& statusEffects);
 
 protected:
 	const UAttackConfig* getAttackConfig() const { return _attackConfig.Get(); }
@@ -77,14 +77,12 @@ class I_LOVE_VAMPIRES_2_API UAttackConfig : public UBaseConfig
 
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	TArray<FEffectStruct> _statusEffects = {};
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TObjectPtr<UPaperFlipbook> _sprite;
 
 	UAttackConfig(const FObjectInitializer& init) : Super(init) {
 		_sprite = init.CreateDefaultSubobject<UPaperFlipbook>(this, "_sprite");
 	}
-	virtual void replaceOverrides() override {}
+	virtual void replaceOverrides() override;
 };
 ///////////////////////////////////////////////////////////////////////////////
 UCLASS(BlueprintType, EditInlineNew)
@@ -99,6 +97,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly) float _critChance = SENTINEL_FLOAT;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly) float _critMultiplier = SENTINEL_FLOAT;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly) float _radius = SENTINEL_FLOAT;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) float _burstCount = SENTINEL_FLOAT;
 
 	UAttackAttributeData(const FObjectInitializer& init) : Super(init) {}
 	virtual void replaceOverrides() override;
@@ -112,17 +111,19 @@ public:
 		{ &self::_damage, 0 },
 		{ &self::_critChance, 0 },
 		{ &self::_critMultiplier, 1 },
-		{ &self::_radius, 1 }
+		{ &self::_radius, 1 },
+		{ &self::_burstCount, 1 }
 		};
 		return temp;
 	}
 };
 ///////////////////////////////////////////////////////////////////////////////
-#define STAT(X) \
+#define MYSTAT(X) \
 	X(_damage) \
 	X(_critChance) \
 	X(_critMultiplier) \
-	X(_radius)
+	X(_radius) \
+	X(_burstCount) 
 
 class AttackAttributes : public BaseAttributes {
 	std::weak_ptr<const CombatantAttributes> _attrRef;
@@ -130,7 +131,7 @@ class AttackAttributes : public BaseAttributes {
 	void modifyAttributes(const std::shared_ptr<const CombatantAttributes>&);
 
 public:
-	STAT(BASEATTRIBUTES_DECLARE);
+	MYSTAT(BASEATTRIBUTES_DECLARE);
 
 	AttackAttributes() = delete;
 	AttackAttributes(const AttackAttributes& other);
@@ -140,27 +141,30 @@ public:
 	AttackAttributes(const UAttackAttributeData* attr, std::shared_ptr<const CombatantAttributes> attrRef);
 
 	virtual void tick(UObject* context, float delta, const TArray<FEffectStruct>& statusEffects) override;
-	virtual void discretizeFull() override {}
+	virtual void discretizeFull() override {
+		_burstCount.discretize();
+	}
 	virtual void applyStatus(UObject* context, const FEffectStruct& status, float delta) override {}
 	virtual void applyToAllStats(const std::function<void(Stat&)>& func) override {
-		STAT(BASEATTRIBUTES_APPLY);
+		MYSTAT(BASEATTRIBUTES_APPLY);
 	}
 	virtual void applyToAllStats(const std::function<void(const Stat&)>& func) const override {
-		STAT(BASEATTRIBUTES_APPLY);
+		MYSTAT(BASEATTRIBUTES_APPLY);
 	}
 	virtual bool isCompatibleWith(const UBaseAttributeData* data) const override {
 		return dynamic_cast<const UAttackAttributeData*>(data) != nullptr;
 	}
 };
-#undef STAT
+#undef MYSTAT
 ///////////////////////////////////////////////////////////////////////////////
 struct AttackInitStruct {
 	ACombatant* _pawnRef;
 	const UAttackConfig* _attackConfig;
 	const AttackAttributes _attackAttributes;
+	TArray<FEffectStruct> _statusEffects;
 	AttackInitStruct() = delete;
-	AttackInitStruct(ACombatant* pawn, const UAttackConfig* config, const AttackAttributes& attr) :
-		_pawnRef(pawn), _attackConfig(config), _attackAttributes(attr){}
+	AttackInitStruct(ACombatant* pawn, const UAttackConfig* config, const AttackAttributes& attr, const TArray<FEffectStruct>& statusEffects) :
+		_pawnRef(pawn), _attackConfig(config), _attackAttributes(attr), _statusEffects(statusEffects) {}
 };
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -177,12 +181,7 @@ protected:
 	TArray<const TObjectPtr<const UAttackLevel>> _levels = {};
 	// Cannot be const as it is used to call CreateObject/SpawnActor
 	const TWeakObjectPtr<ACombatant> _owner = nullptr;
-	AttackInitStruct getAttackInit() const {
-		AttackAttributes temp(*(_attackAttributes->getCore()));
-		temp.discretizeFull();
-		AttackInitStruct ret(_owner.Get(), _attackConfig.Get(), temp);
-		return ret;
-	}
+	AttackInitStruct getAttackInit() const;
 	virtual bool isCompatible(const UAttackLevel* level) const { return true; }
 	virtual void finishUpgrade(const UAttackLevel* newLevel);
 public:
@@ -205,6 +204,15 @@ public:
 	int getLevel() const { return _level; }
 	int getMaxLevel() const { return _levels.Num() - 1; }
 	void upgrade();
+	int getBurstCount() const {
+		if (!_attackAttributes) {
+			LOGERROR("Attempting to access uninitialized AttackFactory attributes");
+			return 0;
+		}
+		Stat temp(_attackAttributes->getCore()->_burstCount);
+		temp.discretize();
+		return temp.getFinal();
+	}
 };
 ///////////////////////////////////////////////////////////////////////////////
 UCLASS(BlueprintType, EditInlineNew)
@@ -214,11 +222,11 @@ class I_LOVE_VAMPIRES_2_API UAttackLevel : public UBaseLevelContainer {
 public:
 	UPROPERTY(EditAnywhere, Instanced)
 	TObjectPtr<UAttackAttributeData> _attackOffsets;
-
+	UPROPERTY(EditAnywhere)
+	TArray<FEffectStruct> _statusEffects = {};
 	virtual void replaceOverrides() override {
 		_attackOffsets->replaceOverrides();
 	}
-
 	UAttackLevel(const FObjectInitializer& init) : Super(init) {
 		_attackOffsets = init.CreateDefaultSubobject<UAttackAttributeData>(this, "_attackOffsets");
 	}
@@ -230,17 +238,25 @@ UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UAttackTemplate : public UBaseTemplate {
 	GENERATED_BODY()
 
+#if WITH_EDITORONLY_DATA
+	int _previousSize = 0;
+#endif
+
 public:
-	UPROPERTY(EditAnywhere, Instanced)
-	TObjectPtr<UAttackConfig> _attackConfig;
 	//UPROPERTY(EditAnywhere, Instanced)
 	//TObjectPtr<UAttackAttributeData> _attackAttributes;
 	UPROPERTY(EditAnywhere, Instanced)
+	TObjectPtr<UAttackConfig> _attackConfig;
+	UPROPERTY(EditAnywhere, Instanced)
 	TArray<TObjectPtr<UAttackLevel>> _levels = {};
+
 	UAttackTemplate(const FObjectInitializer& init) : Super(init) {
 		_attackConfig = init.CreateDefaultSubobject<UAttackConfig>(this, "_attackConfig");
 		//_attackAttributes = init.CreateDefaultSubobject<UAttackAttributeData>(this, "_attackAttributes");
 	}
 	virtual std::unique_ptr<AttackFactory> createFactory(ACombatant* owner) const;
 	virtual void replaceOverrides() override;
+#if WITH_EDITOR
+	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
+#endif
 };

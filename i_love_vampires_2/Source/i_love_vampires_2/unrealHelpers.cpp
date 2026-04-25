@@ -13,6 +13,8 @@
 #include "Kismet/KismetMathLibrary.h"
 #include <cmath>
 #include "MyPlayer.h"
+#include "DamageNumber.h"
+#include "Blueprint/WidgetBlueprintLibrary.h"
 
 bool unrealHelpers::snapSprite(const AActor* caller, const UActorComponent* comp, UPaperFlipbookComponent* flipbook) {
 	if (!IsValid(caller) || !IsValid(comp) || !IsValid(flipbook)) {
@@ -133,4 +135,33 @@ float unrealHelpers::getOrthoWidth(UObject* caller) {
 		return 0;
 	}
 	return casted->getOrthoWidth();
+}
+
+bool unrealHelpers::spawnDamageNumberNearMe(AActor* caller, const FVector& offset, float damageAmount) {
+	if (!IsValid(caller)) {
+		LOGERROR("unrealHelpers::spawnDamageNumberNearMe - caller is not valid");
+		return false;
+	}
+	auto player = UGameplayStatics::GetPlayerController(caller, 0);
+	if (!IsValid(player)) {
+		LOGERROR("unrealHelpers::spawnDamageNumberNearMe - failed to get player controller");
+		return false;
+	}
+	UAssetRefs* refs = nullptr;
+	if (!MyGameplayStatics::getAssetRefs(caller, refs)) {
+		LOGERROR("unrealHelpers::spawnDamageNumberNearMe - failed to get asset refs");
+		return false;
+	}
+	TSubclassOf<UDamageNumber> damagePopupClass = refs->getDamagePopupWidgetClass();
+	if (!IsValid(damagePopupClass)) {
+		LOGERROR("unrealHelpers::spawnDamageNumberNearMe - damage popup class not valid");
+		return false;
+	}
+	UDamageNumber* widget = Cast<UDamageNumber>(UWidgetBlueprintLibrary::Create(caller, damagePopupClass, player));
+	if (!IsValid(widget)) {
+		LOGERROR("unrealHelpers::spawnDamageNumberNearMe - failed to create widget");
+		return false;
+	}
+	widget->initialise_UDamageNumber(caller, offset, damageAmount);
+	return true;
 }

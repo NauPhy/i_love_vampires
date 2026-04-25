@@ -6,30 +6,33 @@ struct FEffectStruct;
 UENUM(BlueprintType)
 enum class EStatus : uint8
 {
-	damage UMETA(DisplayName = "damage"),
 	bleed UMETA(DisplayName = "bleed"),
-	// percent maxHP damage twice per second
-	burn UMETA(DisplayName = "burn"),
-	// flat damage once per second, increases exponentially at 10% per tick
-	poison UMETA(DisplayName = "poison"),
-	// execute below percentage
-	execute UMETA(DisplayName = "execute"),
-	// flat healing when enemy is hit
-	healInstigator UMETA(DisplayName = "healInstigator"),
-	// flat damage
-	friendlyFire UMETA(DisplayName = "friendlyFire"),
 	// Unable to fire projectile attacks
 	blind UMETA(DisplayName = "blind"),
+	// percent maxHP damage twice per second
+	burn UMETA(DisplayName = "burn"),
 	// Slows and reduces attack speed by magnitude%
 	chill UMETA(DisplayName = "chill"),
+	damage UMETA(DisplayName = "damage"),
 	// Percent missing HP applied with burn
 	decay UMETA(DisplayName = "decay"),
+	// Instantaneous %missing HP damage
+	decay_instant UMETA(DisplayName = "decay_instant"),
+	// execute below percentage
+	execute UMETA(DisplayName = "execute"),
+	// flat damage
+	friendlyFire UMETA(DisplayName = "friendlyFire"),
+	// flat healing when enemy is hit
+	healInstigator UMETA(DisplayName = "healInstigator"),
+	instantDeath UMETA(DisplayName = "instantDeath"),
+	// flat damage once per second, increases exponentially at 10% per tick
+	poison UMETA(DisplayName = "poison"),
 	randomNegativePersistent UMETA(DisplayName = "randomNegativePersistent"),
 	INVALID = 255 UMETA(DisplayName = "INVALID")
 }; 
 
 // Dependencies
-// damage, bleed, burn, execute, decay-> Combatant.h->CombatantAttributes
+// bleed, burn, damage, decay, decay_instant, execute, instantDeath -> Combatant.h->CombatantAttributes
 // damage, burn -> CombatantAttributeSet
 // burn, poison -> BaseAttributeSet.h
 // healInstigator, randomNegativePersistent, friendlyFire -> AttackActor.h

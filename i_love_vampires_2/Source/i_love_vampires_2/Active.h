@@ -12,6 +12,7 @@
 #include "BaseTemplate.h"
 // UWeaponConfig
 #include "BaseConfig.h"
+#include "ActiveEnum.h"
 //
 #include "Active.generated.h"
 class ACombatant;
@@ -20,12 +21,15 @@ class UWeaponTemplate;
 
 class Active {
 	const static inline EStatus _CHILL = EStatus::chill;
+	const static inline EActivationType _SINGLE = EActivationType::single;
+	const static inline EActivationType _BURST = EActivationType::burst;
 
 	float _chargeRatio = 0;
 	std::unique_ptr<AttackFactory> _factory;
 	TWeakObjectPtr<ACombatant> _owner = nullptr;
 	TObjectPtr<const UWeaponTemplate> _weaponTemplate = nullptr;
 	TArray<FEffectStruct> _statusEffects;
+	std::vector<float> _queuedAttacks;
 
 	void updateWarmup(float delta);
 	void activate(const FVector&);
@@ -80,6 +84,8 @@ class I_LOVE_VAMPIRES_2_API UWeaponTemplate : public UBaseTemplate
 	struct defaults {
 		FString _name = "Active";
 		float _warmup = 1.f;
+		EActivationType _activationType = static_cast<EActivationType>(0);
+		float _burstInterval = 0.05f;
 	};
 	const static inline defaults _defaults;
 
@@ -90,9 +96,13 @@ public:
 	UPROPERTY(EditAnywhere)
 	bool _startOnCooldown = true;
 	UPROPERTY(EditAnywhere)
-	float _warmup = -999;
+	float _warmup = SENTINEL_FLOAT;
 	UPROPERTY(EditAnywhere, Instanced)
 	TObjectPtr<UAttackTemplate> _attackData;
+	UPROPERTY(EditAnywhere)
+	EActivationType _activationType = static_cast<EActivationType>(static_cast<uint8>(255));
+	UPROPERTY(EditAnywhere)
+	float _burstInterval = SENTINEL_FLOAT;
 	UWeaponTemplate(const FObjectInitializer& init) : Super(init) {
 		//No default object to allow for polymorphism
 	}

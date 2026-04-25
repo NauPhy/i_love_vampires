@@ -59,15 +59,26 @@ void AAOE::Tick(float delta) {
 		Destroy();
 		return;
 	}
+	else if (_AOEConfig->_effectApplication == _TICK) {
+		if (helpers::nearEq(_nextTick, 999)) {
+			LOGERROR("AAOE::Tick - _nextTick was not set during construction");
+			return;
+		}
+		_nextTick -= delta;
+		if (_nextTick <= 0) {
+			collideWithAll();
+			_nextTick = _AOEConfig->_tickInterval;
+		}
+	}
 	_consumedDuration += delta;
 	AAttackActor::Tick(delta);
 }
 
 void AAOE::initShape() {
-	const FVector currentScale = GetActorScale3D();
 	if (_AOEConfig->_shape == _CIRCLE || _AOEConfig->_shape == _ARC) {
 		_collider = NewObject<USphereComponent>(this);
-		const float radius = _attackAttributes->_radius.getFinal() * _SPRITE_RADIUS;
+		// The radius modifier in AttackAttributes is applied to the entire actor, including this collider, in AAttackActor::Tick
+		const float radius = SPRITE_RADIUS;
 		Cast<USphereComponent>(_collider)->InitSphereRadius(radius);
 	}
 	else {
@@ -79,10 +90,23 @@ void AAOE::initShape() {
 	_collider->SetCollisionObjectType(ECC_WorldDynamic);
 	_collider->SetCollisionResponseToAllChannels(ECR_Ignore);
 	_collider->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Overlap);
-	_collider->OnComponentBeginOverlap.AddDynamic(this, &AAOE::OnOverlapBegin);
 	_collider->RegisterComponent();
 	_collider->UpdateOverlaps();
+	if (_AOEConfig->_effectApplication == _ONCE) {
+		_collider->OnComponentBeginOverlap.AddDynamic(this, &AAOE::OnOverlapBegin);
+		collideWithAll();
+	}
+	else if (_AOEConfig->_effectApplication == _TICK) {
+		collideWithAll();
+		_nextTick = _AOEConfig->_tickInterval;
+	}
+	else {
+		LOGERROR("AAOE::initShape - effect application method not implemented");
+		return;
+	}
+}
 
+void AAOE::collideWithAll() {
 	TArray<AActor*> OverlappingActors;
 	_collider->GetOverlappingActors(OverlappingActors, APawn::StaticClass());
 	for (AActor* Actor : OverlappingActors)
@@ -105,10 +129,14 @@ void AAOE::OnOverlapBegin(
 	}
 	if (_isAfterimage)
 		return;
-	for (const TWeakObjectPtr<APawn>& effectedPawn : _effectedPawns) {
-		if (effectedPawn.Get() == OtherActor) {
-			return;
-		}
+	if (_AOEConfig->_effectApplication == _ONCE) {
+	}
+	else if (_AOEConfig->_effectApplication == _TICK) {
+		_effectedPawns.Empty();
+	}
+	else {
+		LOGERROR("AAOE::OnOverlapBegin - effect application method not implemented");
+		return;
 	}
 	if (_AOEConfig->_shape == _ARC) {
 		const FVector forward = GetActorForwardVector();
@@ -284,6 +312,12 @@ void AOEAttributes::modifyAttributes(const std::shared_ptr<const CombatantAttrib
 void UAOEConfig::replaceOverrides() {
 	if (unrealHelpers::isInvalidData(_shape))
 		_shape = _defaults._shape;
+	if (unrealHelpers::isInvalidData(_targeting))
+		_targeting = _defaults._targeting;
+	if (unrealHelpers::isInvalidData(_effectApplication))
+		_effectApplication = _defaults._effectApplication;
+	if (helpers::isInvalidData(_tickInterval))
+		_tickInterval = _defaults._tickInterval;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -34,6 +34,7 @@ I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseAttributeData();
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseConfig();
 I_LOVE_VAMPIRES_2_API UEnum* Z_Construct_UEnum_i_love_vampires_2_EAOEShape();
 I_LOVE_VAMPIRES_2_API UEnum* Z_Construct_UEnum_i_love_vampires_2_EAOETargeting();
+I_LOVE_VAMPIRES_2_API UEnum* Z_Construct_UEnum_i_love_vampires_2_EEffectApplication();
 UPackage* Z_Construct_UPackage__Script_i_love_vampires_2();
 // ********** End Cross Module References **********************************************************
 
@@ -282,6 +283,14 @@ struct Z_Construct_UClass_UAOEConfig_Statics
 		{ "Category", "AOEConfig" },
 		{ "ModuleRelativePath", "AOE.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__effectApplication_MetaData[] = {
+		{ "Category", "AOEConfig" },
+		{ "ModuleRelativePath", "AOE.h" },
+	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__tickInterval_MetaData[] = {
+		{ "Category", "AOEConfig" },
+		{ "ModuleRelativePath", "AOE.h" },
+	};
 #endif // WITH_METADATA
 
 // ********** Begin Class UAOEConfig constinit property declarations *******************************
@@ -289,6 +298,9 @@ struct Z_Construct_UClass_UAOEConfig_Statics
 	static const UECodeGen_Private::FEnumPropertyParams NewProp__shape;
 	static const UECodeGen_Private::FBytePropertyParams NewProp__targeting_Underlying;
 	static const UECodeGen_Private::FEnumPropertyParams NewProp__targeting;
+	static const UECodeGen_Private::FBytePropertyParams NewProp__effectApplication_Underlying;
+	static const UECodeGen_Private::FEnumPropertyParams NewProp__effectApplication;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp__tickInterval;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class UAOEConfig constinit property declarations *********************************
 	static UObject* (*const DependentSingletons[])();
@@ -303,11 +315,17 @@ const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_UAOEConfig_Stati
 const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_UAOEConfig_Statics::NewProp__shape = { "_shape", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAOEConfig, _shape), Z_Construct_UEnum_i_love_vampires_2_EAOEShape, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__shape_MetaData), NewProp__shape_MetaData) }; // 2715704246
 const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_UAOEConfig_Statics::NewProp__targeting_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
 const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_UAOEConfig_Statics::NewProp__targeting = { "_targeting", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAOEConfig, _targeting), Z_Construct_UEnum_i_love_vampires_2_EAOETargeting, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__targeting_MetaData), NewProp__targeting_MetaData) }; // 2041281939
+const UECodeGen_Private::FBytePropertyParams Z_Construct_UClass_UAOEConfig_Statics::NewProp__effectApplication_Underlying = { "UnderlyingType", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Byte, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, nullptr, METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FEnumPropertyParams Z_Construct_UClass_UAOEConfig_Statics::NewProp__effectApplication = { "_effectApplication", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Enum, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAOEConfig, _effectApplication), Z_Construct_UEnum_i_love_vampires_2_EEffectApplication, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__effectApplication_MetaData), NewProp__effectApplication_MetaData) }; // 3034946465
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UAOEConfig_Statics::NewProp__tickInterval = { "_tickInterval", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAOEConfig, _tickInterval), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__tickInterval_MetaData), NewProp__tickInterval_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAOEConfig_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAOEConfig_Statics::NewProp__shape_Underlying,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAOEConfig_Statics::NewProp__shape,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAOEConfig_Statics::NewProp__targeting_Underlying,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAOEConfig_Statics::NewProp__targeting,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAOEConfig_Statics::NewProp__effectApplication_Underlying,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAOEConfig_Statics::NewProp__effectApplication,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAOEConfig_Statics::NewProp__tickInterval,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAOEConfig_Statics::PropPointers) < 2048);
 // ********** End Class UAOEConfig Property Definitions ********************************************
@@ -663,13 +681,13 @@ struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
 		{ Z_Construct_UClass_AAOE, AAOE::StaticClass, TEXT("AAOE"), &Z_Registration_Info_UClass_AAOE, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AAOE), 846808820U) },
-		{ Z_Construct_UClass_UAOEConfig, UAOEConfig::StaticClass, TEXT("UAOEConfig"), &Z_Registration_Info_UClass_UAOEConfig, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOEConfig), 3195257304U) },
+		{ Z_Construct_UClass_UAOEConfig, UAOEConfig::StaticClass, TEXT("UAOEConfig"), &Z_Registration_Info_UClass_UAOEConfig, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOEConfig), 1909441944U) },
 		{ Z_Construct_UClass_UAOEAttributeData, UAOEAttributeData::StaticClass, TEXT("UAOEAttributeData"), &Z_Registration_Info_UClass_UAOEAttributeData, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOEAttributeData), 3321817196U) },
-		{ Z_Construct_UClass_UAOELevel, UAOELevel::StaticClass, TEXT("UAOELevel"), &Z_Registration_Info_UClass_UAOELevel, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOELevel), 1982988527U) },
-		{ Z_Construct_UClass_UAOETemplate, UAOETemplate::StaticClass, TEXT("UAOETemplate"), &Z_Registration_Info_UClass_UAOETemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOETemplate), 1066219518U) },
+		{ Z_Construct_UClass_UAOELevel, UAOELevel::StaticClass, TEXT("UAOELevel"), &Z_Registration_Info_UClass_UAOELevel, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOELevel), 2588883728U) },
+		{ Z_Construct_UClass_UAOETemplate, UAOETemplate::StaticClass, TEXT("UAOETemplate"), &Z_Registration_Info_UClass_UAOETemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOETemplate), 3328105516U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_1818268618{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_409620848{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

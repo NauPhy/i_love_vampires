@@ -174,10 +174,6 @@ struct Z_Construct_UClass_UAttackConfig_Statics
 		{ "ModuleRelativePath", "AttackActor.h" },
 		{ "ObjectInitializerConstructorDeclared", "" },
 	};
-	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__statusEffects_MetaData[] = {
-		{ "Category", "AttackConfig" },
-		{ "ModuleRelativePath", "AttackActor.h" },
-	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__sprite_MetaData[] = {
 		{ "Category", "AttackConfig" },
 		{ "ModuleRelativePath", "AttackActor.h" },
@@ -185,8 +181,6 @@ struct Z_Construct_UClass_UAttackConfig_Statics
 #endif // WITH_METADATA
 
 // ********** Begin Class UAttackConfig constinit property declarations ****************************
-	static const UECodeGen_Private::FStructPropertyParams NewProp__statusEffects_Inner;
-	static const UECodeGen_Private::FArrayPropertyParams NewProp__statusEffects;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__sprite;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class UAttackConfig constinit property declarations ******************************
@@ -198,12 +192,8 @@ struct Z_Construct_UClass_UAttackConfig_Statics
 }; // struct Z_Construct_UClass_UAttackConfig_Statics
 
 // ********** Begin Class UAttackConfig Property Definitions ***************************************
-const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAttackConfig_Statics::NewProp__statusEffects_Inner = { "_statusEffects", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FEffectStruct, METADATA_PARAMS(0, nullptr) }; // 2921158655
-const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UAttackConfig_Statics::NewProp__statusEffects = { "_statusEffects", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAttackConfig, _statusEffects), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__statusEffects_MetaData), NewProp__statusEffects_MetaData) }; // 2921158655
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAttackConfig_Statics::NewProp__sprite = { "_sprite", nullptr, (EPropertyFlags)0x0114000000000015, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAttackConfig, _sprite), Z_Construct_UClass_UPaperFlipbook_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__sprite_MetaData), NewProp__sprite_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAttackConfig_Statics::PropPointers[] = {
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAttackConfig_Statics::NewProp__statusEffects_Inner,
-	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAttackConfig_Statics::NewProp__statusEffects,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAttackConfig_Statics::NewProp__sprite,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAttackConfig_Statics::PropPointers) < 2048);
@@ -301,6 +291,10 @@ struct Z_Construct_UClass_UAttackAttributeData_Statics
 		{ "Category", "AttackAttributeData" },
 		{ "ModuleRelativePath", "AttackActor.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__burstCount_MetaData[] = {
+		{ "Category", "AttackAttributeData" },
+		{ "ModuleRelativePath", "AttackActor.h" },
+	};
 #endif // WITH_METADATA
 
 // ********** Begin Class UAttackAttributeData constinit property declarations *********************
@@ -308,6 +302,7 @@ struct Z_Construct_UClass_UAttackAttributeData_Statics
 	static const UECodeGen_Private::FFloatPropertyParams NewProp__critChance;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp__critMultiplier;
 	static const UECodeGen_Private::FFloatPropertyParams NewProp__radius;
+	static const UECodeGen_Private::FFloatPropertyParams NewProp__burstCount;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class UAttackAttributeData constinit property declarations ***********************
 	static UObject* (*const DependentSingletons[])();
@@ -322,11 +317,13 @@ const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UAttackAttribut
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UAttackAttributeData_Statics::NewProp__critChance = { "_critChance", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAttackAttributeData, _critChance), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__critChance_MetaData), NewProp__critChance_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UAttackAttributeData_Statics::NewProp__critMultiplier = { "_critMultiplier", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAttackAttributeData, _critMultiplier), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__critMultiplier_MetaData), NewProp__critMultiplier_MetaData) };
 const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UAttackAttributeData_Statics::NewProp__radius = { "_radius", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAttackAttributeData, _radius), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__radius_MetaData), NewProp__radius_MetaData) };
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_UAttackAttributeData_Statics::NewProp__burstCount = { "_burstCount", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAttackAttributeData, _burstCount), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__burstCount_MetaData), NewProp__burstCount_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAttackAttributeData_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAttackAttributeData_Statics::NewProp__damage,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAttackAttributeData_Statics::NewProp__critChance,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAttackAttributeData_Statics::NewProp__critMultiplier,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAttackAttributeData_Statics::NewProp__radius,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAttackAttributeData_Statics::NewProp__burstCount,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAttackAttributeData_Statics::PropPointers) < 2048);
 // ********** End Class UAttackAttributeData Property Definitions **********************************
@@ -412,10 +409,16 @@ struct Z_Construct_UClass_UAttackLevel_Statics
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "AttackActor.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__statusEffects_MetaData[] = {
+		{ "Category", "AttackLevel" },
+		{ "ModuleRelativePath", "AttackActor.h" },
+	};
 #endif // WITH_METADATA
 
 // ********** Begin Class UAttackLevel constinit property declarations *****************************
 	static const UECodeGen_Private::FObjectPropertyParams NewProp__attackOffsets;
+	static const UECodeGen_Private::FStructPropertyParams NewProp__statusEffects_Inner;
+	static const UECodeGen_Private::FArrayPropertyParams NewProp__statusEffects;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class UAttackLevel constinit property declarations *******************************
 	static UObject* (*const DependentSingletons[])();
@@ -427,8 +430,12 @@ struct Z_Construct_UClass_UAttackLevel_Statics
 
 // ********** Begin Class UAttackLevel Property Definitions ****************************************
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UAttackLevel_Statics::NewProp__attackOffsets = { "_attackOffsets", nullptr, (EPropertyFlags)0x0116000000080009, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAttackLevel, _attackOffsets), Z_Construct_UClass_UAttackAttributeData_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__attackOffsets_MetaData), NewProp__attackOffsets_MetaData) };
+const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UAttackLevel_Statics::NewProp__statusEffects_Inner = { "_statusEffects", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, 0, Z_Construct_UScriptStruct_FEffectStruct, METADATA_PARAMS(0, nullptr) }; // 3287375694
+const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UAttackLevel_Statics::NewProp__statusEffects = { "_statusEffects", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UAttackLevel, _statusEffects), EArrayPropertyFlags::None, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__statusEffects_MetaData), NewProp__statusEffects_MetaData) }; // 3287375694
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UAttackLevel_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAttackLevel_Statics::NewProp__attackOffsets,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAttackLevel_Statics::NewProp__statusEffects_Inner,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UAttackLevel_Statics::NewProp__statusEffects,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UAttackLevel_Statics::PropPointers) < 2048);
 // ********** End Class UAttackLevel Property Definitions ******************************************
@@ -511,30 +518,24 @@ struct Z_Construct_UClass_UAttackTemplate_Statics
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__attackConfig_MetaData[] = {
 		{ "Category", "AttackTemplate" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "//UPROPERTY(EditAnywhere, Instanced)\n//TObjectPtr<UAttackAttributeData> _attackAttributes;\n" },
+#endif
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "AttackActor.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "UPROPERTY(EditAnywhere, Instanced)\nTObjectPtr<UAttackAttributeData> _attackAttributes;" },
+#endif
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__levels_Inner_MetaData[] = {
 		{ "Category", "AttackTemplate" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "//UPROPERTY(EditAnywhere, Instanced)\n//TObjectPtr<UAttackAttributeData> _attackAttributes;\n" },
-#endif
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "AttackActor.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "UPROPERTY(EditAnywhere, Instanced)\nTObjectPtr<UAttackAttributeData> _attackAttributes;" },
-#endif
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__levels_MetaData[] = {
 		{ "Category", "AttackTemplate" },
-#if !UE_BUILD_SHIPPING
-		{ "Comment", "//UPROPERTY(EditAnywhere, Instanced)\n//TObjectPtr<UAttackAttributeData> _attackAttributes;\n" },
-#endif
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "AttackActor.h" },
-#if !UE_BUILD_SHIPPING
-		{ "ToolTip", "UPROPERTY(EditAnywhere, Instanced)\nTObjectPtr<UAttackAttributeData> _attackAttributes;" },
-#endif
 	};
 #endif // WITH_METADATA
 
@@ -602,13 +603,13 @@ struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
 		{ Z_Construct_UClass_AAttackActor, AAttackActor::StaticClass, TEXT("AAttackActor"), &Z_Registration_Info_UClass_AAttackActor, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AAttackActor), 2812872173U) },
-		{ Z_Construct_UClass_UAttackConfig, UAttackConfig::StaticClass, TEXT("UAttackConfig"), &Z_Registration_Info_UClass_UAttackConfig, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAttackConfig), 1269853889U) },
-		{ Z_Construct_UClass_UAttackAttributeData, UAttackAttributeData::StaticClass, TEXT("UAttackAttributeData"), &Z_Registration_Info_UClass_UAttackAttributeData, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAttackAttributeData), 2499489532U) },
-		{ Z_Construct_UClass_UAttackLevel, UAttackLevel::StaticClass, TEXT("UAttackLevel"), &Z_Registration_Info_UClass_UAttackLevel, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAttackLevel), 2336475787U) },
-		{ Z_Construct_UClass_UAttackTemplate, UAttackTemplate::StaticClass, TEXT("UAttackTemplate"), &Z_Registration_Info_UClass_UAttackTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAttackTemplate), 4072048742U) },
+		{ Z_Construct_UClass_UAttackConfig, UAttackConfig::StaticClass, TEXT("UAttackConfig"), &Z_Registration_Info_UClass_UAttackConfig, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAttackConfig), 15872350U) },
+		{ Z_Construct_UClass_UAttackAttributeData, UAttackAttributeData::StaticClass, TEXT("UAttackAttributeData"), &Z_Registration_Info_UClass_UAttackAttributeData, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAttackAttributeData), 181273097U) },
+		{ Z_Construct_UClass_UAttackLevel, UAttackLevel::StaticClass, TEXT("UAttackLevel"), &Z_Registration_Info_UClass_UAttackLevel, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAttackLevel), 542785966U) },
+		{ Z_Construct_UClass_UAttackTemplate, UAttackTemplate::StaticClass, TEXT("UAttackTemplate"), &Z_Registration_Info_UClass_UAttackTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAttackTemplate), 1728693270U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_2686947508{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_3110445302{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AttackActor_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

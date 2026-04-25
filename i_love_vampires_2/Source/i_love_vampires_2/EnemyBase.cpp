@@ -22,7 +22,7 @@ void AEnemyBase::BeginPlay() {
 		LOGERROR("AMyPlayer::AMyPlayer - failed to get sprite sorter");
 		return;
 	}
-	sorter->sortSprite(this, _combatantFlipbook);
+	sorter->sortSprite(this, _combatantFlipbook, _overlayFlipbook);
 }
 
 void AEnemyBase::onKilled() {

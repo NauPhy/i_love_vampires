@@ -19,7 +19,6 @@ class I_LOVE_VAMPIRES_2_API AExperienceShard : public AActor
 	const static inline float _ACCELERATION = 2500;
 	const static inline float _SIZE_MULTIPLIER = 0.5f;
 	//afaik it's not possible to perform a sweep with the flipbook, so I model it as a sphere to guarantee that it doesn't teleport over the player. 
-	const static inline float _SPRITE_RADIUS = 16;
 	
 	float _experienceValue = -1;
 	bool _magnetismEnabled = false;

@@ -19,6 +19,17 @@ void Active::tick(float delta, const FVector& forwardVector) {
 		_chargeRatio = 0;
 	}
 
+	for (int i = 0; i < _queuedAttacks.size(); i+=0) {
+		_queuedAttacks[i] -= delta;
+		if (_queuedAttacks[i] <= 0) {
+			_factory->launchAttack(forwardVector);
+			_queuedAttacks.erase(_queuedAttacks.begin() + i);
+		}
+		else {
+			i++;
+		}
+	}
+
 	// This class does not have a dedicated attribute set because the overhead is too intense, so it's handled here
 	for (int i = 0; i < _statusEffects.Num(); i += 0) {
 		_statusEffects[i]._duration -= delta;
@@ -66,7 +77,19 @@ void Active::updateWarmup(float delta) {
 }
 
 void Active::activate(const FVector& forward) {
-	_factory->launchAttack(forward);
+	if (_weaponTemplate->_activationType == _SINGLE)
+		_factory->launchAttack(forward);
+	else if (_weaponTemplate->_activationType == _BURST) {
+		const int attackNum = _factory->getBurstCount();
+		if (attackNum > 0)
+			_factory->launchAttack(forward);
+		for (int i = 1; i < attackNum; i++) {
+			_queuedAttacks.push_back(i*_weaponTemplate->_burstInterval);
+		}
+	}
+	else {
+		LOGERROR("Active::activate - invalid activation type");
+	}
 }
 
 Active::Active(ACombatant* owner, const UWeaponTemplate* rawData) : _owner(owner), _weaponTemplate(rawData)
@@ -108,6 +131,10 @@ void UWeaponTemplate::replaceOverrides() {
 		_name = _defaults._name;
 	if (helpers::isInvalidData(_warmup))
 		_warmup = _defaults._warmup;
+	if (unrealHelpers::isInvalidData(_activationType))
+		_activationType = _defaults._activationType;
+	if (helpers::isInvalidData(_burstInterval))
+		_burstInterval = _defaults._burstInterval;
 	_attackData->replaceOverrides();
 }
 

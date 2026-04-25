@@ -5,22 +5,33 @@
 #include "Definitions.h"
 #include "PaperFlipbookComponent.h"
 
-bool USpriteSorter::sortSprite(AMyPlayer* player, UPaperFlipbookComponent* flipbook) {
-	if (!IsValid(player) || !IsValid(flipbook)) {
+bool USpriteSorter::sortSprite(AMyPlayer* player, UPaperFlipbookComponent* flipbook, UPaperFlipbookComponent* overlayFlipbook) {
+	if (!IsValid(player) || !IsValid(flipbook) || !IsValid(overlayFlipbook)) {
 		LOGERROR("USpriteSorter::sortSprite - parameter is not valid");
 		return false;
 	}
-	flipbook->TranslucencySortPriority = nextPlayer + _PLAYER_OFFSET;
-	nextPlayer++;
+	if (_nextPlayer > _MAX_PLAYERS - 1) {
+		LOGERROR("USpriteSorter::sortSprite - too many players have been sorted");
+	}
+	const int thisOffset = _PLAYER_OFFSET + _nextPlayer * _PLAYER_SIZE;
+	flipbook->TranslucencySortPriority = thisOffset;
+	overlayFlipbook->TranslucencySortPriority = thisOffset + 1;
+	_nextPlayer++;
 	return true;
 }
 
-bool USpriteSorter::sortSprite(AEnemyBase* enemy, UPaperFlipbookComponent* flipbook) {
-	if (!IsValid(enemy) || !IsValid(flipbook)) {
+bool USpriteSorter::sortSprite(AEnemyBase* enemy, UPaperFlipbookComponent* flipbook, UPaperFlipbookComponent* overlayFlipbook) {
+	if (!IsValid(enemy) || !IsValid(flipbook) || !IsValid(overlayFlipbook)) {
 		LOGERROR("USpriteSorter::sortSprite - parameter is not valid");
 		return false;
 	}
-	flipbook->TranslucencySortPriority = enemy->getKey() + _ENEMY_OFFSET;
+	if (_nextEnemy > _MAX_ENEMIES - 1) {
+		LOGERROR("USpriteSorter::sortSprite - too many enemies have been sorted");
+	}
+	const int thisOffset = _ENEMY_OFFSET + _nextEnemy * _ENEMY_SIZE;
+	flipbook->TranslucencySortPriority = thisOffset;
+	overlayFlipbook->TranslucencySortPriority = thisOffset + 1;
+	_nextEnemy++;
 	return true;
 }
 
@@ -29,7 +40,8 @@ bool USpriteSorter::sortSprite(AAttackActor* attack, UPaperFlipbookComponent* fl
 		LOGERROR("USpriteSorter::sortSprite - parameter is not valid");
 		return false;
 	}
-	flipbook->TranslucencySortPriority = nextAttack + _ATTACK_OFFSET;
-	nextAttack++;
+	const int thisOffset = _ATTACK_OFFSET + _nextAttack * _ATTACK_SIZE;
+	flipbook->TranslucencySortPriority = thisOffset;
+	_nextAttack++;
 	return true;
 }

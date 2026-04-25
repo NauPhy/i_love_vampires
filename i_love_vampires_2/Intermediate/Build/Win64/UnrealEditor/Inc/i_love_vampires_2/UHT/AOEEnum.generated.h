@@ -43,4 +43,15 @@ template<> struct TIsUEnumClass<EAOETargeting> { enum { Value = true }; };
 template<> I_LOVE_VAMPIRES_2_NON_ATTRIBUTED_API UEnum* StaticEnum<EAOETargeting>();
 // ********** End Enum EAOETargeting ***************************************************************
 
+// ********** Begin Enum EEffectApplication ********************************************************
+#define FOREACH_ENUM_EEFFECTAPPLICATION(op) \
+	op(EEffectApplication::once) \
+	op(EEffectApplication::tick) \
+	op(EEffectApplication::INVALID) 
+
+enum class EEffectApplication : uint8;
+template<> struct TIsUEnumClass<EEffectApplication> { enum { Value = true }; };
+template<> I_LOVE_VAMPIRES_2_NON_ATTRIBUTED_API UEnum* StaticEnum<EEffectApplication>();
+// ********** End Enum EEffectApplication **********************************************************
+
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

@@ -141,6 +141,8 @@ public:
 	TObjectPtr<UAOEAttributeData> _AOEAttributeOffsets;
 	UPROPERTY(EditAnywhere, Instanced)
 	TObjectPtr<UAttackAttributeData> _AOEAttributeOffsets_attack;
+	UPROPERTY(EditAnywhere)
+	TArray<FEffectStruct> _AOEStatusEffects;
 	virtual void replaceOverrides() override {
 		Super::replaceOverrides();
 		_explosiveProjectileAttributeOffsets->replaceOverrides();

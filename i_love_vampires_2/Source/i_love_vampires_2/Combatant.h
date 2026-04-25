@@ -42,6 +42,7 @@ class I_LOVE_VAMPIRES_2_API ACombatant : public APawn
 
 	const static inline EStatus _DAMAGE = EStatus::damage;
 	const static inline int _MAX_WEAPONS = 2;
+	const static inline float _DAMAGE_THRESHOLD = 0.5f;
 
 	FVector _myForwardVector;
 	std::vector<Active> _activeAbilities;
@@ -68,6 +69,8 @@ protected:
 public:
 	UPROPERTY(EditAnywhere)
 	UPaperFlipbookComponent* _combatantFlipbook;
+	UPROPERTY(EditAnywhere)
+	UPaperFlipbookComponent* _overlayFlipbook;
 
 	ACombatant();
 	UFUNCTION(BlueprintCallable)
@@ -150,8 +153,8 @@ public:
 	using self = UCombatantAttributeData;
 	const static std::unordered_map<float(self::*), float, helpers::MemberPtrHash>& get() {
 		const static std::unordered_map<float(self::*), float, helpers::MemberPtrHash> temp = {
-		{ &self::_maxHP, 60 },
-		{ &self::_currentHP, 60 },
+		{ &self::_maxHP, 100 },
+		{ &self::_currentHP, 100 },
 		{ &self::_damageReduction_flat, 0 },
 		{ &self::_damageReduction_percent, 0 },
 		{ &self::_healthRegen_flat, 0 },
@@ -175,7 +178,7 @@ public:
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-#define STAT(X) \
+#define MYSTAT(X) \
 	X(_maxHP) \
 	X(_currentHP) \
 	X(_damageReduction_flat) \
@@ -204,11 +207,13 @@ class CombatantAttributes : public BaseAttributes {
 	const static inline EStatus _EXECUTE = EStatus::execute;
 	const static inline EStatus _CHILL = EStatus::chill;
 	const static inline EStatus _DECAY = EStatus::decay;
+	const static inline EStatus _DECAY_INSTANT = EStatus::decay_instant;
+	const static inline EStatus _DEATH = EStatus::instantDeath;
 
 	std::weak_ptr<const std::vector<Passive>> _passives;
 
 public:
-	STAT(BASEATTRIBUTES_DECLARE);
+	MYSTAT(BASEATTRIBUTES_DECLARE);
 
 	CombatantAttributes() = delete;
 	CombatantAttributes(const CombatantAttributes& other);
@@ -223,17 +228,17 @@ public:
 	virtual void tick(UObject* context, float delta, const TArray<FEffectStruct>& statusEffects) override;
 	virtual bool isCompatibleWith(const UBaseAttributeData* data) const override { return dynamic_cast<const UCombatantAttributeData*>(data) != nullptr; }
 	void applyToAllStats(const std::function<void(Stat&)>& func) override {
-		STAT(BASEATTRIBUTES_APPLY);
+		MYSTAT(BASEATTRIBUTES_APPLY);
 	}
 	void applyToAllStats(const std::function<void(const Stat&)>& func) const override {
-		STAT(BASEATTRIBUTES_APPLY);
+		MYSTAT(BASEATTRIBUTES_APPLY);
 	}
 
 	CombatantAttributes& prebonusAdd(const UCombatantAttributeData*);
 	CombatantAttributes& postbonusAdd(const UCombatantAttributeData*);
 	CombatantAttributes& multiplierAdd(const UCombatantAttributeData*);
 };
-#undef STAT
+#undef MYSTAT
 
 ///////////////////////////////////////////////////////////////////////////////
 

@@ -103,7 +103,7 @@ void AExperienceShard::accelerateTowardsPlayer(float delta) {
 	{
 		{
 			TArray<struct FHitResult> OutHits;
-			if (!unrealHelpers::performSweepAtPawn(this, myPos, endPos, FCollisionShape::MakeSphere(_SPRITE_RADIUS), OutHits, {})) {
+			if (!unrealHelpers::performSweepAtPawn(this, myPos, endPos, FCollisionShape::MakeSphere(SPRITE_RADIUS), OutHits, {})) {
 				LOGERROR("AExperienceShard::accelerateTowardsPlayer - performSweepAtPawn failed");
 				return;
 			}

@@ -41,6 +41,7 @@ public:
 	static bool spawnActorOnTopOfMeDeferred(AActor* caller, T*& ret);
 	template <typename T>
 	static bool finishDeferredSpawn(AActor* caller, T* spawnedActor);
+	static bool spawnDamageNumberNearMe(AActor* caller, const FVector& offset, float damageAmount);
 
 	static bool performSweepAtPawn(UObject* caller, const FVector& startPos, const FVector& endPos, const FCollisionShape& shape, TArray<struct FHitResult>& OutHits, const TArray<const APawn*>& ignoredPawns);
 	static bool isInvalidData(const UObject* obj) { return !IsValid(obj) || obj == nullptr; }

@@ -30,51 +30,6 @@
                     ]
                 },
                 {
-                    "ruleId": "C4005",
-                    "message": {
-                        "text": "'STAT': macro redefinition"
-                    },
-                    "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.cpp"
-                    },
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.h"
-                                },
-                                "region": {
-                                    "startLine": 178,
-                                    "startColumn": 9,
-                                    "snippet": {
-                                        "text": "#define STAT(X) \\"
-                                    }
-                                }
-                            }
-                        }
-                    ],
-                    "relatedLocations": [
-                        {
-                            "id": 0,
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "file:///C:/Program Files/Epic Games/UE_5.7/Engine/Source/Runtime/Core/Public/Stats/Stats.h"
-                                },
-                                "region": {
-                                    "startLine": 42,
-                                    "startColumn": 10,
-                                    "snippet": {
-                                        "text": "\t#define STAT(x) x"
-                                    }
-                                }
-                            },
-                            "message": {
-                                "text": "see previous definition of 'STAT'"
-                            }
-                        }
-                    ]
-                },
-                {
                     "ruleId": "C4265",
                     "message": {
                         "text": "'CombatantAttributes': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
@@ -89,7 +44,7 @@
                                     "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.h"
                                 },
                                 "region": {
-                                    "startLine": 235,
+                                    "startLine": 240,
                                     "startColumn": 1,
                                     "snippet": {
                                         "text": "};"
@@ -114,7 +69,7 @@
                                     "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AttackActor.h"
                                 },
                                 "region": {
-                                    "startLine": 154,
+                                    "startLine": 157,
                                     "startColumn": 1,
                                     "snippet": {
                                         "text": "};"

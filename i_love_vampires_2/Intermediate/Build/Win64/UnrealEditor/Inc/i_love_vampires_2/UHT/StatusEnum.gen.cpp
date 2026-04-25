@@ -55,6 +55,10 @@ struct Z_Construct_UEnum_i_love_vampires_2_EStatus_Statics
 		{ "decay.DisplayName", "decay" },
 		{ "decay.Name", "EStatus::decay" },
 		{ "decay.ToolTip", "Percent missing HP applied with burn" },
+		{ "decay_instant.Comment", "// Instantaneous %missing HP damage\n" },
+		{ "decay_instant.DisplayName", "decay_instant" },
+		{ "decay_instant.Name", "EStatus::decay_instant" },
+		{ "decay_instant.ToolTip", "Instantaneous %missing HP damage" },
 		{ "execute.Comment", "// execute below percentage\n" },
 		{ "execute.DisplayName", "execute" },
 		{ "execute.Name", "EStatus::execute" },
@@ -67,6 +71,8 @@ struct Z_Construct_UEnum_i_love_vampires_2_EStatus_Statics
 		{ "healInstigator.DisplayName", "healInstigator" },
 		{ "healInstigator.Name", "EStatus::healInstigator" },
 		{ "healInstigator.ToolTip", "flat healing when enemy is hit" },
+		{ "instantDeath.DisplayName", "instantDeath" },
+		{ "instantDeath.Name", "EStatus::instantDeath" },
 		{ "INVALID.DisplayName", "INVALID" },
 		{ "INVALID.Name", "EStatus::INVALID" },
 		{ "ModuleRelativePath", "StatusEnum.h" },
@@ -79,16 +85,18 @@ struct Z_Construct_UEnum_i_love_vampires_2_EStatus_Statics
 	};
 #endif // WITH_METADATA
 	static constexpr UECodeGen_Private::FEnumeratorParam Enumerators[] = {
-		{ "EStatus::damage", (int64)EStatus::damage },
 		{ "EStatus::bleed", (int64)EStatus::bleed },
-		{ "EStatus::burn", (int64)EStatus::burn },
-		{ "EStatus::poison", (int64)EStatus::poison },
-		{ "EStatus::execute", (int64)EStatus::execute },
-		{ "EStatus::healInstigator", (int64)EStatus::healInstigator },
-		{ "EStatus::friendlyFire", (int64)EStatus::friendlyFire },
 		{ "EStatus::blind", (int64)EStatus::blind },
+		{ "EStatus::burn", (int64)EStatus::burn },
 		{ "EStatus::chill", (int64)EStatus::chill },
+		{ "EStatus::damage", (int64)EStatus::damage },
 		{ "EStatus::decay", (int64)EStatus::decay },
+		{ "EStatus::decay_instant", (int64)EStatus::decay_instant },
+		{ "EStatus::execute", (int64)EStatus::execute },
+		{ "EStatus::friendlyFire", (int64)EStatus::friendlyFire },
+		{ "EStatus::healInstigator", (int64)EStatus::healInstigator },
+		{ "EStatus::instantDeath", (int64)EStatus::instantDeath },
+		{ "EStatus::poison", (int64)EStatus::poison },
 		{ "EStatus::randomNegativePersistent", (int64)EStatus::randomNegativePersistent },
 		{ "EStatus::INVALID", (int64)EStatus::INVALID },
 	};
@@ -120,10 +128,10 @@ UEnum* Z_Construct_UEnum_i_love_vampires_2_EStatus()
 struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_StatusEnum_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
-		{ EStatus_StaticEnum, TEXT("EStatus"), &Z_Registration_Info_UEnum_EStatus, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3181867539U) },
+		{ EStatus_StaticEnum, TEXT("EStatus"), &Z_Registration_Info_UEnum_EStatus, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3809415991U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_StatusEnum_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_StatusEnum_h__Script_i_love_vampires_2_1624625000{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_StatusEnum_h__Script_i_love_vampires_2_2122739835{
 	TEXT("/Script/i_love_vampires_2"),
 	nullptr, 0,
 	nullptr, 0,

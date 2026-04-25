@@ -271,6 +271,9 @@
     <ClInclude Include="..\..\Source\i_love_vampires_2\unrealHelpers.h">
       <Filter>Source\i_love_vampires_2\Admin</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\DamageNumber.h">
+      <Filter>Source\i_love_vampires_2\GAS\Arena</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\i_love_vampires_2\Active.cpp">
@@ -365,6 +368,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\i_love_vampires_2\BaseLevelContainer.cpp">
       <Filter>Source\i_love_vampires_2\GAS\Base Classes\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\i_love_vampires_2\DamageNumber.cpp">
+      <Filter>Source\i_love_vampires_2\GAS\Arena</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

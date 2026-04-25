@@ -192,7 +192,7 @@ void AMyPlayer::BeginPlay() {
 		LOGERROR("AMyPlayer::AMyPlayer - failed to get sprite sorter");
 		return;
 	}
-	sorter->sortSprite(this, _combatantFlipbook);
+	sorter->sortSprite(this, _combatantFlipbook, _overlayFlipbook);
 }
 
 bool AMyPlayer::isOutOfDeadzone(float x, float z) const {

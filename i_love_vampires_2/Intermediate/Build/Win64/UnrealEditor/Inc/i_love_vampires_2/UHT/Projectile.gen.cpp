@@ -610,11 +610,11 @@ struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_
 		{ Z_Construct_UClass_AProjectile, AProjectile::StaticClass, TEXT("AProjectile"), &Z_Registration_Info_UClass_AProjectile, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AProjectile), 338003140U) },
 		{ Z_Construct_UClass_UProjectileConfig, UProjectileConfig::StaticClass, TEXT("UProjectileConfig"), &Z_Registration_Info_UClass_UProjectileConfig, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UProjectileConfig), 3116492247U) },
 		{ Z_Construct_UClass_UProjectileAttributeData, UProjectileAttributeData::StaticClass, TEXT("UProjectileAttributeData"), &Z_Registration_Info_UClass_UProjectileAttributeData, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UProjectileAttributeData), 3096532316U) },
-		{ Z_Construct_UClass_UProjectileLevel, UProjectileLevel::StaticClass, TEXT("UProjectileLevel"), &Z_Registration_Info_UClass_UProjectileLevel, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UProjectileLevel), 3789659937U) },
-		{ Z_Construct_UClass_UProjectileTemplate, UProjectileTemplate::StaticClass, TEXT("UProjectileTemplate"), &Z_Registration_Info_UClass_UProjectileTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UProjectileTemplate), 1102911975U) },
+		{ Z_Construct_UClass_UProjectileLevel, UProjectileLevel::StaticClass, TEXT("UProjectileLevel"), &Z_Registration_Info_UClass_UProjectileLevel, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UProjectileLevel), 1802959565U) },
+		{ Z_Construct_UClass_UProjectileTemplate, UProjectileTemplate::StaticClass, TEXT("UProjectileTemplate"), &Z_Registration_Info_UClass_UProjectileTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UProjectileTemplate), 284762967U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h__Script_i_love_vampires_2_1791182597{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h__Script_i_love_vampires_2_230499775{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_Projectile_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

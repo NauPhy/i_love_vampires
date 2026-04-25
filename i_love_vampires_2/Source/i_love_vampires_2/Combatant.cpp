@@ -27,6 +27,8 @@ ACombatant::ACombatant()
 	_combatantFlipbook->SetCollisionObjectType(ECollisionChannel::ECC_Pawn);
 	_passives = std::make_shared<std::vector<Passive>>();
 	//_passiveContainer = CreateDefaultSubobject<UPassiveContainer>(TEXT("PassiveContainer"));
+	_overlayFlipbook = CreateDefaultSubobject<UPaperFlipbookComponent>(TEXT("OverlayFlipbook"));
+	_overlayFlipbook->SetupAttachment(RootComponent);
 }
 
 void ACombatant::initialise_ACombatant(UCombatantTemplate* diskVal) {
@@ -59,6 +61,14 @@ void ACombatant::BeginPlay() {
 	}
 	unrealHelpers::initFlipbook(this, _config->_sprite.Get(), _combatantFlipbook);
 	_myForwardVector = GetActorForwardVector();
+
+	UAssetRefs* refs = nullptr;
+	if (!MyGameplayStatics::getAssetRefs(this, refs)) {
+		LOGERROR("ACombatant::ACombatant - failed to get asset refs");
+		return;
+	}
+	unrealHelpers::initFlipbook(this, refs->getTestOverlay(), _overlayFlipbook);
+	_overlayFlipbook->SetHiddenInGame(true);
 }
 
 void ACombatant::Tick(float DeltaTime) {
@@ -74,6 +84,12 @@ void ACombatant::Tick(float DeltaTime) {
 		active.tick(DeltaTime, _myForwardVector);
 	}
 	SetActorScale3D(FVector(SPRITE_SCALE,SPRITE_SCALE,SPRITE_SCALE) * _attributeSet->getMember(&CombatantAttributes::_selfSize));
+	if (_attributeSet->hasPersistentStatus()) {
+		_overlayFlipbook->SetHiddenInGame(false);
+	}
+	else {
+		_overlayFlipbook->SetHiddenInGame(true);
+	}
 }
 
 void ACombatant::EndPlay(EEndPlayReason::Type EndPlayReason)
@@ -240,6 +256,12 @@ bool ACombatant::onCurrentHPChanged(float oldVal, float newVal)
 			LOGERROR("ACombatant::onCurrentHPChanged - for simplicity, all values of currentHP should be 0 except for base and offset- it's essentially a derived stat, exempt from direct effects from status effects and passives. Prebonus is an exception because it is used to track the passive effect on maxHP without drifting.");
 		}
 	}
+	const float diff = oldVal - newVal;
+	if (abs(diff) > 0.5f) {
+		const float currentScale = GetActorScale3D().X;
+		const float myHeight = currentScale * SPRITE_RADIUS * 2;
+		unrealHelpers::spawnDamageNumberNearMe(this, FVector(0, 0, myHeight * 0.2), diff);
+	}
 	if (newVal <= 0.0f) {
 		onKilled();
 		return true;
@@ -394,6 +416,12 @@ void CombatantAttributes::applyStatus(UObject* context, const FEffectStruct& sta
 	else if (status._type == _CHILL) {
 		_movementSpeed._multiplier -= status._magnitude / 100.0f;
 	}
+	else if (status._type == _DECAY_INSTANT) {
+		_currentHP._offset -= (_maxHP.getFinal() - _currentHP.getFinal()) * (status._magnitude / 100.0f);
+	}
+	else if (status._type == _DEATH) {
+		_currentHP._offset -= 2 * _maxHP.getFinal();
+	}
 	// Require combatant manager
 	else if (status._type == _BURN || status._type == _POISON || status._type == _DECAY) {
 		UCombatantManager* manager = nullptr;
@@ -465,25 +493,24 @@ void CombatantAttributeSet::tick(float delta) {
 		LOGERROR("CombatantAttributeSet::tick - attributes not initialized");
 		return;
 	}
-	TArray<FEffectStruct> temp = getStatusEffects();
+	
 	// If in iFrames, remove flat damage effects
 	if (_iFrameTimeRemaining > EPSILON) {
-		temp.RemoveAll([](const FEffectStruct& effect) {
-			return effect._type == _DAMAGE;
-			});
+		removeStatusesOfType(_DAMAGE);
 	}
 	// If not in iFrames, begin iFrames if there is at least 1 flat damage effect, then apply all flat damage effects that are queued this frame
 	else {
-		for (const auto& effect : temp) {
+		for (const auto& effect : getStatusEffects()) {
 			if (effect._type == _DAMAGE) {
 				_iFrameTimeRemaining = _attributes->getMember(&CombatantAttributes::_iFrameDuration);
 				break;
 			}
 		}
 	}
-	_attributes->tick(delta, temp);
+	_attributes->tick(delta, getStatusEffects());
 	if (_iFrameTimeRemaining > -EPSILON)
 		_iFrameTimeRemaining -= delta;
+	BaseAttributeSet::tick(delta);
 }
 ///////////////////////////////////////////////////////////////////////
 // UCombatantAttributeData

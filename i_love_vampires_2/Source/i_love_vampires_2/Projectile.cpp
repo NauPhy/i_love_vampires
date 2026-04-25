@@ -142,7 +142,7 @@ void AProjectile::Tick(float delta) {
 bool AProjectile::performSweep(const FVector& startPos, const FVector& endPos, TArray<struct FHitResult>& OutHits) {
 	FCollisionShape collisionShape;
 	if (_projectileConfig->_shape == _CIRCLE) {
-		collisionShape = FCollisionShape::MakeSphere(_attackAttributes->_radius.getFinal()*_SPRITE_RADIUS);
+		collisionShape = FCollisionShape::MakeSphere(_attackAttributes->_radius.getFinal()*SPRITE_RADIUS);
 	}
 	else {
 		LOGERROR("AProjectile::performSweep - shape not implemented");

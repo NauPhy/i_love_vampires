@@ -24,8 +24,12 @@ class AAOE : public AAttackActor {
 
 	const static inline EAOEShape _CIRCLE = EAOEShape::circle;
 	const static inline EAOEShape _ARC = EAOEShape::arc;
+	const static inline EEffectApplication _ONCE = EEffectApplication::once;
+	const static inline EEffectApplication _TICK = EEffectApplication::tick;
 
 	float _consumedDuration = 0;
+	// set during construction
+	float _nextTick = 999;
 	bool _isAfterimage = false;
 	bool _initialisedWithDelay = false;
 	UPROPERTY()
@@ -38,6 +42,7 @@ protected:
 private:
 	void initShape();
 	void reorientSlash();
+	void collideWithAll();
 
 public:
 	AAOE() : AAttackActor() {
@@ -71,6 +76,8 @@ class I_LOVE_VAMPIRES_2_API UAOEConfig : public UBaseConfig
 	struct defaults {
 		EAOEShape _shape = static_cast<EAOEShape>(0);
 		EAOETargeting _targeting = static_cast<EAOETargeting>(0);
+		EEffectApplication _effectApplication = static_cast<EEffectApplication>(0);
+		float _tickInterval = 0.f;
 	};
 	const static inline defaults _defaults;
 
@@ -80,6 +87,10 @@ public:
 	EAOEShape _shape = static_cast<EAOEShape>(static_cast<uint8>(255));
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	EAOETargeting _targeting = static_cast<EAOETargeting>(static_cast<uint8>(255));
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	EEffectApplication _effectApplication = static_cast<EEffectApplication>(static_cast<uint8>(255));
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	float _tickInterval = SENTINEL_FLOAT;
 	UAOEConfig(const FObjectInitializer& init) : Super(init) {}
 };
 ///////////////////////////////////////////////////////////////////////////////
@@ -102,13 +113,13 @@ public:
 	const static std::unordered_map<float(self::*), float, helpers::MemberPtrHash>& get() {
 		const static std::unordered_map<float(self::*), float, helpers::MemberPtrHash> temp = {
 			{&self::_duration, 0.f},
-			{&self::_arcShape_angle, 360.f}
+			{&self::_arcShape_angle, 90.0f}
 		};
 		return temp;
 	}
 };
 ///////////////////////////////////////////////////////////////////////////////
-#define STAT(X) \
+#define MYSTAT(X) \
 	X(_duration) \
 	X(_arcShape_angle) \
 
@@ -118,7 +129,7 @@ class AOEAttributes : public BaseAttributes {
 	void modifyAttributes(const std::shared_ptr<const CombatantAttributes>&);
 
 public:
-	STAT(BASEATTRIBUTES_DECLARE);
+	MYSTAT(BASEATTRIBUTES_DECLARE);
 
 	AOEAttributes() = delete;
 	AOEAttributes(const AOEAttributes& other);
@@ -130,14 +141,14 @@ public:
 	virtual void discretizeFull() override {}
 	virtual void applyStatus(UObject* context, const FEffectStruct& status, float delta) override {}
 	virtual void applyToAllStats(const std::function<void(Stat&)>& func) override {
-		STAT(BASEATTRIBUTES_APPLY);
+		MYSTAT(BASEATTRIBUTES_APPLY);
 	}
 	virtual void applyToAllStats(const std::function<void(const Stat&)>& func) const override {
-		STAT(BASEATTRIBUTES_APPLY);
+		MYSTAT(BASEATTRIBUTES_APPLY);
 	}
 	virtual bool isCompatibleWith(const UBaseAttributeData* data) const override { return dynamic_cast<const UAOEAttributeData*>(data) != nullptr; }
 };
-#undef STAT
+#undef MYSTAT
 ///////////////////////////////////////////////////////////////////////////////
 
 struct AOEInitStruct {

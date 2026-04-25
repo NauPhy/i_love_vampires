@@ -141,9 +141,22 @@ ExplosiveProjectileInitStruct ExplosiveProjectileFactory::getExplosiveProjectile
 }
 
 AOEInitStruct ExplosiveProjectileFactory::getAOEInit() const {
+	TArray<FEffectStruct> status;
+	if (_levels.Num() == 0 || getLevel() < 0 || getLevel() > _levels.Num() - 1 || !IsValid(_levels[getLevel()])) {
+		LOGERROR("AExplosiveProjectileFactory::getAOEInit - invalid level");
+		status = {};
+	}
+	else {
+		const auto& casted = Cast<UExplosiveProjectileLevel>(_levels[getLevel()]);
+		if (!IsValid(casted)) {
+			LOGERROR("AExplosiveProjectileFactory::getAOEInit - level is not a UExplosiveProjectileLevel");
+			status = {};
+		}
+		status = casted->_AOEStatusEffects;
+	}
 	AttackAttributes tempAttackAttr(*(_AOEAttributes_attack->getCore()));
 	tempAttackAttr.discretizeFull();
-	AttackInitStruct AOEAttackInit(_owner.Get(), _AOEConfig_attack.Get(), tempAttackAttr);
+	AttackInitStruct AOEAttackInit(_owner.Get(), _AOEConfig_attack.Get(), tempAttackAttr, status);
 	AOEAttributes tempAOEAttr(*(_AOEAttributes->getCore()));
 	tempAOEAttr.discretizeFull();
 	AOEInitStruct ret(AOEAttackInit, _AOEConfig.Get(), tempAOEAttr, true, FVector(0,0,0));

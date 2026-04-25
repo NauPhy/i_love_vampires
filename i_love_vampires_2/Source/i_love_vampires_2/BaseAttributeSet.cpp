@@ -7,7 +7,7 @@ void BaseAttributeSet::tick(float delta) {
 	}
 	int index = 0;
 	while (index < _statusEffects.Num()) {
-		if (_statusEffects[index]._duration <= -EPSILON) {
+		if (_statusEffects[index]._duration <= EPSILON) {
 			_statusEffects.RemoveAt(index);
 		}
 		else {
@@ -84,4 +84,12 @@ void BaseAttributeSet::handlePoison() {
 			break;
 		}
 	}
+}
+
+bool BaseAttributeSet::hasPersistentStatus() const {
+	for (const auto& status : _statusEffects) {
+		if (status._duration > EPSILON)
+			return true;
+	}
+	return false;
 }
