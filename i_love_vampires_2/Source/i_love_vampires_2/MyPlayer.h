@@ -55,4 +55,8 @@ public:
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPlayerLevelUp);
 	UPROPERTY(BlueprintAssignable, Category = "Events")
 	FOnPlayerLevelUp _onLevelUp;
+	UFUNCTION(BlueprintCallable)
+	float getExperience() const { return _experience; }
+	UFUNCTION(BlueprintCallable)
+	float getMaxExperience() const { return _maxExperience; }
 };	

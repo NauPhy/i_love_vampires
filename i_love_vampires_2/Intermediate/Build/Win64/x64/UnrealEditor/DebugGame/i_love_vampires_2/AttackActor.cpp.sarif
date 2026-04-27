@@ -10,13 +10,13 @@
                         "text": "'UObject::GetAssetRegistryTags': Implement the version that takes FAssetRegistryTagsContext instead. - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile."
                     },
                     "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AttackActor.cpp"
+                        "uri": "file:///C:/Users/phyrn/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AttackActor.cpp"
                     },
                     "locations": [
                         {
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/BaseTemplate.h"
+                                    "uri": "file:///C:/Users/phyrn/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/BaseTemplate.h"
                                 },
                                 "region": {
                                     "startLine": 31,
@@ -35,13 +35,13 @@
                         "text": "'CombatantAttributes': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
                     },
                     "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AttackActor.cpp"
+                        "uri": "file:///C:/Users/phyrn/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AttackActor.cpp"
                     },
                     "locations": [
                         {
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.h"
+                                    "uri": "file:///C:/Users/phyrn/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/Combatant.h"
                                 },
                                 "region": {
                                     "startLine": 240,
@@ -60,13 +60,13 @@
                         "text": "'AttackAttributes': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly"
                     },
                     "analysisTarget": {
-                        "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AttackActor.cpp"
+                        "uri": "file:///C:/Users/phyrn/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AttackActor.cpp"
                     },
                     "locations": [
                         {
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AttackActor.h"
+                                    "uri": "file:///C:/Users/phyrn/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AttackActor.h"
                                 },
                                 "region": {
                                     "startLine": 157,
@@ -88,7 +88,7 @@
                         {
                             "physicalLocation": {
                                 "artifactLocation": {
-                                    "uri": "file:///C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AttackActor.cpp"
+                                    "uri": "file:///C:/Users/phyrn/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/AttackActor.cpp"
                                 },
                                 "region": {
                                     "startLine": 175,

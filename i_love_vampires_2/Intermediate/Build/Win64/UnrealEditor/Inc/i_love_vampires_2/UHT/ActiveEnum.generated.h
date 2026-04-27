@@ -19,7 +19,7 @@
 PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ActiveEnum_h
+#define CURRENT_FILE_ID FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_ActiveEnum_h
 
 // ********** Begin Enum EActivationType ***********************************************************
 #define FOREACH_ENUM_EACTIVATIONTYPE(op) \

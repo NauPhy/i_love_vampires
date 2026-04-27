@@ -171,7 +171,7 @@ public:
 		{ &self::_range, 1 },
 		{ &self::_contactDamage, 0 },
 		{ &self::_selfSize, 1 },
-		{ &self::_iFrameDuration, 1 }
+		{ &self::_iFrameDuration, 0 }
 		};
 		return temp;
 	}

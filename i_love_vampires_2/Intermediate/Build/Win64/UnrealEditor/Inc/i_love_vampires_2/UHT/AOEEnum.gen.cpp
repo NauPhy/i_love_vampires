@@ -195,19 +195,19 @@ UEnum* Z_Construct_UEnum_i_love_vampires_2_EEffectApplication()
 // ********** End Enum EEffectApplication **********************************************************
 
 // ********** Begin Registration *******************************************************************
-struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOEEnum_h__Script_i_love_vampires_2_Statics
+struct Z_CompiledInDeferFile_FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOEEnum_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
 		{ EAOEShape_StaticEnum, TEXT("EAOEShape"), &Z_Registration_Info_UEnum_EAOEShape, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2715704246U) },
 		{ EAOETargeting_StaticEnum, TEXT("EAOETargeting"), &Z_Registration_Info_UEnum_EAOETargeting, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2041281939U) },
 		{ EEffectApplication_StaticEnum, TEXT("EEffectApplication"), &Z_Registration_Info_UEnum_EEffectApplication, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 3034946465U) },
 	};
-}; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOEEnum_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOEEnum_h__Script_i_love_vampires_2_1664496274{
+}; // Z_CompiledInDeferFile_FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOEEnum_h__Script_i_love_vampires_2_Statics 
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOEEnum_h__Script_i_love_vampires_2_1664496274{
 	TEXT("/Script/i_love_vampires_2"),
 	nullptr, 0,
 	nullptr, 0,
-	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOEEnum_h__Script_i_love_vampires_2_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOEEnum_h__Script_i_love_vampires_2_Statics::EnumInfo),
+	Z_CompiledInDeferFile_FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOEEnum_h__Script_i_love_vampires_2_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOEEnum_h__Script_i_love_vampires_2_Statics::EnumInfo),
 };
 // ********** End Registration *********************************************************************
 

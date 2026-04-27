@@ -122,6 +122,106 @@ DEFINE_FUNCTION(AMyPlayer::execfinishAMyActorDeferredSpawn)
 }
 // ********** End Class AMyPlayer Function finishAMyActorDeferredSpawn *****************************
 
+// ********** Begin Class AMyPlayer Function getExperience *****************************************
+struct Z_Construct_UFunction_AMyPlayer_getExperience_Statics
+{
+	struct MyPlayer_eventgetExperience_Parms
+	{
+		float ReturnValue;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "MyPlayer.h" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Function getExperience constinit property declarations *************************
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_ReturnValue;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function getExperience constinit property declarations ***************************
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+
+// ********** Begin Function getExperience Property Definitions ************************************
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_AMyPlayer_getExperience_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(MyPlayer_eventgetExperience_Parms, ReturnValue), METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AMyPlayer_getExperience_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AMyPlayer_getExperience_Statics::NewProp_ReturnValue,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AMyPlayer_getExperience_Statics::PropPointers) < 2048);
+// ********** End Function getExperience Property Definitions **************************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AMyPlayer_getExperience_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_AMyPlayer, nullptr, "getExperience", 	Z_Construct_UFunction_AMyPlayer_getExperience_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_AMyPlayer_getExperience_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_AMyPlayer_getExperience_Statics::MyPlayer_eventgetExperience_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AMyPlayer_getExperience_Statics::Function_MetaDataParams), Z_Construct_UFunction_AMyPlayer_getExperience_Statics::Function_MetaDataParams)},  };
+static_assert(sizeof(Z_Construct_UFunction_AMyPlayer_getExperience_Statics::MyPlayer_eventgetExperience_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_AMyPlayer_getExperience()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AMyPlayer_getExperience_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AMyPlayer::execgetExperience)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	*(float*)Z_Param__Result=P_THIS->getExperience();
+	P_NATIVE_END;
+}
+// ********** End Class AMyPlayer Function getExperience *******************************************
+
+// ********** Begin Class AMyPlayer Function getMaxExperience **************************************
+struct Z_Construct_UFunction_AMyPlayer_getMaxExperience_Statics
+{
+	struct MyPlayer_eventgetMaxExperience_Parms
+	{
+		float ReturnValue;
+	};
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "MyPlayer.h" },
+	};
+#endif // WITH_METADATA
+
+// ********** Begin Function getMaxExperience constinit property declarations **********************
+	static const UECodeGen_Private::FFloatPropertyParams NewProp_ReturnValue;
+	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
+// ********** End Function getMaxExperience constinit property declarations ************************
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+
+// ********** Begin Function getMaxExperience Property Definitions *********************************
+const UECodeGen_Private::FFloatPropertyParams Z_Construct_UFunction_AMyPlayer_getMaxExperience_Statics::NewProp_ReturnValue = { "ReturnValue", nullptr, (EPropertyFlags)0x0010000000000580, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(MyPlayer_eventgetMaxExperience_Parms, ReturnValue), METADATA_PARAMS(0, nullptr) };
+const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UFunction_AMyPlayer_getMaxExperience_Statics::PropPointers[] = {
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UFunction_AMyPlayer_getMaxExperience_Statics::NewProp_ReturnValue,
+};
+static_assert(UE_ARRAY_COUNT(Z_Construct_UFunction_AMyPlayer_getMaxExperience_Statics::PropPointers) < 2048);
+// ********** End Function getMaxExperience Property Definitions ***********************************
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_AMyPlayer_getMaxExperience_Statics::FuncParams = { { (UObject*(*)())Z_Construct_UClass_AMyPlayer, nullptr, "getMaxExperience", 	Z_Construct_UFunction_AMyPlayer_getMaxExperience_Statics::PropPointers, 
+	UE_ARRAY_COUNT(Z_Construct_UFunction_AMyPlayer_getMaxExperience_Statics::PropPointers), 
+sizeof(Z_Construct_UFunction_AMyPlayer_getMaxExperience_Statics::MyPlayer_eventgetMaxExperience_Parms),
+RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x54020401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_AMyPlayer_getMaxExperience_Statics::Function_MetaDataParams), Z_Construct_UFunction_AMyPlayer_getMaxExperience_Statics::Function_MetaDataParams)},  };
+static_assert(sizeof(Z_Construct_UFunction_AMyPlayer_getMaxExperience_Statics::MyPlayer_eventgetMaxExperience_Parms) < MAX_uint16);
+UFunction* Z_Construct_UFunction_AMyPlayer_getMaxExperience()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_AMyPlayer_getMaxExperience_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(AMyPlayer::execgetMaxExperience)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	*(float*)Z_Param__Result=P_THIS->getMaxExperience();
+	P_NATIVE_END;
+}
+// ********** End Class AMyPlayer Function getMaxExperience ****************************************
+
 // ********** Begin Class AMyPlayer Function initialise_AMyPlayer **********************************
 struct Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer_Statics
 {
@@ -360,6 +460,8 @@ struct Z_Construct_UClass_AMyPlayer_Statics
 // ********** End Class AMyPlayer constinit property declarations **********************************
 	static constexpr UE::CodeGen::FClassNativeFunction Funcs[] = {
 		{ .NameUTF8 = UTF8TEXT("finishAMyActorDeferredSpawn"), .Pointer = &AMyPlayer::execfinishAMyActorDeferredSpawn },
+		{ .NameUTF8 = UTF8TEXT("getExperience"), .Pointer = &AMyPlayer::execgetExperience },
+		{ .NameUTF8 = UTF8TEXT("getMaxExperience"), .Pointer = &AMyPlayer::execgetMaxExperience },
 		{ .NameUTF8 = UTF8TEXT("initialise_AMyPlayer"), .Pointer = &AMyPlayer::execinitialise_AMyPlayer },
 		{ .NameUTF8 = UTF8TEXT("onOverlapBegin"), .Pointer = &AMyPlayer::execonOverlapBegin },
 		{ .NameUTF8 = UTF8TEXT("spawnAMyActorDeferred"), .Pointer = &AMyPlayer::execspawnAMyActorDeferred },
@@ -367,6 +469,8 @@ struct Z_Construct_UClass_AMyPlayer_Statics
 	static UObject* (*const DependentSingletons[])();
 	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
 		{ &Z_Construct_UFunction_AMyPlayer_finishAMyActorDeferredSpawn, "finishAMyActorDeferredSpawn" }, // 381760498
+		{ &Z_Construct_UFunction_AMyPlayer_getExperience, "getExperience" }, // 3411791621
+		{ &Z_Construct_UFunction_AMyPlayer_getMaxExperience, "getMaxExperience" }, // 2654980841
 		{ &Z_Construct_UFunction_AMyPlayer_initialise_AMyPlayer, "initialise_AMyPlayer" }, // 3296155601
 		{ &Z_Construct_UFunction_AMyPlayer_onOverlapBegin, "onOverlapBegin" }, // 3264895144
 		{ &Z_Construct_UDelegateFunction_AMyPlayer_OnPlayerLevelUp__DelegateSignature, "OnPlayerLevelUp__DelegateSignature" }, // 4077128735
@@ -426,15 +530,15 @@ AMyPlayer::~AMyPlayer() {}
 // ********** End Class AMyPlayer ******************************************************************
 
 // ********** Begin Registration *******************************************************************
-struct Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_Statics
+struct Z_CompiledInDeferFile_FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AMyPlayer, AMyPlayer::StaticClass, TEXT("AMyPlayer"), &Z_Registration_Info_UClass_AMyPlayer, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyPlayer), 2537123973U) },
+		{ Z_Construct_UClass_AMyPlayer, AMyPlayer::StaticClass, TEXT("AMyPlayer"), &Z_Registration_Info_UClass_AMyPlayer, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AMyPlayer), 1688160326U) },
 	};
-}; // Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_351285394{
+}; // Z_CompiledInDeferFile_FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_Statics 
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_3659486224{
 	TEXT("/Script/i_love_vampires_2"),
-	Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_Statics::ClassInfo),
+	Z_CompiledInDeferFile_FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_MyPlayer_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0,
 };

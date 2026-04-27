@@ -77,6 +77,7 @@
 "../Plugins/2D/Paper2D/Intermediate/Build/Win64/x64/UnrealEditor/Development/Paper2D/UnrealEditor-Paper2D.lib"
 "../Plugins/EnhancedInput/Intermediate/Build/Win64/x64/UnrealEditor/Development/EnhancedInput/UnrealEditor-EnhancedInput.lib"
 "../Intermediate/Build/Win64/x64/UnrealEditor/Development/GameplayTags/UnrealEditor-GameplayTags.lib"
+"../Intermediate/Build/Win64/x64/UnrealEditor/Development/UMG/UnrealEditor-UMG.lib"
 "delayimp.lib"
 "wininet.lib"
 "rpcrt4.lib"

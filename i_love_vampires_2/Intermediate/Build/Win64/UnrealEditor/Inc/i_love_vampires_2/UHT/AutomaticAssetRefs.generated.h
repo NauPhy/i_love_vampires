@@ -19,7 +19,7 @@ class UPassiveData;
 class UWeaponTemplate;
 
 // ********** Begin Class UAutomaticAssetRefs ******************************************************
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AutomaticAssetRefs_h_20_RPC_WRAPPERS_NO_PURE_DECLS \
+#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AutomaticAssetRefs_h_20_RPC_WRAPPERS_NO_PURE_DECLS \
 	DECLARE_FUNCTION(execgetRandomPassive); \
 	DECLARE_FUNCTION(execgetRandomWeapon);
 
@@ -27,7 +27,7 @@ class UWeaponTemplate;
 struct Z_Construct_UClass_UAutomaticAssetRefs_Statics;
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAutomaticAssetRefs_NoRegister();
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AutomaticAssetRefs_h_20_INCLASS_NO_PURE_DECLS \
+#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AutomaticAssetRefs_h_20_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUAutomaticAssetRefs(); \
 	friend struct ::Z_Construct_UClass_UAutomaticAssetRefs_Statics; \
@@ -38,7 +38,7 @@ public: \
 	DECLARE_SERIALIZER(UAutomaticAssetRefs)
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AutomaticAssetRefs_h_20_ENHANCED_CONSTRUCTORS \
+#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AutomaticAssetRefs_h_20_ENHANCED_CONSTRUCTORS \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	UAutomaticAssetRefs(UAutomaticAssetRefs&&) = delete; \
 	UAutomaticAssetRefs(const UAutomaticAssetRefs&) = delete; \
@@ -48,13 +48,13 @@ public: \
 	NO_API virtual ~UAutomaticAssetRefs();
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AutomaticAssetRefs_h_17_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AutomaticAssetRefs_h_20_GENERATED_BODY \
+#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AutomaticAssetRefs_h_17_PROLOG
+#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AutomaticAssetRefs_h_20_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AutomaticAssetRefs_h_20_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AutomaticAssetRefs_h_20_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AutomaticAssetRefs_h_20_ENHANCED_CONSTRUCTORS \
+	FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AutomaticAssetRefs_h_20_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AutomaticAssetRefs_h_20_INCLASS_NO_PURE_DECLS \
+	FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AutomaticAssetRefs_h_20_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -64,6 +64,6 @@ class UAutomaticAssetRefs;
 // ********** End Class UAutomaticAssetRefs ********************************************************
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AutomaticAssetRefs_h
+#define CURRENT_FILE_ID FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AutomaticAssetRefs_h
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

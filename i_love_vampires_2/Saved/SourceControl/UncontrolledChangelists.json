@@ -5,6 +5,10 @@
 			"guid": "00000000000000000000000000000000",
 			"description": "Default Uncontrolled Changelist",
 			"files": [
+				"C:/Users/phyrn/GitHub/i_love_vampires/i_love_vampires_2/Content/Arena/DamageNumber_BP.uasset",
+				"C:/Users/phyrn/GitHub/i_love_vampires/i_love_vampires_2/Content/Data/testingData/testPlayer.uasset",
+				"C:/Users/phyrn/GitHub/i_love_vampires/i_love_vampires_2/Content/Arena/playerXP.uasset",
+				"C:/Users/phyrn/GitHub/i_love_vampires/i_love_vampires_2/Content/Framework/MyGameMode.uasset",
 				"C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Content/Data/testingData/testEnemy.uasset",
 				"C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Content/Data/testingData/testSpreadBullet.uasset",
 				"C:/Users/Byron/Documents/GitHub/i_love_vampires/i_love_vampires_2/Content/Data/testingData/testAOE.uasset",

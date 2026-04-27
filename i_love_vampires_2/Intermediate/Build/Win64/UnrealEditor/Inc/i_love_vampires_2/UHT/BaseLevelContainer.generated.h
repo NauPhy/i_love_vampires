@@ -20,7 +20,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 struct Z_Construct_UClass_UBaseLevelContainer_Statics;
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UBaseLevelContainer_NoRegister();
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseLevelContainer_h_8_INCLASS_NO_PURE_DECLS \
+#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseLevelContainer_h_8_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUBaseLevelContainer(); \
 	friend struct ::Z_Construct_UClass_UBaseLevelContainer_Statics; \
@@ -31,7 +31,7 @@ public: \
 	DECLARE_SERIALIZER(UBaseLevelContainer)
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseLevelContainer_h_8_ENHANCED_CONSTRUCTORS \
+#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseLevelContainer_h_8_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UBaseLevelContainer(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 	/** Deleted move- and copy-constructors, should never be used */ \
@@ -43,12 +43,12 @@ public: \
 	NO_API virtual ~UBaseLevelContainer();
 
 
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseLevelContainer_h_6_PROLOG
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseLevelContainer_h_8_GENERATED_BODY \
+#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseLevelContainer_h_6_PROLOG
+#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseLevelContainer_h_8_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseLevelContainer_h_8_INCLASS_NO_PURE_DECLS \
-	FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseLevelContainer_h_8_ENHANCED_CONSTRUCTORS \
+	FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseLevelContainer_h_8_INCLASS_NO_PURE_DECLS \
+	FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseLevelContainer_h_8_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -58,6 +58,6 @@ class UBaseLevelContainer;
 // ********** End Class UBaseLevelContainer ********************************************************
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseLevelContainer_h
+#define CURRENT_FILE_ID FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseLevelContainer_h
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

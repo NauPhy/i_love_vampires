@@ -1,10 +1,10 @@
 {
 	"SourceFiles": [
-		"C:\\Users\\Byron\\Documents\\GitHub\\i_love_vampires\\i_love_vampires_2\\Source\\i_love_vampires_2\\i_love_vampires_2.Build.cs",
-		"C:\\Users\\Byron\\Documents\\GitHub\\i_love_vampires\\i_love_vampires_2\\Plugins\\VisualStudioTools\\Source\\VisualStudioBlueprintDebuggerHelper\\VisualStudioBlueprintDebuggerHelper.Build.cs",
-		"C:\\Users\\Byron\\Documents\\GitHub\\i_love_vampires\\i_love_vampires_2\\Plugins\\VisualStudioTools\\Source\\VisualStudioTools\\VisualStudioTools.Build.cs",
-		"C:\\Users\\Byron\\Documents\\GitHub\\i_love_vampires\\i_love_vampires_2\\Source\\i_love_vampires_2.Target.cs",
-		"C:\\Users\\Byron\\Documents\\GitHub\\i_love_vampires\\i_love_vampires_2\\Source\\i_love_vampires_2Editor.Target.cs"
+		"C:\\Users\\phyrn\\GitHub\\i_love_vampires\\i_love_vampires_2\\Source\\i_love_vampires_2\\i_love_vampires_2.Build.cs",
+		"C:\\Users\\phyrn\\GitHub\\i_love_vampires\\i_love_vampires_2\\Plugins\\VisualStudioTools\\Source\\VisualStudioBlueprintDebuggerHelper\\VisualStudioBlueprintDebuggerHelper.Build.cs",
+		"C:\\Users\\phyrn\\GitHub\\i_love_vampires\\i_love_vampires_2\\Plugins\\VisualStudioTools\\Source\\VisualStudioTools\\VisualStudioTools.Build.cs",
+		"C:\\Users\\phyrn\\GitHub\\i_love_vampires\\i_love_vampires_2\\Source\\i_love_vampires_2.Target.cs",
+		"C:\\Users\\phyrn\\GitHub\\i_love_vampires\\i_love_vampires_2\\Source\\i_love_vampires_2Editor.Target.cs"
 	],
 	"EngineVersion": "5.7.4"
 }

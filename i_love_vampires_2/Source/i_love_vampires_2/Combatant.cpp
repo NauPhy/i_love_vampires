@@ -260,7 +260,7 @@ bool ACombatant::onCurrentHPChanged(float oldVal, float newVal)
 	if (abs(diff) > 0.5f) {
 		const float currentScale = GetActorScale3D().X;
 		const float myHeight = currentScale * SPRITE_RADIUS * 2;
-		unrealHelpers::spawnDamageNumberNearMe(this, FVector(0, 0, myHeight * 0.2), diff);
+		unrealHelpers::spawnDamageNumberNearMe(this, FVector(0, 0, myHeight * 0.7), diff);
 	}
 	if (newVal <= 0.0f) {
 		onKilled();

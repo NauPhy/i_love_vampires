@@ -23,6 +23,7 @@ void UDamageNumber::NativeTick(const FGeometry& MyGeometry, float InDeltaTime) {
 	}
 	else {
 		moveToApparentLocation(_instigator->GetActorLocation() + _offset);
+		_lastKnownLocation = _instigator->GetActorLocation();
 	}
 }
 
@@ -32,5 +33,6 @@ void UDamageNumber::moveToApparentLocation(const FVector& location) {
 		LOGERROR("unrealHelpers::spawnDamageNumberNearMe - failed to project world to screen");
 		return;
 	}
+	SetAlignmentInViewport(FVector2D(0.5, 0.5));
 	SetPositionInViewport(screenPos);
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Invalid|x64">
       <Configuration>Invalid</Configuration>
@@ -532,7 +532,6 @@
     <ClCompile_AdditionalOptions_1>$(AdditionalOptions) /Yu"$(SolutionDir)Intermediate\Build\Win64\x64\i_love_vampires_2Editor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.ValExpApi.Cpp20.InclOrderUnreal5_4.h"</ClCompile_AdditionalOptions_1>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="..\..\.vsconfig" />
     <None Include="..\..\Config\DefaultEditor.ini" />
     <None Include="..\..\Config\DefaultEngine.ini" />
     <None Include="..\..\Config\DefaultGame.ini" />
@@ -627,8 +626,11 @@
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles_2)</ForcedIncludeFiles>
     </ClCompile>
     <ClInclude Include="..\..\Source\i_love_vampires_2\AutomaticAssetRefs.h" />
+    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseAttributeData.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories_2)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles_2)</ForcedIncludeFiles>
+    </ClCompile>
     <ClInclude Include="..\..\Source\i_love_vampires_2\BaseAttributeData.h" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseAttributeData.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\BaseAttributes.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories_2)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles_2)</ForcedIncludeFiles>
@@ -649,13 +651,16 @@
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles_2)</ForcedIncludeFiles>
     </ClCompile>
     <ClInclude Include="..\..\Source\i_love_vampires_2\BaseConfig.h" />
+    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseLevelContainer.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories_2)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles_2)</ForcedIncludeFiles>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\BaseLevelContainer.h" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\BaseTemplate.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories_2)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles_2)</ForcedIncludeFiles>
     </ClCompile>
     <ClInclude Include="..\..\Source\i_love_vampires_2\BaseTemplate.h" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseLevelContainer.cpp" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\BaseLevelContainer.h" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\Combatant.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories_2)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles_2)</ForcedIncludeFiles>
@@ -671,6 +676,11 @@
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles_2)</ForcedIncludeFiles>
     </ClCompile>
     <ClInclude Include="..\..\Source\i_love_vampires_2\CombatGameModeBase.h" />
+    <ClCompile Include="..\..\Source\i_love_vampires_2\DamageNumber.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories_2)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles_2)</ForcedIncludeFiles>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\i_love_vampires_2\DamageNumber.h" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\Definitions.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories_2)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles_2)</ForcedIncludeFiles>
@@ -743,12 +753,10 @@
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles_2)</ForcedIncludeFiles>
     </ClCompile>
     <ClInclude Include="..\..\Source\i_love_vampires_2\StatusEnum.h" />
-    <ClCompile Include="..\..\Source\i_love_vampires_2\DamageNumber.cpp" />
     <ClCompile Include="..\..\Source\i_love_vampires_2\unrealHelpers.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories_2)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles_2)</ForcedIncludeFiles>
     </ClCompile>
-    <ClInclude Include="..\..\Source\i_love_vampires_2\DamageNumber.h" />
     <ClInclude Include="..\..\Source\i_love_vampires_2\unrealHelpers.h" />
   </ItemGroup>
   <PropertyGroup>

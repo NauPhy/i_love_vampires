@@ -18,7 +18,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 
 // ********** Begin ScriptStruct FEffectStruct *****************************************************
 struct Z_Construct_UScriptStruct_FEffectStruct_Statics;
-#define FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EffectStruct_h_8_GENERATED_BODY \
+#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EffectStruct_h_8_GENERATED_BODY \
 	friend struct ::Z_Construct_UScriptStruct_FEffectStruct_Statics; \
 	I_LOVE_VAMPIRES_2_API static class UScriptStruct* StaticStruct();
 
@@ -27,6 +27,6 @@ struct FEffectStruct;
 // ********** End ScriptStruct FEffectStruct *******************************************************
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Users_Byron_Documents_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EffectStruct_h
+#define CURRENT_FILE_ID FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_EffectStruct_h
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
