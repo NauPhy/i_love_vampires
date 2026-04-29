@@ -120,7 +120,7 @@ void AMyPlayer::addExperience(float val) {
 void AMyPlayer::levelUp() {
 	_level += 1;
 	_experience = 0;
-	_maxExperience = 999;
+	_maxExperience += 1;
 	_onLevelUp.Broadcast();
 }
 

@@ -52,8 +52,9 @@ class I_LOVE_VAMPIRES_2_API UExplosiveProjectileConfig : public UBaseConfig
 	GENERATED_BODY()
 
 public:
-	virtual void replaceOverrides() override {}
 	UExplosiveProjectileConfig(const FObjectInitializer& init) : Super(init) {}
+	virtual void dynamicDeepCopy(const UObject* context) override {}
+	virtual void replaceOverrides() override {}
 };
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -134,6 +135,7 @@ public:
 UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UExplosiveProjectileLevel : public UProjectileLevel {
 	GENERATED_BODY()
+
 public:
 	UPROPERTY(EditAnywhere, Instanced)
 	TObjectPtr<UExplosiveProjectileAttributeData> _explosiveProjectileAttributeOffsets;
@@ -149,6 +151,7 @@ public:
 		_AOEAttributeOffsets->replaceOverrides();
 		_AOEAttributeOffsets_attack->replaceOverrides();
 	}
+	virtual void dynamicDeepCopy(const UObject* context) override { Super::dynamicDeepCopy(context); }
 	UExplosiveProjectileLevel(const FObjectInitializer& init) : Super(init) {
 		_explosiveProjectileAttributeOffsets = init.CreateDefaultSubobject<UExplosiveProjectileAttributeData>(this, "_explosiveProjectileAttributeOffsets");
 		_AOEAttributeOffsets = init.CreateDefaultSubobject<UAOEAttributeData>(this, "_AOEAttributeOffsets");
@@ -161,17 +164,6 @@ public:
 UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UExplosiveProjectileTemplate : public UProjectileTemplate {
 	GENERATED_BODY()
-
-protected:
-	virtual void replaceOverrides() override {
-		Super::replaceOverrides();
-		_explosiveProjectileConfig->replaceOverrides();
-		//_explosiveProjectileAttributes->replaceOverrides();
-		_AOEConfig->replaceOverrides();
-		//_AOEAttributes->replaceOverrides();
-		_AOEConfig_attack->replaceOverrides();
-		//_AOEAttributes_attack->replaceOverrides();
-	}
 
 public:
 	UPROPERTY(EditAnywhere, Instanced)
@@ -196,5 +188,24 @@ public:
 		//_AOEAttributes_attack = init.CreateDefaultSubobject<UAttackAttributeData>(this, "_AOEAttributes_attack");
 	}
 	virtual std::unique_ptr<AttackFactory> createFactory(ACombatant* owner) const override;
+	virtual void replaceOverrides() override {
+		Super::replaceOverrides();
+		_explosiveProjectileConfig->replaceOverrides();
+		//_explosiveProjectileAttributes->replaceOverrides();
+		_AOEConfig->replaceOverrides();
+		//_AOEAttributes->replaceOverrides();
+		_AOEConfig_attack->replaceOverrides();
+		//_AOEAttributes_attack->replaceOverrides();
+	}
+	virtual void dynamicDeepCopy(const UObject* context) override {
+		if (!IsValid(_explosiveProjectileConfig) || !IsValid(_AOEConfig) || !IsValid(_AOEConfig_attack)) {
+			LOGERROR("Invalid config in dynamicDeepCopy of UExplosiveProjectileTemplate");
+			return;
+		}
+		Super::dynamicDeepCopy(context);
+		_explosiveProjectileConfig->dynamicDeepCopy(context);
+		_AOEConfig->dynamicDeepCopy(context);
+		_AOEConfig_attack->dynamicDeepCopy(context);
+	}
 };
 

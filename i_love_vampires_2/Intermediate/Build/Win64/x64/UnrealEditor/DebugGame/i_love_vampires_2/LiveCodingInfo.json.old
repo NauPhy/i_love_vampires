@@ -16,6 +16,7 @@
 			"Combatant.gen.cpp.obj",
 			"CombatantManager.gen.cpp.obj",
 			"CombatGameModeBase.gen.cpp.obj",
+			"DamageNumber.gen.cpp.obj",
 			"DynamicAssetManager.gen.cpp.obj",
 			"EffectStruct.gen.cpp.obj",
 			"EnemyBase.gen.cpp.obj",
@@ -27,8 +28,7 @@
 			"Projectile.gen.cpp.obj",
 			"ProjectileEnum.gen.cpp.obj",
 			"SpriteSorter.gen.cpp.obj",
-			"StatusEnum.gen.cpp.obj",
-			"TextWidget.gen.cpp.obj"
+			"StatusEnum.gen.cpp.obj"
 		]
 	}
 }

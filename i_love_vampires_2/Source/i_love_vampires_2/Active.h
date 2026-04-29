@@ -55,6 +55,7 @@ public:
 		}
 		return _factory->getLevel() < _factory->getMaxLevel(); 
 	}
+	int getLevel() const { return _factory->getLevel(); }
 	UWeaponTemplate* getDiskTemplate() const;
 };
 ///////////////////////////////////////////////////////////////////////////////
@@ -107,4 +108,11 @@ public:
 		//No default object to allow for polymorphism
 	}
 	virtual void replaceOverrides() override;
+	virtual void dynamicDeepCopy(const UObject* context) override {
+		if (!IsValid(_attackData.Get())) {
+			LOGERROR("UWeaponTemplate::dynamicDeepCopy - invalid attack data");
+			return;
+		}
+		_attackData->dynamicDeepCopy(context);
+	}
 };

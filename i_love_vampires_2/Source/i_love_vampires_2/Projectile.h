@@ -93,6 +93,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	bool _isBoomerang = false;
 	UProjectileConfig(const FObjectInitializer& init) : Super(init) {}
+	virtual void dynamicDeepCopy(const UObject*) override {}
 };
 ///////////////////////////////////////////////////////////////////////////////
 UCLASS(BlueprintType, EditInlineNew)
@@ -244,6 +245,7 @@ public:
 	UProjectileLevel(const FObjectInitializer& init) : Super(init) {
 		_projectileOffsets = init.CreateDefaultSubobject<UProjectileAttributeData>(this, "_projectileOffsets");
 	}
+	virtual void dynamicDeepCopy(const UObject* context) override { Super::dynamicDeepCopy(context); }
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -258,19 +260,24 @@ public:
 	//UPROPERTY(EditAnywhere, Instanced)
 	//TObjectPtr<UProjectileAttributeData> _projectileAttributes;
 
-protected:
-	virtual void replaceOverrides() override {
-		Super::replaceOverrides();
-		_projectileConfig->replaceOverrides();
-		//_projectileAttributes->replaceOverrides();
-	}
-
 public:
-
 	UProjectileTemplate(const FObjectInitializer& init) : Super(init) {
 		_projectileConfig = init.CreateDefaultSubobject<UProjectileConfig>(this, "_projectileConfig");
 		//_projectileAttributes = init.CreateDefaultSubobject<UProjectileAttributeData>(this, "_projectileAttributes");
 	}
 	virtual std::unique_ptr<AttackFactory> createFactory(ACombatant* owner) const override;
+	virtual void replaceOverrides() override {
+		Super::replaceOverrides();
+		_projectileConfig->replaceOverrides();
+		//_projectileAttributes->replaceOverrides();
+	}
+	virtual void dynamicDeepCopy(const UObject* context) override {
+		if (!IsValid(_projectileConfig)) {
+			LOGERROR("Invalid projectile config in dynamicDeepCopy");
+			return;
+		}
+		Super::dynamicDeepCopy(context);
+		_projectileConfig->dynamicDeepCopy(context);
+	}
 };
 

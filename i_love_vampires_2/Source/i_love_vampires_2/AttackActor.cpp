@@ -320,5 +320,23 @@ void UAttackTemplate::PostEditChangeProperty(FPropertyChangedEvent& event) {
 	_previousSize = _levels.Num();
 }
 
+void UAttackTemplate::dynamicDeepCopy(const UObject* context) {
+	if (!IsValid(_attackConfig)) {
+		LOGERROR("Invalid attack config in attack template");
+		return;
+	}
+	for (const auto& level : _levels) {
+		if (!IsValid(level)) {
+			LOGERROR("Invalid level in attack template");
+			return;
+		}
+	}
+	_attackConfig->dynamicDeepCopy(context);
+	for (auto& level : _levels) {
+		level->dynamicDeepCopy(context);
+	}
+}
+
 void UAttackConfig::replaceOverrides() {
 }
+

@@ -684,10 +684,10 @@ struct Z_CompiledInDeferFile_FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampi
 		{ Z_Construct_UClass_UAOEConfig, UAOEConfig::StaticClass, TEXT("UAOEConfig"), &Z_Registration_Info_UClass_UAOEConfig, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOEConfig), 1909441944U) },
 		{ Z_Construct_UClass_UAOEAttributeData, UAOEAttributeData::StaticClass, TEXT("UAOEAttributeData"), &Z_Registration_Info_UClass_UAOEAttributeData, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOEAttributeData), 3321817196U) },
 		{ Z_Construct_UClass_UAOELevel, UAOELevel::StaticClass, TEXT("UAOELevel"), &Z_Registration_Info_UClass_UAOELevel, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOELevel), 2588883728U) },
-		{ Z_Construct_UClass_UAOETemplate, UAOETemplate::StaticClass, TEXT("UAOETemplate"), &Z_Registration_Info_UClass_UAOETemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOETemplate), 3328105516U) },
+		{ Z_Construct_UClass_UAOETemplate, UAOETemplate::StaticClass, TEXT("UAOETemplate"), &Z_Registration_Info_UClass_UAOETemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UAOETemplate), 795439960U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_409620848{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_932146056{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

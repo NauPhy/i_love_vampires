@@ -63,10 +63,15 @@ struct Z_Construct_UClass_UBaseTemplate_Statics
 		{ "Category", "BaseTemplate" },
 		{ "ModuleRelativePath", "BaseTemplate.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp__desc_MetaData[] = {
+		{ "Category", "BaseTemplate" },
+		{ "ModuleRelativePath", "BaseTemplate.h" },
+	};
 #endif // WITH_METADATA
 
 // ********** Begin Class UBaseTemplate constinit property declarations ****************************
 	static const UECodeGen_Private::FStructPropertyParams NewProp__assetTags;
+	static const UECodeGen_Private::FStrPropertyParams NewProp__desc;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 // ********** End Class UBaseTemplate constinit property declarations ******************************
 	static UObject* (*const DependentSingletons[])();
@@ -78,8 +83,10 @@ struct Z_Construct_UClass_UBaseTemplate_Statics
 
 // ********** Begin Class UBaseTemplate Property Definitions ***************************************
 const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UBaseTemplate_Statics::NewProp__assetTags = { "_assetTags", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBaseTemplate, _assetTags), Z_Construct_UScriptStruct_FGameplayTagContainer, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__assetTags_MetaData), NewProp__assetTags_MetaData) }; // 3438578166
+const UECodeGen_Private::FStrPropertyParams Z_Construct_UClass_UBaseTemplate_Statics::NewProp__desc = { "_desc", nullptr, (EPropertyFlags)0x0010000000000015, UECodeGen_Private::EPropertyGenFlags::Str, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UBaseTemplate, _desc), METADATA_PARAMS(UE_ARRAY_COUNT(NewProp__desc_MetaData), NewProp__desc_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UBaseTemplate_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UBaseTemplate_Statics::NewProp__assetTags,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UBaseTemplate_Statics::NewProp__desc,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UBaseTemplate_Statics::PropPointers) < 2048);
 // ********** End Class UBaseTemplate Property Definitions *****************************************
@@ -122,10 +129,10 @@ UBaseTemplate::~UBaseTemplate() {}
 struct Z_CompiledInDeferFile_FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseTemplate_h__Script_i_love_vampires_2_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_UBaseTemplate, UBaseTemplate::StaticClass, TEXT("UBaseTemplate"), &Z_Registration_Info_UClass_UBaseTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBaseTemplate), 2271261847U) },
+		{ Z_Construct_UClass_UBaseTemplate, UBaseTemplate::StaticClass, TEXT("UBaseTemplate"), &Z_Registration_Info_UClass_UBaseTemplate, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UBaseTemplate), 2365584975U) },
 	};
 }; // Z_CompiledInDeferFile_FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseTemplate_h__Script_i_love_vampires_2_Statics 
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseTemplate_h__Script_i_love_vampires_2_1342599621{
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseTemplate_h__Script_i_love_vampires_2_2257796676{
 	TEXT("/Script/i_love_vampires_2"),
 	Z_CompiledInDeferFile_FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseTemplate_h__Script_i_love_vampires_2_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_BaseTemplate_h__Script_i_love_vampires_2_Statics::ClassInfo),
 	nullptr, 0,

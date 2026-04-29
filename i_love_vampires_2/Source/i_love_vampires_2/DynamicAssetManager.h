@@ -21,14 +21,14 @@ public:
 
 	UDynamicAssetManager() = default;
 	template <typename T>
-	const T* registerTemplate(T* diskTemplate);
+	T* registerTemplate(T* diskTemplate, const UObject*);
 	template <typename T>
 	T* getKey(const T* runtimeTemplate) const;
 
 };
 
 template <typename T>
-const T* UDynamicAssetManager::registerTemplate(T* diskTemplate) {
+T* UDynamicAssetManager::registerTemplate(T* diskTemplate, const UObject* caller) {
 	static_assert(std::is_base_of_v<UBaseTemplate, T>, "T must be a subclass of UBaseTemplate");
 
 	if (!IsValid(diskTemplate)) {
@@ -36,12 +36,12 @@ const T* UDynamicAssetManager::registerTemplate(T* diskTemplate) {
 		return nullptr;
 	}
 
-	const UBaseTemplate* myTemplate = Cast<UBaseTemplate>(diskTemplate);
+	UBaseTemplate* myTemplate = Cast<UBaseTemplate>(diskTemplate);
 
 	if (!_templateMap.Contains(diskTemplate)) {
-		UBaseTemplate* newTemplate = myTemplate->createOverrideCopy();
+		UBaseTemplate* newTemplate = myTemplate->createOverrideCopy(caller);
 		_templateMap.Add(diskTemplate, newTemplate);
-		const T* ret = Cast<T>(newTemplate);
+		T* ret = Cast<T>(newTemplate);
 		if (!IsValid(ret)) {
 			LOGERROR("UDynamicAssetManager::registerTemplate: Failed to cast new template to type T");
 			return nullptr;
@@ -49,8 +49,8 @@ const T* UDynamicAssetManager::registerTemplate(T* diskTemplate) {
 		return ret;
 	}
 	else {
-		const UBaseTemplate* existingTemplate = _templateMap[diskTemplate];
-		const T* ret = Cast<T>(existingTemplate);
+		UBaseTemplate* existingTemplate = _templateMap[diskTemplate];
+		T* ret = Cast<T>(existingTemplate);
 		if (!IsValid(ret)) {
 			LOGERROR("UDynamicAssetManager::registerTemplate: Failed to cast existing template to type T");
 			return nullptr;

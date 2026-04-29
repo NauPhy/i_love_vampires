@@ -33,8 +33,9 @@ public:
 	static void lookAtDirection(AActor* caller, const FVector& direction) { lookAtDirection(caller, direction.X, direction.Z); }
 	static float getOrthoWidth(UObject* caller);
 
+	//Cannot be const as you need to be able to reassign ptrs in templates
 	template <typename T>
-	static const T* getDynamicTemplate(const UObject* caller, T* diskTemplate);
+	static T* getDynamicTemplate(const UObject* caller, T* diskTemplate);
 	template<typename T>
 	static bool spawnActorOnTopOfMe(AActor* caller, T*& ret);
 	template <typename T>
@@ -60,7 +61,7 @@ bool unrealHelpers::isInvalidData(const T& e) {
 }
 
 template <typename T>
-const T* unrealHelpers::getDynamicTemplate(const UObject* caller, T* diskTemplate) {
+T* unrealHelpers::getDynamicTemplate(const UObject* caller, T* diskTemplate) {
 	static_assert(std::is_base_of_v<UBaseTemplate, T>, "T must be a subclass of UBaseTemplate");
 
 	UDynamicAssetManager* assetManager = nullptr;
@@ -68,7 +69,7 @@ const T* unrealHelpers::getDynamicTemplate(const UObject* caller, T* diskTemplat
 		LOGERROR("unrealHelpers::getDynamicTemplate - failed to get asset manager");
 		return nullptr;
 	}
-	return assetManager->registerTemplate<T>(diskTemplate);
+	return assetManager->registerTemplate<T>(diskTemplate, caller);
 }
 
 template<typename T>

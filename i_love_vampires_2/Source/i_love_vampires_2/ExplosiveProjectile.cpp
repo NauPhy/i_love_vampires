@@ -173,7 +173,6 @@ void ExplosiveProjectileFactory::finishUpgrade(const UAttackLevel* newLevel) {
 	_explosiveProjectileAttributes->changeBaseValues<UExplosiveProjectileAttributeData>(casted->_explosiveProjectileAttributeOffsets.Get());
 	_AOEAttributes->changeBaseValues<UAOEAttributeData>(casted->_AOEAttributeOffsets.Get());
 	_AOEAttributes_attack->changeBaseValues<UAttackAttributeData>(casted->_AOEAttributeOffsets_attack.Get());
-	ProjectileFactory::upgrade();
 }
 ///////////////////////////////////////////////////////////////////////////////
 // ExplosiveProjectileAttributes

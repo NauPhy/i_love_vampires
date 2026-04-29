@@ -11,4 +11,7 @@ public:
 	virtual void replaceOverrides()
 		PURE_VIRTUAL(UBaseLevelContainer::replaceOverrides,
 			LOGERROR("replaceOverrides not implemented in this class"););
+	virtual void dynamicDeepCopy(const UObject* context)
+		PURE_VIRTUAL(UBaseLevelContainer::dynamicDeepCopy,
+			LOGERROR("dynamicDeepCopy not implemented in this class"););
 };

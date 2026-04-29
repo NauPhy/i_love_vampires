@@ -83,6 +83,7 @@ public:
 		_sprite = init.CreateDefaultSubobject<UPaperFlipbook>(this, "_sprite");
 	}
 	virtual void replaceOverrides() override;
+	virtual void dynamicDeepCopy(const UObject* context) override {}
 };
 ///////////////////////////////////////////////////////////////////////////////
 UCLASS(BlueprintType, EditInlineNew)
@@ -230,6 +231,7 @@ public:
 	UAttackLevel(const FObjectInitializer& init) : Super(init) {
 		_attackOffsets = init.CreateDefaultSubobject<UAttackAttributeData>(this, "_attackOffsets");
 	}
+	virtual void dynamicDeepCopy(const UObject* context) override {}
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -256,6 +258,8 @@ public:
 	}
 	virtual std::unique_ptr<AttackFactory> createFactory(ACombatant* owner) const;
 	virtual void replaceOverrides() override;
+	virtual void dynamicDeepCopy(const UObject* context) override;
+	
 #if WITH_EDITOR
 	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
 #endif

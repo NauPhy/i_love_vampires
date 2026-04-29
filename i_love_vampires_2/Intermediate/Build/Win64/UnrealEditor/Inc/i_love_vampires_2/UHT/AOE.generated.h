@@ -106,7 +106,7 @@ class UAOEConfig;
 struct Z_Construct_UClass_UAOEAttributeData_Statics;
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAOEAttributeData_NoRegister();
 
-#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_100_INCLASS_NO_PURE_DECLS \
+#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_102_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUAOEAttributeData(); \
 	friend struct ::Z_Construct_UClass_UAOEAttributeData_Statics; \
@@ -117,7 +117,7 @@ public: \
 	DECLARE_SERIALIZER(UAOEAttributeData)
 
 
-#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_100_ENHANCED_CONSTRUCTORS \
+#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_102_ENHANCED_CONSTRUCTORS \
 	/** Standard constructor, called after all reflected properties have been initialized */ \
 	NO_API UAOEAttributeData(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
 	/** Deleted move- and copy-constructors, should never be used */ \
@@ -129,12 +129,12 @@ public: \
 	NO_API virtual ~UAOEAttributeData();
 
 
-#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_97_PROLOG
-#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_100_GENERATED_BODY \
+#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_99_PROLOG
+#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_102_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_100_INCLASS_NO_PURE_DECLS \
-	FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_100_ENHANCED_CONSTRUCTORS \
+	FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_102_INCLASS_NO_PURE_DECLS \
+	FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_102_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -147,7 +147,7 @@ class UAOEAttributeData;
 struct Z_Construct_UClass_UAOELevel_Statics;
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAOELevel_NoRegister();
 
-#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_191_INCLASS_NO_PURE_DECLS \
+#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_193_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUAOELevel(); \
 	friend struct ::Z_Construct_UClass_UAOELevel_Statics; \
@@ -158,7 +158,7 @@ public: \
 	DECLARE_SERIALIZER(UAOELevel)
 
 
-#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_191_ENHANCED_CONSTRUCTORS \
+#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_193_ENHANCED_CONSTRUCTORS \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	UAOELevel(UAOELevel&&) = delete; \
 	UAOELevel(const UAOELevel&) = delete; \
@@ -168,12 +168,12 @@ public: \
 	NO_API virtual ~UAOELevel();
 
 
-#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_189_PROLOG
-#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_191_GENERATED_BODY \
+#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_191_PROLOG
+#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_193_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_191_INCLASS_NO_PURE_DECLS \
-	FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_191_ENHANCED_CONSTRUCTORS \
+	FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_193_INCLASS_NO_PURE_DECLS \
+	FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_193_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -186,7 +186,7 @@ class UAOELevel;
 struct Z_Construct_UClass_UAOETemplate_Statics;
 I_LOVE_VAMPIRES_2_API UClass* Z_Construct_UClass_UAOETemplate_NoRegister();
 
-#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_209_INCLASS_NO_PURE_DECLS \
+#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_212_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesUAOETemplate(); \
 	friend struct ::Z_Construct_UClass_UAOETemplate_Statics; \
@@ -197,7 +197,7 @@ public: \
 	DECLARE_SERIALIZER(UAOETemplate)
 
 
-#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_209_ENHANCED_CONSTRUCTORS \
+#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_212_ENHANCED_CONSTRUCTORS \
 	/** Deleted move- and copy-constructors, should never be used */ \
 	UAOETemplate(UAOETemplate&&) = delete; \
 	UAOETemplate(const UAOETemplate&) = delete; \
@@ -207,12 +207,12 @@ public: \
 	NO_API virtual ~UAOETemplate();
 
 
-#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_207_PROLOG
-#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_209_GENERATED_BODY \
+#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_210_PROLOG
+#define FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_212_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_209_INCLASS_NO_PURE_DECLS \
-	FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_209_ENHANCED_CONSTRUCTORS \
+	FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_212_INCLASS_NO_PURE_DECLS \
+	FID_Users_phyrn_GitHub_i_love_vampires_i_love_vampires_2_Source_i_love_vampires_2_AOE_h_212_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

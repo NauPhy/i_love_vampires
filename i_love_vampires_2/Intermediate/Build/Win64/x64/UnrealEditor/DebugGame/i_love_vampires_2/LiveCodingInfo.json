@@ -1,7 +1,7 @@
 {
 	"RemapUnityFiles": 
 	{
-		"Module.i_love_vampires_2.gen.cpp.obj": [
+		"Module.i_love_vampires_2.cpp.obj": [
 			"Active.gen.cpp.obj",
 			"ActiveEnum.gen.cpp.obj",
 			"AOE.gen.cpp.obj",
@@ -28,7 +28,39 @@
 			"Projectile.gen.cpp.obj",
 			"ProjectileEnum.gen.cpp.obj",
 			"SpriteSorter.gen.cpp.obj",
-			"StatusEnum.gen.cpp.obj"
+			"StatusEnum.gen.cpp.obj",
+			"PerModuleInline.gen.cpp.obj",
+			"Active.cpp.obj",
+			"AOE.cpp.obj",
+			"AssetRefs.cpp.obj",
+			"AttackActor.cpp.obj",
+			"AutomaticAssetRefs.cpp.obj",
+			"BaseAttributeData.cpp.obj",
+			"BaseAttributes.cpp.obj",
+			"BaseAttributeSet.cpp.obj",
+			"BaseAttributeWrapper.cpp.obj",
+			"BaseConfig.cpp.obj",
+			"BaseLevelContainer.cpp.obj",
+			"BaseTemplate.cpp.obj",
+			"Combatant.cpp.obj",
+			"CombatantManager.cpp.obj",
+			"CombatGameModeBase.cpp.obj",
+			"DamageNumber.cpp.obj",
+			"Definitions.cpp.obj",
+			"DynamicAssetManager.cpp.obj",
+			"EffectStruct.cpp.obj",
+			"EnemyBase.cpp.obj",
+			"EnemySpawner.cpp.obj",
+			"ExperienceShard.cpp.obj",
+			"ExplosiveProjectile.cpp.obj",
+			"helpers.cpp.obj",
+			"i_love_vampires_2.cpp.obj",
+			"MyGameplayStatics.cpp.obj",
+			"MyPlayer.cpp.obj",
+			"Projectile.cpp.obj",
+			"SpriteSorter.cpp.obj",
+			"StatusEnum.cpp.obj",
+			"unrealHelpers.cpp.obj"
 		]
 	}
 }

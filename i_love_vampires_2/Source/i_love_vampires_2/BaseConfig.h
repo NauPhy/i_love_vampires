@@ -9,8 +9,11 @@ class I_LOVE_VAMPIRES_2_API UBaseConfig : public UObject {
 	GENERATED_BODY()
 
 public:
-	virtual void replaceOverrides() {
-		LOGERROR("This would be a pure virtual function if Unreal allowed it");
-	}
+	virtual void dynamicDeepCopy(const UObject* context)
+		PURE_VIRTUAL(UBaseConfig::dynamicDeepCopy,
+			LOGERROR("dynamicDeepCopy not implemented in this class"););
+	virtual void replaceOverrides()
+		PURE_VIRTUAL(UBaseConfig::replaceOverrides,
+			LOGERROR("replaceOverrides not implemented in this class"););
 	UBaseConfig(const FObjectInitializer& init) : Super(init) {}
 };

@@ -102,7 +102,9 @@ public:
 	UFUNCTION(BlueprintCallable) void giveWeapon(UWeaponTemplate* data);
 	UFUNCTION(BlueprintCallable) void upgradeWeapon(UWeaponTemplate* data);
 	UFUNCTION(BlueprintCallable) void givePassive(UPassiveData* data);
-	UFUNCTION(BlueprintCallable) void upgradePassive(UPassiveData* data) {}
+	UFUNCTION(BlueprintCallable) void upgradePassive(UPassiveData* data);
+	UFUNCTION(BlueprintCallable) int getWeaponLevel(UWeaponTemplate* data) const;
+	UFUNCTION(BlueprintCallable) int getPassiveLevel(UPassiveData* data) const;
 };
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -295,6 +297,7 @@ public:
 
 	UCombatantConfig(const FObjectInitializer& init) : Super(init) {}
 	virtual void replaceOverrides() override;
+	virtual void dynamicDeepCopy(const UObject*) override;
 };
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -315,6 +318,9 @@ public:
 	virtual void replaceOverrides() override {
 		_config->replaceOverrides();
 		_attributes->replaceOverrides();
+	}
+	virtual void dynamicDeepCopy(const UObject* context) override {
+		_config->dynamicDeepCopy(context);
 	}
 };
 
@@ -343,6 +349,7 @@ public:
 		_multiplier->zeroSentinelOverride();
 	}
 	std::vector<Stat> getStatVector() const;
+	virtual void dynamicDeepCopy(const UObject*) override {}
 };
 
 UCLASS(BlueprintType)
@@ -351,12 +358,23 @@ class I_LOVE_VAMPIRES_2_API UPassiveData : public UBaseTemplate
 	GENERATED_BODY()
 
 public:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FName _name = "Passive";
 	UPROPERTY(EditAnywhere, Instanced, BlueprintReadOnly)
 	TArray<TObjectPtr<UPassiveLevelData>> _levels;
 	virtual void replaceOverrides() override {
 		// The defaults are applied to the base values, these are offsets so the default is 0.
 		for (auto& level : _levels) {
 			level->replaceOverrides();
+		}
+	}
+	virtual void dynamicDeepCopy(const UObject* context) override {
+		for (auto& level : _levels) {
+			if (!IsValid(level)) {
+				LOGERROR("Attempting to copy UPassiveData with invalid level data");
+				continue;
+			}
+			level->dynamicDeepCopy(context);
 		}
 	}
 }; 
@@ -385,4 +403,6 @@ public:
 	const UCombatantAttributeData* getPrebonus() const;
 	const UCombatantAttributeData* getPostbonus() const;
 	const UCombatantAttributeData* getMultiplier() const;
+	int getLevel() const { return _level; }
+	bool operator==(UPassiveData* other) const { return getDiskData() == other; }
 };

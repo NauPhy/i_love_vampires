@@ -174,6 +174,20 @@ TArray<UWeaponTemplate*> ACombatant::getAllWeapons() const {
 	}
 	return result;
 }
+int ACombatant::getWeaponLevel(UWeaponTemplate* data) const {
+	for (const auto& weapon : _activeAbilities) {
+		if (weapon == data)
+			return weapon.getLevel();
+	}
+	return -1;
+}
+int ACombatant::getPassiveLevel(UPassiveData* data) const {
+	for (const auto& passive : *_passives) {
+		if (passive == data)
+			return passive.getLevel();
+	}
+	return -1;
+}
 TArray<UPassiveData*> ACombatant::getAllPassives() const {
 	//return _passiveContainer->getDiskPassives();
 	TArray<UPassiveData*> result;
@@ -204,10 +218,25 @@ void ACombatant::upgradeWeapon(UWeaponTemplate* temp) {
 		return;
 	}
 	for (auto& active : _activeAbilities) {
-		if (active == temp)
+		if (active == temp) {
 			active.upgrade();
+			return;
+		}
 	}
-	LOGERROR("ACombatant::upgradeWeapon - no active ability upgraded, weapon may not be compatible with any actives");
+	LOGERROR("ACombatant::upgradeWeapon - no active ability upgraded");
+}
+void ACombatant::upgradePassive(UPassiveData* temp) {
+	if (!IsValid(temp)) {
+		LOGERROR("ACombatant::upgradePassive - parameter not valid");
+		return;
+	}
+	for (auto& passive : *_passives) {
+		if (passive == temp) {
+			passive.upgrade();
+			return;
+		}
+	}
+	LOGERROR("ACombatant::upgradeWeapon - no active passive upgraded");
 }
 
 void ACombatant::givePassive(UPassiveData* temp) {
@@ -581,6 +610,26 @@ void UCombatantConfig::replaceOverrides() {
 			continue;
 		}
 		data->replaceOverrides();
+	}
+}
+void UCombatantConfig::dynamicDeepCopy(const UObject* context) {
+	for (const auto& weapon : _startingWeapons) {
+		if (!IsValid(weapon)) {
+			LOGERROR("UCombatantConfig::dynamicDeepCopy - invalid weapon in weapons");
+			return;
+		}
+	}
+	for (const auto& passive : _startingPassives) {
+		if (!IsValid(passive)) {
+			LOGERROR("UCombatantConfig::dynamicDeepCopy - invalid passive in passives");
+			return;
+		}
+	}
+	for (auto& weaponPtr : _startingWeapons) {
+		weaponPtr = unrealHelpers::getDynamicTemplate(context, weaponPtr.Get());
+	}
+	for (auto& passivePtr : _startingPassives) {
+		passivePtr = unrealHelpers::getDynamicTemplate(context, passivePtr.Get());
 	}
 }
 ///////////////////////////////////////////////////////////////////////////////

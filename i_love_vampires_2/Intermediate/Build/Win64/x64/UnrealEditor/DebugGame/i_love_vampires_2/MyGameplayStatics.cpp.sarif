@@ -19,7 +19,7 @@
                                     "uri": "file:///C:/Users/phyrn/GitHub/i_love_vampires/i_love_vampires_2/Source/i_love_vampires_2/BaseTemplate.h"
                                 },
                                 "region": {
-                                    "startLine": 31,
+                                    "startLine": 36,
                                     "startColumn": 10,
                                     "snippet": {
                                         "text": "\t\tSuper::GetAssetRegistryTags(OutTags);"

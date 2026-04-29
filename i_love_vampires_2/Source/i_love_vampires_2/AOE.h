@@ -83,6 +83,7 @@ class I_LOVE_VAMPIRES_2_API UAOEConfig : public UBaseConfig
 
 public:
 	virtual void replaceOverrides() override;
+	virtual void dynamicDeepCopy(const UObject* context) override {}
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	EAOEShape _shape = static_cast<EAOEShape>(static_cast<uint8>(255));
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
@@ -92,6 +93,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	float _tickInterval = SENTINEL_FLOAT;
 	UAOEConfig(const FObjectInitializer& init) : Super(init) {}
+
 };
 ///////////////////////////////////////////////////////////////////////////////
 UCLASS(BlueprintType, EditInlineNew)
@@ -200,6 +202,7 @@ public:
 	UAOELevel(const FObjectInitializer& init) : Super(init) {
 		_AOEOffsets = init.CreateDefaultSubobject<UAOEAttributeData>(this, "_AOEOffsets");
 	}
+	virtual void dynamicDeepCopy(const UObject* context) override { Super::dynamicDeepCopy(context); }
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -207,13 +210,6 @@ public:
 UCLASS(BlueprintType, EditInlineNew)
 class I_LOVE_VAMPIRES_2_API UAOETemplate : public UAttackTemplate {
 	GENERATED_BODY()
-
-protected:
-	virtual void replaceOverrides() override {
-		Super::replaceOverrides();
-		_AOEConfig->replaceOverrides();
-		//_AOEAttributes->replaceOverrides();
-	}
 
 public:
 	UPROPERTY(EditAnywhere, Instanced)
@@ -226,4 +222,17 @@ public:
 		//_AOEAttributes = init.CreateDefaultSubobject<UAOEAttributeData>(this, "_AOEAttributes");
 	}
 	virtual std::unique_ptr<AttackFactory> createFactory(ACombatant* owner) const override;
+	virtual void replaceOverrides() override {
+		Super::replaceOverrides();
+		_AOEConfig->replaceOverrides();
+		//_AOEAttributes->replaceOverrides();
+	}
+	virtual void dynamicDeepCopy(const UObject* context) override {
+		if (!IsValid(_AOEConfig)) {
+			LOGERROR("UAOETemplate missing _AOEConfig");
+			return;
+		}
+		Super::dynamicDeepCopy(context);
+		_AOEConfig->dynamicDeepCopy(context);
+	}
 };

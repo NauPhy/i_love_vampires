@@ -6,10 +6,8 @@ public class i_love_vampires_2 : ModuleRules
 {
 	public i_love_vampires_2(ReadOnlyTargetRules Target) : base(Target)
 	{
-		//PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
-
-        PCHUsage = PCHUsageMode.NoPCHs;  // disable precompiled headers
-        bUseUnity = false;                // disable Unity builds
+        PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
+        //bUseUnity = false;                // disable Unity builds
 
         PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "Paper2D", "EnhancedInput", "GameplayTags", "UMG"});
 

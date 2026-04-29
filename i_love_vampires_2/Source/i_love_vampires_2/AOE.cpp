@@ -171,7 +171,6 @@ AOEFactory::AOEFactory(ACombatant* owner, const UAOETemplate* myTemplate) :
 	AttackFactory(owner, myTemplate)
 {
 	if (
-		!IsValid(_AOEConfig.Get()) || 
 		!IsValid(myTemplate->_AOEConfig) || 
 		_levels.Num() == 0 || 
 		getLevel() < 0 || 
